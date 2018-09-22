@@ -2,10 +2,10 @@
 Sistema de Gestión de Actas
 
 # Integrantes
-DURANGO DURANGO SNEIDER ALEXANDER
-MANJARRÉS PABÓN JUAN LUIS
-RODRIGUEZ MURILLO LIANA YANIRA
-ZAMBRANO AMEZQUITA LEONARDO
+- DURANGO DURANGO SNEIDER ALEXANDER
+- MANJARRÉS PABÓN JUAN LUIS
+- RODRIGUEZ MURILLO LIANA YANIRA
+- ZAMBRANO AMEZQUITA LEONARDO
 
 # Introducción
 El presente documento recopila los aspectos fundamentales del proyecto de software realizado bajo el módulo de Práctica Aplicada TDS, en el que se requiere desarrollar un software que de solución tecnológica a los requerimientos en una organización. Será complementado con diferentes anexos y entregables durante las diferentes fases.
