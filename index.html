@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SISGA - Sistema para Gestión de Actas</title>
+    <script type="text/javascript" src="ui/js/libs/json2/json2.min.js"></script>
+    <script type="text/javascript" src="ui/js/libs/l10n/l10n.min.js"></script>
+    <script type="text/javascript" src="ui/config/localizations.js"></script>
+  </head>
+
+  <body style="display:none">
+    <aside id="menu">
+      <ul id="sideMenu" class="side-nav "><!-- grey darken-3 fixed -->
+        <li>
+            <div class="userView">
+              <label class="datosUsu">Usuario:</label>
+              <label class="datosUsu" id="nomUSU">Inicie</label>
+              <label class="datosUsu" id="apeUSU">Sesión</label>
+              <label class="oculto" id="llaveUSU"></label>
+
+              <a href="https://sisga.jumanja.net"
+                id="myHomePage">
+                <img style="float:left" src="ui/img/gray.png">
+            </a>
+            </div>
+        </li>
+      </ul>
+    </aside>
+
+    <header>
+      <nav class="top-nav default-primary-color navContent">
+          <a href="#" data-activates="sideMenu" class="button-collapse show-on-medium-and-up"><!-- top-nav full hide-on-large-only-->
+            <i class="material-icons">menu</i>
+          </a>
+          <div class="page-title default-primary-color">
+              <a href="https://sisga.jumanja.net">
+
+              <img class="logo" style="float:left" src="ui/img/logowhite.png">
+              <span id="org">org</span>
+              <a target="web" style="display:none" id="org_URL">url</a>
+
+
+            </a>
+
+          <!--<b>Para la entrega final del 10 de Diciembre/2018, Faltan:</b>
+-->
+          <!--<div class="wrapper">-->
+                <iframe id="counter" style="border:0;width:50%;height:90px;overflow:hidden;float:right;" scrolling="no" src="ui/countdown/clock_assets/clock.html">
+                </iframe>
+          <!--</div>-->
+
+        </div>
+
+      </nav>
+
+    </header>
+
+
+    <!-- Modal Structure -->
+     <div id="standardAlert" class="modal">
+       <div class="modal-content">
+         <h4>Atención</h4>
+         <p>Este es un Aviso Importante</p>
+       </div>
+       <div class="modal-footer">
+         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+       </div>
+     </div>
+
+    <main class="mainContent">
+      <div class="row">
+        <div class="col s12 m8 l4">
+          <div class="card-panel dark-primary-color valign-wrapper">
+            <div class="card-content">
+
+              <form id="loginForm">
+                <h5 id="title">Ingresar</h5>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="input-field" id="username1">
+                      <input  type="text" id="username" class="validate">
+                      <label for="username">Usuario</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                      <div class="input-field" id="password1">
+                          <input  type="password" id="password" class="validate">
+                          <label for="password">Contraseña</label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+
+                    <button type="submit" class="waves-effect waves-light btn"
+                    id="loginbtn">Entrar</button>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col s12 m4 l8">
+          <p>
+            <h1 id="title" translate="yes">l10n.js demo</h1>
+            <p id="info" translate="yes">Your locale is unsupported.</p>
+
+            <h6>Estimado Visitante:</h6>
+            Este producto de software nace de la necesidad específica de sistematizar el proceso de gestión de actas.
+            Sus principales funcionalidades son:
+            <table id="progressProj_table" class="responsive-table">
+                <thead>
+                  <tr>
+                    <th>Funcionalidades:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Control de acceso mediante usuario y clave.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de Fraternidades.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de los Tipos de Actas.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de Lugares de Reunión.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de Etiquetas (palabras clave).</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de Actas.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de Usuarios.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Gestión de Servicios.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Notificación automática por correo electrónico cuando un acta cambie de estado.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Búsqueda de actas por varios criterios, entre otros por número, fechas, estado, palabras clave.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Revisión y Aprobación de Actas.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Generación de archivo PDF de un acta siempre y cuando esté Aprobada.</td><td></td>
+                  </tr>
+
+                  <tr>
+                    <td>Informe de actas clasificado por fechas, estados y número de días entre su creación y su aprobación.</td><td></td>
+                  </tr>
+
+                </tbody>
+            </table>
+
+          </p>
+
+<!--
+Si se desea habilitar un formulario por ejemplo de Registro para solicitar acceso
+          <form id="pazysalvo" method="GET" action="server/certif/index.php">
+            <h5 id="titleconsulta">Consulta de Paz y Salvo</h5>
+
+            <div class="row">
+              <div class="col">
+                <div class="input-field" id="nro">
+                  <label for="nro">Testigo</label>
+                  <input  type="text" id="nro" name="nro" class="validate">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+
+                <button type="submit" class="waves-effect waves-light btn"
+                id="querybtn">Consultar</button>
+              </div>
+            </div>
+          </form>
+-->
+        </div>
+
+      </div>
+
+    </main>
+
+    <div id="abrirCertif" class="mainContent oculto">
+      <div class="card-panel">
+          <div class="card-content">
+            <h5>Abrir Paz y Salvo</h5>
+            <table id="abrirCertif_table" class="responsive-table">
+                <thead>
+                  <tr>
+                    <th>Importante:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Para abrir su Paz y Salvo, primero debe
+                      haber reportado el 100% de las mesas asignadas.
+                    </td>
+                    <td>
+                      <a target="pazysalvo" href="server/certif/?nro="
+                      class="waves-effect waves-light btn"
+                      id="queryCertif">Abrir</a>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+
+          </div>
+      </div>
+    </div>
+
+    <div id="progresoMesa" class="mainContent oculto">
+      <div class="col s12">
+          <div class="card-panel">
+            <div class="card-content">
+              <details>
+                <summary>Progreso Mesas Reportadas</summary>
+                      <table id="progresoMesa_table" class="">
+                          <thead>
+                            <tr>
+                              <th class="center-align">Mesas Asignadas</th>
+                              <th class="center-align">Mesas Reportadas</th>
+                              <th class="center-align">Progreso Reporte</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="center-align"><span class="mesas_en_total"></span></td>
+                            <td class="center-align"><span class="mesas_reportadas"></span></td>
+                            <td class="center-align">
+                              <span class="badge mesas_progreso" data-badge-caption="%"></span>
+                              <div class="progress">
+                                  <div class="determinate mesas_bar"></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+              </details>
+              <details>
+                <summary>Lista de Mesas Asignadas</summary>
+                    <table id="reportarMesa_table" >
+                        <thead>
+                          <tr>
+                            <th>Dpto.</th>
+                            <th>Municipio</th>
+                            <th>Puesto</th>
+                            <th>Mesa</th>
+                            <th>Reportada?</th>
+                            <th>Fecha</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tbody_reportadas">
+                        </tbody>
+                    </table>
+              </details>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="row oculto" id="repomesa_loader">
+      <p>Espere, Cargando las Mesas ...</p>
+      <div class="progress">
+        <div class="indeterminate">
+        </div>
+      </div>
+    </div>
+
+    <div id="reportarMesa" class="mainContent oculto">
+      <div class="row card-panel">
+        <h5>Reportar Mesa</h5>
+        <div class="row">
+          <div class="col s6">
+            <label>Mesa:</label>
+            <select id="mesa_a_reportar" name="mesa_a_reportar" onchange="jimte.changeMesa();">
+              <option value="" disabled selected>Seleccione Mesa</option>
+            </select>
+          </div>
+          <div class="col s6">
+            <label>Corporación:</label>
+            <select id="corporacion" name="corporacion" onchange="jimte.changeCorp(this);">
+              <option value="" disabled selected>Seleccione Corporación</option>
+              <option value="camara">CÁMARA DE REPRESENTANTES</option>
+              <!--<option value="senado">SENADO DE LA REPÚBLICA</option>-->
+            </select>
+          </div>
+        </div>
+
+        <div class="row oculto" id="planilla_loader">
+          <p>Espere, Cargando la Planilla...</p>
+          <div class="progress">
+            <div class="indeterminate">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <form class="mainContent mesaForm oculto" id="repomesa" action="server/envia_mesa.php" method="POST">
+          <input type="hidden" name="hidCorpo" id="hidCorpo">
+          <input type="hidden" name="hidMesa" id="hidMesa">
+          <input type="hidden" name="hidLlave" id="hidLlave">
+          <input type="hidden" name="hidTekken" id="hidTekken">
+
+          <div class="row" id="repomesa_content">
+          </div>
+
+          <div class="row">
+              <div class="col s12">
+                <label>Observaciones</label><br>
+                <textarea id="observaciones" name="observaciones" placeholder="Escriba cualquier observación que considere relevante"></textarea>
+                <label>Responsable</label><br>
+                <textarea id="responsable" name="responsable" placeholder="Escriba cualquier comentario adicional"></textarea>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col s12">
+                <a class="waves-effect waves-light btn modal-trigger center-align" href="#modReportar">Enviar Reporte</a>
+              </div>
+          </div>
+          <!-- Modal Trigger -->
+
+         <!-- Modal Structure -->
+         <div id="modReportar" class="modal">
+           <div class="modal-content">
+             <h4>Está a punto de Reportar esta Mesa</h4>
+             <p>Si decide Reportar, los datos digitados en esta mesa serán
+             guardados permanentemente en el servidor y tenidos en cuenta
+             como definitivos. Si desea regresar al formulario seleccione
+             Cancelar.</p>
+           </div>
+           <div class="modal-footer">
+             <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
+             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.validaCamara();">Reportar</a>
+           </div>
+         </div>
+      </form>
+
+    </div><!-- end reportarMesa -->
+
+    <div id="cuadroMando" class="mainContent oculto">
+      <div class="card-panel">
+          <div class="card-content">
+            <h5>Cuadro de Mando</h5>
+<!--                  style="position: relative; height:10vh; width:40vw" -->
+            <div class="chart-container">
+                 <canvas id="myChart" style="position: relative; height:10vh; width:40vw"></canvas>
+            </div>
+
+          </div>
+      </div>
+
+    </div>
+
+    <div id="tablas" class="mainContent oculto">
+      <div class="card-panel">
+          <div class="card-content">
+            <h5>Tablas</h5>
+            <div class="row">
+              <div class="col s6">
+                <label>Tablas Disponibles:</label>
+                <select id="tabla" name="tabla" onchange="jimte_table.changeTable(this);">
+                  <option value="" disabled selected>Seleccione Tabla</option>
+                </select>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row oculto" id="tabla_loader">
+            <p>Espere, Cargando la Tabla...</p>
+            <div class="progress">
+              <div class="indeterminate">
+              </div>
+            </div>
+          </div>
+
+          <div class="oculto" id="table_content">
+
+            <div class="row">
+                <div class="col s10 m8">
+                    <a class="btn" id="addTable" title="Agregar Registro" onclick="jimte_table.overlayOn('A');">
+                        <i class="material-icons left">add</i>Agregar</a>
+                </div>
+                <div class="col s12 m4">
+                    <a class="btn" id="resetFilters" title="Ver Todo" onclick="jimte_table.resetFilters();">
+                        <i class="material-icons">remove_red_eye</i></a>
+
+                    <a class="btn" href="#!" title="Refrescar Tabla" id="refreshTable" onclick="jimte_table.refreshTable();">
+                        <i class="material-icons center">replay</i></a>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                  <table id="myTable"></table>
+              </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="overlay oculto" id="overlayA">
+      <div class="card-like">
+        <a href="#" onclick="jimte_table.overlayOff('A')"><span class="close">&#x2715;</span></a>
+        <h3 style="margin-left: 10px;">Agregar</h3>
+        <form>
+          <ul id="addTable" class="flex-outer black-text">
+          </ul>
+          <hr>
+          <button style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('A');return(false);">Cancelar</button>
+          <button style="float:right" class="waves-effect waves-light btn">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="overlay oculto" id="overlayC">
+      <div class="card-like">
+        <a href="#" onclick="jimte_table.overlayOff('C')"><span class="close">&#x2715;</span></a>
+        <h3 style="margin-left: 10px;">Editar</h3>
+        <form>
+          <ul id="editTable" class="flex-outer black-text" >
+          </ul>
+          <hr>
+          <button style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('C');return(false);">Cancelar</button>
+          <button style="float:right" class="waves-effect waves-light btn">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="debateActual" class="mainContent oculto">
+      <div class="card-panel">
+          <div class="card-content">
+            <h5>Debate Actual</h5>
+            <div class="row">
+              En construcción
+            </div>
+
+          </div>
+      </div>
+    </div>
+
+    <div id="workInProgress" class="mainContent oculto">
+      <div class="card-panel">
+          <div class="card-content">
+            <h5>No Disponible aún</h5>
+            <div class="row">
+              En construcción
+            </div>
+
+          </div>
+      </div>
+
+    </div>
+
+    <footer class="page-footer navContent"></footer>
+
+    <script src="ui/js/libs/jquery/jquery.min.js"></script>
+    <script src="ui/js/libs/materialize/js/materialize.min.js"></script>
+    <script src="ui/js/libs/chart/Chart.min.js"></script>
+    <script src="ui/js/libs/jimte/jimte_v1.js?v=1.7.10"></script>
+    <script src="ui/js/libs/jimte/jimte_table_v1.js?v=0.0.0"></script>
+    <script src="ui/js/index.js?v=0.0.01"></script>
+  </body>
+
+</html>

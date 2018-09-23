@@ -1,0 +1,36 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="flipclock.css" />
+</head>
+<div class="clock-builder-output"></div>
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+<script type="text/javascript" src="../../js/libs/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="flipclock.js"></script>
+<style text="text/css">body .flip-clock-wrapper ul li a div div.inn, body .flip-clock-small-wrapper ul li a div div.inn { color: #CCCCCC; background-color: #333333; } body .flip-clock-dot, body .flip-clock-small-wrapper .flip-clock-dot { background: #323434; } body .flip-clock-wrapper .flip-clock-meridium a, body .flip-clock-small-wrapper .flip-clock-meridium a { color: #323434; }</style>
+<script type="text/javascript">
+$(function(){
+	FlipClock.Lang.Custom = { days:'Dias', hours:'Horas', minutes:'Minutos', seconds:'Segundos' };
+	var opts = {
+		clockFace: 'DailyCounter',
+		countdown: true,
+		language: 'Custom'
+	};
+	opts.classes = {
+		active: 'flip-clock-active',
+		before: 'flip-clock-before',
+		divider: 'flip-clock-divider',
+		dot: 'flip-clock-dot',
+		label: 'flip-clock-label',
+		flip: 'flip',
+		play: 'play',
+		wrapper: 'flip-clock-small-wrapper'
+	};
+	//Marzo 8 8:00am
+	//http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
+//	var countdown = 1520808840 - ((new Date().getTime())/1000); // from: 10/01/2017 07:52 am -0500
+	var countdown = 1544490000 - ((new Date().getTime())/1000); // from: 12/10/2018 08:00 pm -0500
+	countdown = Math.max(1, countdown);
+	$('.clock-builder-output').FlipClock(countdown, opts);
+});
+</script>
+</html>

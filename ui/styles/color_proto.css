@@ -1,0 +1,53 @@
+/* Will override main colors for grey versions, intended for wireframe */
+// Paleta de Colores
+.dark-primary-color    { background: #512DA8; }
+.default-primary-color { background: #673AB7; }
+.light-primary-color   { background: #D1C4E9; }
+.text-primary-color    { color: #FFFFFF; }
+.text-secondary-color  {color: #757575;}
+.accent-color          { background: #009688; }
+.divider-color         { border-color: #BDBDBD; }
+
+.pagination li.active, span.badge.new, .progress .determinate,
+.page-footer, .userView  {
+  background: #512DA8;
+}
+
+input[type="checkbox"].filled-in:checked+label:after{
+  border-color: #512DA8;
+  background-color: #512DA8;
+}
+
+.picker__day--selected:hover, .picker--focused .picker__day--selected, .picker__date-display{
+  background-color: #512DA8;
+}
+
+.picker__close, .picker__today, .picker__clear{
+  color: #512DA8;
+}
+
+.side-nav {
+  /* background-color: #757575; */
+}
+.abierto, .cerrado, .inactivo {
+  display:block;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+}
+.inactivo{
+  background-color: #A84081;
+}
+.cerrado{
+  background-color: #666666;
+}
+.abierto{
+  background-color: #63D941;
+}
+.card-like{
+  background-color: #673AB7;
+}
+.cardlike td {
+  border: 1px solid #ccc;
+  background-color: #ccc;
+}

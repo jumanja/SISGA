@@ -1,0 +1,73 @@
+{
+  "iniciarSesion": {
+    "status":"A",
+    "type":"TFA",
+    "isLogged":"N",
+    "icon":"account_circle",
+    "item":"Iniciar Sesión"
+  },
+  "reportarMesa": {
+    "status":"A",
+    "type":"TA",
+    "isLogged":"Y",
+    "icon":"border_color",
+    "item":"Reportar Mesas"
+  },
+  "abrirCertif": {
+    "status":"A",
+    "type":"T",
+    "isLogged":"Y",
+    "icon":"file_download",
+    "item":"Abrir Paz y Salvo"
+  },
+  "cuadroMando": {
+    "status":"A",
+    "type":"FA",
+    "isLogged":"Y",
+    "icon":"dashboard",
+    "item":"Cuadro de Mando"
+  },
+  "tablas": {
+    "status":"A",
+    "type":"FA",
+    "isLogged":"Y",
+    "icon":"grid_on",
+    "item":"Tablas"
+  },
+  "debateActual": {
+    "status":"A",
+    "type":"A",
+    "isLogged":"Y",
+    "icon":"record_voice_over",
+    "item":"Debate Actual"
+  },
+  "reiniciarDebate": {
+    "status":"A",
+    "type":"A",
+    "isLogged":"Y",
+    "icon":"repeat",
+    "item":"Reiniciar Debate"
+  },
+  "importarDivipol": {
+    "status":"A",
+    "type":"A",
+    "isLogged":"Y",
+    "icon":"cloud_upload",
+    "item":"Importar Divipol"
+  },
+  "importarTestigos": {
+    "status":"A",
+    "type":"A",
+    "isLogged":"Y",
+    "icon":"file_upload",
+    "item":"Importar Testigos"
+  },
+  "cerrarSesion": {
+    "status":"A",
+    "type":"TFA",
+    "isLogged":"Y",
+    "icon":"close",
+    "item":"Cerrar Sesión"
+  }
+
+}
