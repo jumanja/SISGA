@@ -34,7 +34,6 @@ $(document).ready(function() {
 
  });
 
-
  //localizations
  if (location.hash) {
  	String.locale = location.hash.substr(1);
@@ -50,18 +49,26 @@ $(document).ready(function() {
  	}
  };
 
- var t = function (locale) {
+ var t = function (locale, parent) {
    String.locale = locale;
-    $('[translate="yes"]').each(function() {
-        // `this` is the div
-        //console.log(this.id);
+    $(parent + ' [translate="yes"]').each(function() {
+        // `this` is the element
+        let txt = l("%" + this.id, this.innerText);
+        //console.log(this.id + " / " + txt);
         // )
-        this.innerText = l("%" + this.id, this.innerText);
+        this.innerText = txt;
 
     });
    document.documentElement.lang = String.locale || document.documentElement.lang;
-   console.log("translation to " + String.locale + " completed!")
+   //console.log("translation of parent: "+ parent + " to " + String.locale + " completed!")
  }
+
+//Load jimte library
+var jimte = new JimteMan();
+var jimte_table = new JimteTab();
+
+//Now attempt the localization
+
                  /*
  var info = document.getElementById("info").firstChild,
  title = document.getElementById("title").firstChild;
@@ -75,9 +82,7 @@ $(document).ready(function() {
 console.log("locali done");
 */
 
-//Load jimte library
-var jimte = new JimteMan();
-var jimte_table = new JimteTab();
+
 
 $(function(){
 

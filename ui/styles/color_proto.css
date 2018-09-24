@@ -1,7 +1,7 @@
 /* Will override main colors for grey versions, intended for wireframe */
 // Paleta de Colores
-.dark-primary-color    { background: #512DA8; }
-.default-primary-color { background: #673AB7; }
+.dark-primary-color    { background: #00695c ; }
+.default-primary-color { background: #009688; }
 .light-primary-color   { background: #D1C4E9; }
 .text-primary-color    { color: #FFFFFF; }
 .text-secondary-color  {color: #757575;}
@@ -10,20 +10,26 @@
 
 .pagination li.active, span.badge.new, .progress .determinate,
 .page-footer, .userView  {
-  background: #512DA8;
+  background: #00695c;
+}
+.userView{
+     background-image: url(../img/logowhite.png);
+     background-repeat: no-repeat;
+     background-position: 10% 0% ;
 }
 
+
 input[type="checkbox"].filled-in:checked+label:after{
-  border-color: #512DA8;
+  border-color: #00695c;
   background-color: #512DA8;
 }
 
 .picker__day--selected:hover, .picker--focused .picker__day--selected, .picker__date-display{
-  background-color: #512DA8;
+  background-color: #00695c;
 }
 
 .picker__close, .picker__today, .picker__clear{
-  color: #512DA8;
+  color: #00695c;
 }
 
 .side-nav {

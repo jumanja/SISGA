@@ -1,7 +1,7 @@
 {
   "iniciarSesion": {
     "status":"A",
-    "type":"TFA",
+    "type":"ALNR",
     "isLogged":"N",
     "icon":"account_circle",
     "item":"Iniciar Sesión"

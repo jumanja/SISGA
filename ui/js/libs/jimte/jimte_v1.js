@@ -69,12 +69,12 @@ eventFire(el, etype){
         //for Login
         this.submitEvent();
         if (window.location.href.indexOf("localhost") > -1) {
-          this.tekken = "localhost";
-          this.userType = "A";
-          this.defaultOption = "cuadroMando";
+          //this.tekken = "localhost";
+          //this.userType = "A";
+          //this.defaultOption = "cuadroMando";
 
           this.tekken = "";
-          this.userType = "T";
+          this.userType = "A";
           this.defaultOption = "";
 
         } else {
@@ -93,6 +93,10 @@ eventFire(el, etype){
 
         this.currentArt = "";
         this.currentLang = "es";
+
+        //now try to addValuesTranslate
+        this.currentLang  = location.search.split('lang=')[1] ? location.search.split('lang=')[1] : this.currentLang ;
+
         this.currentMode = "";
         this.params = "";
         this.params = this.parseQueryString(window.location.search);
@@ -129,9 +133,6 @@ eventFire(el, etype){
         */
         this.buildSideMenu(this.tekken);
         this.buildFooter();
-
-        //now try to addValuesTranslate
-        t(this.currentLang);
 
         $("body").show();
 
@@ -262,6 +263,9 @@ eventFire(el, etype){
               "class": "my-new-list",
               html: items.join( "" )
             }).appendTo( "body" );*/
+            //now try to addValuesTranslate
+            this.currentLang  = location.search.split('lang=')[1] ? location.search.split('lang=')[1] : this.currentLang ;
+            t(this.currentLang, "div");
 
 
           },
@@ -322,40 +326,28 @@ eventFire(el, etype){
                     }
 
               }
-                          /*
-                              <li>
-                                <a
-                                  onclick="changeState('{{state}}')"
-                                  id="{{state}}Link"
-                                  <!--
-                                  <i class="material-icons white-text">
-                                    {{icon}}
-                                  </i> -->
-                                  <span class=""><!-- text-secondary-color -->
-                                    {{item}}
-                                  </span>
-                                </a>
-                              </li>
-                          */
+
 
             }
           });
 
           $("#sideMenu").append(links.join(""));
+          t(this.currentLang, "#sideMenu");
+
           if(jimte.apellidos != "" && jimte.nombres) {
-            $("#nomUSU").text(jimte.nombres);
-            $("#apeUSU").text(jimte.apellidos);
-            $("#llaveUSU").text(jimte.llave);
+            $("#userFirstName").text(jimte.nombres);
+            $("#userLastName").text(jimte.apellidos);
+            $("#userTekken").text(jimte.llave);
           } else {
             if(jimte.tekken == "localhost"){
-              $("#nomUSU").text("Web");
-              $("#apeUSU").text("Master");
-              $("#llaveUSU").text("webmaster");
+              $("#userFirstName").text("Web");
+              $("#userLastName").text("Master");
+              $("#userTekken").text("webmaster");
 
             } else {
-              $("#nomUSU").text("Inicie");
-              $("#apeUSU").text("Sesión");
-              $("#llaveUSU").text("");
+              $("#userFirstName").text(t(this.currentLang, "userFirstName"));
+              $("#userLastName").text(t(this.currentLang, "userLastName"));
+              $("#userTekken").text("");
 
             }
           }
@@ -659,6 +651,8 @@ eventFire(el, etype){
           type: 'GET',
           success: (data) =>{
             $("footer")[0].innerHTML = data;
+            t(this.currentLang, "footer");
+
           },
           error: function(xhr, status, error) {
               //alert('buildFooter failed: ' + xhr.responseText + "\nWith error:\n" + error);
@@ -692,8 +686,8 @@ eventFire(el, etype){
           //backgroundColor: ['rgba(153, 102, 255, 0.2)', 'rgba(75, 192, 192, 0.2)' ],
           //borderColor: ['rgba(153, 102, 255, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 159, 64, 1)'],
 
-          var ctx = document.getElementById('myChart').getContext('2d');
-          jimte_table.check_grafica(ctx);
+          //var ctx = document.getElementById('myChart').getContext('2d');
+          //jimte_table.check_grafica(ctx);
 
         }
     }
