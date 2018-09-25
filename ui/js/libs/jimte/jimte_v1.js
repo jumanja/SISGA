@@ -321,7 +321,7 @@ eventFire(el, etype){
                                   'onclick="jimte.changeState(\'' + key + '\')" ' +
                                   'id="' + key + 'Link" >'  +
                                   '<i class="material-icons text-primary-color">' + val.icon + '</i>' +
-                                  "<span class=''>" + val.item + "</span></a></li>");
+                                  "<span translate='yes' id='"+key+"' class=''>" + val.item + "</span></a></li>");
 
                     }
 
@@ -1470,5 +1470,15 @@ eventFire(el, etype){
 
     validaSenado() {
     }
+
+    changeLanguage(obj) {
+        // this.currentLang = obj.value;
+         // t(this.currentLang, "body");
+         window.location.href = "./?lang=" + obj.value;
+         //alert(status);
+       //if(status=="1")
+      //   $("#icon_class, #background_class").hide();// hide multiple sections
+    }
+
 
 }

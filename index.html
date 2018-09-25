@@ -11,7 +11,6 @@
   <body style="display:none">
     <aside id="menu">
       <ul id="sideMenu" class="side-nav "><!-- grey darken-3 fixed -->
-
         <li>
             <div class="userView" >
               <a  href="https://sisga.jumanja.net"
@@ -31,6 +30,9 @@
     </aside>
 
     <header>
+      <iframe id="counter" style="border:0;width:50%;height:90px;overflow:hidden;float:right;" scrolling="no" src="ui/countdown/clock_assets/clock.html">
+      </iframe>
+
       <nav class="top-nav default-primary-color navContent">
           <a href="#" data-activates="sideMenu" class="button-collapse show-on-medium-and-up"><!-- top-nav full hide-on-large-only-->
             <i class="material-icons">menu</i>
@@ -39,17 +41,20 @@
               <a href="https://sisga.jumanja.net">
 
               <img class="logo" style="float:left" src="ui/img/logowhite.png">
-              <span id="org" translate="yes">org</span>
+              <span id="org" style="display:none" translate="yes">org</span>
+              </a>
               <a target="web" style="display:none" id="org_URL">url</a>
 
-
-            </a>
+              <select id="languageSelect" onchange="jimte.changeLanguage(this);" class="browser-default default-primary-color"
+                style="max-width:100px;font-size:16px;height:4.2rem;border:none;">
+                <option id="langSelect" translate="yes" selected value="">Idioma</option>
+                <option id="lang_es" translate="yes" value="es">Español</option>
+                <option id="lang_en" translate="yes" value="en">Inglés</option>
+              </select>
 
           <!--<b>Para la entrega final del 10 de Diciembre/2018, Faltan:</b>
 -->
           <!--<div class="wrapper">-->
-                <iframe id="counter" style="border:0;width:50%;height:90px;overflow:hidden;float:right;" scrolling="no" src="ui/countdown/clock_assets/clock.html">
-                </iframe>
           <!--</div>-->
 
         </div>
@@ -57,6 +62,7 @@
       </nav>
 
     </header>
+
 
 
     <!-- Modal Structure -->
@@ -99,8 +105,8 @@
                 <div class="row">
                     <div class="col">
 
-                    <button type="submit" class="waves-effect waves-light btn"
-                    id="loginbtn">Entrar</button>
+                    <button type="submit" translate="yes" class="waves-effect waves-light btn"
+                    id="loginBtn">Entrar</button>
                   </div>
                 </div>
 
@@ -113,7 +119,6 @@
 
         <div class="col s12 m4 l8">
           <p>
-            <span id="terms" translate="yes">Términos y Condiciones</span>
 
             <h6>Estimado Visitante:</h6>
             Este producto de software nace de la necesidad específica de sistematizar el proceso de gestión de actas.

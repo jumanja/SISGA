@@ -3,10 +3,14 @@ String.toLocaleString({
 		"%userData": "User:",
 		"%userFirstName": "Please",
 		"%userLastName": "Login",
-		"%org": "Translated to english.",
+		"%langSelect": "Language",
+		"%lang_en": "English",
+		"%lang_es": "Spanish",
 		"%terms": "Terms and Conditions.",
 		"%loginTitle": "Login",
 		"%loginUserName": "User",
 		"%loginUserPassword": "Password",
+		"%loginBtn":"Submit",
+		"%iniciarSesion":"Login"
 	}
 });

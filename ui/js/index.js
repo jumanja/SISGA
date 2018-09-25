@@ -60,7 +60,7 @@ $(document).ready(function() {
 
     });
    document.documentElement.lang = String.locale || document.documentElement.lang;
-   //console.log("translation of parent: "+ parent + " to " + String.locale + " completed!")
+   console.log("translation of parent: "+ parent + " to " + String.locale + " completed!")
  }
 
 //Load jimte library
