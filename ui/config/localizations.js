@@ -12,6 +12,10 @@ String.toLocaleString({
 		"%loginUserName": "User",
 		"%loginUserPassword": "Password",
 		"%loginBtn":"Submit",
-		"%iniciarSesion":"Login"
+		"%iniciarSesion":"Login",
+		"%thanksto":"Thanks to:",
+		"%software":"Software by:",
+		"%denied":"Denied.",
+		"%userNotFound":"User and password Not Found.",
 	}
 });

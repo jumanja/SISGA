@@ -68,6 +68,7 @@ eventFire(el, etype){
 
         //for Login
         this.submitEvent();
+        this.lastResponse = "";
         if (window.location.href.indexOf("localhost") > -1) {
           //this.tekken = "localhost";
           //this.userType = "A";
@@ -113,7 +114,7 @@ eventFire(el, etype){
         this.articlesPath = 'ui/articles/';
         this.layoutPath = 'ui/layouts/';
         this.configPath = 'ui/config/';
-        this.serverPath = 'api/';
+        this.serverPath = 'api/v1.5.3/';
         this.imagesPath = 'ui/img/';
         this.imagesArticlePath = 'ui/articles/';
         this.header = 'header.json';
@@ -148,12 +149,13 @@ eventFire(el, etype){
       var self = $(this);
 
       let form_data = new FormData();
-      form_data.append('username', $('#username').val());
+      form_data.append('usuario', $('#usuario').val());
       form_data.append('password', $('#password').val());
+      form_data.append('lang', this.currentLang);
 
-      console.log("sendForm!");
+      //console.log("sendForm!" + form_data);
       $.ajax({
-        url: this.serverPath + '/check_login.php',
+        url: this.serverPath + 'index.php/login',
         dataType: "json",
         cache: false,
         processData: false,
@@ -161,20 +163,23 @@ eventFire(el, etype){
         data: form_data,
         type: 'POST',
         success: function(php_response){
-          if (php_response.acceso == "concedido") {
-            //window.location.href = 'main.html';
-            jimte.tekken = php_response.tekken;
-            jimte.userType = php_response.tipo;
+          //console.log("presp: " + php_response[0].acceso);
 
-            jimte.llave = php_response.llave;
-            jimte.apellidos = php_response.apellidos;
-            jimte.nombres = php_response.nombres;
+          if (php_response[0].acceso == undefined) {
+            //window.location.href = 'main.html';
+            jimte.tekken = php_response[0].id;
+            jimte.userType = php_response[0].servicio;
+
+            jimte.llave = php_response[0].usuario;
+            jimte.apellidos = php_response[0].apellidos;
+            jimte.nombres = php_response[0].nombres;
 
             jimte.defaultOption = "";
             jimte.buildSideMenu(php_response.tekken);
           }else {
             //alert(php_response.acceso + " " + php_response.motivo);
-            jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Ingreso al Sistema");
+            jimte.alertMe(l("%denied", php_response[0].acceso) + " " +
+                          l("%userNotFound", php_response[0].motivo), l("%iniciarSesion", "Ingreso al Sistema"));
           }
         },
         error: function(xhr, status, error) {
