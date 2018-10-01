@@ -6,6 +6,7 @@ require 'Slim/Slim.php';
 $app = new \Slim\Slim();
 
 define("SPECIALCONSTANT", true);
+define("ACCESSERROR", "Error: Access Denied to the API / Acceso Denegado a la API");
 
 require 'app/libs/connect.php';
 require 'app/libs/sqls.php';
@@ -14,8 +15,9 @@ require 'app/routes/api.php';
 require 'app/routes/login_api.php';
 require 'app/routes/users_api.php';
 
-$app->config('debug', false);
+$app->config('debug', true);
 $app->setName('sisga');
+date_default_timezone_set('America/Lima');
 
 
 /*$aBitOfInfo = function (\Slim\Route $route) {

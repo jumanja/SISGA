@@ -1,4 +1,4 @@
-<?php if(!defined("SPECIALCONSTANT")) die("Acceso denegado");
+<?php if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
 function getConnection()
 {

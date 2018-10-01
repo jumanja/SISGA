@@ -1,73 +1,59 @@
 {
   "iniciarSesion": {
-    "status":"A",
-    "type":"ALNR",
+    "type":"APSTFERN",
     "isLogged":"N",
     "icon":"account_circle",
-    "item":"Iniciar Sesión"
+    "item":"Iniciar Sesión",
+    "status":"A"
   },
-  "reportarMesa": {
-    "status":"A",
-    "type":"TA",
+  "actasPorAprobar": {
+    "type":"PSTFE",
     "isLogged":"Y",
     "icon":"border_color",
-    "item":"Reportar Mesas"
+    "item":"Actas por Aprobar",
+    "status":"A"
   },
-  "abrirCertif": {
-    "status":"A",
-    "type":"T",
+  "actasPorRevisar": {
+    "type":"PSTFE",
     "isLogged":"Y",
-    "icon":"file_download",
-    "item":"Abrir Paz y Salvo"
+    "icon":"visibility",
+    "item":"Acta por Revisasr",
+    "status":"A"
   },
-  "cuadroMando": {
-    "status":"A",
-    "type":"FA",
+  "elaborarActas": {
+    "type":"S",
     "isLogged":"Y",
-    "icon":"dashboard",
-    "item":"Cuadro de Mando"
+    "icon":"keyboard",
+    "item":"Elaborar Actas",
+    "status":"A"
   },
-  "tablas": {
-    "status":"A",
-    "type":"FA",
+  "buscarActas": {
+    "type":"PSTFERN",
     "isLogged":"Y",
-    "icon":"grid_on",
-    "item":"Tablas"
+    "icon":"find_in_page",
+    "item":"Buscar Actas",
+    "status":"A"
   },
-  "debateActual": {
-    "status":"A",
-    "type":"A",
+  "informeActas": {
+    "type":"PSTFERN",
     "isLogged":"Y",
-    "icon":"record_voice_over",
-    "item":"Debate Actual"
+    "icon":"equalizer",
+    "item":"Informe de Actas",
+    "status":"A"
   },
-  "reiniciarDebate": {
-    "status":"A",
-    "type":"A",
+  "configurar": {
+    "type":"AS",
     "isLogged":"Y",
-    "icon":"repeat",
-    "item":"Reiniciar Debate"
-  },
-  "importarDivipol": {
-    "status":"A",
-    "type":"A",
-    "isLogged":"Y",
-    "icon":"cloud_upload",
-    "item":"Importar Divipol"
-  },
-  "importarTestigos": {
-    "status":"A",
-    "type":"A",
-    "isLogged":"Y",
-    "icon":"file_upload",
-    "item":"Importar Testigos"
+    "icon":"settings",
+    "item":"Configurar",
+    "status":"A"
   },
   "cerrarSesion": {
-    "status":"A",
-    "type":"TFA",
+    "type":"APSTFERN",
     "isLogged":"Y",
     "icon":"close",
-    "item":"Cerrar Sesión"
+    "item":"Cerrar Sesión",
+    "status":"A"
   }
 
 }

@@ -1,5 +1,5 @@
 <?php
-if(!defined("SPECIALCONSTANT")) die("Acceso denegado");
+if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
 $app->post('/login', function () use($app) {
 
@@ -23,7 +23,43 @@ $app->post('/login', function () use($app) {
       //echo "hist:" .  $query;
 
       $dbh = getPDO($query);
-      $resultText = findInPDO($dbh, usuario, $usuario);
+      $resultText = findInPDO($dbh, "password", $password);
+
+			//Ahora genere token, tokenexpira y actualícelo en la db
+			//echo "4. " . $resultText;
+			if(contains("myTokenExpira", $query) == ''){
+
+				$json = json_decode($resultText, true);
+				//echo "3.9. " . $json[0]['id'];
+/*
+				$currentTime = new DateTime();
+				$myToken = $currentTime->format('Y-m-d H:i:s');
+				//echo $myToken->format('Y-m-d H:i:s');
+
+				$expiraTime = new DateTime();
+				$myTokenExpira = $expiraTime->format('Y-m-d H:i:s');
+				*/
+			//	$dt = date("Y-m-d H:i:s");
+				//echo $dt;
+				$myToken = date('Y-m-d H:i:s', strtotime("now"));
+				$myTokenExpira = date('Y-m-d H:i:s',strtotime('+1 hour +1 minutes',strtotime($myToken)));
+				$prepParams = array(
+							':token'   		 => $myToken,
+							':tokenexpira' => $myTokenExpira,
+							':id'          => $json[0]['id']
+				);
+
+				$resultText = str_replace("myTokenExpira", $myToken, $resultText);
+				$resultText = str_replace("myToken", $myTokenExpira, $resultText);
+
+				$sqlCode = 'users_tokenupdate';
+				$query = getSQL($sqlCode, $app->request()->params('lang'));
+				$rows = getPDOPrepared($query, $prepParams);
+				//echo "8. " . $rows;
+				/*if($rows == 1){
+
+				}*/
+			}
 
       normalheader($app, 'json', '');
       //setResult($resultText, $app);

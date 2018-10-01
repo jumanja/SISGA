@@ -23,7 +23,7 @@
 	"links":{
 		"1":{
 			"rel":"icon",
-			"href":"styles/favicon.ico"
+			"href":"ui/styles/favicon.ico"
 		},
 		"2":{
 			"rel":"stylesheet",

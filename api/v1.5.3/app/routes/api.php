@@ -1,5 +1,5 @@
 <?php
-//if(!defined("SPECIALCONSTANT")) die("Acceso denegado");
+if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
 $app->get('/echo', function () use($app) {
 		echo "echo !: Current PHP version: " . phpversion();
@@ -28,6 +28,22 @@ function getPDO($query) {
 		return $dbh;
 }
 
+function getPDOPrepared($query, $arrayParams) {
+		$connection = getConnection();
+
+		$dbh = $connection->prepare($query);
+
+		//echo '9.1 ';
+		$dbh->execute($arrayParams);
+		//echo '9. getPDOPrepared_query:' . $query . ' ';
+		//echo '9.1 ' . $arrayParams[":token"];
+		//echo '9.2 ' . $arrayParams[":tokenexpira"];
+		//echo '9.3 ' . $arrayParams[":id"];
+
+		//echo '9.2 ' . $dbh->rowCount();
+		return $dbh->rowCount();
+}
+
 //$resultText .= PDO2json($dbh, '');
 function findInPDO($dbh, $fldname, $fldvalue) {
 	  //echo "2:" . $fldname . "/".  $fldvalue;
@@ -38,8 +54,20 @@ function findInPDO($dbh, $fldname, $fldvalue) {
 				$rec = '';
 				$rec .= '{';
         foreach($fila as $key => $value ) {
-						if($key == $fldname && $value == $value){
-							$found = true;
+
+						if($key == $fldname){
+							//echo "\n<br>debug findInPDO: " . $fila . "/" . $key . "/" . $fldname . "/" . $fldvalue . "/" .  $value;
+
+							if($fldname == "password"){
+								 if (password_verify($fldvalue, $value)) {
+									 $found = true;
+								 }
+							} else {
+								if($value == $fldvalue){
+									$found = true;
+								}
+							}
+
 						}
 						$rec .= '"' . $key . '":"' . $value . '",';
         }
@@ -59,6 +87,15 @@ function findInPDO($dbh, $fldname, $fldvalue) {
 		//echo "\n<br>debug PDO2json: " . $table;
 		if(!$found){
 			$table = '[{"acceso":"Denegado.","motivo":"Usuario y Clave No Encontrados."}]';
+		} else {
+
+			//Si estamos procesando intento de login
+			if($fldname == "password"){
+					$tokenstr = ',"token":"myToken",
+											"tokenexpira":"myTokenExpira"';
+					$table = substr_replace($table, $tokenstr, strlen($table)-2, 0);
+			}
+
 		}
 		return $table;
 
@@ -83,7 +120,7 @@ function simpleReturn($app, $sqlCode, $style, $filter = '') {
 
     $query = parseParams($sqlCode, $flds, $sort, $max, $filter, $lang);
 
-           //echo $query . '\n';
+    //echo $query . '\n';
     $connection = getConnection();
     $dbh = $connection->prepare($query);
 		$dbh->execute();
@@ -207,10 +244,10 @@ function parseParams($name, $flds, $sort, $max, $filter, $lang) {
    }
 
    if(!$filter == ''){
-   		if(!contains("WHERE", $query) == ''){
-      	$query .= " WHERE " . $filter . " ";
-   		} else {
+   		if(contains("WHERE", $query) ){
 				$query .= $filter . " ";
+   		} else {
+				$query .= " WHERE " . $filter . " ";
 			}
    }
 

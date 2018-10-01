@@ -1,5 +1,18 @@
 <?php
-if(!defined("SPECIALCONSTANT")) die("Acceso denegado");
+if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
+
+$app->get('/users/count', function () use($app) {
+
+	try{
+      $sqlCode = 'users_count';
+      $forXSL = '../../../xsl/count.xsl';
+      simpleReturn($app, $sqlCode, $forXSL);
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
 
 $app->get("/users", function() use($app)
 {
@@ -33,12 +46,35 @@ $app->get("/users/:id", function($id) use($app)
 });
 
 
-$app->get('/users/count', function () use($app) {
+$app->post('/users', function () use($app) {
 
 	try{
-      $sqlCode = 'users_count';
-      $forXSL = '../../../xsl/count.xsl';
-      simpleReturn($app, $sqlCode, $forXSL);
+      $sqlCode = 'users_add';
+      $forXSL = '../../xsl/count.xsl';
+
+      $newId = null;
+      $prepParams = array(
+            ':frat'       => $app->request()->params('frat'),
+            ':id'         => $newId,
+            ':usuario'    => $app->request()->params('usuario'),
+            ':apellidos'  => $app->request()->params('apellidos'),
+            ':nombres'    => $app->request()->params('nombres'),
+            ':password'   => password_hash($app->request()->params('password'), PASSWORD_DEFAULT),
+            ':email'      => $app->request()->params('email'),
+            ':servicio'   => $app->request()->params('servicio'),
+            ':estado'     => $app->request()->params('estado')
+      );
+
+      $query = getSQL($sqlCode, $app->request()->params('lang'));
+      $rows = getPDOPrepared($query, $prepParams);
+      $resultText = '[{"rows":"'+$rows+'"}]';
+
+      normalheader($app, 'json', '');
+      //setResult($resultText, $app);
+      //echo "4. " . $resultText;
+      $connection = null;
+  		$app->response->body($resultText);
+
 	}
 	catch(PDOException $e)
 	{
@@ -47,32 +83,61 @@ $app->get('/users/count', function () use($app) {
 });
 
 
-$app->get('/users/books/:codigo', function ($codigo) use($app) {
+$app->put('/users/token', function () use($app) {
 
 	try{
-      $forXSL = '../../../../xsl/count.xsl';
-      $sqlCode = 'bible_books';
-      if (in_array($codigo, array('AT', 'NT', 'EV'))){
-          $sqlCode = 'bible_' . $codigo;
-          simpleReturn($app, $sqlCode, $forXSL);
-      } else {
-        $filter = "libro='" . $codigo . "'";
-        $chapter = $app->request()->params('chapter');
-        $chapterFrom = $app->request()->params('chapterFrom');
-        $chapterTo = $app->request()->params('chapterTo');
-        $verse = $app->request()->params('verse');
-        $verseFrom = $app->request()->params('verseFrom');
-        $verseTo = $app->request()->params('verseTo');
+      $sqlCode = 'users_tokenupdate';
+      $forXSL = '../../xsl/count.xsl';
 
-        $filter .= ($chapter==''?'': ' AND capit = ' . $chapter );
-        $filter .= ($chapterFrom==''?'' : ' AND capit >= ' . $chapterFrom );
-        $filter .= ($chapterTo==''?'' : ' AND capit <= ' . $chapterTo );
-        $filter .= ($verse==''?'' : ' AND versIni = ' . $verse );
-        $filter .= ($verseFrom=='' ? '' : ' AND versIni >= ' . $verseFrom );
-        $filter .= ($verseTo=='' ? '' : ' AND versFin <= ' . $verseTo );
+      $prepParams = array(
+            ':token'   		 => $app->request()->params('token'),
+            ':tokenexpira' => $app->request()->params('tokenexpira'),
+						':id'          => $app->request()->params('id')
+      );
 
-        simpleReturn($app, $sqlCode, $forXSL, $filter);
-      }
+      $query = getSQL($sqlCode, $app->request()->params('lang'));
+      $rows = getPDOPrepared($query, $prepParams);
+      $resultText = '[{"rows":"'+$rows+'"}]';
+
+      normalheader($app, 'json', '');
+      //setResult($resultText, $app);
+      //echo "4. " . $resultText;
+      $connection = null;
+  		$app->response->body($resultText);
+
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
+
+
+$app->put('/users', function () use($app) {
+
+	try{
+			$tableName = 'usuarios';
+      $queryUpdate = 'UPDATE ' . $tableName . ' SET  ';
+
+			$arr = $app->request()->put();
+			foreach ( $arr as $key => $value) {
+			    $queryUpdate = $queryUpdate ."{$key} = '{$value}', ";
+			}
+			$queryUpdate = substr($queryUpdate, 0, -2);
+
+			$queryUpdate = $queryUpdate . " WHERE id = " . $app->request()->params('id') ;
+
+			//echo "2. " . $queryUpdate;
+
+
+      $rows = getPDO($queryUpdate);
+      $resultText = '[{"rows":"'+$rows+'"}]';
+
+      normalheader($app, 'json', '');
+      //setResult($resultText, $app);
+      $connection = null;
+  		$app->response->body($resultText);
+
 	}
 	catch(PDOException $e)
 	{

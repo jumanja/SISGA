@@ -36,9 +36,9 @@ eventFire(el, etype){
     //statePage.innerHTML = MonitorApp[state]();
 
     if (state == 'cerrarSesion') {
-      this.tekken = "";
+      this.token = "";
       this.userType = "";
-      this.defaultOption = "";
+      this.defaultOption = "iniciarSesion";
       //window.location.reload(true);
       //window.location.reload(true);
 
@@ -68,18 +68,19 @@ eventFire(el, etype){
 
         //for Login
         this.submitEvent();
+        this.currentUser = "";
         this.lastResponse = "";
         if (window.location.href.indexOf("localhost") > -1) {
-          //this.tekken = "localhost";
+          //this.token = "localhost";
           //this.userType = "A";
           //this.defaultOption = "cuadroMando";
 
-          this.tekken = "";
+          this.token = "";
           this.userType = "A";
           this.defaultOption = "";
 
         } else {
-          this.tekken = "";
+          this.token = "";
           this.userType = "T";
           this.defaultOption = "";
 
@@ -132,7 +133,7 @@ eventFire(el, etype){
 
         this.buildImageNav();
         */
-        this.buildSideMenu(this.tekken);
+        this.buildSideMenu(this.token);
         this.buildFooter();
 
         $("body").show();
@@ -167,15 +168,14 @@ eventFire(el, etype){
 
           if (php_response[0].acceso == undefined) {
             //window.location.href = 'main.html';
-            jimte.tekken = php_response[0].id;
+            jimte.currentUser = new User(php_response[0]);
+            jimte.token = php_response[0].token;
             jimte.userType = php_response[0].servicio;
-
-            jimte.llave = php_response[0].usuario;
             jimte.apellidos = php_response[0].apellidos;
             jimte.nombres = php_response[0].nombres;
-
+            jimte.llave = php_response[0].usuario;
             jimte.defaultOption = "";
-            jimte.buildSideMenu(php_response.tekken);
+            jimte.buildSideMenu(php_response.token);
           }else {
             //alert(php_response.acceso + " " + php_response.motivo);
             jimte.alertMe(l("%denied", php_response[0].acceso) + " " +
@@ -285,7 +285,7 @@ eventFire(el, etype){
         })
     }
 
-    buildSideMenu(tekken){
+    buildSideMenu(Token){
       var self = $(this);
       //let url = this.configPath + this.currentLang + '_' + this.sideMenu;
       let url = this.configPath + this.sideMenu;
@@ -307,7 +307,7 @@ eventFire(el, etype){
             if(val.status == "A"){
               var activeLink = (val.state == "iniciarSesion" ? "menuActive" : "");
               jimte.isLogged = false;
-              jimte.isLogged = ((jimte.tekken == undefined || jimte.tekken == null || jimte.tekken == "") ? false : true);
+              jimte.isLogged = ((jimte.token == undefined || jimte.token == null || jimte.token == "") ? false : true);
 
               //console.log(val.item  + " val.isLogged:" + val.isLogged + " jimte.isLogged " + jimte.isLogged);
 
@@ -342,17 +342,17 @@ eventFire(el, etype){
           if(jimte.apellidos != "" && jimte.nombres) {
             $("#userFirstName").text(jimte.nombres);
             $("#userLastName").text(jimte.apellidos);
-            $("#userTekken").text(jimte.llave);
+            $("#userToken").text(jimte.llave);
           } else {
-            if(jimte.tekken == "localhost"){
+            if(jimte.token == "localhost"){
               $("#userFirstName").text("Web");
               $("#userLastName").text("Master");
-              $("#userTekken").text("webmaster");
+              $("#userToken").text("webmaster");
 
             } else {
               $("#userFirstName").text(t(this.currentLang, "userFirstName"));
               $("#userLastName").text(t(this.currentLang, "userLastName"));
-              $("#userTekken").text("");
+              $("#userToken").text("");
 
             }
           }
@@ -698,14 +698,14 @@ eventFire(el, etype){
     }
 
     check_mesas(){
-      //if(this.tekken == "localhost"){
+      //if(this.Token == "localhost"){
       //  return;
       //}
       var self = $(this);
 
       let form_data = new FormData();
       form_data.append('llave', this.llave);
-      form_data.append('tekken', this.tekken);
+      form_data.append('Token', this.token);
       form_data.append('tipollave', this.userType);
 
       console.log("check_mesas!");
@@ -798,14 +798,14 @@ eventFire(el, etype){
     }
 
     check_tablas(){
-    //  if(this.tekken == "localhost"){
+    //  if(this.Token == "localhost"){
     //    return;
     //  }
       var self = $(this);
 
       let form_data = new FormData();
       form_data.append('llave', this.llave);
-      form_data.append('tekken', this.tekken);
+      form_data.append('token', this.token);
 
       console.log("check_tablas!");
       $.ajax({
@@ -1461,7 +1461,7 @@ eventFire(el, etype){
             $("#hidCorpo").val($("#corporacion").val());
             $("#hidMesa").val($("#mesa_a_reportar").val());
             $("#hidLlave").val(this.llave);
-            $("#hidTekken").val(this.tekken);
+            $("#hidToken").val(this.token);
 
             $('#repomesa').submit();
         } else {
