@@ -91,8 +91,7 @@ function findInPDO($dbh, $fldname, $fldvalue) {
 
 			//Si estamos procesando intento de login
 			if($fldname == "password"){
-					$tokenstr = ',"token":"myToken",
-											"tokenexpira":"myTokenExpira"';
+					$tokenstr = ',"token":"myToken","tokenexpira":"myTokenExpira"';
 					$table = substr_replace($table, $tokenstr, strlen($table)-2, 0);
 			}
 
@@ -273,4 +272,68 @@ function parseParams($name, $flds, $sort, $max, $filter, $lang) {
 function contains($needle, $haystack)
 {
     return strpos($haystack, $needle) !== false;
+}
+
+// confirmar si el token todavía es válido
+function checkToken($app)
+{
+		$sqlCode = 'token_check';
+		$query = getSQL($sqlCode, $app->request()->params('lang'));
+		$prepParams = array(
+					':token'   		 => $app->request()->params('token'),
+					':id'          => $app->request()->params('id')
+		);
+
+		$connection = getConnection();
+
+		$dbh = $connection->prepare($query);
+		$dbh->execute($prepParams);
+
+		$fldname = 'tokenexpira';
+
+		$valid = false;
+		$table =  "";
+		while ($fila = $dbh->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
+				$rec = '';
+				$rec .= '{';
+        foreach($fila as $key => $value ) {
+
+						if($key == $fldname){
+
+								$rightnow = date('Y-m-d H:i:s', strtotime("now"));
+								//$expira  = strtotime($value);
+
+							/*	echo "\n<br>debug checktoken: " . $app->request()->params('token') .
+								" / " . $value . " / " . $rightnow ;
+*/
+								if($value > $rightnow){
+									$valid = true;
+								}
+
+
+						}
+						$rec .= '"' . $key . '":"' . $value . '",';
+        }
+				$rec = substr($rec, 0, -1);
+				$rec .= '},';
+
+				$table .= $rec;
+
+    }
+
+		if($table == '') {
+			$table = '[]';
+		} else {
+			$table = '[' . substr($table, 0, -1) . ']';
+		}
+
+		//echo "\n<br>debug PDO2json: " . $table;
+		if(!$valid){
+			$table = '[{"acceso":"Denegado.","motivo":"Token no existe o Ya ha expirado."}]';
+		} else {
+			$tokenstr = ',"tokenstatus":"validtoken"';
+			$table = substr_replace($table, $tokenstr, strlen($table)-2, 0);
+
+		}
+		return $table;
 }

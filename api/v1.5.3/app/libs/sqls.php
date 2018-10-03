@@ -5,6 +5,7 @@ function getSQL($name, $lang) {
     $lang = strtolower(substr($lang, 0, 2));
 
     $SQLs  = array(
+            "token_check" => "SELECT tokenexpira FROM usuarios WHERE token = :token AND id = :id ",
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "users_act" => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio FROM usuarios WHERE estado = 'A' ",
             "users_all" => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio, estado FROM usuarios",

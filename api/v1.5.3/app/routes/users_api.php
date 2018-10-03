@@ -4,9 +4,15 @@ if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 $app->get('/users/count', function () use($app) {
 
 	try{
-      $sqlCode = 'users_count';
-      $forXSL = '../../../xsl/count.xsl';
-      simpleReturn($app, $sqlCode, $forXSL);
+			$resultText = checkToken($app);
+			if(contains("validtoken", $resultText) ){
+	      $sqlCode = 'users_count';
+	      $forXSL = '../../../xsl/count.xsl';
+	      simpleReturn($app, $sqlCode, $forXSL);
+			} else {
+				$connection = null;
+				$app->response->body($resultText);
+			}
 	}
 	catch(PDOException $e)
 	{

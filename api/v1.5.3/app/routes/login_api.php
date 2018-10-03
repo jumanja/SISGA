@@ -72,3 +72,19 @@ $app->post('/login', function () use($app) {
 		echo "Error: " . $e->getMessage();
 	}
 });
+
+
+$app->post('/login/check', function () use($app) {
+
+	try{
+			$resultText = checkToken($app);
+
+      normalheader($app, 'json', '');
+      $connection = null;
+  		$app->response->body($resultText);
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
