@@ -1,3 +1,5 @@
 #users_api
 echo "$myapi"
-curl -o /Library/WebServer/Documents/jumanja.net/sisga/tests/results/users_count.json "$myapi"/users/count
+
+# Intenta contar cuantos usuarios hay en la bd, se espera cuenta ok
+curl -X GET -o ../../results/users_count.json --data @../login/logintoken.txt "$myapi"/users/count

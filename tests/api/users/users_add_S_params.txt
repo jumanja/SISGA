@@ -1,0 +1,1 @@
+frat=demo&usuario=secretaria&apellidos=Apellidos Secretaria&nombres=Nombres Secretaria&password=secretaria&email=secre@demo.com&servicio=S&estado=A

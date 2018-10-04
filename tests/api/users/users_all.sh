@@ -1,3 +1,5 @@
 #users_api
 echo "$myapi"
-curl -o /Library/WebServer/Documents/jumanja.net/sisga/tests/results/users_all.json "$myapi"/users
+
+# Intenta retornar todos los usuarios de la base de datos, se espera ok
+curl -X GET -o ../../results/users_all.json --data @../login/logintoken.txt "$myapi"/users

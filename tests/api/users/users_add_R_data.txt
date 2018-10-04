@@ -1,0 +1,2 @@
+id=3&token=$2y$10$DKaGDxfhxMk2LemzxRIUoeMiPjOr0Weql7GqFQYmft/7x1eg6Y3Pq&
+frat=demo&usuario=regional&apellidos=Apellidos Regional&nombres=Nombres Regional&password=regional&email=region@demo.com&servicio=R&estado=A

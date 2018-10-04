@@ -9,7 +9,7 @@ function getSQL($name, $lang) {
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "users_act" => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio FROM usuarios WHERE estado = 'A' ",
             "users_all" => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio, estado FROM usuarios",
-            "users_count" => "SELECT count(1) FROM usuarios",
+            "users_count" => "SELECT count(1) as count FROM usuarios",
             "users_add" => "INSERT INTO usuarios (frat, id, usuario, apellidos, nombres, password, email, servicio, estado) " .
                            "VALUES (:frat, :id, :usuario, :apellidos, :nombres, :password, :email, :servicio, :estado)",
             "readings_day" => "SELECT * from lecturas WHERE " .

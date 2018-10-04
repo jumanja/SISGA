@@ -1,6 +1,53 @@
 <?php
+/*******************************************
+* API: login
+********************************************/
+/*
+Si no está definida estaq constante, se está intentando acceder
+accediendo por fuera de la api, retorna Acceso Denegado
+*/
 if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
+/*--
+URL: /login
+MÉTODO: POST
+REQUERIMIENTOS: REQ-001, REQ-002
+TESTS: api/login.sh
+
+DESCRIPCIÓN: Si usuario y clave son válidos, genera token y lo graba en la bd
+junto con la fecha de expiración del token.
+
+ENTRADA: Usuario, password y formato de la salida (opcional).
+PROCESO: Valida que exista un usuario activo con esa clave (encriptada) y si es así,
+				 genera un token encriptado, y lo graba en la bd junto con una fechahora de
+				 expiración del token.
+SALIDA:  Si no recibe el formato en la entrada, por defecto retorna en json, ejemplo:
+				 [{
+				 		"frat":"demo",
+						"id":"3",
+						"usuario":"secretaria",
+						"apellidos":"Apellidos Secretaria",
+						"nombres":"Nombres Secretaria",
+						"password":"$2y$10$9Jdu2a5VL2Xq3DqPatTKkOviMMutujM./bXWbB7mRKeVTA5g8QMmK",
+						"email":"secre@demo.com",
+						"servicio":"S",
+						"token":"2Xq3DqPatTKkOviMMutujM./bXWbB7mRKeVTA",
+						"tokenexpira":"2018-10-04 08:22:16"
+					}]
+
+ 				 Si recibe el parámetro formato se asume que se está ejecutando pruebas
+				 automáticas,  texto el id y el token, por ejemplo:
+				 id=9&token=xxxxxxxx
+
+				 Si no se pudo hacer el proceso pues no se encontró usuario y clave, json de error:
+				 [{"acceso":"Denegado.","motivo":"Usuario y Clave No Encontrados."}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 users_act, users_tokenupdate
+--*/
 $app->post('/login', function () use($app) {
 
 	try{
@@ -14,9 +61,6 @@ $app->post('/login', function () use($app) {
       //echo $usuario . " / " . $password;
 
       $filter .= ($usuario ==''     ? '' : " AND usuario = '" . $usuario . "' " );
-      //$filter .= ($password ==''    ? '' : " AND password = '" . password_hash($usuario, PASSWORD_DEFAULT) . "'");
-
-      //simpleReturn($app, $sqlCode, $forXSL, $filter);
       //Si dentro de los resultados está
       $query = parseQueryToPDO($app, $sqlCode, $forXSL, $filter);
 
@@ -30,40 +74,32 @@ $app->post('/login', function () use($app) {
 			if(contains("myTokenExpira", $query) == ''){
 
 				$json = json_decode($resultText, true);
-				//echo "3.9. " . $json[0]['id'];
-/*
-				$currentTime = new DateTime();
-				$myToken = $currentTime->format('Y-m-d H:i:s');
-				//echo $myToken->format('Y-m-d H:i:s');
-
-				$expiraTime = new DateTime();
-				$myTokenExpira = $expiraTime->format('Y-m-d H:i:s');
-				*/
-			//	$dt = date("Y-m-d H:i:s");
-				//echo $dt;
 				$myToken = date('Y-m-d H:i:s', strtotime("now"));
 				$myTokenExpira = date('Y-m-d H:i:s',strtotime('+1 hour +1 minutes',strtotime($myToken)));
+				$myToken = password_hash($usuario . ':' . $myToken, PASSWORD_DEFAULT);
+
 				$prepParams = array(
 							':token'   		 => $myToken,
 							':tokenexpira' => $myTokenExpira,
 							':id'          => $json[0]['id']
 				);
 
-				$resultText = str_replace("myTokenExpira", $myToken, $resultText);
-				$resultText = str_replace("myToken", $myTokenExpira, $resultText);
+				$resultText = str_replace("myTokenExpira", $myTokenExpira, $resultText);
+				$resultText = str_replace("myToken", $myToken, $resultText);
 
 				$sqlCode = 'users_tokenupdate';
 				$query = getSQL($sqlCode, $app->request()->params('lang'));
 				$rows = getPDOPrepared($query, $prepParams);
-				//echo "8. " . $rows;
-				/*if($rows == 1){
-
-				}*/
+				if($app->request()->params('format')) {
+					normalheader($app, $app->request()->params('format'), '');
+					$resultText = "id=" . $json[0]['id'] . "&token=" . $myToken;
+				} else {
+      		normalheader($app, 'json', '');
+				}
+			} else {
+				normalheader($app, 'json', '');
 			}
 
-      normalheader($app, 'json', '');
-      //setResult($resultText, $app);
-      //echo "4. " . $resultText;
       $connection = null;
   		$app->response->body($resultText);
 	}
@@ -73,13 +109,38 @@ $app->post('/login', function () use($app) {
 	}
 });
 
+/*--
+URL: /login/check
+MÉTODO: POST
+REQUERIMIENTO: REQ-002
+TESTS: api/login_check.sh
 
+DESCRIPCIÓN: Invoca al méteodo checkToken en api.php para verificar si el token
+						 todavía es válido (si aún no ha expirado).
+
+ENTRADA: El objeto $app completo, dentro se espera id, token y lang (idioma, opcional)
+PROCESO: Comprueba si el topken aún es válido (si aún no ha expirado).
+SALIDA: Si es válido, retorna por ejemplo:
+				[{
+					"tokenexpira":"2018-10-04 09:23:16",
+					"tokenstatus":"validtoken"}]
+				Si no es valido, ejemplo:
+				[{
+					"acceso":"Denegado.",
+					"motivo":"Token no existe o Ya ha expirado."
+				}]
+
+			 Si hubo error de programación no resuelto en el servidor:
+			 <br />
+			 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+--*/
 $app->post('/login/check', function () use($app) {
 
 	try{
 			$resultText = checkToken($app);
+			normalheader($app, 'json', '');
 
-      normalheader($app, 'json', '');
       $connection = null;
   		$app->response->body($resultText);
 	}
