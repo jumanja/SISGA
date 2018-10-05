@@ -1,6 +1,6 @@
 <?php
 /*******************************************
-* API: users
+* API: frats
 ********************************************/
 /*
 Si no está definida estaq constante, se está intentando acceder
@@ -9,18 +9,18 @@ accediendo por fuera de la api, retorna Acceso Denegado
 if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
 /*--
-URL: /users/count
+URL: /frats/count
 MÉTODO: GET
-REQUERIMIENTOS: TO-DO identificar el req Tabla de Usuarios mostrar cuenta
-TESTS: api/users_count.sh
+REQUERIMIENTOS: TO-DO identificar el req Tabla de Fraternidades mostrar cuenta
+TESTS: api/frats_count.sh
 
-DESCRIPCIÓN: Cuenta y retorna cuántos usuarios hay en la
+DESCRIPCIÓN: Cuenta y retorna cuántas fraternidades hay en la
 						base de datos.
 
 ENTRADA: Token y el Id del usuario.
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido cuenta cuántos usuarios hay en la bd.
+				 válido cuenta cuántas fraternidades hay en la bd.
 
 SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 				 [{"count":"8"}]
@@ -35,9 +35,9 @@ SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 users_count
+SQLS: 	 frats_count
 --*/
-$app->get('/users/count', function () use($app) {
+$app->get('/frats/count', function () use($app) {
 
 	try{
 			/*
@@ -50,7 +50,7 @@ $app->get('/users/count', function () use($app) {
 			if(contains($app->request()->params('servicio'), $permisos) ){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
-		      $sqlCode = 'users_count';
+		      $sqlCode = 'frats_count';
 		      $forXSL = '../../../xsl/count.xsl';
 		      simpleReturn($app, $sqlCode, $forXSL);
 				} else {
@@ -59,7 +59,7 @@ $app->get('/users/count', function () use($app) {
 				}
 			}	else {
 				$connection = null;
-				$app->response->body("/users/count " . ACCESSERROR);
+				$app->response->body("/frats/count " . ACCESSERROR);
 
 			}
 	}
@@ -70,18 +70,18 @@ $app->get('/users/count', function () use($app) {
 });
 
 /*--
-URL: /users
+URL: /frats
 MÉTODO: GET
-REQUERIMIENTOS: TO-DO identificar el req Tabla de Usuarios
-TESTS: api/users_all.sh
+REQUERIMIENTOS: TO-DO identificar el req Tabla de Fraternidades
+TESTS: api/frats_all.sh
 
-DESCRIPCIÓN: Retorna la información de todos los usuarios hay en la
+DESCRIPCIÓN: Retorna la información de todas los fraternidades hay en la
 						base de datos.
 
 ENTRADA: Token y el Id del usuario.
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido retorna la información de todos los usuarios de la bd.
+				 válido retorna la información de todas los fraternidades de la bd.
 
 SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 					[{
@@ -110,9 +110,9 @@ SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 users_all
+SQLS: 	 frats_all
 --*/
-$app->get("/users", function() use($app)
+$app->get("/frats", function() use($app)
 {
  	try{
 		/*
@@ -126,7 +126,7 @@ $app->get("/users", function() use($app)
 
 			$resultText = checkToken($app);
 			if(contains("validtoken", $resultText) ){
-				$sqlCode = 'users_all';
+				$sqlCode = 'frats_all';
 	      $forXSL = '../../xsl/count.xsl';
 	      simpleReturn($app, $sqlCode, $forXSL);
 			} else {
@@ -135,7 +135,7 @@ $app->get("/users", function() use($app)
 			}
 		}	else {
 			$connection = null;
-			$app->response->body("/users " . ACCESSERROR);
+			$app->response->body("/frats " . ACCESSERROR);
 
 		}
 	}
@@ -146,18 +146,18 @@ $app->get("/users", function() use($app)
 });
 
 /*--
-URL: /users/:id
+URL: /frats/:id
 MÉTODO: GET
-REQUERIMIENTOS: TO-DO identificar el req Consulta de Usuarios
-TESTS: api/users_id.sh
+REQUERIMIENTOS: TO-DO identificar el req Consulta de fraternidades
+TESTS: api/frats_id.sh
 
-DESCRIPCIÓN: Retorna la información de un usuarios en la
+DESCRIPCIÓN: Retorna la información de un fraternidades en la
 						base de datos.
 
 ENTRADA: Token y el Id del usuario de la sesión, y el Id del usuario a retornar.
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido retorna la información de todos los usuarios de la bd.
+				 válido retorna la información de todas los fraternidades de la bd.
 
 SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna en json, ejemplo:
 				 [{
@@ -185,9 +185,9 @@ SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna 
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 users_all (filtrado por id del usuario a buscar)
+SQLS: 	 frats_all (filtrado por id del usuario a buscar)
 --*/
-$app->get("/users/:id", function($id) use($app)
+$app->get("/frats/:id", function($id) use($app)
 {
  	try{
 		/*
@@ -200,7 +200,7 @@ $app->get("/users/:id", function($id) use($app)
 		if(contains($app->request()->params('servicio'), $permisos) ){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
-					$sqlCode = 'users_all';
+					$sqlCode = 'frats_all';
 		      $forXSL = '../../xsl/count.xsl';
 		      if($id){
 		        $filter = ' id = ' . $id;
@@ -213,7 +213,7 @@ $app->get("/users/:id", function($id) use($app)
 				}
 		}	else {
 			$connection = null;
-			$app->response->body("/users/:id " . ACCESSERROR);
+			$app->response->body("/frats/:id " . ACCESSERROR);
 
 		}
 	}
@@ -224,10 +224,10 @@ $app->get("/users/:id", function($id) use($app)
 });
 
 /*--
-URL: /users
+URL: /frats
 MÉTODO: POST
-REQUERIMIENTOS: TO-DO identificar el req adicion de usuarios
-TESTS: api/users_add.sh
+REQUERIMIENTOS: TO-DO identificar el req adicion de fraternidades
+TESTS: api/frats_add.sh
 
 DESCRIPCIÓN: Agrega un usuario en la base de datos.
 
@@ -243,7 +243,7 @@ ENTRADA: Token y el Id del usuario de la sesión, y los datos del usuario a reto
 				 estado=A
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta adicionar un usuario en la bd con los datos recibidos.
+				 válido intenta adicionar una fraternidad en la bd con los datos recibidos.
 
 SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de registros, ejemplo:
 				 [{
@@ -260,9 +260,9 @@ SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna 
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 users_add
+SQLS: 	 frats_add
 --*/
-$app->post('/users', function () use($app) {
+$app->post('/frats', function () use($app) {
 
 	try{
 			/*
@@ -277,7 +277,7 @@ $app->post('/users', function () use($app) {
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 
-					$sqlCode = 'users_add';
+					$sqlCode = 'frats_add';
 					$forXSL = '../../xsl/count.xsl';
 
 					$newId = null;
@@ -309,7 +309,7 @@ $app->post('/users', function () use($app) {
 				}
 			}	else {
 				$connection = null;
-				$app->response->body("/users (POST) " . ACCESSERROR);
+				$app->response->body("/frats (POST) " . ACCESSERROR);
 
 			}
 
@@ -322,106 +322,14 @@ $app->post('/users', function () use($app) {
 });
 
 /*--
-URL: /users/token
+URL: /frats
 MÉTODO: PUT
-REQUERIMIENTOS: TO-DO identificar el req actualización de usuarios
-TESTS: api/users_add.sh
-
-DESCRIPCIÓN: Actualiza el token de un usuario en la base de datos, para
-						 mantener la sesión activa.
-
-ENTRADA: Token y el Id del usuario de la sesión, y los datos del usuario a retornar,
-				 recibidos por el método POST, los datos a recibir (ejemplo):
-				 token=2Xq3DqPatTKkOviMMutujM./bXWbB7mRKeVTA
-				 tokenexpira=2018-10-04 08:22:16
-				 id=3
-
-PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta modificar un usuario en la bd con los datos recibidos.
-
-SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de registros, ejemplo:
-				 [{
-				 		"rows":"1"
-					}]
-				 Si no es válido el token, retorna en json:
-					[{
-						"acceso":"Denegado.",
-						"motivo":"Token no existe o Ya ha expirado."
-					}]
-
-				 Si hubo error de programación no resuelto en el servidor:
-				 <br />
-				 <b>Parse error</b>:  parse error .. y el mensaje de error.
-
-SQLS: 	 users_tokenupdate
---*/
-$app->put('/users/token', function () use($app) {
-
-	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "APSTERNI";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
-				$resultText = checkToken($app);
-				if(contains("validtoken", $resultText) ){
-					$sqlCode = 'users_tokenupdate';
-		      $forXSL = '../../xsl/count.xsl';
-
-					$myToken = date('Y-m-d H:i:s', strtotime("now"));
-					$myTokenExpira = date('Y-m-d H:i:s',strtotime('+31 minutes',strtotime($myToken)));
-					$myToken = password_hash($usuario . ':' . $myToken, PASSWORD_DEFAULT);
-
-		      $prepParams = array(
-		            ':token'   		 => $myToken,
-		            ':tokenexpira' => $myTokenExpira,
-								':id'          => $app->request()->params('id')
-		      );
-
-		      $query = getSQL($sqlCode, $app->request()->params('lang'));
-		      $rows = getPDOPrepared($query, $prepParams);
-		      $resultText = '[{"rows":"'.$rows.'",' .
-												'"token":"'.$myToken.'",' .
-												'"tokenexpira":"'.$myTokenExpira.'"' .
-												'}]';
-
-		      normalheader($app, 'json', '');
-		      //setResult($resultText, $app);
-		      //echo "4. " . $resultText;
-		      $connection = null;
-		  		$app->response->body($resultText);
-
-				} else {
-					$connection = null;
-					$app->response->body($resultText);
-				}
-			}	else {
-				$connection = null;
-				$app->response->body("/users (POST) " . ACCESSERROR);
-
-			}
-
-	}
-	catch(PDOException $e)
-	{
-		echo "Error: " . $e->getMessage();
-	}
-});
-
-
-/*--
-URL: /users
-MÉTODO: PUT
-REQUERIMIENTOS: TO-DO identificar el req actualización de usuarios
-TESTS: api/users_update.sh
+REQUERIMIENTOS: TO-DO identificar el req actualización de fraternidades
+TESTS: api/frats_update.sh
 
 DESCRIPCIÓN: Actualiza los datos de un usuario en la base de datos.
 
-ENTRADA: Token y el Id del usuario de la sesión, y el id del usuario a retirar,
+ENTRADA: Token y el Id del usuario de la sesión, y el id de la fraternidad a retirar,
 				 recibidos por el método DELETE, los datos a recibir (ejemplo):
 
 				 id=2
@@ -429,7 +337,7 @@ ENTRADA: Token y el Id del usuario de la sesión, y el id del usuario a retirar,
 				 token=updatedToken
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta modificar los datos de un usuario en la bd con los datos recibidos.
+				 válido intenta modificar los datos de la fraternidad en la bd con los datos recibidos.
 
 SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de
 				 registros actualizados, ejemplo:
@@ -452,7 +360,7 @@ SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna 
 
 SQLS: 	 autogenerado
 --*/
-$app->put('/users', function () use($app) {
+$app->put('/frats', function () use($app) {
 
 	try{
 			/*
@@ -466,7 +374,7 @@ $app->put('/users', function () use($app) {
 
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
-					$tableName = 'usuarios';
+					$tableName = 'fraternidades';
 		      $queryUpdate = 'UPDATE ' . $tableName . ' SET  ';
 
 					$arr = $app->request()->put();
@@ -503,7 +411,7 @@ $app->put('/users', function () use($app) {
 
 			}	else {
 				$connection = null;
-				$app->response->body("/users (PUT) " . ACCESSERROR);
+				$app->response->body("/frats (PUT) " . ACCESSERROR);
 
 			}
 	}
@@ -515,16 +423,16 @@ $app->put('/users', function () use($app) {
 
 
 /*--
-URL: /users/delete
+URL: /frats/delete
 MÉTODO: PUT (el método DELETE da problemas no está implementado correctamente)
-REQUERIMIENTOS: TO-DO identificar el req actualización de usuarios
-TESTS: api/users_delete.sh
+REQUERIMIENTOS: TO-DO identificar el req actualización de fraternidades
+TESTS: api/frats_delete.sh
 
-DESCRIPCIÓN: Actualiza el estado a R (Retirado) a un usuario en la base de datos,
+DESCRIPCIÓN: Actualiza el estado a R (Retirado) a una fraternidad en la base de datos,
 						 borrado lógico.
 
-ENTRADA: Token y el Id del usuario de la sesión, y los datos del usuario a actualizar,
-				 los datos a recibir (ejemplo):
+ENTRADA: Token y el Id del usuario de la sesión, y los datos de la fratenidad a
+				 actualizar, los datos a recibir (ejemplo):
 
 				 id=2
 				 email=nuevoemail@email.com
@@ -555,7 +463,7 @@ SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna 
 
 SQLS: 	 autogenerado
 --*/
-$app->put('/users/delete', function () use($app) {
+$app->put('/frats/delete', function () use($app) {
 
 	try{
 			/*
@@ -569,7 +477,7 @@ $app->put('/users/delete', function () use($app) {
 
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
-						$tableName = 'usuarios';
+						$tableName = 'fraternidades';
 			      $queryUpdate = "UPDATE " . $tableName . " SET ESTADO = 'R' ".
 													 " WHERE id = " . $app->request()->params('iddelete') ;
 
@@ -590,7 +498,7 @@ $app->put('/users/delete', function () use($app) {
 					}
 			}	else {
 				$connection = null;
-				$app->response->body("/users/delete (PUT) " . ACCESSERROR);
+				$app->response->body("/frats/delete (PUT) " . ACCESSERROR);
 
 			}
 

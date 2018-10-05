@@ -1,0 +1,2 @@
+id=3&token=$2y$10$KMIq28oA7afuaUEt1JlYrOrYNH.YA5mATW1xZ3CbGCzaNOxA8LJAS&
+idupdate=2&email=nuevoypoderosoemail@email.com

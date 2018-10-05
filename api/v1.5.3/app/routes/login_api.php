@@ -15,12 +15,14 @@ REQUERIMIENTOS: REQ-001, REQ-002
 TESTS: api/login.sh
 
 DESCRIPCIÓN: Si usuario y clave son válidos, genera token y lo graba en la bd
-junto con la fecha de expiración del token.
+						junto con la fecha de expiración del token.
 
 ENTRADA: Usuario, password y formato de la salida (opcional).
+
 PROCESO: Valida que exista un usuario activo con esa clave (encriptada) y si es así,
 				 genera un token encriptado, y lo graba en la bd junto con una fechahora de
 				 expiración del token.
+
 SALIDA:  Si no recibe el formato en la entrada, por defecto retorna en json, ejemplo:
 				 [{
 				 		"frat":"demo",
@@ -36,8 +38,8 @@ SALIDA:  Si no recibe el formato en la entrada, por defecto retorna en json, eje
 					}]
 
  				 Si recibe el parámetro formato se asume que se está ejecutando pruebas
-				 automáticas,  texto el id y el token, por ejemplo:
-				 id=9&token=xxxxxxxx
+				 automáticas,  texto el id y el token y el servicio, por ejemplo:
+				 id=9&token=xxxxxxxx&servicio=S
 
 				 Si no se pudo hacer el proceso pues no se encontró usuario y clave, json de error:
 				 [{"acceso":"Denegado.","motivo":"Usuario y Clave No Encontrados."}]
@@ -92,7 +94,9 @@ $app->post('/login', function () use($app) {
 				$rows = getPDOPrepared($query, $prepParams);
 				if($app->request()->params('format')) {
 					normalheader($app, $app->request()->params('format'), '');
-					$resultText = "id=" . $json[0]['id'] . "&token=" . $myToken;
+					$resultText = "id=" . $json[0]['id'] .
+												"&token=" . $myToken .
+												"&servicio=" . $json[0]['servicio'] ;
 				} else {
       		normalheader($app, 'json', '');
 				}
@@ -119,7 +123,9 @@ DESCRIPCIÓN: Invoca al méteodo checkToken en api.php para verificar si el toke
 						 todavía es válido (si aún no ha expirado).
 
 ENTRADA: El objeto $app completo, dentro se espera id, token y lang (idioma, opcional)
+
 PROCESO: Comprueba si el topken aún es válido (si aún no ha expirado).
+
 SALIDA: Si es válido, retorna por ejemplo:
 				[{
 					"tokenexpira":"2018-10-04 09:23:16",
@@ -134,6 +140,7 @@ SALIDA: Si es válido, retorna por ejemplo:
 			 <br />
 			 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
+SQLS: ninguno
 --*/
 $app->post('/login/check', function () use($app) {
 

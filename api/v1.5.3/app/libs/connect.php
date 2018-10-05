@@ -5,9 +5,9 @@ function getConnection()
 	try{
     $ip = getenv("REMOTE_ADDR"); // get the ip number of the user
     if ($ip == '127.0.0.1') {
-        $db_username = "adminsisga";
+        $db_username = "jumanja_sisgadm";
         $db_password = "uAdmin2018";
-        $connection = new PDO("mysql:host=localhost;dbname=sisga", $db_username, $db_password,
+        $connection = new PDO("mysql:host=localhost;dbname=jumanja_sisga", $db_username, $db_password,
                 array(
                       PDO::ATTR_TIMEOUT => "5",
                       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

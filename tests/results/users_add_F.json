@@ -1,1 +1,2 @@
-Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'formadora' for key 'usuario_UNIQUE'
+Error: SQLSTATE[28000] [1045] Access denied for user 'adminsisga'@'localhost' (using password: YES)<br />
+<b>Fatal error</b>:  Call to a member function prepare() on null in <b>/home2/jumanja/public_html/SISGA/api/v1.5.3/app/routes/api.php</b> on line <b>34</b><br />
