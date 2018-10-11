@@ -40,14 +40,8 @@ SQLS: 	 users_count
 $app->get('/users/count', function () use($app) {
 
 	try{
-			/*
-			   A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
+			$authorized = checkPerm('GET:/users/count', $app);
+			if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 		      $sqlCode = 'users_count';
@@ -115,28 +109,20 @@ SQLS: 	 users_all
 $app->get("/users", function() use($app)
 {
  	try{
-		/*
-			 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-			 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-		*/
-		$permisos = "A";
-		//Si el token viene de un servicio que no tiene permiso, no siga
-		//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-		if(contains($app->request()->params('servicio'), $permisos) ){
-
-			$resultText = checkToken($app);
-			if(contains("validtoken", $resultText) ){
-				$sqlCode = 'users_all';
-	      $forXSL = '../../xsl/count.xsl';
-	      simpleReturn($app, $sqlCode, $forXSL);
-			} else {
-				$connection = null;
-				$app->response->body($resultText);
-			}
-		}	else {
-			$connection = null;
-			$app->response->body("/users " . ACCESSERROR);
-
+			$authorized = checkPerm('GET:/users', $app);
+			if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+						$sqlCode = 'users_all';
+			      $forXSL = '../../xsl/count.xsl';
+			      simpleReturn($app, $sqlCode, $forXSL);
+					} else {
+						$connection = null;
+						$app->response->body($resultText);
+					}
+				}	else {
+					$connection = null;
+					$app->response->body("/users " . ACCESSERROR);
 		}
 	}
 	catch(PDOException $e)
@@ -190,14 +176,8 @@ SQLS: 	 users_all (filtrado por id del usuario a buscar)
 $app->get("/users/:id", function($id) use($app)
 {
  	try{
-		/*
-			 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-			 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-		*/
-		$permisos = "A";
-		//Si el token viene de un servicio que no tiene permiso, no siga
-		//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-		if(contains($app->request()->params('servicio'), $permisos) ){
+		$authorized = checkPerm('GET:/users/:id', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$sqlCode = 'users_all';
@@ -265,48 +245,46 @@ SQLS: 	 users_add
 $app->post('/users', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
+		$authorized = checkPerm('POST:/users', $app);
+		if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+/*
+Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciada
+*/
+							$sqlCode = 'users_add';
+							$forXSL = '../../xsl/count.xsl';
 
-				$resultText = checkToken($app);
-				if(contains("validtoken", $resultText) ){
+							$newId = null;
+							$prepParams = array(
+										':frat'       => $app->request()->params('frat'),
+										':id'         => $newId,
+										':usuario'    => $app->request()->params('usuario'),
+										':apellidos'  => $app->request()->params('apellidos'),
+										':nombres'    => $app->request()->params('nombres'),
+										':password'   => password_hash($app->request()->params('password'), PASSWORD_DEFAULT),
+										':email'      => $app->request()->params('email'),
+										':servicio'   => $app->request()->params('servicio'),
+										':estado'     => $app->request()->params('estado')
+							);
 
-					$sqlCode = 'users_add';
-					$forXSL = '../../xsl/count.xsl';
+							$query = getSQL($sqlCode, $app->request()->params('lang'));
+							$rows = getPDOPrepared($query, $prepParams);
+							$resultText = '[{"rows":"'.$rows.'"}]';
 
-					$newId = null;
-					$prepParams = array(
-								':frat'       => $app->request()->params('frat'),
-								':id'         => $newId,
-								':usuario'    => $app->request()->params('usuario'),
-								':apellidos'  => $app->request()->params('apellidos'),
-								':nombres'    => $app->request()->params('nombres'),
-								':password'   => password_hash($app->request()->params('password'), PASSWORD_DEFAULT),
-								':email'      => $app->request()->params('email'),
-								':servicio'   => $app->request()->params('servicio'),
-								':estado'     => $app->request()->params('estado')
-					);
-
-					$query = getSQL($sqlCode, $app->request()->params('lang'));
-					$rows = getPDOPrepared($query, $prepParams);
-					$resultText = '[{"rows":"'.$rows.'"}]';
-
-					normalheader($app, 'json', '');
-					//setResult($resultText, $app);
-					//echo "4. " . $resultText;
-					$connection = null;
-					$app->response->body($resultText);
-
-				} else {
-					$connection = null;
-					$app->response->body($resultText);
-				}
+							normalheader($app, 'json', '');
+							//setResult($resultText, $app);
+							//echo "4. " . $resultText;
+							$connection = null;
+							$app->response->body($resultText);
+		/*
+		 Inhabilitar siguiente bloque hasta el catch para agregar usuarios sin
+		 necesidad de terne sesión iniciada via token
+		*/
+						} else {
+							$connection = null;
+							$app->response->body($resultText);
+						}
 			}	else {
 				$connection = null;
 				$app->response->body("/users (POST) " . ACCESSERROR);
@@ -358,15 +336,8 @@ SQLS: 	 users_tokenupdate
 $app->put('/users/token', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "APSTERNI";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/users/token', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$sqlCode = 'users_tokenupdate';
@@ -455,15 +426,8 @@ SQLS: 	 autogenerado
 $app->put('/users', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/users', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$tableName = 'usuarios';
@@ -558,15 +522,8 @@ SQLS: 	 autogenerado
 $app->put('/users/delete', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/users/delete', $app);
+		if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
 						$tableName = 'usuarios';

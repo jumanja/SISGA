@@ -33,13 +33,14 @@ SALIDA:  Si no recibe el formato en la entrada, por defecto retorna en json, eje
 						"password":"$2y$10$9Jdu2a5VL2Xq3DqPatTKkOviMMutujM./bXWbB7mRKeVTA5g8QMmK",
 						"email":"secre@demo.com",
 						"servicio":"S",
+						"tiposerv":"S",
 						"token":"2Xq3DqPatTKkOviMMutujM./bXWbB7mRKeVTA",
 						"tokenexpira":"2018-10-04 08:22:16"
 					}]
 
  				 Si recibe el parámetro formato se asume que se está ejecutando pruebas
 				 automáticas,  texto el id y el token y el servicio, por ejemplo:
-				 id=9&token=xxxxxxxx&servicio=S
+				 id=9&token=xxxxxxxx&servicio=S&tiposerv=L
 
 				 Si no se pudo hacer el proceso pues no se encontró usuario y clave, json de error:
 				 [{"acceso":"Denegado.","motivo":"Usuario y Clave No Encontrados."}]
@@ -96,7 +97,8 @@ $app->post('/login', function () use($app) {
 					normalheader($app, $app->request()->params('format'), '');
 					$resultText = "id=" . $json[0]['id'] .
 												"&token=" . $myToken .
-												"&servicio=" . $json[0]['servicio'] ;
+												"&servicio=" . $json[0]['servicio'] .
+												"&tiposerv=" . $json[0]['tiposerv'] ;
 				} else {
       		normalheader($app, 'json', '');
 				}

@@ -337,3 +337,57 @@ function checkToken($app)
 		}
 		return $table;
 }
+
+function getPermissions(){
+	//$str = file_get_contents('http://example.com/example.json/');
+	//$str = file_get_contents('permissions.json', FILE_USE_INCLUDE_PATH);
+	$str = file_get_contents('permissions.json');
+	$json = json_decode($str, true); // decode the JSON into an associative array
+	//echo '<pre>' . print_r($json, true) . '</pre>';
+	//echo $json[0]['GET:/users/count']['tiposerv']['incluye'] . '</pre>';
+	return $json;
+}
+
+function checkPerm($route, $app){
+	//$permArray, $app->request()->params('tiposerv'), $app->request()->params('servicio')
+	//echo $permArray[0]['GET:/users/count']['tiposerv']['incluye'];
+	$permArray = getPermissions();;
+
+	$tipserv  = $app->request()->params('tiposerv');
+	$servicio = $app->request()->params('servicio');
+
+	$tipserv_include = $permArray[0][$route]['tiposerv']['incluye'];
+	$tipserv_exclude = $permArray[0][$route]['tiposerv']['excluye'];
+
+	$servicio_include = $permArray[0][$route]['servicio']['incluye'];
+	$servicio_exclude = $permArray[0][$route]['servicio']['excluye'];
+
+	/*echo "<br>" . $tipserv;
+	echo "<br>" . $servicio;
+	echo "<br>" . $tipserv_include;
+	echo "<br>" . $tipserv_exclude;
+	echo "<br>" . $servicio_include;
+	echo "<br>" . $servicio_exclude;
+*/
+	$authorized = false;
+	if( $tipserv_include == "*" && !contains($tipserv, $tipserv_exclude) ) {
+		if( $servicio_include == "*" && !contains($servicio, $servicio_exclude) ) {
+			$authorized = true;
+		}
+	}
+
+	if(	!$authorized ) {
+		if( contains($tipserv, $tipserv_include) ) {
+			if( contains($servicio, $servicio_include) ||
+					($servicio_include == "*" && !contains($servicio, $servicio_exclude)) ) {
+				$authorized = true;
+			}
+		}
+	}
+	/*
+	//$authorized = false;
+	echo "<br>autho:" . $authorized;
+	var_export($authorized);
+	*/
+	return $authorized;
+}

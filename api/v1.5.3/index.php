@@ -13,12 +13,15 @@ require 'app/libs/sqls.php';
 
 require 'app/routes/api.php';
 require 'app/routes/login_api.php';
+require 'app/routes/logout_api.php';
 require 'app/routes/users_api.php';
+require 'app/routes/servs_api.php';
 
 $app->config('debug', true);
 $app->setName('sisga');
 date_default_timezone_set('America/Lima');
 
+$permArray = getPermissions();
 
 /*$aBitOfInfo = function (\Slim\Route $route) {
     echo " Current route is " . $route->getName() . " and ";
