@@ -55,6 +55,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE;
 
 /*
-Poblar
+Poblar servicios, se requiere después de cerar la Bd, o de no, no deja entar
 */
 INSERT INTO `sisga`.`servicios` (`servicio`, `tiposerv`, `id`, `nombre`, `estado`) VALUES ('A', 'A', '1', 'Administrador', 'A');
