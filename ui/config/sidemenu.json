@@ -41,7 +41,7 @@
     "item":"Informe de Actas",
     "status":"A"
   },
-  "configurar": {
+  "configurarTablas": {
     "type":"AS",
     "isLogged":"Y",
     "icon":"settings",

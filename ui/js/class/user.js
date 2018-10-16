@@ -8,7 +8,12 @@ class User {
     this._nombres = obj.nombres;
     this._email = obj.email;
     this._servicio = obj.servicio;
+    this._tiposerv = obj.tiposerv;
+    if(obj.estado == undefined){
+      obj.estado = "A";
+    }
     this._estado = obj.estado;
+
   }
 
   get frat() {
@@ -65,6 +70,14 @@ class User {
 
   set servicio(servicio) {
     this._servicio = servicio;
+  }
+
+  get tiposerv() {
+    return this._tiposerv;
+  }
+
+  set tiposerv(tiposerv) {
+    this._tiposerv = tiposerv;
   }
 
   get estado() {

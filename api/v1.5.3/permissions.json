@@ -9,6 +9,16 @@
        "excluye":""
      }
    },
+   "GET:/servs/count":{
+      "tiposerv":{
+          "incluye":"A",
+          "excluye":""
+          },
+      "servicio":{
+        "incluye":"*",
+        "excluye":""
+      }
+    },
    "GET:/users/count":{
    		"tiposerv":{
     			"incluye":"A",

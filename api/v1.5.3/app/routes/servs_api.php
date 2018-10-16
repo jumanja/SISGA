@@ -40,11 +40,8 @@ SQLS: 	 servs_count
 $app->get('/servs/count', function () use($app) {
 
 	try{
-
-			//echo $json[0]['GET:/servs/count']['tiposerv']['incluye'] . '</pre>';
-			//$permArray[0]['GET:/servs/count']['tiposerv']['incluye'];
-			//checkPerm($permArray, $app->request()->params('tiposerv'), $app->request()->params('servicio'));
-			if (checkPerm($app)){
+			$authorized = checkPerm('GET:/servs/count', $app);
+			if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 		      $sqlCode = 'servs_count';
@@ -65,6 +62,7 @@ $app->get('/servs/count', function () use($app) {
 		echo "Error: " . $e->getMessage();
 	}
 });
+
 
 /*--
 URL: /servs
@@ -108,15 +106,8 @@ SQLS: 	 servs_all
 $app->get("/servs", function() use($app)
 {
  	try{
-		/*
-			 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-			 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-		*/
-		$permisos = "A";
-		//Si el token viene de un servicio que no tiene permiso, no siga
-		//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-		if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('GET:/servs', $app);
+		if($authorized){
 			$resultText = checkToken($app);
 			if(contains("validtoken", $resultText) ){
 				$sqlCode = 'servs_all';
@@ -183,14 +174,8 @@ SQLS: 	 servs_all (filtrado por id del usuario a buscar)
 $app->get("/servs/:id", function($id) use($app)
 {
  	try{
-		/*
-			 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-			 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-		*/
-		$permisos = "A";
-		//Si el token viene de un servicio que no tiene permiso, no siga
-		//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-		if(contains($app->request()->params('servicio'), $permisos) ){
+		$authorized = checkPerm('GET:/servs/:id', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$sqlCode = 'servs_all';
@@ -258,18 +243,8 @@ SQLS: 	 servs_add
 $app->post('/servs', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-/*
-Inhabilitar desde aquí si se quiere agregar sin tener sesión iniciada
-*/
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('POST:/servs', $app);
+		if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
 /*
@@ -360,15 +335,8 @@ SQLS: 	 autogenerado
 $app->put('/servs', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/servs', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$tableName = 'servicios';
@@ -463,15 +431,8 @@ SQLS: 	 autogenerado
 $app->put('/servs/delete', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/servs/delete', $app);
+		if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
 						$tableName = 'servicios';

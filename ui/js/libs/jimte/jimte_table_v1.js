@@ -1,18 +1,21 @@
 // jimte (c) jumanja.net - 2018 - version 1.7.0
 class JimteTab {
   constructor() {
+    this.table = "";
   }
 
   changeTable(obj) {
       console.log("changeTable " + obj.value);
-      $(".mesaForm").hide();
+      //$(".mesaForm").hide();
 
+      //$("#tabla_loader").show();
       $("#tabla_loader").show();
       //load planilla
       //$("#repomesa").show();
 
-      this.load_table(obj.value);
-      this.load_table_forms(obj.value);
+      this.table = obj.value;
+      this.load_table();
+      this.load_table_forms();
 
   }
 
@@ -23,27 +26,46 @@ class JimteTab {
   }
 
 
-  load_table(tabla){
+  load_table(){
 //    if(jimte.tekken == "localhost"){
 //      return;
 //    }
     var self = $(this);
+/*
+    var form_data = new FormData();
+    form_data.append('id', jimte.currentUser.id);
+    form_data.append('token', jimte.token);
+    form_data.append('servicio', jimte.currentUser.servicio);
+    form_data.append('tiposerv', jimte.currentUser.tiposerv);
+    form_data.append('table',  this.table );
 
-    let form_data = new FormData();
-    form_data.append('llave', jimte.llave);
-    form_data.append('tekken', jimte.tekken);
-    form_data.append('tabla', tabla);
-
+*/
     console.log("load_table!");
+/*
+    console.log(jimte.currentUser.id);
+    console.log(jimte.token);
+    console.log(jimte.currentUser.servicio);
+    console.log(jimte.currentUser.tiposerv);
+    console.log(this.table );
+*/
+//      data: form_data,
+
     $.ajax({
-      url: jimte.serverPath + '/tabla_select.php',
+      url: jimte.serverPath + 'index.php/' + this.table +
+                              "?id=" + jimte.currentUser.id +
+                              "&tiposerv=" + jimte.currentUser.tiposerv +
+                              "&servicio=" + jimte.currentUser.servicio +
+                              "&table=" + this.table +
+                              "&token=" + this.token,
       dataType: "json",
       cache: false,
       processData: false,
       contentType: false,
-      data: form_data,
-      type: 'POST',
+      type: 'GET',
       success: function(php_response){
+
+        //console.log( "php_response: " + php_response);
+
         if (php_response.acceso == "concedido") {
           //window.location.href = 'main.html';
           var links = [];
@@ -105,7 +127,7 @@ class JimteTab {
 //    }
     var self = $(this);
 
-    let form_data = new FormData();
+    var form_data = new FormData();
     form_data.append('llave', jimte.llave);
     form_data.append('tekken', jimte.tekken);
     form_data.append('tabla', vista);
@@ -358,7 +380,7 @@ class JimteTab {
 
   load_table_forms(tabla){
         var self = $(this);
-        let url = jimte.configPath + "tablas.json";
+        var url = jimte.configPath + "tables.json";
 
         $.ajax({
           url: url,
@@ -368,7 +390,7 @@ class JimteTab {
           contentType: false,
           context: this,
           type: 'GET',
-          success: (data) =>{
+          success: function(data) {
 
             var overlays = document.getElementsByClassName("overlay");
             var i;

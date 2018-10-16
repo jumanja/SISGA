@@ -53,7 +53,11 @@ $(document).ready(function() {
    String.locale = locale;
     $(parent + ' [translate="yes"]').each(function() {
         // `this` is the element
+        /*
+        NOT WORKING in SAFARI for MAC
         let txt = l("%" + this.id, this.innerText);
+        */
+        var txt = l("%" + this.id, this.innerText);
         //console.log(this.id + " / " + txt);
         // )
         this.innerText = txt;

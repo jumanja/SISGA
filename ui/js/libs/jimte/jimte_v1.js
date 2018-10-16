@@ -119,6 +119,7 @@ eventFire(el, etype){
         this.imagesPath = 'ui/img/';
         this.imagesArticlePath = 'ui/articles/';
         this.header = 'header.json';
+        this.tables = 'tables.json';
         this.sideMenu = 'sidemenu.json';
         this.navigation = 'navigation.json';
         this.imageCar = 'imageCar.json';
@@ -140,16 +141,31 @@ eventFire(el, etype){
 
 
     }
+/*
+NOT WORKING on SAFARI for MAC
     submitEvent(){
       $('#loginForm').submit((event)=>{
         event.preventDefault();
         this.sendForm();
       })
     }
+    */
+    submitEvent(){
+      var self = $(this);
+      $('#loginForm').on('submit', function(event){
+        event.preventDefault();
+        jimte.sendForm();
+      });
+    }
+
     sendForm(){
       var self = $(this);
 
+      /*
+      NOT WORKING ON SAFARI for mac
       let form_data = new FormData();
+      */
+      var form_data = new FormData();
       form_data.append('usuario', $('#usuario').val());
       form_data.append('password', $('#password').val());
       form_data.append('lang', this.currentLang);
@@ -207,7 +223,11 @@ eventFire(el, etype){
     buildHeader() {
         var self = $(this);
         //let url = this.configPath + this.currentLang + '_' + this.header;
+        /*
+        NOT WORKING ON SAFARI
         let url = this.configPath + this.header;
+        */
+        var url = this.configPath + this.header;
         console.log(url);
 
         //call header
@@ -219,7 +239,7 @@ eventFire(el, etype){
           contentType: false,
           context: this,
           type: 'GET',
-          success: (data) =>{
+          success: function(data) {
             /*if (data.msg=="OK") {
               this.poblarCalendario(data.sections)
             }else {
@@ -288,7 +308,7 @@ eventFire(el, etype){
     buildSideMenu(Token){
       var self = $(this);
       //let url = this.configPath + this.currentLang + '_' + this.sideMenu;
-      let url = this.configPath + this.sideMenu;
+      var url = this.configPath + this.sideMenu;
 
       $('li a.menuLinks').parent().remove();
       $.ajax({
@@ -299,7 +319,7 @@ eventFire(el, etype){
         contentType: false,
         context: this,
         type: 'GET',
-        success: (data) =>{
+        success: function(data) {
           var links = [];
 
           $.each( data, function( key, val ) {
@@ -326,7 +346,7 @@ eventFire(el, etype){
                                   'onclick="jimte.changeState(\'' + key + '\')" ' +
                                   'id="' + key + 'Link" >'  +
                                   '<i class="material-icons text-primary-color">' + val.icon + '</i>' +
-                                  "<span translate='yes' id='"+key+"' class=''>" + val.item + "</span></a></li>");
+                                  "<span translate='yes' id='sp_"+key+"' class=''>" + val.item + "</span></a></li>");
 
                     }
 
@@ -376,7 +396,7 @@ eventFire(el, etype){
     buildNavigation() {
       var self = $(this);
       //let url = this.configPath + this.currentLang + '_' + this.navigation;
-      let url = this.configPath + this.navigation;
+      var url = this.configPath + this.navigation;
       //console.log(url);
       //call header
       $.ajax({
@@ -387,7 +407,7 @@ eventFire(el, etype){
         contentType: false,
         context: this,
         type: 'GET',
-        success: (data) =>{
+        success: function(data) {
           var esteItem = "";
           var links = [];
           //console.log(this.imagesPath);
@@ -473,7 +493,7 @@ eventFire(el, etype){
     buildImageCar() {
       var self = $(this);
       //let url = this.configPath + this.currentLang + '_' + this.imageCar;
-      let url = this.configPath + this.imageCar;
+      var url = this.configPath + this.imageCar;
       /*console.log(url);*/
 
       //call header
@@ -485,7 +505,7 @@ eventFire(el, etype){
         contentType: false,
         context: this,
         type: 'GET',
-        success: (data) =>{
+        success: function(data) {
           var carousel = [];
           var carouselPath = data.carouselPath;
           //console.log(this.imagesPath);
@@ -594,7 +614,7 @@ eventFire(el, etype){
     buildImageNav() {
       var self = $(this);
       //let url = this.configPath + this.currentLang + '_' + this.imageNav;
-      let url = this.configPath + this.imageNav;
+      var url = this.configPath + this.imageNav;
       /*console.log(url);*/
 
       //call header
@@ -606,7 +626,7 @@ eventFire(el, etype){
         contentType: false,
         context: this,
         type: 'GET',
-        success: (data) =>{
+        success: function(data) {
           var links = [];
           //console.log(this.imagesPath);
           var imagePath = this.imagesPath;
@@ -642,7 +662,7 @@ eventFire(el, etype){
     buildFooter() {
         var self = $(this);
         //let url = this.includesPath + this.currentLang + '_' + this.footer;
-        let url = this.includesPath + this.footer;
+        var url = this.includesPath + this.footer;
         /*console.log(url);*/
 
         //call header
@@ -654,7 +674,7 @@ eventFire(el, etype){
           contentType: false,
           context: this,
           type: 'GET',
-          success: (data) =>{
+          success: function(data){
             $("footer")[0].innerHTML = data;
             t(this.currentLang, "footer");
 
@@ -672,19 +692,21 @@ eventFire(el, etype){
 
     buildInnerPage(key) {
         $(".mainContent").hide();
+        //$("main").addClass("oculto");
+        //$("#" + key).removeClass("oculto");
         $("#" + key).show();
 
         //key == reportarMesa
         if(key == "reportarMesa" || key == "abrirCertif"){
           $("#progresoMesa").show();
 
-          $("#repomesa_loader").show();
+          $("#loader").show();
 
           this.check_mesas();
         }
-        if(key == "tablas") {
+        if(key == "configurarTablas") {
 
-          this.check_tablas();
+          this.check_tables();
         }
         if(key == "cuadroMando") {
           //$("footer")[0].style.marginTop = '600px';
@@ -703,7 +725,7 @@ eventFire(el, etype){
       //}
       var self = $(this);
 
-      let form_data = new FormData();
+      var form_data = new FormData();
       form_data.append('llave', this.llave);
       form_data.append('Token', this.token);
       form_data.append('tipollave', this.userType);
@@ -787,7 +809,7 @@ eventFire(el, etype){
           }else {
             jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Mesas Testigos");
           }
-          $("#repomesa_loader").hide();
+          $("#loader").hide();
 
         },
         error: function(xhr, status, error) {
@@ -797,61 +819,93 @@ eventFire(el, etype){
       })
     }
 
-    check_tablas(){
-    //  if(this.Token == "localhost"){
-    //    return;
-    //  }
-      var self = $(this);
 
-      let form_data = new FormData();
-      form_data.append('llave', this.llave);
-      form_data.append('token', this.token);
+    check_tables() {
+        var self = $(this);
+        var url = this.configPath + this.tables;
+        console.log("check_tables:" + url);
+        //$('#configurarTablas').show();
+        //$('#configurar').removeClass("oculto");
 
-      console.log("check_tablas!");
-      $.ajax({
-        url: this.serverPath + '/tablas.php',
-        dataType: "json",
-        cache: false,
-        processData: false,
-        contentType: false,
-        data: form_data,
-        type: 'POST',
-        success: function(php_response){
-          if (php_response.acceso == "concedido") {
-            //window.location.href = 'main.html';
-            var links = [];
+        //call header
+        $.ajax({
+          url: url,
+          dataType: "json",
+          cache: false,
+          processData: false,
+          contentType: false,
+          context: this,
+          type: 'GET',
+          success: function(data) {
+
+            //var tablas = [];
             $("#tabla").empty();
             var option = $('<option></option>').attr("value",
               ""
             ).text("Seleccione Tabla");
             $("#tabla").append(option);
 
-            jimte.tablas = JSON.parse(php_response.tablas);
-            $.each( jimte.tablas, function( key, val ) {
+            var tablas = [];
+            $.each( data.tablas, function( key, val ) {
+              /*var attribs = [];
+              //console.log(val);
+              $.each( val, function( key2, val2 ) {
+                //console.log(key2 + ' = "' + val2 + '"');
+                attribs.push(key2 + ' = "' + val2 + '"');
+              });
+              tablas.push( "<meta " + attribs.join(" ") + ">" );
+              */
 
-              //Las no activas no van en el select
-              var option = $('<option></option>').attr("value",
-                val.nombre
-              ).text(val.descripcion );
-              $("#tabla").append(option);
+              /*console.log(key + "/" + val.tiposerv.inc  + "/" + jimte.currentUser.tiposerv);
+              console.log(key + "/" + val.servicio.inc  + "/" + jimte.currentUser.servicio);*/
+              if( val.estado == "A"){
+                //Las no activas no van en el select
+                //y hay que verificar si está autorizado ese usuario por tipo servicio y
+                // servicio a que le aparezca la tabla.
+                var authorizaTabla = false;
+                if( val.tiposerv.inc  == "*" && val.tiposerv.exc.indexOf(jimte.currentUser.tiposerv) == -1 ) {
+                  if( val.servicio.inc == "*" && val.servicio.exc.indexOf(jimte.currentUser.servicio) == -1 ) {
+                    authorizaTabla = true;
+                  }
+                }
+
+                if(	!authorizaTabla ) {
+                  if( val.tiposerv.inc.indexOf(jimte.currentUser.tiposerv) > -1  ) {
+                    if( val.servicio.inc.indexOf(jimte.currentUser.servicio) > -1 ||
+                        (val.servicio.inc == "*" && val.servicio.exc.indexOf(jimte.currentUser.servicio) == -1) ) {
+                      authorizaTabla = true;
+                    }
+                  }
+                }
+
+                if(authorizaTabla){
+                  var option = $('<option></option>').attr("value",
+                    val.api
+                  ).text(val.descripcion );
+                  $("#tabla").append(option);
+
+                }
+              }
 
             });
+
             $('#tabla').material_select();
-            //$("#tbody_reportadas").show();
-          }else {
-            jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Mesas Testigos");
+          },
+          error: function(xhr, status, error) {
+              //alert('buildHeader failed: ' + xhr.responseText + "\nWith error:\n" + error);
+              console.log('check_tablas failed: ' + xhr.responseText + "\nWith error:\n" + error);
+          },
+          error2: function(){
+            //alert("buildHeader: error with server communication");
+            console.log("check_tablas: error with server communication");
           }
-        },
-        error: function(xhr, status, error) {
-            //alert(xhr.responseText + "\nCon el error:\n" + error);
-            console.log(xhr.responseText + "\nCon el error:\n" + error);
-        }
-      })
+        })
     }
 
+// - //
     buildInnerPage2(key) {
         var self = $(this);
-        let url = this.includesPath + key + ".html";
+        var url = this.includesPath + key + ".html";
         $.ajax({
           url: url,
           dataType: "html",
@@ -860,7 +914,7 @@ eventFire(el, etype){
           contentType: false,
           context: this,
           type: 'GET',
-          success: (data) =>{
+          success: function(data) {
             $("main")[0].innerHTML = data;
 
           },
@@ -876,8 +930,8 @@ eventFire(el, etype){
     }
 
     buildButtons(prev, art, next, botonera) {
-        let brs = false;
-        let buttons = "";
+        var brs = false;
+        var buttons = "";
 
         if(prev || next ){
             buttons = "<div class='row'>" +
@@ -937,7 +991,7 @@ eventFire(el, etype){
 
         var self = $(this);
         //let url = this.articlesPath + this.currentLang + '_' + this.central;
-        let url = this.articlesPath + this.central;
+        var url = this.articlesPath + this.central;
         var buttonsTop = "";
         var buttonsBottom = "";
         var prev = "";
@@ -950,7 +1004,7 @@ eventFire(el, etype){
         console.log("buildCentral this.params.art:" + this.params.art);
 
         if(this.params.art != undefined){
-            let nomart = "article" + this.params.art.substring(0,3) + ".json";
+            var nomart = "article" + this.params.art.substring(0,3) + ".json";
             url = this.articlesPath + nomart;
 
             prev = (this.currentArt * 1 ) - 1;
@@ -988,7 +1042,7 @@ eventFire(el, etype){
           contentType: false,
           context: this,
           type: 'GET',
-          success: (data) =>{
+          success: function(data) {
             //$("#centralSpot")[0].innerHTML = data;
               var url2 = this.layoutPath + data.layout;
               $.ajax({
@@ -999,7 +1053,7 @@ eventFire(el, etype){
                 contentType: false,
                 context: this,
                 type: 'GET',
-                success: (data2) =>{
+                success: function(data2) {
                   //art_permalink
                   data2 = data2.replace(/art_permalink/g,
                           window.location.href );
@@ -1075,7 +1129,7 @@ eventFire(el, etype){
                               $("#extraDetails" )[0].innerHTML += val;
                             }
 
-                            let imagenes = "";
+                            var imagenes = "";
                             imagenes +=
                               "<img onerror='this.style.display=\"none\";' src='" +
                               qimgArtPath + "SARTWEB_" + qcurArt + "_" + key + "_1.jpg'/ style='float:left;' ><br>" +
@@ -1162,7 +1216,7 @@ eventFire(el, etype){
       console.log("changeCorp " + obj.value);
       $(".mesaForm").hide();
 
-      $("#planilla_loader").show();
+      $("#loader").show();
       //load planilla
       //$("#repomesa").show();
 
@@ -1200,7 +1254,7 @@ eventFire(el, etype){
 
     loadPlanilla(planilla) {
         var self = $(this);
-        let url = this.configPath + planilla + ".json";
+        var url = this.configPath + planilla + ".json";
         /*console.log(url);*/
 
         //call header
@@ -1212,7 +1266,7 @@ eventFire(el, etype){
           contentType: false,
           context: this,
           type: 'GET',
-          success: (data) =>{
+          success: function(data) {
             /*if (data.msg=="OK") {
               this.poblarCalendario(data.sections)
             }else {
@@ -1379,7 +1433,7 @@ eventFire(el, etype){
             $("#repomesa_content")[0].innerHTML = myPlan.join("") ;
 
             $("#repomesa").show();
-            $("#planilla_loader").hide();
+            $("#loader").hide();
             $("#repomesa_content").show();
 
 
