@@ -1,0 +1,124 @@
+* {
+  font-family: helvetica;
+}
+header {
+  margin-left:1em;
+  margin-right:1em;
+}
+header table {
+   margin-left:auto;
+   margin-right:auto;
+}
+header table, header table th, header table td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      min-width: 90%;
+      text-align: center;
+      min-height: 50px;
+}
+header h1, header h2, header h3 {
+  text-align: center;
+}
+header h1 {
+  font-size: 2em;
+  min-height: 1em;
+  padding-top: 1em;
+}
+header h2 {
+  font-size: 1.6em;
+  min-height: 0.8em;
+  padding-top: 0.8em;
+}
+header h3 {
+  font-size: 1.2em;
+  min-height: 0.6em;
+  padding-top: 0.6em;
+}
+h6 {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+h6:after {
+    display: inline-block;
+    margin: 0 0 8px 20px;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: #999;
+    width: 10px;
+}
+h6:before {
+    display: inline-block;
+    margin: 0 20px 8px 0;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: #999;
+    width: 140px;
+}
+section {
+  margin-left: 1.5em;
+  margin-right: 0.em;
+}
+/*
+ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+}
+
+ol > li {
+  display: table;
+  counter-increment: item;
+  margin-bottom: 0.6em;
+}
+
+ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;
+}
+
+li ol > li {
+  margin: 0;
+}
+
+li ol > li:before {
+  content: counters(item, ".") " ";
+}
+*/
+
+ol {
+  list-style:none
+}
+
+.encajar {
+  max-width:960px;
+}
+
+p {
+  text-align:justify;
+}
+img{
+  width:auto;
+  display:block;
+  margin:auto;
+}
+/*
+table {
+  overflow-x: auto;
+}
+*/
+table, tr, th, td { border: 1px solid; border-collapse: collapse; padding: 10px;}
+th {
+    background-color: #e6f7ff;
+    /*color: white;*/
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+@media print {
+    header, section {page-break-after: always;}
+}

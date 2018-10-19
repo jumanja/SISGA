@@ -1,0 +1,428 @@
+<section>
+  <!--
+    <h6><a name="5">5</a></h6>
+  -->
+    <h1><a name="01000">1. Descripción y Planeación del Proyecto</a></h1>
+                <h2><a name="01100">1.1 Introducción</a></h2>
+                <p>
+El presente documento recopila los aspectos fundamentales del proyecto de software realizado por estudiantes del módulo de Práctica Aplicada TDS, en el que se requiere desarrollar un software que de solución tecnológica a los requerimientos en una organización. Será complementado con diferentes anexos y entregables durante las diferentes fases.
+                </p>
+                <h2><a name="01200">1.2 Objetivos del Sistema a Desarrollar</a></h2>
+                <p>
+El software a realizar tiene como propósito principal proveer a una agrupación, en este caso la Fraternidad “Laudato Si” de la Juventud Franciscana (JUFRA), de las herramientas necesarias para realizar las siguientes acciones:
+-	Crear, modificar, revisar y ya sea eliminar o aprobar en línea las actas formales fruto de sus reuniones periódicas.
+-	Otorgar acceso solo de consulta a usuarios que no pertenecen a la fraternidad (como por ejemplo a la Junta Regional, que tiene labores de auditoría de éstas actas).
+-	Generar notificaciones via email cuando un acta cambie de estado
+Permitir buscar actas por diferentes criterios y generar un documento PDF con el contenido de un acta para ser impreso y archivado físicamente si es necesario
+                </p>
+                <h2><a name="01300">1.3 Alcance del Proyecto</a></h2>
+                <p>
+El proyecto abarca la recolección de información, análisis, diseño del software, implementación, pruebas de aceptación por parte del usuario. Este proyecto se llevará a cabo en un <b>ámbito académico por un grupo de estudiantes del Módulo de Práctica Aplicada TDS, de la Facultad de Ciencas básicas del politécnico Grancolombiano</b>. Se estipula que este proyecto debe realizarse con la meta de cumplir con los objetivos del sistema descrito en este documento, y descritos en detalle en el documento entregable llamado ERS-Documento Especificación de Requisitos de Software. Dicho documento deberá ser revisado y aprobado tanto por los representantes designados por área cliente (usuaria) del software a construir, como por los estudiantes que elaborarán el software dentro del marco de sus actividades académicas.
+La solución de software debe diseñarse, implementarse y asegurar su calidad en un tiempo máximo de 11 semanas, pues en la presentación y sustentación en la semana 14 del módulo de Práctica Aplicada, el software ya debe estar funcionando, instalado, probado y aceptado por el area usuaria.
+                </p>
+                <h3><a name="01400">1.4 Requerimientos del sistema</a></h3>
+                <p>
+A continuación se relacionan los requerimientos Funcionales, No funcionales y de Negocio del sistema a desarrollar:
+                </p>
+
+                    <h4><a name="#1410">1.4.1 Requerimientos Funcionales</a></h4>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th colspan=2>Requerimientos Funcionales</th>
+                        </tr>
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Control de acceso mediante usuario y clave.</h4></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>El código de Usuario y la contraseña (password).</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Valida que el usuario y contraseña pertenezcan a un usuario activo en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Un token de session, el servicio (rol) del usuario y el tipo de servicio (si es Administrador, Miembro de Fraternidad o Miembro Regional / Nacional).</li>
+                              <li>Un mensaje de error si no fue permitido el acceso.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Fraternidades.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos de la Fraternidad como id (si es modificación), código, nombre, estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de una Fraternidad, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de Fraternidades.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Tipos de Actas.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos del Tipo de acta como id (si es modificación), código, nombre, estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un Tipo de Acta, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de Tipos de actas.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Lugares de Reunión.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos del Lugar de la Reunión como id (si es modificación), código, nombre, ubicación (dirección o sector), estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un Lugar de Reunión, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de Lugares de reunión.</li>
+                              <li>Los Datos actualizados en la tabla de Lugares de reunión.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Etiquetas (Palabras Clave).</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos de la Etiqueta como id (si es modificación), etiqueta, estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de una Etiqueta o Palabra Clave, siempre y cuando el usuario con sesión activa NO sea Miembro de junta Regional / Local.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de Etiquetas.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Actas.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos de el Acta como id (si es modificación), número de acta, Fecha, Tipo, Tema, Lugar de Reunión, Objetivos, Asistentes, Comentarios, Lugar de la Próxima Reunión, Tareas/Compromisos, Responsables Tareas/Compromisos, estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un Acta, teniendo en cuenta las reglas de negocio descritas en la sección Requerimientos / Reglas de Negocio en este documento.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de actas.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Usuarios.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos del Usuario como id (si es modificación), código de usuario, apellidos, nombres, servicio, email, contraseña (password), estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un usuario, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de Usuarios.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Gestión de Servicios.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos del Servicio o rol como id (si es modificación), código, tipo de servicio (Adistrador, Miembro de Junta Local o Miembro de la Junta Regional / Nacional), estado.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un servicio, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados en la tabla de servicios.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Notificación automática por correo electrónico cuando un acta cambie de estado.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>El id del acta.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según los Asistentes a la reunión  que corresponde al acta, se hará una petición al servidor de correo para enviar un email a cada uno de los asistentes miembros de junta local de la Fraternidad, para notificarles que el acta ha sufrido cambio de estado. De ésta forma el usuario podrá ingresar al sistame para revisar, aprobar o hacer comentarios al acta, según sea el caso.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Email generado para cada uno de los miembros de junta asistentes a la reunión a la que corresponde el acta.</li>
+                              <li>El número de registros actualizados.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Búsqueda de actas por varios criterios, entre otros por número, fechas, estado, palabras clave.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar, Responsables del Acta.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según los datos ingresados como parámetros de búsqueda, recuperar de la base de datos las actas que coincidan con esos criterios.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Registros de las actas que coinciden con los criterios de búsqueda proporcionados.</li>
+                              <li>El número de actas encontradas.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Revisión y Aprobación de Actas.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>La identificación del acta (id) y la opción ya sea Revisar o Aprobar.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Si el acta existe y se cumplen las condiciones descritas en la sección Requerimientos / Reglas de Negocio, se marca el acta como Revisada o Aprobada (por el usuario con sesión activa), y si se diere el caso de que es el último usuario que faltaba por aprobar, se cambiaría el estado del acta a Aprobada.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los Datos actualizados del acta marcada como revisada o aprobada por el usuario con sesión activa.</li>
+                              <li>El número de actas actualizadas.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Generación de archivo PDF de un acta siempre y cuando esté Aprobada.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>La identificación del acta (id).</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Si el acta existe y se cumplen las condiciones descritas en la sección Requerimientos / Reglas de Negocio, se genera un archivo PDF descargable con los datos del acta correspondiente.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Un archivo en formato PDF con los datos del acta correspondiente.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                        <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+
+                        <tr>
+                          <th>Nombre del Requerimiento</th>
+                          <td><h4>Informe de actas clasificado por fechas, estados y días entre creación y aprobación.</h4></td>
+                        </tr>
+                        <tr>
+                          <th>Entradas</th>
+                          <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar, Responsables del Acta.</td>
+                        </tr>
+                        <tr>
+                          <th>Procesos</th>
+                          <td>Según los datos ingresados como parámetros de búsqueda, recuperar de la base de datos las actas que coincidan con esos criterios.</td>
+                        </tr>
+                        <tr>
+                          <th>Salidas</th>
+                          <td>
+                            <ul>
+                              <li>Los datos de las actas coincidentes con los parámetros del informe.</li>
+                              <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+
+                    <h4><a name="01420">1.4.2 Requerimientos No Funcionales</a></h4>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Requerimientos No Funcionales</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <th>Eficiencia</td>
+                        </tr>
+                        <tr>
+                          <td>Eficiencia</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <h4><a name="01430">1.4.3 Requerimientos y Reglas de Negocio</a></h4>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Requerimientos y Reglas de Negocio</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>- </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                <h4><a name="01500">1.5 Modelo de Ciclo de Vida</a></h4>
+                <p>
+El modelo elegido para la realización de este proyecto de desarrollo de software, es el modelo incremental, pues nos parece más acorde al tipo de proyecto y restricciones de tiempo con las que contamos para su realización. Describimos a continuación las características de este ciclo de vida junto con el diagrama de arquitectura del proyecto:
+                </p>
+
+                <p>
+El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza por que en este ciclo de vida se divide el Proyecto en porciones de producto, servicio o resultado que cumplen parámetros de completitud. Es decir, a cada una de éstas divisiones se le denomina Incremento, y cada increment constituye una parte considerada complete de ciertas funcionalidades, y cuando se realicen todos los incrementos tendremos todas las porciones completas, por lo que se tendrá el 100% del Proyecto completado. Se va produciendo entonces el entregable con nuevas funcionalidades completas según el criterio del incremento, pero solo cuando se termina el Proyecto se considera con capacidad necesaria y suficiente al entregable, es decir, hasta la iteración final.
+                </p>
+                <img class="encajar" src="img/02_diag_arq_incremental.png">
+
+                <h4><a name="01600">1.6 Asignación de Roles y funciones Principales</a></h4>
+                <h4><a name="01700">1.7 Planeación de Tiempos de Trabajo</a></h4>
+                    <h5><a name="01710">1.7.1 Convención Personaje Principal - color</a></h5>
+                    <h5><a name="01720">1.7.2 Cronograma Semanal</a></h5>
+<!--
+Debido a que desde el inicio los requerimientos y solución propuesta se acepta por parte del cliente,
+teniendo ya un tiempo y recurso definido, se decide por usar par aeste proyecto,
+el modelo secuencial en cascada. Las 5 fases en las que se divide el modelo en cascada las siguientes:
+Definición de los requisitos
+Diseño
+Implementación
+Verificación
+Instalación y mantenimiento
+-->
+</section>
