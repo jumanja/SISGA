@@ -119,6 +119,7 @@ th {
 }
 tr:nth-child(even) {background-color: #f2f2f2;}
 
+.baja { height:2px;}
 @media print {
     header, section {page-break-after: always;}
 }
