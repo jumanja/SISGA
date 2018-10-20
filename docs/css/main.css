@@ -120,6 +120,16 @@ th {
 tr:nth-child(even) {background-color: #f2f2f2;}
 
 .baja { height:2px;}
+
+.anareq { background-color: #569cd0}
+.arquit { background-color: #f17b41}
+.client { background-color: #a5a5a5}
+.qualit { background-color: #ffbe41}
+.desarr { background-color: #4174be}
+.gerent { background-color: #6bac56}
+.todos  { background-color: #cccccc}
+
+
 @media print {
     header, section {page-break-after: always;}
 }

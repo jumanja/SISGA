@@ -378,10 +378,33 @@ A continuación se relacionan los requerimientos Funcionales, No funcionales y d
 
                       <tbody>
                         <tr>
-                          <th>Eficiencia</td>
+                          <td>
+                            <b>Eficiencia</b>
+                            <ul>
+                              <li>El sistema debe ser capaz de ser utilizado por mínimo 5 usuarios concurrentes.</li>
+                              <li>Toda funcionalidad del sistema y transacción de negocio debe responder al usuario en menos de 15 segundos.</li>
+                            </ul>
+                          </td>
                         </tr>
                         <tr>
-                          <td>Eficiencia</td>
+                          <td>
+                            <b>Usabilidad</b>
+                            <ul>
+                                <li>El tiempo de aprendizaje del usuario deberá ser mínimo.</li>
+                                <li>El sistema debe proporcionar mensajes de error que sean informativos y orientados a usuario final.</li>
+                                <li>El sistema debe contar con un módulo de ayuda en línea a manera de manual de usuario.</li>
+                                <li>La interfaz del usuario debe permitir usarse mediante navegadores web para permitir el acceso a usuarios remotos.</li>
+                                <li>Se incluirá en el diseño del sistema las bases para que pueda ser (en proyectos posteriores) ampliado a otros idiomas.</li>
+                            </ul>
+                          </td>
+                          <tr>
+                            <td>
+                              <b>Seguridad</b>
+                              <ul>
+                                  <li>Los permisos de acceso al sistema podrán ser cambiados solamente por el administrador de acceso a datos.</li>
+                              </ul>
+                            </td>
+                          </tr>
                         </tr>
                       </tbody>
                     </table>
@@ -396,11 +419,55 @@ A continuación se relacionan los requerimientos Funcionales, No funcionales y d
 
                       <tbody>
                         <tr>
-                          <td>- </td>
+                          <td>
+                            <ul>
+                              <li>El sistema debe tener las bases para poder habilitar (en proyectos futuros) prestar el servicio de actas online a otras fraternidades.</li>
+                            </ul>
+                          </td>
                         </tr>
+
+                        <tr>
+                          <td>
+                            <ul>
+                              <li>El sistema solo debe permitir que las funciones de creación y modificación de actas las realice el integrante de la junta local que presta el servicio como Secretario.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <ul>
+                              <li>No se pueden añadir comentarios a las acta aprobadas.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <ul>
+                              <li>Solo pueden hacer comentarios a las actas El Presidente y Tesorero de la junta local. Por consiguiente, ni siquiera el Secretario puede adicionar comentarios.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <ul>
+                              <li>Los integrantes de Juntas Regional o Nacional que reciban acceso al sistema solo podrán tener acceso de lectura, y solo a las actas Aprobadas.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <ul>
+                              <li>Al momento de que el Secretario Crea o Modifica un Acta queda en estado En Progreso. Cuando el Secretario considera que el acta está terminada, la deja en estado Preliminar. Cuando todos los integrantes de junta local asistentes a la reunión han dado su aprobación en el sistema, el acta queda en estado Aprobada.</li>
+                            </ul>
+                          </td>
+                        </tr>
+
                       </tbody>
                     </table>
-
                 <h4><a name="01500">1.5 Modelo de Ciclo de Vida</a></h4>
                 <p>
 El modelo elegido para la realización de este proyecto de desarrollo de software, es el modelo incremental, pues nos parece más acorde al tipo de proyecto y restricciones de tiempo con las que contamos para su realización. Describimos a continuación las características de este ciclo de vida junto con el diagrama de arquitectura del proyecto:
@@ -412,8 +479,160 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                 <img class="encajar" src="img/02_diag_arq_incremental.png">
 
                 <h4><a name="01600">1.6 Asignación de Roles y funciones Principales</a></h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Roles y Funciones Principales</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Carlos Alonso</td>
+                      <td>
+                        <b>Administrador de la Configuración y Desarrollador</b><br>
+
+                        <p>Funciones como <b><i>Administrador de la Configuración</i></b>
+                          <ul>
+                            <li>Recolectar y/o analizar los requerimientos del cliente.</li>
+                            <li>Hacer gestión de los requerimientos (mantenerlos actualizados) en la documentación.</li>
+                          </ul>
+                        </p>
+
+                        <p>Funciones como <b><i>Desarrollador</i></b>
+                          <ul>
+                            <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                            <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                            <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                          </ul>
+                        </p>
+
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Sneider Durango</td>
+                      <td>
+                          <b>Analista de Requerimientos y Desarrollador</b><br>
+
+                          <p>Funciones como <b><i>Analista de Requerimientos</i></b>
+                            <ul>
+                              <li>Recolectar y/o analizar los requerimientos del cliente.</li>
+                              <li>Hacer gestión de los requerimientos (mantenerlos actualizados) en la documentación.</li>
+                            </ul>
+                          </p>
+
+                          <p>Funciones como <b><i>Desarrollador</i></b>
+                              <ul>
+                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                                <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                              </ul>
+                          </p>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Juan Manjarrés</td>
+                      <td>
+                          <b>Arquitecto y Desarrollador Líder</b><br>
+
+                          <p>Funciones como <b><i>Arquitecto</i></b>
+                            <ul>
+                              <li>Definir y Diseñar la arquitectura del software a realizar, incluyendo la creación de diagramas y componentes requeridos según el resultado de sus evaluaciones técnicas y validación de la arquitectura contros requerimientos en conjunto con el cliente.</li>
+                              <li>Orientar al desarrollador líder y al resto de desarrolladores con el objeivo de que la implementación sea coherente y cumpla con las especificaciones plasmadas en la arquitectura.</li>
+                            </ul>
+                          </p>
+
+                          <p>Funciones como <b><i>Desarrollador</i></b>
+                              <ul>
+                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                                <li>Manifestar oportunidades de mejora al Arquitecto.</li>
+                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                                <li>Proveer de documentación tanto del código realizado, como de los ajustes y de la porción correspondiente al manual de usuario.</li>
+                                <li>Definir de forma más práctica y detallada la visión de arquitectura de los componentes, pensando en lo que requieren los desarrolladores para su implementación.</li>
+                                <li>Orientar y dar soporte a los demás desarrolladores en las habilidades técnicas en las que lo requieran y se necesiten dentro del proyecto.</li>
+                              </ul>
+                          </p>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Liana Rodríguez</td>
+                      <td>
+                          <b>Gerente de Proyecto y Desarrolladora</b><br>
+
+                          <p>Funciones como <b><i>Gerente de Proyecto</i></b>
+                            <ul>
+                              <li>Garantizar que el ambiente y/o marco de trabajo para que los demás integrantes del proyecto puedan llevar a cabo sus funciones sea el adecuado.</li>
+                              <li>Aplicando el ciclo Planear, Hacer, Verificar y Actuar, debe tomar decisiones de las actividades a nivel macro del proyecto.</li>
+                              <li>Realizar seguimiento a los cronogramas, compromisos y en general a todas las fases del proyecto, para velar por su cumplimiento de forma interna y hacia el cliente.</li>
+                            </ul>
+                          </p>
+
+                          <p>Funciones como <b><i>Desarrollador</i></b>
+                              <ul>
+                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                                <li>Manifestar oportunidades de mejora al Arquitecto.</li>
+                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                                <li>Proveer de documentación tanto del código realizado, como de los ajustes y de la porción correspondiente al manual de usuario.</li>
+                                <li>Definir de forma más práctica y detallada la visión de arquitectura de los componentes, pensando en lo que requieren los desarrolladores para su implementación.</li>
+                                <li>Orientar y dar soporte a los demás desarrolladores en las habilidades técnicas en las que lo requieran y se necesiten dentro del proyecto.</li>
+                              </ul>
+                          </p>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Leonardo Zambrano</td>
+                      <td>
+                          <b>Gerente de Calidad y Desarrollador</b><br>
+
+                          <p>Funciones como <b><i>Gerente de Calidad</i></b>
+                            <ul>
+                              <li>Definir el plan y estrategias de calidad relacionadas a implementarse en el proyecto.</li>
+                              <li>Generación y/o Verificación de la documentación y artefactos entregables.</li>
+                              <li>Construcción y/o verificación de que los casos de prueba se ajustan a los necesarios para que se pueda asegurar la calidad en el software según el documento de especificaciones, y medición y organización de los resultados obtenidos de las pruebas, al igual de las sugerencias y pasos a seguir según los resultados obtenidos en dichas pruebas.</li>
+                            </ul>
+                          </p>
+
+                          <p>Funciones como <b><i>Desarrollador</i></b>
+                              <ul>
+                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                                <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                                <li>Proveer de documentación tanto del código realizado, como de los ajustes y de la porción correspondiente al manual de usuario.</li>
+                              </ul>
+                          </p>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
                 <h4><a name="01700">1.7 Planeación de Tiempos de Trabajo</a></h4>
                     <h5><a name="01710">1.7.1 Convención Personaje Principal - color</a></h5>
+                    <p>
+                      Usaremos una convención de colores para representar la persona o grupo responsable de las actividades correspondientes. A continuación relacionamos a manera de cronograma resumido, cada semana del proyecto con las actividades a realizar:
+                    </p>
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th colspan=2>Convención Responsable Principal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Analista de Requerimientos</td><td class="anareq">&nbsp;</td></tr>
+                        <tr><td>Arquitecto</td><td class="arquit">&nbsp;</td></tr>
+                        <tr><td>Cliente</td><td class="client">&nbsp;</td></tr>
+                        <tr><td>Gerente de Calidad</td><td class="qualit">&nbsp;</td></tr>
+                        <tr><td>Desarrollo y Admin. Config.</td><td class="desarr">&nbsp;</td></tr>
+                        <tr><td>Gerente del Proyecto</td><td class="gerent">&nbsp;</td></tr>
+                        <tr><td>Todos</td><td class="todos">&nbsp;</td></tr>
+                      </tbody>
+                    </table>
+                    
                     <h5><a name="01720">1.7.2 Cronograma Semanal</a></h5>
 <!--
 Debido a que desde el inicio los requerimientos y solución propuesta se acepta por parte del cliente,
