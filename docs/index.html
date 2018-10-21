@@ -68,6 +68,7 @@ Leonardo Zambrano: Gerente de Calidad y Desarrollador.
                 <ol>
                     <li><a href="#01710">1.7.1 Convención Personaje Principal - color</a></li>
                     <li><a href="#01720">1.7.2 Cronograma Semanal</a></li>
+                    <li><a href="#01730">1.7.3 Cronograma Detallado</a></li>
                 </ol>
             </ol>
 
@@ -174,18 +175,19 @@ La solución de software debe diseñarse, implementarse y asegurar su calidad en
 A continuación se relacionan los requerimientos Funcionales, No funcionales y de Negocio del sistema a desarrollar:
                 </p>
 
-                    <h4><a name="#1410">1.4.1 Requerimientos Funcionales</a></h4>
+                    <h4><a name="01410">1.4.1 Requerimientos Funcionales</a></h4>
                     <table>
                       <thead>
                         <tr>
                           <th colspan=2>Requerimientos Funcionales</th>
                         </tr>
+                      </thead>
+                      <tbody>
                         <tr>
                           <th>Nombre del Requerimiento</th>
                           <td><h4>Control de acceso mediante usuario y clave.</h4></td>
                         </tr>
-                      </thead>
-                      <tbody>
+
                         <tr>
                           <th>Entradas</th>
                           <td>El código de Usuario y la contraseña (password).</td>
@@ -625,7 +627,7 @@ El modelo elegido para la realización de este proyecto de desarrollo de softwar
                 <p>
 El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza por que en este ciclo de vida se divide el Proyecto en porciones de producto, servicio o resultado que cumplen parámetros de completitud. Es decir, a cada una de éstas divisiones se le denomina Incremento, y cada increment constituye una parte considerada complete de ciertas funcionalidades, y cuando se realicen todos los incrementos tendremos todas las porciones completas, por lo que se tendrá el 100% del Proyecto completado. Se va produciendo entonces el entregable con nuevas funcionalidades completas según el criterio del incremento, pero solo cuando se termina el Proyecto se considera con capacidad necesaria y suficiente al entregable, es decir, hasta la iteración final.
                 </p>
-                <img class="encajar" src="img/02_diag_arq_incremental.png">
+                <img class="encajarImg" src="img/02_diag_arq_incremental.png">
 
                 <h4><a name="01600">1.6 Asignación de Roles y funciones Principales</a></h4>
                 <table>
@@ -637,7 +639,7 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Carlos Alonso</td>
+                      <td><b>Carlos Alonso</b></td>
                       <td>
                         <b>Administrador de la Configuración y Desarrollador</b><br>
 
@@ -660,7 +662,7 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                     </tr>
 
                     <tr>
-                      <td>Sneider Durango</td>
+                      <td><b>Sneider Durango</b></td>
                       <td>
                           <b>Analista de Requerimientos y Desarrollador</b><br>
 
@@ -682,7 +684,7 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                     </tr>
 
                     <tr>
-                      <td>Juan Manjarrés</td>
+                      <td><b>Juan Manjarrés</b></td>
                       <td>
                           <b>Arquitecto y Desarrollador Líder</b><br>
 
@@ -707,7 +709,7 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                     </tr>
 
                     <tr>
-                      <td>Liana Rodríguez</td>
+                      <td><b>Liana Rodríguez</b></td>
                       <td>
                           <b>Gerente de Proyecto y Desarrolladora</b><br>
 
@@ -719,7 +721,7 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                             </ul>
                           </p>
 
-                          <p>Funciones como <b><i>Desarrollador</i></b>
+                          <p>Funciones como <b><i>Desarrolladora</i></b>
                               <ul>
                                 <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
                                 <li>Manifestar oportunidades de mejora al Arquitecto.</li>
@@ -733,7 +735,7 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                     </tr>
 
                     <tr>
-                      <td>Leonardo Zambrano</td>
+                      <td><b>Leonardo Zambrano</b></td>
                       <td>
                           <b>Gerente de Calidad y Desarrollador</b><br>
 
@@ -772,26 +774,781 @@ El Ciclo de vida incremental se relaciona con métodos ágiles y se caracteriza 
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td>Analista de Requerimientos</td><td class="anareq">&nbsp;</td></tr>
-                        <tr><td>Arquitecto</td><td class="arquit">&nbsp;</td></tr>
-                        <tr><td>Cliente</td><td class="client">&nbsp;</td></tr>
-                        <tr><td>Gerente de Calidad</td><td class="qualit">&nbsp;</td></tr>
-                        <tr><td>Desarrollo y Admin. Config.</td><td class="desarr">&nbsp;</td></tr>
-                        <tr><td>Gerente del Proyecto</td><td class="gerent">&nbsp;</td></tr>
-                        <tr><td>Todos</td><td class="todos">&nbsp;</td></tr>
+                        <tr><td>Analista de Requerimientos<br>(Sneider Durango)</td><td class="anareq">AR</td></tr>
+                        <tr><td>Arquitecto de software<br>(Juan Manjarrés)</td><td class="arquit">AS</td></tr>
+                        <tr><td>Cliente<br>(JUFRA)</td><td class="client">CL</td></tr>
+                        <tr><td>Gerente de Calidad<br>(Leonardo Zambrano)</td><td class="qualit">QA</td></tr>
+                        <tr><td>Desarrollo y Admin. Config.<br>(Todo el Grupo)</td><td class="desarr">DV</td></tr>
+                        <tr><td>Gerente del Proyecto<br>(Liana Rodríguez)</td><td class="gerent">PM</td></tr>
+                        <!--<tr><td>Todos<br>(Grupo  + JUFRA)</td><td class="todos">ALL</td></tr>-->
                       </tbody>
                     </table>
+
                     <h5><a name="01720">1.7.2 Cronograma Semanal</a></h5>
-<!--
-Debido a que desde el inicio los requerimientos y solución propuesta se acepta por parte del cliente,
-teniendo ya un tiempo y recurso definido, se decide por usar par aeste proyecto,
-el modelo secuencial en cascada. Las 5 fases en las que se divide el modelo en cascada las siguientes:
-Definición de los requisitos
-Diseño
-Implementación
-Verificación
-Instalación y mantenimiento
--->
+
+                    <table class="encajarTabla">
+                      <thead>
+                        <tr>
+                          <td>2018</td>
+                          <th colspan=4>Septiembre</th>
+                          <th colspan=5>Octubre</th>
+                          <th colspan=4>Noviembre</th>
+                        </tr>
+                        <tr>
+                          <th>Fechas Inicio - Fin</th>
+                          <td>3 - 9</td>
+                          <td>10 - 16</td>
+                          <td>17 - 23</td>
+                          <td>24 - 30</td>
+                          <td>1 - 7</td>
+                          <td>8 - 14</td>
+                          <td>15 - 21</td>
+                          <td>22 - 28</td>
+                          <td>29 - Nov 4</td>
+                          <td>5 - 11</td>
+                          <td>12 - 18</td>
+                          <td>19 - 25</td>
+                          <td>26 - Dic 2</td>
+                        </tr>
+                        <tr>
+                          <th>Actvidad / Semana Nro</th>
+                          <td>Sem<br>1</td>
+                          <td>Sem<br>2</td>
+                          <td>Sem<br>3</td>
+                          <td>Sem<br>4</td>
+                          <td>Sem<br>5</td>
+                          <td>Sem<br>6</td>
+                          <td>Sem<br>7</td>
+                          <td>Sem<br>8</td>
+                          <td>Sem<br>9</td>
+                          <td>Sem<br>10</td>
+                          <td>Sem<br>11</td>
+                          <td>Sem<br>12</td>
+                          <td>Sem<br>13</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Recolección de Requerimientos</td>
+                          <td></td><td></td><td></td>
+                          <td class="anareq">AR</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>ERS-Documento Especificaciones</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td class="anareq">AR</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Diseño Arquitectura</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td class="arquit">AS</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aprobación ERS y Arquitectura</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td class="arquit">AS</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Definición Plan de Calidad</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td class="qualit">QA</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><pre>
+Desarrollo Inicial
+===================
+REQ-001: Control de Acceso Usuario y Clave.
+</pre></td>
+                          <td></td><td></td><td></td>
+                          <td></td><td class="desarr">DV</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td class="qualit">QA</td>
+                          <td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr>
+                          <td><pre>
+Desarrollo Incremento 1
+REQ-002: Gestión Fraternidades.
+REQ-003: Gestión Tipos de Acta.
+REQ-004: Gestión Lugares de Reunión.
+</pre></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td class="desarr">DV</td>
+                        <td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
+                        <td></td>
+                        </tr>
+
+                        <tr><td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td class="qualit">QA</td>
+                          <td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr><td><pre>
+Desarrollo Incremento 2
+REQ-005: Gestión de Etiquetas.
+REQ-007: Gestión de Usuarios.
+REQ-008: Gestión de Servicios.
+</pre></td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td class="desarr">DV</td>
+                          <td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr><td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td><td class="qualit">QA</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr><td><pre>
+Desarrollo Incremento 3
+REQ-006: Gestión de Actas.
+</pre></td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td><td class="desarr">DV</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr><td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td><td></td><td class="qualit">QA</td>
+                          <td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr><td><pre>
+Desarrollo Incremento 4
+REQ-10: Búsqueda de Actas.
+REQ-011: Revisión y Aprobación Actas.
+</pre></td>
+                          <td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td><td></td><td class="desarr">DV</td>
+                          <td></td><td></td><td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr><td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td class="qualit">QA</td>
+                          <td></td><td></td><td></td>
+                        </tr>
+
+                        <tr><td><pre>
+Desarrollo Incremento Final
+REQ-012: Generación PDF del acta.
+REQ-013: Informe de Actas.
+REQ-009: Notificación por Email .
+</pre></td>
+                        <td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
+                        <td></td><td class="desarr">DV</td>
+                        <td></td><td></td><td></td>
+                        </tr>
+
+
+                        <tr><td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td class="qualit">QA</td>
+                          <td></td><td></td>
+                        </tr>
+
+                        <tr><td>Entrega Final</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td>
+                          <td class="desarr">DV</td>
+                          <td class="desarr">DV</td>
+                        </tr>
+
+                        <tr><td>Pruebas Aceptación Cliente</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td>
+                          <td class="client">CL</td>
+                          <td class="client">CL</td>
+                        </tr>
+
+                        <tr><td>Aplicación Plan de Calidad</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td>
+                          <td class="qualit">QA</td>
+                          <td class="qualit">QA</td>
+                        </tr>
+
+                        <tr><td>Gestión del Proyecto</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                          <td class="gerent">PM</td>
+                        </tr>
+
+                        <tr><td>PostMórtem</td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td><td></td>
+                          <td></td><td></td><td></td>
+                          <td></td>
+                          <td class="desarr">DV</td>
+
+                      </tbody>
+                    </table>
+
+                    <h5><a name="01730">1.7.3 Cronograma Detallado</a></h5>
+
+                    <table class="encajarTabla">
+                      <thead>
+                        <tr>
+                          <th colspan="2">Recursos</th>
+                          <tr><th>Nombre</th><th>Convención</th></tr>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Carlos Alonso</td><td>CA</td></tr>
+                        <tr><td>Sneider Durango</td><td>SD</td></tr>
+                        <tr><td>Juan Manjarrés</td><td>JM</td></tr>
+                        <tr><td>Liana Ramírez</td><td>LR</td></tr>
+                        <tr><td>Leonardo Zambrano</td><td>LZ</td></tr>
+                        <tr><td>Cliente (Fraternidad)</td><td>CL</td></tr>
+                      </tbody>
+                    </table>
+                    <br><br>
+                    <table class="encajarTabla">
+                      <thead>
+                        <tr>
+                          <th colspan="5"></th>
+                          <th colspan="13">Tarea para la Semana</th>
+                        </tr>
+                        <tr>
+                          <th>Tarea</th>
+                          <th>Horas</th>
+                          <th>Recursos</th>
+                          <th>Inicio</th>
+                          <th>Fin</th>
+                          <th>1</th>
+                          <th>2</th>
+                          <th>3</th>
+                          <th>4</th>
+                          <th>5</th>
+                          <th>6</th>
+                          <th>7</th>
+                          <th>8</th>
+                          <th>9</th>
+                          <th>10</th>
+                          <th>11</th>
+                          <th>12</th>
+                          <th>13</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Recolección de Requerimientos</td>
+                          <td>6</td>
+                          <td>SD-JM</td>
+                          <td>24/09/2018</td>
+                          <td>30/09/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="anareq"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>ERS-Documento Especificaciones</td>
+                          <td>15</td>
+                          <td>SD-JM</td>
+                          <td>01/10/2018</td>
+                          <td>07/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="anareq"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Diseño Arquitectura</td>
+                          <td>10</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>01/10/2018</td>
+                          <td>07/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="arquit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aprobación ERS y Arquitectura</td>
+                          <td>6</td>
+                          <td>CL</td>
+                          <td>01/10/2018</td>
+                          <td>07/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="arquit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Definición Plan de Calidad</td>
+                          <td>8</td>
+                          <td>LZ-LR</td>
+                          <td>01/10/2018</td>
+                          <td>07/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desarrollo Inicial</td>
+                          <td>15</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>01/10/2018</td>
+                          <td>07/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>10</td>
+                          <td>LZ-CA</td>
+                          <td>08/10/2018</td>
+                          <td>14/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desarrollo Incremento 1</td>
+                          <td>15</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>08/10/2018</td>
+                          <td>14/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>10</td>
+                          <td>LZ-CA</td>
+                          <td>15/10/2018</td>
+                          <td>21/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desarrollo Incremento 2</td>
+                          <td>15</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>15/10/2018</td>
+                          <td>21/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>10</td>
+                          <td>LZ-CA</td>
+                          <td>22/10/2018</td>
+                          <td>28/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desarrollo Incremento 3</td>
+                          <td>10</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>22/10/2018</td>
+                          <td>28/10/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>10</td>
+                          <td>LZ-CA</td>
+                          <td>29/10/2018</td>
+                          <td>04/11/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desarrollo Incremento 4</td>
+                          <td>15</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>29/10/2018</td>
+                          <td>04/11/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>10</td>
+                          <td>LZ-CA</td>
+                          <td>05/11/2018</td>
+                          <td>11/11/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desarrollo Incremento Final</td>
+                          <td>18</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>05/11/2018</td>
+                          <td>11/11/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>12</td>
+                          <td>LZ-CA</td>
+                          <td>12/11/2018</td>
+                          <td>18/11/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Entrega Final</td>
+                          <td>10</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>19/11/2018</td>
+                          <td>02/12/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                          <td class="desarr"></td>
+                        </tr>
+                        <tr>
+                          <td>Pruebas Aceptación Cliente</td>
+                          <td>12</td>
+                          <td>CL</td>
+                          <td>19/11/2018</td>
+                          <td>02/12/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="client"></td>
+                          <td class="client"></td>
+                        </tr>
+                        <tr>
+                          <td>Aplicación Plan de Calidad</td>
+                          <td>10</td>
+                          <td>LZ-CA</td>
+                          <td>19/11/2018</td>
+                          <td>02/12/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="qualit"></td>
+                          <td class="qualit"></td>
+                        </tr>
+                        <tr>
+                          <td>Gestión del Proyecto</td>
+                          <td>52</td>
+                          <td>LR</td>
+                          <td>03/09/2018</td>
+                          <td>02/12/2018</td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                          <td class="gerent"></td>
+                        </tr>
+                        <tr>
+                          <td>PostMórtem</td>
+                          <td>6</td>
+                          <td>JM-SD-LR-CA-LA</td>
+                          <td>26/11/2018</td>
+                          <td>02/12/2018</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="desarr"></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td><b>Total</b></td>
+                          <td>273</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
 </section>
 
 </body>

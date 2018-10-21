@@ -95,8 +95,12 @@ ol {
   list-style:none
 }
 
-.encajar {
-  max-width:960px;
+.encajarImg {
+  max-width:1000px;
+}
+
+.encajarTabla {
+  max-width:840px;
 }
 
 p {
@@ -121,13 +125,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 .baja { height:2px;}
 
-.anareq { background-color: #569cd0}
+.anareq { content: "AR"; background-color: #569cd0}
 .arquit { background-color: #f17b41}
-.client { background-color: #a5a5a5}
+.client { background-color: #cc00cc}
 .qualit { background-color: #ffbe41}
 .desarr { background-color: #4174be}
 .gerent { background-color: #6bac56}
 .todos  { background-color: #cccccc}
+.w273   { background-color: #cccccc; width: 273px}
 
 
 @media print {
