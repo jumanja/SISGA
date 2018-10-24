@@ -23,7 +23,7 @@ El proyecto abarca la recolección de información, análisis, diseño del softw
 La solución de software debe diseñarse, implementarse y asegurar su calidad en un tiempo máximo de 14 semanas, pues debe coincidir con la presentación de 15 semanas del módulo de Práctica Aplicada.
 
 # Fases del desarrollo
-![Arquitectura del Proyecto](docs/img/02_diag_arq_incremental.png)
+![Arquitectura del Proyecto](http://jumanja.net/SISGA/docs/img/02_diag_arq_incremental.png)
 
 ## Desarrollo Inicial (Terminada en Oct 12/2018)
 - REQ-001: Control de Acceso con Usuario y Clave.
