@@ -1,2 +1,2 @@
-id=1&token=$2y$10$jAWjkeNWdmNr7WIWmeG6IeCTeD7O5JFa6F0BVMDhHmKjoyJipB/Ha&servicio=A&tiposerv=A&
-frat=demo&usuario=jmanjarres&apellidos=Manjarres&nombres=Juan&password=jmanjarres&email=jumanja@gmail.com&servicio=A&estado=A
+id=1&token=$2y$10$RvFjBZwFEV5vZHX8.3U9bOt4wRBGjC2GDyNXp6.aUoFIIQLcxaBxm&frat=demo&servicio=A&tiposerv=A&
+frat=otra&usuario=jmanjarres&apellidos=Manjarres&nombres=Juan&password=jmanjarres&email=jumanja@gmail.com&servicio=A&estado=A

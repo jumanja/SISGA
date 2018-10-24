@@ -18,6 +18,7 @@ require 'app/routes/users_api.php';   //usuarios
 
 require 'app/routes/frats_api.php';   //fraternidades
 require 'app/routes/places_api.php';  //lugares de reunión
+require 'app/routes/servs_api.php';   //servicios
 require 'app/routes/tags_api.php';    //etiquetas
 require 'app/routes/types_api.php';   //tiposacta
 

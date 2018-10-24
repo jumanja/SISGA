@@ -1,48 +1,51 @@
 <?php
 //Store all sqls with a code to be used in json, xml and xslt versions
-function getSQL($name, $lang) {
-
+function getSQL($name, $app) {
+    $lang = $app->request()->params('lang');
+    $frat = $app->request()->params('frat');
     $lang = strtolower(substr($lang, 0, 2));
 
     $SQLs  = array(
-            "frats_act"   => "SELECT a.frat, a.id, a.nombre, a.estado, a.logo, a.direccion, a.ciudad, a.email " .
-                             "FROM fraternidades a WHERE a.estado = 'A' ",
+            "frats_act"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email " .
+                             "FROM fraternidades WHERE estado = 'A' AND frat = '" . $frat . "'",
             "frats_add"   => "INSERT INTO fraternidades (frat, id, nombre, estado, logo, direccion, ciudad, email) " .
                              "VALUES (:frat, :id, :nombre, :estado, :logo, :direccion, :ciudad, :email)",
             "frats_all"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email FROM fraternidades",
             "frats_count" => "SELECT count(1) as count FROM fraternidades",
 
-            "places_act"  => "SELECT lugar, id, estado FROM lugares WHERE estado = 'A' ",
-            "places_add"  => "INSERT INTO lugares (lugar, id, estado) " .
-                             "VALUES (:lugar, :id, :estado)",
-            "places_count"=> "SELECT count(1) as count FROM lugares",
-            "places_all"  => "SELECT lugar, id, estado FROM lugares",
+            "places_act"  => "SELECT frat, lugar, id, estado FROM lugares WHERE estado = 'A' AND frat = '" . $frat . "'",
+            "places_add"  => "INSERT INTO lugares (frat, lugar, id, estado) " .
+                             "VALUES (:frat, :lugar, :id, :estado)",
+            "places_count"=> "SELECT count(1) as count FROM lugares WHERE frat = '" . $frat . "'",
+            "places_all"  => "SELECT frat, lugar, id, estado FROM lugares WHERE frat = '" . $frat . "'",
 
             "servs_add"   => "INSERT INTO servicios (servicio, tiposerv, id, nombre, estado) " .
                              "VALUES (:servicio, :tiposerv, :id, :nombre, :estado)",
             "servs_count" => "SELECT count(1) as count FROM servicios",
+            "servs_act"   => "SELECT servicio, tiposerv, id, nombre, estado FROM servicios WHERE estado = 'A'",
+            "servs_all"   => "SELECT servicio, tiposerv, id, nombre, estado FROM servicios",
 
             "token_check" => "SELECT tokenexpira FROM usuarios WHERE token = :token AND id = :id ",
 
-            "tags_act"  => "SELECT etiqueta, id, estado FROM etiquetas WHERE estado = 'A' ",
-            "tags_add"  => "INSERT INTO etiquetas (etiqueta, id, estado) " .
-                             "VALUES (:etiqueta, :id, :estado)",
-            "tags_count"=> "SELECT count(1) as count FROM etiquetas",
-            "tags_all"  => "SELECT etiqueta, id, estado FROM etiquetas",
+            "tags_act"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE estado = 'A' WHERE frat = '" . $frat . "'",
+            "tags_add"  => "INSERT INTO etiquetas (frat, etiqueta, id, estado) " .
+                             "VALUES (:frat, :etiqueta, :id, :estado)",
+            "tags_count"=> "SELECT count(1) as count FROM etiquetas WHERE frat = '" . $frat . "'",
+            "tags_all"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE frat = '" . $frat . "'",
 
-            "types_act"   => "SELECT a.tipo, a.id, a.nombre, a.estado " .
-                             "FROM tipoactas a WHERE a.estado = 'A' ",
-            "types_all"   => "SELECT tipo, id, nombre, estado FROM tipoactas",
+            "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
+                             "FROM tipoactas a WHERE estado = 'A' WHERE frat = '" . $frat . "'",
+            "types_all"   => "SELECT tipo, id, nombre, estado FROM tipoactas WHERE frat = '" . $frat . "'",
             "types_add"   => "INSERT INTO tipoactas (tipo, id, nombre, estado) " .
                              "VALUES (:tipo, :id, :nombre, :estado)",
-            "types_count" => "SELECT count(1) as count FROM tipoactas",
+            "types_count" => "SELECT count(1) as count FROM tipoactas AND frat = '" . $frat . "'",
 
             "users_act"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, b.tiposerv " .
                              "FROM usuarios a, servicios b WHERE a.estado = 'A' and a.servicio = b.servicio",
-            "users_all"   => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio, estado FROM usuarios",
+            "users_all"   => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio, estado FROM usuarios WHERE frat = '" . $frat . "'",
             "users_add"   => "INSERT INTO usuarios (frat, id, usuario, apellidos, nombres, password, email, servicio, estado) " .
                              "VALUES (:frat, :id, :usuario, :apellidos, :nombres, :password, :email, :servicio, :estado)",
-            "users_count" => "SELECT count(1) as count FROM usuarios",
+            "users_count" => "SELECT count(1) as count FROM usuarios AND frat = '" . $frat . "'",
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "" => "");
     //echo "sqls name : " . $name . " / " .  $SQLs[$name];

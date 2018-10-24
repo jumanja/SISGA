@@ -91,12 +91,13 @@ $app->post('/login', function () use($app) {
 				$resultText = str_replace("myToken", $myToken, $resultText);
 
 				$sqlCode = 'users_tokenupdate';
-				$query = getSQL($sqlCode, $app->request()->params('lang'));
+				$query = getSQL($sqlCode, $app);
 				$rows = getPDOPrepared($query, $prepParams);
 				if($app->request()->params('format')) {
 					normalheader($app, $app->request()->params('format'), '');
 					$resultText = "id=" . $json[0]['id'] .
 												"&token=" . $myToken .
+												"&frat=" . $json[0]['frat'] .
 												"&servicio=" . $json[0]['servicio'] .
 												"&tiposerv=" . $json[0]['tiposerv'] ;
 				} else {

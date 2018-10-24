@@ -1,185 +1,222 @@
-CREATE SCHEMA `sisga` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `sisga` DEFAULT CHARACTER SET utf8 ;
+USE `sisga` ;
 
-CREATE TABLE IF NOT EXISTS `actas` (
-  `frat` VARCHAR(15) NOT NULL ,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  `numero` int(11) NOT NULL,
+-- -----------------------------------------------------
+-- Table `sisga`.`fraternidades`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`fraternidades` (
+  `frat` VARCHAR(15) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` TEXT NOT NULL,
+  `estado` CHAR(1) NOT NULL,
+  `logo` VARCHAR(45) NOT NULL,
+  `direccion` VARCHAR(45) NOT NULL,
+  `ciudad` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `fraterni_UNIQUE` (`frat` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`lugares`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`lugares` (
+  `frat` VARCHAR(15) NOT NULL,
+  `lugar` VARCHAR(45) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `lugares_UNIQUE` (`lugar` ASC),
+  INDEX `fk_frats_idx` (`frat` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`tipoactas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`tipoactas` (
+  `frat` VARCHAR(15) NOT NULL,
+  `tipo` VARCHAR(11) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `tipoactas_UNIQUE` (`tipo` ASC),
+  INDEX `fk_frat_idx` (`frat` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`actas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`actas` (
+  `frat` VARCHAR(15) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  `numero` INT(11) NOT NULL,
   `fecha` DATE NOT NULL,
   `tipoacta` VARCHAR(10) NOT NULL,
-  `tema` text NOT NULL,
-  `lugar`VARCHAR(30) NOT NULL,
-  `objetivos` text NOT NULL,
+  `tema` TEXT NOT NULL,
+  `lugar` VARCHAR(30) NOT NULL,
+  `objetivos` TEXT NOT NULL,
   `responsable` VARCHAR(25) NOT NULL,
-  `conclusiones` text NOT NULL,
-  `fechasig` DATE NOT NULL ,
-  `lugarsig` VARCHAR(30) NOT NULL ,
-  `email` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `conclusiones` TEXT NOT NULL,
+  `fechasig` DATE NOT NULL,
+  `lugarsig` VARCHAR(30) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `numero_UNIQUE` (`frat` ASC, `numero` ASC),
+  INDEX `fx_lug_idx` (`lugar` ASC),
+  INDEX `fx_tipacta_idx` (`tipoacta` ASC),
+  INDEX `fx_lug2_idx` (`lugarsig` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `asistentes` (
-  `idacta` int(11) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `asistente` VARCHAR(25) NOT NULL,
-  `estado` char(1) NOT NULL,
+
+-- -----------------------------------------------------
+-- Table `sisga`.`servicios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`servicios` (
   `servicio` VARCHAR(10) NOT NULL,
   `tiposerv` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` TEXT NOT NULL,
+  `estado` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `servicios_UNIQUE` (`servicio` ASC))
+ENGINE = MyISAM
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `comentarios` (
-  `idacta` int(11) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `asistente` VARCHAR(25) NOT NULL,
-  `estado` char(1) NOT NULL,
-  `text` text NOT NULL,
-  `fechahora` DATETIME NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `etiquetas` (
-  `etiqueta` VARCHAR(45) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `etiquetasacta` (
-  `idacta` int(11) NOT NULL,
-  `etiqueta` VARCHAR(45) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `fraternidades` (
+-- -----------------------------------------------------
+-- Table `sisga`.`usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`usuarios` (
   `frat` VARCHAR(15) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` text NOT NULL,
-  `estado` char(1) NOT NULL,
-  `logo` VARCHAR(45) NOT NULL ,
-  `direccion` VARCHAR(45) NOT NULL ,
-  `ciudad` VARCHAR(45) NOT NULL ,
-  `email` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `usuario` VARCHAR(25) NOT NULL,
+  `apellidos` TEXT NOT NULL,
+  `nombres` TEXT NOT NULL,
+  `password` TEXT NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `servicio` VARCHAR(10) NOT NULL,
+  `token` VARCHAR(100) NOT NULL,
+  `tokenexpira` DATETIME NOT NULL,
+  `estado` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC),
+  INDEX `fk_frats` (`frat` ASC),
+  INDEX `fk_serv_idx` (`servicio` ASC))
+ENGINE = MyISAM
+AUTO_INCREMENT = 12
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `lugares` (
-  `lugar` VARCHAR(45) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `notificaciones` (
-  `idacta` int(11) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  `estadoacta` char(1) NOT NULL,
+-- -----------------------------------------------------
+-- Table `sisga`.`asistentes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`asistentes` (
+  `idacta` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `asistente` VARCHAR(25) NOT NULL,
+  `estado` CHAR(1) NOT NULL,
+  `servicio` VARCHAR(10) NOT NULL,
+  `tiposerv` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `asistente_UNIQUE` (`idacta` ASC, `asistente` ASC),
+  INDEX `fx_serv_idx` (`servicio` ASC),
+  INDEX `fx_asis_idx` (`asistente` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`comentarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`comentarios` (
+  `idacta` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `asistente` VARCHAR(25) NOT NULL,
+  `estado` CHAR(1) NOT NULL,
+  `text` TEXT NOT NULL,
+  `fechahora` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `asistente_UNIQUE` (`idacta` ASC, `asistente` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`etiquetas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`etiquetas` (
+  `frat` VARCHAR(15) NOT NULL,
+  `etiqueta` VARCHAR(45) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `etiq_UNIQUE` (`etiqueta` ASC),
+  INDEX `fx_frat_idx` (`frat` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`etiquetasacta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`etiquetasacta` (
+  `idacta` INT(11) NOT NULL,
+  `etiqueta` VARCHAR(45) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `etiqacta_UNIQUE` (`idacta` ASC, `etiqueta` ASC),
+  INDEX `fx_etiq_idx` (`etiqueta` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `sisga`.`notificaciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`notificaciones` (
+  `idacta` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  `estadoacta` CHAR(1) NOT NULL,
   `origen` VARCHAR(15) NOT NULL,
   `destino` VARCHAR(15) NOT NULL,
   `fechahora` DATETIME NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `lugares_UNIQUE` (`idacta` ASC, `fechahora` ASC),
+  INDEX `fx_origen_idx` (`origen` ASC),
+  INDEX `fx_destino_idx` (`destino` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `servicios` (
-  `servicio`  VARCHAR(10) NOT NULL,
-  `tiposerv` VARCHAR(15) NOT NULL ,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` text NOT NULL,
-  `estado` char(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `tareas` (
-  `idacta` int(11) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  `text` text NOT NULL,
+-- -----------------------------------------------------
+-- Table `sisga`.`tareas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sisga`.`tareas` (
+  `idacta` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `estado` CHAR(1) NOT NULL,
+  `text` TEXT NOT NULL,
   `usuario` VARCHAR(25) NOT NULL,
   `creada` DATETIME NOT NULL,
   `inicioplan` DATE NOT NULL,
   `finalplan` DATE NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `tipoactas` (
-  `tipo` VARCHAR(11) NOT NULL,
-  `nombre` VARCHAR(45) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `estado` char(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `frat` VARCHAR(15) NOT NULL ,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario` VARCHAR(25) NOT NULL,
-  `apellidos` text NOT NULL,
-  `nombres` text NOT NULL,
-  `password` text NOT NULL,
-  `email` VARCHAR(100) NOT NULL ,
-  `servicio`  VARCHAR(10) NOT NULL,
-  `token` VARCHAR(100) NOT NULL,
-  `tokenexpira` DATETIME NOT NULL,
-  `estado` char(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-/*
-Indexes and Constraints
-*/
-/* fraternidades */
-ALTER TABLE `sisga`.`fraternidades`
-ADD UNIQUE INDEX `frat_UNIQUE` (`frat` ASC);
-
-/* servicios */
-ALTER TABLE `sisga`.`servicios`
-ADD UNIQUE INDEX `servicios_UNIQUE` (`servicio` ASC);
-
-/* usuarios */
-ALTER TABLE `sisga`.`usuarios`
-ADD UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC);
-
-ALTER TABLE `sisga`.`usuarios`
-ADD FOREIGN KEY fk_fraternidades(frat)
-REFERENCES fraternidades(frat)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
-
-ALTER TABLE `sisga`.`usuarios`
-ADD FOREIGN KEY fk_servicios(servicio)
-REFERENCES servicios(servicio)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
-
-ALTER TABLE `sisga`.`actas`
-ADD UNIQUE INDEX `numero_UNIQUE` (`frat` ASC, `numero` ASC);
-
-ALTER TABLE `sisga`.`asistentes`
-ADD UNIQUE INDEX `asistente_UNIQUE` (`idacta` ASC, `asistente` ASC);
-
-ALTER TABLE `sisga`.`comentarios`
-ADD UNIQUE INDEX `asistente_UNIQUE` (`idacta` ASC, `asistente` ASC);
-
-ALTER TABLE `sisga`.`etiquetasacta`
-ADD UNIQUE INDEX `etiqacta_UNIQUE` (`idacta` ASC, `etiqueta` ASC);
-
-ALTER TABLE `sisga`.`fraternidades`
-ADD UNIQUE INDEX `fraterni_UNIQUE` (`frat` ASC);
-
-ALTER TABLE `sisga`.`lugares`
-ADD UNIQUE INDEX `lugares_UNIQUE` (`lugar` ASC);
-
-ALTER TABLE `sisga`.`notificaciones`
-ADD UNIQUE INDEX `lugares_UNIQUE` (`idacta` ASC, `fechahora` ASC);
-
-ALTER TABLE `sisga`.`tareas`
-ADD UNIQUE INDEX `tareas_UNIQUE` (`idacta` ASC, `creada` ASC);
-
-ALTER TABLE `sisga`.`tipoactas`
-ADD UNIQUE INDEX `tipoactas_UNIQUE` (`tipo` ASC);
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `tareas_UNIQUE` (`idacta` ASC, `creada` ASC),
+  INDEX `fx_usuari_idx` (`usuario` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
 
 /*
 Poblar servicios, se requiere después de cerar la Bd, o de no, no deja entar

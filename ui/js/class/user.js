@@ -1,7 +1,7 @@
 class User {
   constructor(obj) {
     // Poblar la clase
-    this._frat = obj.id;
+    this._frat = obj.frat;
     this._id = obj.id;
     this._usuario = obj.usuario;
     this._apellidos = obj.apellidos;

@@ -268,7 +268,7 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 										':estado'     => $app->request()->params('estado')
 							);
 
-							$query = getSQL($sqlCode, $app->request()->params('lang'));
+							$query = getSQL($sqlCode, $app);
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
 
@@ -353,7 +353,7 @@ $app->put('/users/token', function () use($app) {
 								':id'          => $app->request()->params('id')
 		      );
 
-		      $query = getSQL($sqlCode, $app->request()->params('lang'));
+		      $query = getSQL($sqlCode, $app);
 		      $rows = getPDOPrepared($query, $prepParams);
 		      $resultText = '[{"rows":"'.$rows.'",' .
 												'"token":"'.$myToken.'",' .

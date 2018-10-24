@@ -1,1 +1,1 @@
-frat=demo&usuario=jmanjarres&apellidos=Manjarres&nombres=Juan&password=jmanjarres&email=jumanja@gmail.com&servicio=A&estado=A
+frat=otra&usuario=jmanjarres&apellidos=Manjarres&nombres=Juan&password=jmanjarres&email=jumanja@gmail.com&servicio=A&estado=A

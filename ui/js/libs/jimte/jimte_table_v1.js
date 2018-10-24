@@ -45,6 +45,7 @@ class JimteTab {
                               "?id=" + jimte.currentUser.id +
                               "&tiposerv=" + jimte.currentUser.tiposerv +
                               "&servicio=" + jimte.currentUser.servicio +
+                              "&frat=" + jimte.currentUser.frat +
                               "&table=" + this.table +
                               "&token=" + jimte.token,
       dataType: "json",

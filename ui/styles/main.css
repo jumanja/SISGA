@@ -249,9 +249,11 @@
 }
 
 .flex-outer li input:not([type='checkbox']),
-.flex-outer li textarea {
-  padding: 15px;
+.flex-outer li textarea,
+select.browser-default {
+  padding: 4px;
   border: none;
+  height: 2rem;
 }
 
 .flex-outer li button {

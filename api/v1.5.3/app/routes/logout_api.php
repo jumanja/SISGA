@@ -49,7 +49,7 @@ $app->put('/logout', function () use($app) {
 								':id'          => $app->request()->params('id')
 		      );
 
-		      $query = getSQL($sqlCode, $app->request()->params('lang'));
+		      $query = getSQL($sqlCode, $app);
 		      $rows = getPDOPrepared($query, $prepParams);
 		      $resultText = '[{"rows":"'.$rows.'",' .
 												'"token":"",' .

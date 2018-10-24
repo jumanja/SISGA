@@ -259,13 +259,14 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 
 							$newId = null;
 							$prepParams = array(
+										':frat'       => $app->request()->params('frat'),
 										':tipo'       => $app->request()->params('tipo'),
 										':id'         => $newId,
 										':nombre'    	=> $app->request()->params('nombre'),
 										':estado'     => $app->request()->params('estado')
 							);
 
-							$query = getSQL($sqlCode, $app->request()->params('lang'));
+							$query = getSQL($sqlCode, $app);
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
 

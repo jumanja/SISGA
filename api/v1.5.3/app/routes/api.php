@@ -13,7 +13,7 @@ function parseQueryToPDO($app, $sqlCode, $style, $filter = '') {
     $sort = $app->request()->params('sort');
     $lang = $app->request()->params('lang');
 
-    $query = parseParams($sqlCode, $flds, $sort, $max, $filter, $lang);
+    $query = parseParams($sqlCode, $flds, $sort, $max, $filter, $app);
 
 		//echo "1:" . $query;
 		return $query;
@@ -117,7 +117,7 @@ function simpleReturn($app, $sqlCode, $style, $filter = '') {
     $sort = $app->request()->params('sort');
     $lang = $app->request()->params('lang');
 
-    $query = parseParams($sqlCode, $flds, $sort, $max, $filter, $lang);
+    $query = parseParams($sqlCode, $flds, $sort, $max, $filter, $app);
 
     //echo $query . '\n';
     $connection = getConnection();
@@ -235,9 +235,9 @@ return "alguisimo";
     return $table;
 }
 
-function parseParams($name, $flds, $sort, $max, $filter, $lang) {
+function parseParams($name, $flds, $sort, $max, $filter, $app) {
 
-   $query = getSQL($name, $lang);
+   $query = getSQL($name, $app);
    if(!$flds == ''){
       $query = str_replace(" * ", " " . $flds . " ", $query );
    }
@@ -282,7 +282,7 @@ function contains($needle, $haystack)
 function checkToken($app)
 {
 		$sqlCode = 'token_check';
-		$query = getSQL($sqlCode, $app->request()->params('lang'));
+		$query = getSQL($sqlCode, $app);
 		$prepParams = array(
 					':token'   		 => $app->request()->params('token'),
 					':id'          => $app->request()->params('id')

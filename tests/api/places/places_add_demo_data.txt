@@ -1,2 +1,2 @@
-id=1&token=$2y$10$kSJK/eVpx5laQHFssEk1fOOIskQHLqcF5qMobY8jbv8RBuIsMlAFq&servicio=A&tiposerv=A&
-lugar=Seminario&estado=A
+id=1&token=$2y$10$RvFjBZwFEV5vZHX8.3U9bOt4wRBGjC2GDyNXp6.aUoFIIQLcxaBxm&frat=demo&servicio=A&tiposerv=A&
+frat=otra&lugar=Sede OFS&estado=A

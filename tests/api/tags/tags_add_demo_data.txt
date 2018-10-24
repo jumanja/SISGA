@@ -1,2 +1,2 @@
 id=3&token=$2y$10$.NrtQL9ozaCdcVbnMo7pc.2.GqrtvmLJPzpIPx2mEMmRLxWH6bVkG&servicio=S&tiposerv=I&
-etiqueta=Electivo&estado=A
+frat=demo&etiqueta=Electivo&estado=A
