@@ -1,4 +1,4 @@
-// jimte (c) jumanja.net - 2018 - version 1.7.0
+// jimte (c) jumanja.net - 2018 - version 1.7
 class JimteTab {
   constructor() {
     this.table = "";
@@ -6,16 +6,24 @@ class JimteTab {
 
   changeTable(obj) {
       console.log("changeTable " + obj.value);
-      //$(".mesaForm").hide();
+      if(obj.value != ""){
+        $("#tabla_loader").show();
+        this.table = obj.value;
+        this.tableIcon = obj[ obj.selectedIndex ].getAttribute("data-icono");
+        this.load_table();
+        this.load_table_forms(this.table);
 
-      //$("#tabla_loader").show();
-      $("#tabla_loader").show();
-      //load planilla
-      //$("#repomesa").show();
+      } else {   //No hay tabla seleccionada
+        $("#tabla_loader").hide();
 
-      this.table = obj.value;
-      this.load_table();
-      this.load_table_forms();
+        $("#addTable").hide();
+        $("#resetFilters").hide();
+        $("#refreshTable").hide();
+        $("#table_content").hide();
+
+        $("#tableIcon")[0].innerHTML = "settings";
+        $("#myTable")[0].innerHTML = "";
+      }
 
   }
 
@@ -27,91 +35,96 @@ class JimteTab {
 
 
   load_table(){
-//    if(jimte.tekken == "localhost"){
-//      return;
-//    }
     var self = $(this);
-/*
-    var form_data = new FormData();
-    form_data.append('id', jimte.currentUser.id);
-    form_data.append('token', jimte.token);
-    form_data.append('servicio', jimte.currentUser.servicio);
-    form_data.append('tiposerv', jimte.currentUser.tiposerv);
-    form_data.append('table',  this.table );
 
-*/
+    var icono = this.tableIcon;
+
     console.log("load_table!");
-/*
-    console.log(jimte.currentUser.id);
-    console.log(jimte.token);
-    console.log(jimte.currentUser.servicio);
-    console.log(jimte.currentUser.tiposerv);
-    console.log(this.table );
-*/
-//      data: form_data,
-
     $.ajax({
       url: jimte.serverPath + 'index.php/' + this.table +
                               "?id=" + jimte.currentUser.id +
                               "&tiposerv=" + jimte.currentUser.tiposerv +
                               "&servicio=" + jimte.currentUser.servicio +
                               "&table=" + this.table +
-                              "&token=" + this.token,
+                              "&token=" + jimte.token,
       dataType: "json",
       cache: false,
       processData: false,
       contentType: false,
       type: 'GET',
-      success: function(php_response){
+      success: function(data){
+        console.log( "load_table - data: " + data );
 
-        //console.log( "php_response: " + php_response);
-
-        if (php_response.acceso == "concedido") {
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
           //window.location.href = 'main.html';
           var links = [];
           var cuantos = 0;
           var contenido = "";
           $("#myTable")[0].innerHTML = "";
 
-          //console.log("load_table:" + php_response.motivo);
-          //console.log("load_table:" + php_response.select);
-
-          jimte.select = JSON.parse(php_response.select);
-          $.each( jimte.select, function( key, val ) {
-            //Si cuantos == 0 s primer registro, ahí tomar fieldnames
+          //var records = [];
+          $.each( data, function( key, val ) {
             if(cuantos == 0) {
-              contenido = '<tr class="header">';
-              var columns = 0;
-              $.each( val, function( key1, val1 ) {
-                contenido += '<th>' +
-                '<input type="text" class="search_fld" id="search_fld' + key1 + '" ' +
-                'onkeyup="jimte_table.searchTable(this.id, '+columns+')" placeholder="Buscar aquí">' +
-                '<br>' +
-                '<span onclick="jimte_table.sortTable('+columns+')">&#x2195;</span>'+
-                '<span onclick="jimte_table.sortTable('+columns+')">' + key1 + '</span>' +
-                '</th>';
+                contenido = '<tr class="header">';
+                var columns = 0;
+                //var fields = [];
+                //console.log(val);
+                $.each( val, function( key2, val2 ) {
+                  //console.log(key2 + ' = "' + val2 + '"');
+                  //fields.push(key2 + ' = "' + val2 + '"');
+                  if(
+                    key2.indexOf("password") == -1 &&
+                    key2.indexOf("token") == -1  ){
 
-                columns++;
-              });
-              contenido += "</tr>";
+                    contenido += '<th>' +
+                    '<input type="text" class="search_fld" id="search_fld' + key2 + '" ' +
+                    'onkeyup="jimte_table.searchTable(this.id, '+columns+')" placeholder="&#x1f50d; Buscar">' +
+                    '<br>' +
+                    '<span onclick="jimte_table.sortTable('+columns+')">&#x2195;</span>'+
+                    '<span onclick="jimte_table.sortTable('+columns+')">' + key2 + '</span>' +
+                    '</th>';
+
+                    columns++;
+
+                  }
+
+                });
+                contenido += "</tr>";
             }
-            //A-> Adición, C->Cambio
-            contenido += '<tr onclick="jimte_table.overlayOn(\'C\', this)">"';
-            $.each( val, function( key1, val1 ) {
-              contenido += "<td>" + val1 + "</td>";
+            contenido += '<tr id="row_' + cuantos + '" onclick="jimte_table.overlayOn(\'C\', this)">';
+            $.each( val, function( key2, val2 ) {
+              if(
+                key2.indexOf("password") == -1 &&
+                key2.indexOf("token") == -1  ){
+
+                  contenido += "<td>" + val2 + "</td>";
+              }
             });
             contenido += "</tr>";
 
             cuantos++;
+          //  records.push( "<meta " + fields.join(" ") + ">" );
           });
+
           $("#tabla_loader").hide();
+
+          $("#addTable").show();
+          $("#resetFilters").show();
+          $("#refreshTable").show();
           $("#table_content").show();
+
+          $("#tableIcon")[0].innerHTML = icono;
 
           $("#myTable")[0].innerHTML = contenido;
 
           //$("#tbody_reportadas").show();
         }else {
-          jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Tabla");
+          //jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Tabla");
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Ingreso al Sistema"));
+
         }
       },
       error: function(xhr, status, error) {
@@ -330,32 +343,35 @@ class JimteTab {
     }
   }
   overlayOn(overlay, obj) {
-      console.log("overlayOn! " + overlay + "/");
+      console.log("overlayOn! " + overlay );
 
       document.getElementById("overlay" + overlay).style.display = "block";
 
       var ul = document.getElementById("overlay" + overlay).getElementsByTagName("ul")[0];
-      var tds = obj.getElementsByTagName("td");
-      var headersTable = obj.parentNode.parentNode.getElementsByClassName("header");
-      var ths = obj.parentNode.parentNode.getElementsByTagName("th");
-      var contentTable = "";
-      var i;
-      for (i = 0; i < tds.length; i++) {
-        if (tds[i]) {
-          var field = ths[i].getElementsByTagName("span")[1].innerHTML;
-            /*contentTable += "<li>" +
-                            "<label class='right-inline'>" + field + "</label>" +
-                            "<input class='input-control browser-default black-text' type='text' " +
-                            "id='edit_" + field + "' " +
-                            "name='edit_" + field + "' " +
-                            "value='" + tds[i].innerHTML + "'>" +
-                            "</li>"; */
-            var elem = document.getElementById("edit_" + field);
-            if(elem != null) {
-              document.getElementById("edit_" + field).value = tds[i].innerHTML;
-            }
+      if(obj !== undefined){
+        var tds = obj.getElementsByTagName("td");
+        var headersTable = obj.parentNode.parentNode.getElementsByClassName("header");
+        var ths = obj.parentNode.parentNode.getElementsByTagName("th");
+        var contentTable = "";
+        var i;
+        for (i = 0; i < tds.length; i++) {
+          if (tds[i]) {
+            var field = ths[i].getElementsByTagName("span")[1].innerHTML;
+              /*contentTable += "<li>" +
+                              "<label class='right-inline'>" + field + "</label>" +
+                              "<input class='input-control browser-default black-text' type='text' " +
+                              "id='edit_" + field + "' " +
+                              "name='edit_" + field + "' " +
+                              "value='" + tds[i].innerHTML + "'>" +
+                              "</li>"; */
+              var elem = document.getElementById("edit_" + field);
+              if(elem != null) {
+                document.getElementById("edit_" + field).value = tds[i].innerHTML;
+              }
 
+          }
         }
+
       }
       //not needed anymore, los controles ya existirán en editTable, solo se
       //actualizarán los valores cada vez que se haga click.
@@ -380,7 +396,8 @@ class JimteTab {
 
   load_table_forms(tabla){
         var self = $(this);
-        var url = jimte.configPath + "tables.json";
+        var url = jimte.configPath + "fields.json";
+        console.log("load_table_forms: " + tabla + " / " + url);
 
         $.ajax({
           url: url,
@@ -460,6 +477,23 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
                                       "</select>";
 
                         }
+
+                        if(controls[0] == "selectTable"){
+                          var options = controls[1].split(",");
+                          var optionsCTRL ="";
+
+                          var query = options[0];
+
+                          inputCtrl = "<select class='browser-default' " +
+                                      requiredCtrl +
+                                      "id='add_" + alias + "' " +
+                                      "name='add_" + alias + "' >" +
+                                      optionsCTRL +
+                                      "</select>";
+
+                          popSelectTable(alias, query);
+                        }
+
                         contentAdd.push( "<li>" +
                                           "<label class='right-inline'>" + val1.desc + "</label>" +
                                           inputCtrl +

@@ -1,0 +1,428 @@
+
+    <h1><a name="02900">2.9 Gestión de Calidad</a></h1>
+    <h3><a name="02910">2.9.1 Plan de Gestión de Calidad</a></h3>
+      <h4>Introducción</h4>
+      <p>
+El presente documento define los lineamientos a seguir para el Plan de Calidad del proyecto de software grupal realizado por estudiantes del módulo de Práctica Aplicada TDS, en el que se requiere desarrollar un software que de solución tecnológica a los requerimientos en una organización. El software a desarrollar tiene por objeto servir de herramienta para la gestión de Actas de las reuniones de la Fraternidad “Laudato Si” de la Juventud Franciscana (JUFRA).
+      </p>
+      <h4>Alcance</h4>
+      <p>
+El propósito de este plan de calidad es identificar los procedimientos de gestión de la calidad que van a ser aplicados entre el área usuaria receptora del software de gestión de actas a realizar, como los estudiantes que desarrollarán en un ámbito académico dicho software.
+      </p>
+
+        <h5>Inclusiones</h5>
+        <p>
+Este plan de calidad se aplica al desarrollo e implementación del software para la Gestión de Actas – SISGA
+        </p>
+
+        <h5>Exclusiones</h5>
+        <p>
+          Cualquier actividad por fuera del desarrollo e implementación del software SISGA.
+        </p>
+
+        <h4>Objetivos de la Calidad</h4>
+        <p>
+El cliente o área usuaria no ha realizado solicitudes específicas referentes a objetivos de calidad de forma cuantificable. Sin embargo, se implementarán los métodos de gestión de calidad incluyendo casos de prueba pertinentes para alcanzar atributos como testeabilidad, correctitud, contra los requerimientos y casos de uso detallados en el documento de especificaciones.
+        </p>
+        <p>
+Para éste proyecto se eligió un ciclo de vida incremental, por lo que se clasificarán los casos de prueba como Obligatorios, Requeridos, y Postergables
+        </p>
+        <p>
+<b>Obligatorios</b>: Si un caso de prueba falla, y se ha catalogado como Obligatorio, es porque tiene un impacto muy grande en el sistema y se debe detener la entrega hasta que el caso de prueba entregue resultado exitoso.
+        </p>
+        <p>
+<b>Requeridos</b>: Si un caso de prueba falla, y se ha catalogado como Requerido, es porque tiene un impacto medio en el sistema y se entra a evaluar si fue justificado y poco probable que se repita en producción, se evalúa el impacto de entregarlo resuelto o aplazarlo.
+        </p>
+        <p>
+<b>Postergable</b>: Si un caso de prueba falla, y se ha catalogado como Postergable, no se detiene la entrega y se marca como bug (defecto) para la siguiente entrega, siempre y cuando no se haya postergado antes en más de una ocasión.
+        </p>
+
+<p>
+Se aplicarán como métricas porcentajes de éxitos en las pruebas contra el porcentaje de 100% de resultados esperados con un margen de error del 5%, de la siguiente forma:
+</p>
+
+<p>
+<b>Obligatorios</b>: Los casos de prueba deben ser exitosos en un 100%.
+</p>
+<p>
+<b>Requeridos</b>: Los casos de prueba deben ser exitosos en más de un 95%.
+</p>
+<p>
+<b>Postergable</b>: Los casos de prueba deben ser exitosos en más de un 50% Esto quiere decir, que si más de la mitad de los postergables fallan, debe resolverse los suficientes (y no postergar su resolución) para que se cumpla que el al menos el 50% quedó resuelto en la entrega.
+</p>
+
+        <h4>Responsabilidades</h4>
+<p>El Gerente del proyecto tiene la responsabilidad total del éxito del proyecto, incluyendo la conformidad del área usuaria y el cumplimiento de los objetivos descritos.</p>
+<p>El Gerente de Calidad es responsable de las auditorías del proyecto y seguimiento de las acciones que se deriven de ellas. Cualquier desviación del plan de calidad debe ser aprobada por el Gerente de Calidad para que dicha desviación se haga realidad.</p>
+<p>Los actores que juegan papeles dentro de la ejecución de este proyecto, son responsables cada uno de que sus acciones y actitudes propendan por alcanzar los niveles establecidos en este plan de calidad y en general en alcanzar los objetivos propuestos tanto por el software, como por el proyecto, con niveles de satisfacción elevados en su calidad.</p>
+
+        <h4>Documentación</h4>
+<p>
+Este Plan de Calidad hace referencia a documentación complementaria, y se espera que dichos documentos y recursos documentales, se mantengan actualizados por sus respectivos responsables.
+</p>
+
+        <h4>Registros</h4>
+<p>
+Los archivos relacionados con el proyecto, tanto en su código fuente, como en su documentación y registros digitales relacionados, estarán disponibles en Internet por un mínimo de 6 meses después de la entrega y cierre del proyecto (se espera que la versión productiva se aloje en los propios servidores del área usuaria o de un proveedor de hosting contratado por ese área –se asesorará al área usuaria para la implementación de la versión en producción- ). La implementación se detallará en el ítem Instalación y puesta en servicio, mas adelante en este documento.
+</p>
+
+        <h4>Recursos</h4>
+        <table class="encajarTabla">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Roles y Funciones Principales</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Carlos Alonso</b></td>
+              <td>
+                <b>Administrador de la Configuración y Desarrollador</b><br>
+
+                <p>Funciones como <b><i>Administrador de la Configuración</i></b>
+                  <ul>
+                    <li>Para este proyecto específico, asegurar que las versiones de sus componentes (incluyendo los documentos, artefactos, entregables), se manejen en un sistema de control de versiones actualizados y disponibles para los interesados.</li>
+                  </ul>
+                </p>
+
+                <p>Funciones como <b><i>Desarrollador</i></b>
+                  <ul>
+                    <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                    <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                    <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                  </ul>
+                </p>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td><b>Sneider Durango</b></td>
+              <td>
+                  <b>Analista de Requerimientos y Desarrollador</b><br>
+
+                  <p>Funciones como <b><i>Analista de Requerimientos</i></b>
+                    <ul>
+                      <li>Recolectar y/o analizar los requerimientos del cliente.</li>
+                      <li>Hacer gestión de los requerimientos (mantenerlos actualizados) en la documentación.</li>
+                    </ul>
+                  </p>
+
+                  <p>Funciones como <b><i>Desarrollador</i></b>
+                      <ul>
+                        <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                        <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                        <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                      </ul>
+                  </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td><b>Juan Manjarrés</b></td>
+              <td>
+                  <b>Arquitecto y Desarrollador Líder</b><br>
+
+                  <p>Funciones como <b><i>Arquitecto</i></b>
+                    <ul>
+                      <li>Definir y Diseñar la arquitectura del software a realizar, incluyendo la creación de diagramas y componentes requeridos según el resultado de sus evaluaciones técnicas y validación de la arquitectura contros requerimientos en conjunto con el cliente.</li>
+                      <li>Orientar al desarrollador líder y al resto de desarrolladores con el objeivo de que la implementación sea coherente y cumpla con las especificaciones plasmadas en la arquitectura.</li>
+                    </ul>
+                  </p>
+
+                  <p>Funciones como <b><i>Desarrollador</i></b>
+                      <ul>
+                        <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                        <li>Manifestar oportunidades de mejora al Arquitecto.</li>
+                        <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+                        <li>Proveer de documentación tanto del código realizado, como de los ajustes y de la porción correspondiente al manual de usuario.</li>
+                        <li>Definir de forma más práctica y detallada la visión de arquitectura de los componentes, pensando en lo que requieren los desarrolladores para su implementación.</li>
+                        <li>Orientar y dar soporte a los demás desarrolladores en las habilidades técnicas en las que lo requieran y se necesiten dentro del proyecto.</li>
+                      </ul>
+                  </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td><b>Liana Rodríguez</b></td>
+              <td>
+                  <b>Gerente de Proyecto y Desarrolladora</b><br>
+
+                  <p>Funciones como <b><i>Gerente de Proyecto</i></b>
+                    <ul>
+                      <li>Garantizar que el ambiente y/o marco de trabajo para que los demás integrantes del proyecto puedan llevar a cabo sus funciones sea el adecuado.</li>
+                      <li>Aplicando el ciclo Planear, Hacer, Verificar y Actuar, debe tomar decisiones de las actividades a nivel macro del proyecto.</li>
+                      <li>Realizar seguimiento a los cronogramas, compromisos y en general a todas las fases del proyecto, para velar por su cumplimiento de forma interna y hacia el cliente.</li>
+                    </ul>
+                  </p>
+
+                  <p>Funciones como <b><i>Desarrolladora</i></b>
+                      <ul>
+                        <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                        <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                        <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+
+                      </ul>
+                  </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td><b>Leonardo Zambrano</b></td>
+              <td>
+                  <b>Gerente de Calidad y Desarrollador</b><br>
+
+                  <p>Funciones como <b><i>Gerente de Calidad</i></b>
+                    <ul>
+                      <li>Definir el plan y estrategias de calidad relacionadas a implementarse en el proyecto.</li>
+                      <li>Generación y/o Verificación de la documentación y artefactos entregables.</li>
+                      <li>Construcción y/o verificación de que los casos de prueba se ajustan a los necesarios para que se pueda asegurar la calidad en el software según el documento de especificaciones, y medición y organización de los resultados obtenidos de las pruebas, al igual de las sugerencias y pasos a seguir según los resultados obtenidos en dichas pruebas.</li>
+                    </ul>
+                  </p>
+
+                  <p>Funciones como <b><i>Desarrollador</i></b>
+                      <ul>
+                        <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
+                        <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
+                        <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
+
+                      </ul>
+                  </p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+
+        <h4>Elementos de Entrada al Proyecto</h4>
+<p>
+  El elemento de entrada principal al proyecto es el documento ERS-SISGA (Documento de Especificación de Requerimientos de Software), que pueder verse en el item <a href="#02300">2.3 ERS - Documento de Especificación de Requisitos de Software</a>.</i>
+</p>
+</p>
+
+        <h4>Comunicaciones con el Cliente</h4>
+        <p>
+Una vez firmado el documento ERS por parte del área usuaria, se espera que cualquier comunicación formal sobre este proyecto, se lleve a cabo a través del Gerente del Proyecto.
+        </p>
+
+        <h4>Diseño y Desarrollo</h4>
+        <p>
+El software SISGA se desarrollará con lenguajes, herramientas y librerías que no requieran de la adquisición de licencias por parte ni del cliente ni del equipo de desarrollo, al ser éste software construido en un ámbito académico y al no poseer el área usuaria presupuesto para este fin. Se proveerá durante el desarrollo de este proyecto y por un período de seis (6) meses adicionales a la entrega y cierre del proyecto, de un espacio sin costo en un plan de hosting actualmente ya en uso, en una carpeta destinada para éste fin. Luego de dichos seis (6) meses no se garantizará su disponiblidad, por lo que al momento de entregar el software, se recomendará iniciar las gestiones pertinentes para la habilitación de este software con la información real del área usuaria, en un proveedor de hosting contratado por ellos.
+        </p>
+        <p>
+Las solicitudes de cambios al software que afecten a la funcionalidad deberán ser aprobadas por el supervisor del proyecto (que forma parte del área usuaria) y solo serán llevadas a cabo si son aprobadas por el Gerente del Proyecto antes que se comience a trabajar en ellos.
+        </p>
+
+        <h4>Adquisiciones</h4>
+        <p>
+No se prevé que el área usuaria (ni tampoco el equipo de desarrollo) deba realizar ningúna adquisición ántes ni durante la realización del proyecto. Sólo se requerirá  que el área usuaria defina la adquisición de un plan de hosting (y opcionalmente, dominio web) para su sistema de producción al finalizar los seis (6) meses del cierre del proyecto.
+        </p>
+
+
+        <h4>Instalaciones y Puesta en Servicio</h4>
+        <p>
+La disponibilidad de los items descritos en la sección de Recursos, se hará de la siguiente forma.
+        </p>
+<p>
+<br><b>Código fuente</b>: Repositorio de github. URL: <a target="_blank" href="https://github.com/jumanja/SISGA">https://github.com/jumanja/SISGA</a>
+<br><b>Software en ejecución</b>: Página web. URL: <a target="_blank" href="https://jumanja.net/SISGA/">https://jumanja.net/SISGA/</a>
+<br><b>Documentación</b>: Página web. URL: <a target="_blank" href="https://jumanja.net/SISGA/docs/">https://jumanja.net/SISGA/docs/</a>
+</p>
+        <h4>Procesos Especiales</h4>
+<p>No hay procesos especiales para este proyecto.</p>
+
+        <h4>Gestión de la Configuración</h4>
+<p>
+  El administrador de la configuración deberá velar porque los documentos, archivos, entregables se mantengan en sus últimas versiones en las rutas y repositorios correspondientes.
+</p>
+
+        <h4>Propiedad del Cliente</h4>
+<p>
+El software desarrollado fruto del ejercicio académico será liberado bajo la licencia MIT, que permite ser utilizado tal cual sea desarrollado en cualquier tipo de utilización sin restricción. La información ingresada al sistema es y será de propiedad del área usuaria.
+</p>
+
+        <h4>Manejo del Producto</h4>
+<p>
+El software será entregado instalado en las rutas relacionadas en el item Instalación y puesta en servicio, y se asesorará al área usuaria en su proceso de instalación en el sistema de producción.
+</p>
+        <h4>No Conformidades</h4>
+<p>
+Una No conformidad la definiremos como un hallazgo que, a pesar de estar especificado en el documento ERS previamente aprobado, no se comporta como se definió. Una No conformidad no podrá volver a aparecer en el siguiente incremento, y por supuesto el software no podrá ser entregado en su totalidad si tiene todavía presente una No conformidad.
+</p>
+        <h4>Seguimiento y Medición</h4>
+<p>
+El progreso del proyecto será registrado y controlado de forma semanal a partir de la firma y aprobación del ERS y podrán ser presentados en reuniones de avance con el área usuaria. El desarrollador líder debe conservar registros de cualquier problema identificado que persista entre incrementos y potencialmetne se pueda convertir en No Conformidad.
+</p>
+<p>
+Los problemas deben categorizarse según su origen:
+<br><b>Especificación de Requisitos</b> (faltan o Incorrectos).
+<br><b>Diseño</b>  (falta o incorrecto).
+<br><b>Codificación</b>  (falta o incorrecta, error de interfaz, error de manejo de datos)
+</p>
+
+        <h4>Auditoría Interna</h4>
+<p>
+Al final de cada incremento deberán realizarse las acciones necesarias para verificar que se esté siguiendo las indicaciones de este plan de calidad, y tomar las decisiones correspondientes buscando siempre cumplir los objetivos de calidad dispuestos en él.
+</p>
+
+          <h3><a name="02920">2.9.1 Plan de Gestión de Calidad</a></h3>
+
+<h4>Introducción</h4>
+<p>
+El presente documento especifica las actividades definidas como necesarias para el aseguramiento de Calidad del software SISGA a ser construído, teniendo en cuenta que el ciclo de vida de este software es de tipo Incremental, intentaremos implementar metodologías, procesos, procedimientos y buenas prácticas para el aseguramiento y control de calidad del producto de software, incluyendo diferentes tipos de pruebas, reporte de fallos, solicitudes de corrección, siguiendo los lineamenientos generales descritos en el documeneto Plan de Calidad.
+</p>
+
+<h4>Gestión</h4>
+<p>
+A continuación se especifican los elementos de organización y responsables de la gestión de calidad del proyecto.
+</p>
+
+<h4>Organización</h4>
+<p>
+El Gerente de Calidad en este proyecto es el responsable de hacer la gestión de las tareas, métodos y procedimientos descritos en este documento. Trabajará de la mano del Arquitecto de Software en temas técnicos, y del Gerente de Proyecto en temas administrativos.
+</p>
+
+<h4>Tareas relacionadas con Planeación de Calidad</h4>
+<table class="encajarTabla">
+  <thead>
+    <tr>
+      <th>Tarea</th>
+      <th>Entregable Asociado</th>
+      <th>Responsable</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr>
+    <td>Identificar las propiedades de Calidad del proyecto.</td>
+    <td>Plan de Calidad</td>
+    <td>Gerente de Calidad</td>
+  </tr>
+  <tr>
+    <td>Elaborar el Plan de aseguramiento y control de calidad</td>
+    <td>Plan de Aseguramiento y Control de Calidad</td>
+    <td>Gerente de Calidad</td>
+  </tr>
+  <tr>
+    <td>Evaluar la calidad del producto</td>
+    <td>Informe de revisión de Calidad</td>
+    <td>Gerente de Calidad</td>
+  </tr>
+  <tr>
+    <td>Revisar que el proceso se ajuste si es necesario</td>
+    <td>Informe de revisión de Calidad</td>
+    <td>Gerente de Calidad</td>
+  </tr>
+  <tr>
+    <td>Realizar Revisión Técnica Formal Semanal</td>
+    <td>Informe de revisión Técnica Formal</td>
+    <td>Gerente de Calidad</td>
+  </tr>
+  <tr>
+    <td>Realizar evaluación final de Calidad</td>
+    <td>Informe Evaluación Final de Calidad</td>
+    <td>Gerente de Calidad</td>
+  </tr>
+
+</table>
+
+
+<h4>Responsables de la Calidad</h4>
+<p>
+Como responsible de la calidad formal del proyecto, el Gerente de Calidad. Sin embargo, como responsables de calidad en cada actividad que realicen en el proyecto, se encuentran todos los integrantes del equipo, puesto que deben conocer cuáles son los objetivos, lo métodos y procedimientos que pretender llevar al proyecto a un alto nivel de calidad, se espera de todos y cada uno de los integrantes del equipo realicen sus tareas de la forma esperada y entreguen sugerencias para la mejoría de la calidad y los planes de calidad del proyecto si diera a lugar.
+</p>
+
+<h4>Documentación</h4>
+<p>
+A continuación se describen los entregables del proyecto y el Rol responsable principal de cada entregable, encargo de crear / actualizar y mantener actualizado dicho entregable a lo largo del proyecto:
+</p>
+
+<table class="encajarTabla">
+  <thead>
+    <tr>
+      <th>Entregable</th>
+      <th>Responsable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Documento Especificación de Requisitos de Software ERS</td>
+      <td>Analista de Requerimientos</td>
+    </tr>
+    <tr>
+      <td>Documento Modelo de Casos de Uso</td>
+      <td>Arquitecto</td>
+    </tr>
+    <tr>
+      <td>Documentación de Plan de Proyecto</td>
+      <td>Gerente de Proyecto</td>
+    </tr>
+    <tr>
+      <td>Alcance del Proyecto</td>
+      <td>Gerente de Proyecto</td>
+    </tr>
+    <tr>
+      <td>Documento de Arquitectura de Proyecto y Producto</td>
+      <td>Arquitecto</td>
+    </tr>
+    <tr>
+      <td>Documento Diagramas de Diseño de la Solución (UML)</td>
+      <td>Arquitecto</td>
+    </tr>
+    <tr>
+      <td>Modelo de Datos Relacional</td>
+      <td>Arquitecto</td>
+    </tr>
+    <tr>
+      <td>Modelo de Entidad Relación</td>
+      <td>Arquitecto</td>
+    </tr>
+    <tr>
+      <td>Documentación Técnica y de Implementación</td>
+      <td>Desarrollador Líder</td>
+    </tr>
+    <tr>
+      <td>Documento Manual del Usuario</td>
+      <td>Desarrollador Líder</td>
+    </tr>
+    <tr>
+      <td>Documento Plan de Gestión de la Configuración</td>
+      <td>Administrador de la Configuración</td>
+    </tr>
+    <tr>
+      <td>Documento Revisión Formal Semanal, y Final</td>
+      <td>Gerente de Calidad</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h4>Revisiones</h4>
+<p>
+Se harán revisiones del producto de la siguiente forma:
+</p>
+<ul>
+  <li>Pruebas de producto de forma manual, realizadas en el ambiente de pruebas públicamente disponible y accesible solo a los que poseen usuario y clave habilitados. Se probará semanalmente todo lo entregado en el manual de usuario (que se irá actualizando también cada semana con la entrega del incremento), para garantizar que lo que quedó consignado en el manual de usuario corresponde a la realidad, y si se detectan defectos se notificará en el informe de revisión para su corrección.</li>
+  <li>Pruebas de producto de forma automática, realizadas por el Desarrollador Líder, utilizando scripts en forma de suite de pruebas, los mismos scripts usados durante el desarrollo para hacer pruebas unitarias, pero agrupados con el objeto de probar casos de uso completos y garantizar que el el incremento semanal, esté funcionando según lo esperado.</li>
+</ul>
+<p>
+Se espera que de las revisiones formales (semanalmente) se desprenda un informe en formato de hoja de cálculo basados en el siguiente Ejemplo:
+</p>
+
+<img src="img/control_de_pruebas.png">
+
+<h4>Métricas</h4>
+<p>
+Para éste proyecto se eligió un ciclo de vida incremental, por lo que se clasificarán los casos de prueba como <b>Obligatorios</b>, <b>Requeridos</b>, y <b>Postergables</b>.</a>
+</p>
+
+<h4>Metodología</h4>
+<p>
+  <ul>
+    <li>Cada desarrollador deberá implementar y ejecutar pruebas unitarias de sus desarrollos, con la asesoría del Desarrollador Líder, y si es necesario, del Arquitecto de Software. Los resultados de dichas pruebas las subirá junto con sus desarrollos en el repositorio github, carpeta tests, y de esa forma se podrá acceder a las versiones históricamente de los resultados de dichas pruebas.</li>
+    <li>En cada Incremento el Desarrollador Líder deberá actualizar el Manual de Usuario para incluir las funcionalidades disponibles para pruebas manuales. El Gerente de Calidad hará las pruebas manual requeridas siguiendo el manual de usuario, repitiendo las pruebas de incrementos anteriores con el objetivo de confirmar que no se hayan afectado funcionalidades anteriores. Si las pruebas son exitosas, se le hará llegar al área usuaria el manual de usuario, de lo contrario, reportará al Desarrollador Líder los inconvenientes presentados, y éste coordinará su resolución con el(los) desarrollador(es) correspondiente(s). Dependiendo de la complejidad de la funcionalidad y de las pruebas de ésta, se podría programar nuevas pruebas completas, suspender la entrega, o catalogar como postergable el incidente para el siguiente incremento. Por supuesto que en la entrega final ya no debe quedar ningún fallo sin resolver.</li>
+    <li>Si los cambios requeridos afectan la documentación del proyecto, versiones de archivos o entregables como diagramas, capturas de pantalla, etc... El administrador de la Configuración se encargará de notificar al responsable encargado y verificar que antes del siguiente incremento ya se encuentre actualizado en el repositorio del proyecto, los entregables con el o los cambios requeridos.</li>
+    <li>Si se recibe una No Conformidad por parte del área usuaria, ésta tiene prioridad de resolución para ajustes, en lo posible debería resolverse en el menor tiempo posible y avisarle al área usuaria de su resolución, o si está de acuerdo el área usuaria, se esperará para incluir la resolución en el siguiente incremento.</li>
+</ul>
+<i><b>Nota:</b></i> En cada incremento se revisará y complementará la metodología descrita para ajustar lo necesario según los criterios del Plan de Calidad.

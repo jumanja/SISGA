@@ -1,0 +1,1066 @@
+
+    <h1><a name="02400">2.4 Documentación de Casos de Uso</a></h1>
+    <p>
+De acuerdo al levantamiento de información realizado con los integrantes de la Junta Local, identificamos los siguientes casos de uso. Para mayor claridad, a continuación presentamos el diagrama Integrado de casos de uso detectados, luego la lista, y luego el detalle de cada caso:
+    </p>
+    <img class="encajarImg" src="img/00_diag_integ_casV2.png">
+
+    <h2><a name="02410">2.4.1 Lista de Casos de Uso</a></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Referencia</th>
+      <th>Nombre del Caso de Uso</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CAS-001</td>
+      <td>Ingresar al Sistema</td>
+    </tr>
+    <tr>
+      <td>CAS-002</td>
+      <td>Validar Usuario</td>
+    </tr>
+    <tr>
+      <td>CAS-003</td>
+      <td>Iniciar Sesión</td>
+    </tr>
+    <tr>
+      <td>CAS-004</td>
+      <td>Cerrar Sesión</td>
+    </tr>
+    <tr>
+      <td>CAS-005</td>
+      <td>Gestión de Fraternidades</td>
+    </tr>
+    <tr>
+      <td>CAS-006</td>
+      <td>Gestión de Lugares de Reunión</td>
+    </tr>
+    <tr>
+      <td>CAS-007</td>
+      <td>Gestión de Servicios</td>
+    </tr>
+    <tr>
+      <td>CAS-008</td>
+      <td>Gestión de Tipos de Actas</td>
+    </tr>
+    <tr>
+      <td>CAS-009</td>
+      <td>Gestión de Usuarios</td>
+    </tr>
+    <tr>
+      <td>CAS-010</td>
+      <td>Gestión de Etiquetas</td>
+    </tr>
+    <tr>
+      <td>CAS-011</td>
+      <td>Elaborar Acta</td>
+    </tr>
+    <tr>
+      <td>CAS-012</td>
+      <td>Guardar Progreso</td>
+    </tr>
+    <tr>
+      <td>CAS-013</td>
+      <td>Guardar Preliminar</td>
+    </tr>
+    <tr>
+      <td>CAS-014</td>
+      <td>Notificación vía Email</td>
+    </tr>
+    <tr>
+      <td>CAS-015</td>
+      <td>Actas por Aprobar</td>
+    </tr>
+    <tr>
+      <td>CAS-016</td>
+      <td>Aprobar Acta</td>
+    </tr>
+    <tr>
+      <td>CAS-017</td>
+      <td>Generar Acta en PDF</td>
+    </tr>
+    <tr>
+      <td>CAS-018</td>
+      <td>Actas por Revisar</td>
+    </tr>
+    <tr>
+      <td>CAS-019</td>
+      <td>Revisar Acta</td>
+    </tr>
+    <tr>
+      <td>CAS-020</td>
+      <td>Buscador de Actas</td>
+    </tr>
+    <tr>
+      <td>CAS-021</td>
+      <td>Informe de Actas</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="02420">2.4.2 Detalle de Casos de Uso</a></h1>
+
+  <img class="encajarImg" src="img/00_diag_cas_todos.png">
+
+<table class="encajarTabla" >
+  <thead>
+    <tr>
+      <th colspan=2>CAS-001</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Caso de Uso</th>
+      <th>CAS-001 Ingresar al Sistema</th>
+    </tr>
+    <tr>
+      <td>Actor(es)</td><td>Usuarios del Sistema</td>
+    </tr>
+    <tr>
+      <td>Descripción</td><td>Captura los datos que el usuario suministra al sistema, retorna los datos de una sesión si los datos son válidos</td>
+    </tr>
+    <tr>
+      <td>Tipo</td><td>Primario</td>
+    </tr>
+    <tr>
+      <td>Datos de Entrada</td><td>Usuario, Contraseña.</td>
+    </tr>
+    <tr>
+      <td>Datos de Salida</td><td>Un token de sesión, el tipo de servicio, el servicio, el id del usuario si los datos son válidos.<br>
+Un mensaje de error negando el acceso si los datos no son válidos</td>
+    </tr>
+    <tr>
+      <td>Precondición</td><td>El actor (el usuario) debe estar registrado previamente en el sistema para poder recibir el acceso.</td>
+    </tr>
+    <tr>
+      <td>Secuencia Normal</td><td>El actor ingresa mediante un navegador web al aplicativo, y cuando aparece la interfaz gráfica digita el Usuario, Contraseña y hace click en el botón Entrar. Se llama al caso de uso <b>CAS-002 Validar Usuario</b></td>
+    </tr>
+    <tr>
+      <td>Postcondición</td><td>Se crea una sesión de usuario.</td>
+    </tr>
+    <tr>
+      <td>Excepciones</td><td>El usuario no está registrado, la contraseña no coincide con el usuario, el usuario No está activo, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Prioridad</td><td>Alta</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="encajarTabla" >
+<thead>
+  <tr>
+    <th colspan=2>CAS-002</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>Caso de Uso</th>
+    <th>CAS-002 Validar Usuario</th>
+  </tr>
+  <tr>
+    <td>Actor(es)</td><td>Usuarios del Sistema</td>
+  </tr>
+  <tr>
+    <td>Descripción</td><td>Determina si los datos del usuario que está intentando ingresar, son válidos.</td>
+  </tr>
+  <tr>
+    <td>Tipo</td><td>Secundario</td>
+  </tr>
+  <tr>
+    <td>Datos de Entrada</td><td>Usuario, Contraseña</td>
+  </tr>
+  <tr>
+    <td>Datos de Salida</td><td>Un token de sesión, el tipo de servicio, el servicio, el id del usuario si los datos son válidos.
+<br>Un mensaje de error negando el acceso si los datos no son válidos.</td>
+  </tr>
+  <tr>
+    <td>Precondición</td><td>El actor (el usuario) debe estar registrado previamente en el sistema para poder recibir el acceso.</td>
+  </tr>
+  <tr>
+    <td>Secuencia Normal</td><td>Este caso de uso recibe del Caso <b>CAS-001 Ingresar al Sistema</b>, los datos de Usuario y Clave para realizar la validación encriptando la clave y comparándola con la clave del usuario que está intentando ingresar. Si el usuario existe, la clave corresponde, y el usuario está activo, llama al caso <b>CAS-003 Iniciar Sesión</b> para generar la sesión de usuario. </td>
+  </tr>
+  <tr>
+    <td>Postcondición</td><td>Se crea una sesión de usuario.</td>
+  </tr>
+  <tr>
+    <td>Excepciones</td><td>El usuario no está registrado, la contraseña no coincide con el usuario, el usuario No está activo, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+  </tr>
+  <tr>
+    <td>Prioridad</td><td>Alta</td>
+  </tr>
+</tbody>
+</table>
+
+<table class="encajarTabla" >
+<thead>
+  <tr>
+    <th colspan=2>CAS-003</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>Caso de Uso</th>
+    <th>CAS-003 Iniciar Sesión</th>
+  </tr>
+  <tr>
+    <td>Actor(es)</td><td>Usuarios del Sistema</td>
+  </tr>
+  <tr>
+    <td>Descripción</td><td>Genera un token encriptado y una fecha hora de expiración del token, guardándolo en la tabla de usuarios, en el registro del usuario al que le corresponde la sesión.</td>
+  </tr>
+  <tr>
+    <td>Tipo</td><td>Secundario</td>
+  </tr>
+  <tr>
+    <td>Datos de Entrada</td><td>Usuario, Contraseña</td>
+  </tr>
+  <tr>
+    <td>Datos de Salida</td><td>Un token de sesión, el tipo de servicio, el servicio, el id del usuario si los datos son válidos.
+<br>Un mensaje de error negando el acceso si los datos no son válidos.</td>
+  </tr>
+  <tr>
+    <td>Precondición</td><td>El actor (el usuario) debe estar registrado previamente en el sistema para poder recibir el acceso.</td>
+  </tr>
+  <tr>
+    <td>Secuencia Normal</td><td>Este caso de uso recibe del Caso <b>CAS-001 Ingresar al Sistema</b>, los datos de Usuario y Clave para realizar la validación encriptando la clave y comparándola con la clave del usuario que está intentando ingresar. Si el usuario existe, la clave corresponde, y el usuario está activo, llama al caso <b>CAS-003 Iniciar Sesión</b> para generar la sesión de usuario. </td>
+  </tr>
+  <tr>
+    <td>Postcondición</td><td>Se crea una sesión de usuario.</td>
+  </tr>
+  <tr>
+    <td>Excepciones</td><td>El usuario no está registrado, la contraseña no coincide con el usuario, el usuario No está activo, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+  </tr>
+  <tr>
+    <td>Prioridad</td><td>Alta</td>
+  </tr>
+</tbody>
+</table>
+
+
+<table class="encajarTabla" >
+<thead>
+  <tr>
+    <th colspan=2>CAS-004</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>Caso de Uso</th>
+    <th>CAS-004 Cerrar Sesión</th>
+  </tr>
+  <tr>
+    <td>Actor(es)</td><td>Usuarios del Sistema</td>
+  </tr>
+  <tr>
+    <td>Descripción</td><td>Remueve los datos de la sesión actualmente vigente en la tabla de usuarios.</td>
+  </tr>
+  <tr>
+    <td>Tipo</td><td>Secundario</td>
+  </tr>
+  <tr>
+    <td>Datos de Entrada</td><td>Usuario, Token</td>
+  </tr>
+  <tr>
+    <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación</td>
+  </tr>
+  <tr>
+    <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa</td>
+  </tr>
+  <tr>
+    <td>Secuencia Normal</td><td>Este caso de uso recibe del Caso <b>CAS-001 Ingresar al Sistema</b>, los datos de Usuario y Clave para realizar la validación encriptando la clave y comparándola con la clave del usuario que está intentando ingresar. Si el usuario existe, la clave corresponde, y el usuario está activo, llama al caso <b>CAS-003 Iniciar Sesión</b> para generar la sesión de usuario.</td>
+  </tr>
+  <tr>
+    <td>Postcondición</td><td>Se cierra una sesión de usuario.</td>
+  </tr>
+  <tr>
+    <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+  </tr>
+  <tr>
+    <td>Prioridad</td><td>Alta</td>
+  </tr>
+</tbody>
+</table>
+
+  <img class="encajarImg" src="img/00_diag_cas_admin.png">
+
+  <table class="encajarTabla" >
+  <thead>
+    <tr>
+      <th colspan=2>CAS-005</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Caso de Uso</th>
+      <th>CAS-005 Gestión de Fraternidades</th>
+    </tr>
+    <tr>
+      <td>Actor(es)</td><td>Administrador del Sistema</td>
+    </tr>
+    <tr>
+      <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Fraternidades</td>
+    </tr>
+    <tr>
+      <td>Tipo</td><td>Primario</td>
+    </tr>
+    <tr>
+      <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos</td>
+    </tr>
+    <tr>
+      <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación</td>
+    </tr>
+    <tr>
+      <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador</td>
+    </tr>
+    <tr>
+      <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+    </tr>
+    <tr>
+      <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Prioridad</td><td>Alta</td>
+    </tr>
+  </tbody>
+  </table>
+
+  <table class="encajarTabla" >
+  <thead>
+    <tr>
+      <th colspan=2>CAS-006</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Caso de Uso</th>
+      <th>CAS-006 Gestión de Lugares de Reunión</th>
+    </tr>
+    <tr>
+      <td>Actor(es)</td><td>Administrador del Sistema</td>
+    </tr>
+    <tr>
+      <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Lugares de Reunión.</td>
+    </tr>
+    <tr>
+      <td>Tipo</td><td>Primario</td>
+    </tr>
+    <tr>
+      <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Datos de Salida</td><td>Número de registros actualizados.<br>Un mensaje de error si no se pudo realizar la operación.</td>
+    </tr>
+    <tr>
+      <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+    </tr>
+    <tr>
+      <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+    </tr>
+    <tr>
+      <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Prioridad</td><td>Alta</td>
+    </tr>
+  </tbody>
+  </table>
+
+
+    <table class="encajarTabla" >
+    <thead>
+      <tr>
+        <th colspan=2>CAS-007</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Caso de Uso</th>
+        <th>CAS-007 Gestión de Servicios</th>
+      </tr>
+      <tr>
+        <td>Actor(es)</td><td>Administrador del Sistema</td>
+      </tr>
+      <tr>
+        <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Servicios.</td>
+      </tr>
+      <tr>
+        <td>Tipo</td><td>Primario</td>
+      </tr>
+      <tr>
+        <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+      </tr>
+      <tr>
+        <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+      </tr>
+      <tr>
+        <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+      </tr>
+      <tr>
+        <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+      </tr>
+      <tr>
+        <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+      </tr>
+      <tr>
+        <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+      </tr>
+      <tr>
+        <td>Prioridad</td><td>Alta</td>
+      </tr>
+    </tbody>
+    </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-008</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-008 Gestión de Tipos de acta</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Administrador del Sistema</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Tipos de Acta.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Primario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Alta</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+        <table class="encajarTabla" >
+        <thead>
+          <tr>
+            <th colspan=2>CAS-009</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Caso de Uso</th>
+            <th>CAS-009 Gestión de Usuarios</th>
+          </tr>
+          <tr>
+            <td>Actor(es)</td><td>Administrador del Sistema</td>
+          </tr>
+          <tr>
+            <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Usuarios.</td>
+          </tr>
+          <tr>
+            <td>Tipo</td><td>Primario</td>
+          </tr>
+          <tr>
+            <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+          </tr>
+          <tr>
+            <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+          </tr>
+          <tr>
+            <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+          </tr>
+          <tr>
+            <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+          </tr>
+          <tr>
+            <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+          </tr>
+          <tr>
+            <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+          </tr>
+          <tr>
+            <td>Prioridad</td><td>Alta</td>
+          </tr>
+        </tbody>
+        </table>
+<br>
+  <img class="encajarImg" src="img/00_diag_miemb_inv.png">
+</br>
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-010</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-010 Gestión de Etiquetas</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, que preste el servicio en Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado en la tabla de Etiquetas.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Primario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.<br>Un mensaje de error si no se pudo realizar la operación</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Alta</td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-011</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-011 Elaborar Actas</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite Adicionar, Modificar, y genera un Cambio de Estado de registros en la tabla de Actas.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Primario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente. Sin embargo, aplican restricciones según las reglas de Negocio descritas en el documento ERS-Especificación de Requerimientos, En Secretaría pueden Crear y modificar Actas, pero no pueden agregar comentarios. Los otros Miembros de Junta Local pueden Hacer comentarios pero no pueden ni crear ni Modificar. Este caso llama al caso <b>CAS-012 Guardar Progreso</b>, y al Caso <b>CAS-013 Guardar Preliminar</b> dependiendo sea la elección del usuario.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Alta</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-012</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-012 Guardar Progreso</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, con Servicio en Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite Actualizar en la Base de Datos la información que tiene actualmente el Acta.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Datos a actualizar del Acta.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, con Servicio en Secretaría</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del registro a actualizar, y sus datos.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Alta</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-013</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-013 Guardar Preliminar</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, con Servicio en Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite Actualizar en la Base de Datos la información que tiene actualmente el Acta.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Datos a actualizar del Acta.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, con Servicio en Secretaría</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del registro a actualizar, y sus datos. Se aplican restricciones según las reglas de Negocio descritas en el documento ERS-Especificación de Requerimientos, En Secretaría pueden Crear y modificar Actas, pero no pueden agregar comentarios. Los otros Miembros de Junta Local pueden Hacer comentarios pero no pueden ni crear ni Modificar. Este caso llama al caso <b>CAS-014 Notificación vía email</b> pues produce un cambio de estado, dejando el acta en estado Preliminar, y disponible para que los demás miembros la puedan revisar/ aprobar.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Alta</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-014</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-014 Notificación Vía Email</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, con Servicio en Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite enviar un correo electrónico a los miembros asistentes de la reunión que tuvo lugar el acta.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Acta.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, con Servicio en Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del registro a actualizar, y sus datos. Se aplican restricciones según las reglas de Negocio descritas en el documento ERS-Especificación de Requerimientos, En Secretaría pueden Crear y modificar Actas, pero no pueden agregar comentarios. Los otros Miembros de Junta Local pueden Hacer comentarios pero no pueden ni crear ni Modificar. Este caso llama al caso <b>CAS-014 Notificación</b> vía email pues produce un cambio de estado, dejando el acta en estado Preliminar, y disponible para que los demás miembros la puedan revisar/ aprobar. </td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se genera un correo electrónico y se intenta enviar por el servidor de correo configurado.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Baja</td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-015</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-015 Actas por Aprobar</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite obtener una lista en pantalla de las actas que el usuario actual tiene por aprobar.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Primario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Lista de las actas por aprobar.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión, y consulta en la base de datos las actas que ese usuario tiene por aprobar. Este caso llama al caso <b>CAS-016 Aprobar Acta</b> si el usuario decide aprobar, o al caso <b>CAS-019 Revisar Acta</b> si solo quiere revisar el acta.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra en pantalla la lista de actas que el usuario tiene por aprobar.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay actas por aprobar para el usuario que tiene la sesión, o no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Media</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-016</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-016 Actas por Aprobar</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, con el servicio de Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite dar la aprobación del usuario que tiene la sesión activa, a el acta seleccionada.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión e identificación del Acta Seleccionada.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, servicio de Secretaría. El acta seleccionada no debe tener aprobación por parte de ese usuario.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión y la identificación de un acta seleccionada, y con esos datos retorna los datos del acta seleccionada en formato PDF para que se pueda descargar o visualizar en dicho formato.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra en pantalla o se permite descargar, el Acta en formato PDF.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que el acta seleccionada no está aprobada o no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Media</td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-017</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-017 Generar Acta en PDF</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite obtener un versión del acta seleccionada en formato PDF.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión e identificación del Acta Seleccionada.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Datos del acta seleccionada en formato PDF.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local. El acta seleccionada debe estar en estado Aprobada.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión y la identificación de un acta seleccionada, y con esos datos retorna los datos del acta seleccionada en formato PDF para que se pueda descargar o visualizar en dicho formato.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra en pantalla o se permite descargar, el Acta en formato PDF.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que el acta seleccionada no está aprobada o no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Media</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-018</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-018 Actas por Revisar</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite obtener una lista en pantalla de las actas que el usuario actual tiene por revisar.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Lista de las actas por revisar.
+<br>Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso Primario recibe la identificación del usuario que actualmente tiene la sesión, y consulta en la base de datos las actas que ese usuario tiene por revisar. Este caso llama al caso <b>CAS-019 Revisar Acta</b> si el usuario decide elegir un acta para revisar. </td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra en pantalla la lista de actas que el usuario tiene por revisar.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay actas por revisar para el usuario que tiene la sesión, o no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Media</td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-019</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-019 Revisar Acta</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, con el servicio de Secretaría.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite dar la aprobación del usuario que tiene la sesión activa, a el acta seleccionada.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Secundario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión e identificación del Acta Seleccionada.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Número de registros actualizados.
+<br>Un mensaje de error si no se pudo realizar la operación</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, servicio de Secretaría. El acta seleccionada no debe tener aprobación por parte de ese usuario.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión y la identificación de un acta seleccionada, y con esos datos retorna los datos del acta seleccionada en formato PDF para que se pueda descargar o visualizar en dicho formato.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra en pantalla o se permite descargar, el Acta en formato PDF.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que el acta seleccionada no está aprobada o no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Media</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-020</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-020 Buscador de Actas</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite realizar una búsqueda de las actas de la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Primario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión y parámetros de búsqueda del acta como números, estados, fechas, lugares y palabras clave.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Lista de Actas encontradas.
+Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso recibe la identificación del usuario que actualmente tiene la sesión y los parámetros de búsqueda, y con esos datos retorna la lista de actas que conciden. Si el usuario decide proceder a revisar algún acta, este caso llama al caso de uso <b>CAS-019 Revisar Acta</b>.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra en pantalla La lista de actas coincidentes con los parámetros de búsqueda.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no se encontraron coincidencias o no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Media</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+
+      <table class="encajarTabla" >
+      <thead>
+        <tr>
+          <th colspan=2>CAS-021</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Caso de Uso</th>
+          <th>CAS-021 Informe de Actas</th>
+        </tr>
+        <tr>
+          <td>Actor(es)</td><td>Miembros de la Junta Regional o Nacional e Invitados.</td>
+        </tr>
+        <tr>
+          <td>Descripción</td><td>Permite generar el Informe de Actas.</td>
+        </tr>
+        <tr>
+          <td>Tipo</td><td>Primario</td>
+        </tr>
+        <tr>
+          <td>Datos de Entrada</td><td>Parámetros del Informe como Tipos de Acta, Rango de fechas, Estado.</td>
+        </tr>
+        <tr>
+          <td>Datos de Salida</td><td>Informe en pantalla con los datos de las actas según los parámetros dados.
+Un mensaje de error si no se pudo realizar la operación.</td>
+        </tr>
+        <tr>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de la junta Regional o Nacional o Invitado.</td>
+        </tr>
+        <tr>
+          <td>Secuencia Normal</td><td>Este caso de uso primario recibe los parámetros del informe como tipos, fechas y estado y al enviar el formulario el sistema retorna los datos en pantalla de las actas encontradas según esos parámetros.</td>
+        </tr>
+        <tr>
+          <td>Postcondición</td><td>Se muestra el Informe en pantalla.</td>
+        </tr>
+        <tr>
+          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+        </tr>
+        <tr>
+          <td>Prioridad</td><td>Baja</td>
+        </tr>
+      </tbody>
+      </table>

@@ -1,0 +1,840 @@
+    <h1><a name="02300">2.3 ERS - Documento de Especificación de Requisitos de Software</a></h1>
+        <h4><a name="02310">2.3.1 Aprobación del ERS</a></h4>
+        <p>
+Acepto que este documento representa nuestro mejor entendimiento de los requerimientos para este proyecto hoy y el sistema descrito podrá satisfacerá nuestras necesidades. Acepto hacer futuros cambios siempre y cuando sigan la línea definida de cambios del proyecto. Me doy cuenta que los cambios aprobados podrían requerir recursos adicionales incluyendo variación de las fechas acordadas para el proyecto, por lo que se podrían establecer futuros proyectos nuevos para poder completar dichos cambios.
+        </p>
+
+        <img class="encajarImg" src="img/aproba_ERS.png">
+
+        <h4><a name="02320">2.3.2 Introducción</a></h4>
+          <h4><a name="02321">2.3.2.1 Propósito</a></h4>
+          <p>
+  Este documento especifica los requerimientos para el Software que hemos denominado Sistema para la Gestión de Actas Online al que nos referiremos como SISGA. El documento cubrirá la totalidad de requerimientos del Sistema.
+          </p>
+
+          <h4><a name="02322">2.3.2.2 Convenciones</a></h4>
+          <p>
+  Este documento sigue las convenciones de tipografía y recomendaciones sugeridas en la plantilla SRS y la adapta a las necesidades puntuales  la Plantilla SRS (traducida al Español) Copyright © 1999 by Karl E. Wiegers. Adicionalmente empleará una convención para identificar claramente los componentes de la siguiente forma:
+<table>
+  <tr>
+    <td>REQ-01, REQ-02, …	</td><td>Requerimientos Funcionales.</td>
+  </tr>
+  <tr>
+    <td>RNF-01, RNF-02, … </td><td>Requerimientos No Funcionales.</td>
+  </tr>
+  <tr>
+    <td>NEG-01, NEG-02, … </td><td>Reglas de Negocio.</td>
+  </tr>
+  <tr>
+    <td>DIA-01, DIA-02, … </td><td>Diagramas.</td>
+  </tr>
+  <tr>
+    <td>TAB-01, TAB-02, … </td><td>Tablas.</td>
+  </tr>
+  <tr>
+    <td>CAS-01, CAS-02, … </td><td>Casos de Uso.</td>
+  </tr>
+</table>
+</p>
+  <p>
+  Cuando es necesario, se resaltará la importancia de una palabra o frase dentro del texto para mayor visibilidad (por ejemplo, En el encabezado encontrará el enlace para cerrar la sesión).
+</p>
+<p>
+  Si se considera necesario, se adicionará un párrafo que contendrá una observación o comentario importante usando itálicas, en la siguiente forma:
+  <br><br><i><b>Nota:</b> Este es un ejemplo de un texto importante a tener en cuenta.</i>
+</p>
+          <h4><a name="02323">2.3.2.3 Audiencia Prevista</a></h4>
+          <p>
+Este documento está dirigido a lectores de diversos perfiles involucrados en varios roles relacionados con el Proyecto, tales como: Desarrolladores, Gerentes de Proyecto, Usuarios, Personal de pruebas y calidad, y escritores de documentación. Debido a la variedad de perfiles se ha tratado de utilizar el lenguaje más conciso y sencillo, para ser entendible por la diversidad de audiencias.
+          </p>
+
+          <h4><a name="02324">2.3.2.4 Alcance</a></h4>
+<p>
+El software a realizar tiene como propósito principal proveer a una agrupación, en este caso la Fraternidad “Laudato Si” de la Juventud Franciscana (JUFRA), de las herramientas necesarias para crear, modificar, revisar y ya sea eliminar o aprobar en línea las actas formales fruto de sus reuniones periódicas. Permitirá otorgar acceso solo de consulta a usuarios que no pertenecen a la fraternidad (como por ejemplo a la Junta Regional, que tiene labores de auditoría de éstas actas), generará notificaciones via email cuando un acta cambie de estado y permitirá buscar actas por diferentes criterios y generar un documento PDF con el contenido de un acta para ser impreso y archivado físicamente si es necesario.
+</p>
+<p>
+El proyecto abarca la recolección de información, análisis, diseño del software, implementación, pruebas de aceptación por parte del usuario. Este proyecto se llevará a cabo en un <b>ámbito académico por un grupo de estudiantes del Módulo de Práctica Aplicada TDS, de la Facultad de Ciencas básicas del politécnico Grancolombiano</b>. Se estipula que este proyecto debe realizarse con la meta de cumplir con los objetivos del sistema descrito en este documento, ERS-Documento Especificación de Requisitos de Software. Este documento deberá ser revisado y aprobado tanto por los representantes designados por área cliente (usuaria) del software a construir, como por los estudiantes que elaborarán el software dentro del marco de sus actividades académicas.</p>
+<p>
+La solución de software debe diseñarse, implementarse y asegurar su calidad en un tiempo máximo de 11 semanas, pues en la presentación y sustentación en la semana 14 del módulo de Práctica Aplicada, el software ya debe estar funcionando, instalado, probado y aceptado por el area usuaria.
+</p>
+          <h4><a name="02324">2.3.2.5 Referencias</a></h4>
+          <p>
+La documentación completa referente a este proyecto se encuentra disponible en el siguiente enlace: <a href="http://jumanja.net/SISGA/docs">http://jumanja.net/SISGA/docs</a>
+          </p>
+        <h4><a name="02330">2.3.3 Descripción General</a></h4>
+          <h4><a name="02331">2.3.3.1 Perspectiva del Producto</a></h4>
+          <p>
+Este producto de software nace de la necesidad específica de sistematizar el proceso de gestión de actas y será desarrollado a la medida, sin embargo, se introducirán las bases para expandirlo en futuras fases posteriores a este proyecto, buscando llevar a este software a ser un producto viable para otras fraternidades, a la Junta Nacional e incluso ser un producto que pueda ser ofrecido a otros tipos de organizaciones con necesidades similares.
+          </p>
+          <h4><a name="02332">2.3.3.2 Funcionalidades del Producto</a></h4>
+<p>
+A continuación se describe en forma general las funcionalidades que el software deberá permitir realizar (más adelante en este documento se relacionan en detalle todas las funcionalidades):
+</p>
+<p>
+<i><b>Nota</b>: Al utilizar la palabra Gestión dentro de las funcionalidades se hace referencia a Adición, Modificación, y Cambio de Estado de datos referente a la información – por ejemplo, si hablamos de Usuarios, la Gestión de usuarios sería la funcionalidad de poder Adicionar, Cambiar ciertos datos, Activar/Desactivar al usuario, y Eliminar un usuario.</i>
+<ul>
+  <li>Control de acceso mediante usuario y clave.</li>
+  <li>Gestión de Fraternidades.</li>
+  <li>Gestión los Tipos de Actas.</li>
+  <li>Gestión de Lugares de Reunión.</li>
+  <li>Gestión de Etiquetas (palabras clave).</li>
+  <li>Gestión de Actas.</li>
+  <li>Gestión de Usuarios.</li>
+  <li>Gestión de Servicios.</li>
+  <li>Notificación automática por correo electrónico cuando un acta cambie de estado.</li>
+  <li>Búsqueda de actas por varios criterios, entre otros por número, fechas, estado, palabras clave. </li>
+  <li>Revisión y Aprobación de Actas.</li>
+  <li>Generación de archivo PDF de un acta siempre y cuando esté Aprobada.</li>
+  <li>Informe de actas clasificado por fechas, estados y número de días entre su creación y su aprobación.</li>
+</ul>
+</p>
+          <h4><a name="02333">2.3.3.3 Tipos de Usuarios (Actores) y Características</a></h4>
+<p>
+El sistema será utilizado por los siguientes grupos o tipos de usuario:
+<br><br><b>Administrador</b>: Tendrá habilitadas las funciones de gestión de las fraternidades, los integrantes de las fraternidades (los usuarios), los tipos de acta y los servicios que prestan dichos usuarios (roles de usuario).
+</p>
+<p>
+<b>Integrantes de Junta Local</b>: Al prestar diferentes servicios, se subdividen en cada agrupación (fraternidad) en:
+<ul>
+  <li><b>Presidente</b>: Con la habilidad de revisar, aprobar o añadir comentarios al acta.
+  <li><b>Secretario</b>: Responsable de la creación, modificación de las actas.
+  <li><b>Tesorero</b>: Con la habilidad de revisar, aprobar o añadir comentarios al acta.
+</ul>
+</p>
+<p>
+<b>Integrantes de Junta Regional y de Junta Nacional</b>: Que usarán el sistema para buscar y revisar el contenido de las actas, tendrán acceso de solo lectura. Podremos considerar que este grupo serían usuario Invitados o Visitantes que solo podrán consultar información.
+</p>
+          <h4><a name="02334">2.3.3.4 Ambiente Operativo</a></h4>
+          <p>
+El sistema operará en formato web, usando los lenguajes HTML, CSS, JavaScript y librerías adicionales para el frontend (capa visible para los usuarios). En su backend (capa invisible a los usuarios) se desarrollará utilizando PHP5+ mediante la creación de una API (Interfaz de programación de aplicaciones por sus siglas en inglés) que a su vez se conectará a una base de datos MySql 5.0+ . Cualquier sistema operativo y servidor web que soporte esta tecnología podrá ser utilizado, pero se sugiere servidor web Apache 2.0+ y sistema operativo Linux Ubuntu 12+.
+          </p>
+          <h4><a name="02335">2.3.3.5 Restricciones de Diseño e Implementación</a></h4>
+<p>
+Como restricciones de diseño e implementación tenemos:
+<ul>
+<li>La solución de software debe diseñarse, implementarse y asegurar su calidad en un tiempo límite de 11 semanas máximo, pues debe coincidir con la presentación de 14 semanas del módulo de Práctica Aplicada.</li>
+<li>Debido a la restricción de tiempo, algunas de las funcionalidades se desestimarán en su implementación en este proyecto, sin embargo, a nivel de estructura de base de datos y diseño, se dejarán las bases para en un proyecto posterior poder implementarlas. </li>
+<li>Los lenguajes de programación, librerías, software de base de datos y herramientas de diseño y desarrollo deben software libre pues no se tiene presupuesto para adquirir licencias de software privativo.</li>
+Se deberá implementar este software en un plan de hosting ya adquirido y adicionando un subdominio a uno de los dominios existentes que ya se posean, pues no hay presupuesto destinado a la adquisición de dominio y plan de hosting por separado y la organización no posee en el momento dominio de su propiedad. Para suplir esto, la parte de desarrollo proveerá temporalmente éste servicio durante el desarrollo e implementación de este proyecto.</p>
+</ul>
+          <h4><a name="02336">2.3.3.6 Documentación de Usuario</a></h4>
+          <p>
+Junto con el software desarrollado, se entregarán mensajes de ayuda online dentro del sistema y el manual de usuario.
+Se adicionará información al momento de la entrega como instrucciones para realizar procedimientos específicos, al igual que este documento de especificaciones, diagramas de casos de uso, y diagramas de entidad relación (referente a la base de datos).
+          </p>
+          <h4><a name="02337">2.3.3.7 Suposiciones y Dependencias</a></h4>
+          <p>
+<ul>
+<li>Se presume la disponibilidad de al menos una persona de la fraternidad para aclarar dudas en cualquier de las fases del proyecto, como punto de contacto y que pueda retransmitir las dudas al interior si no está en su conocimiento o no es pertinente a su servicio (rol) dentro de la misma.</li>
+<li>Se supone que dentro de las fases de diseño, se incluirán la mayor parte de requerimientos para poder proveer de una solución robusta, útil y que provea de las herramientas necesarias esperadas, sin embargo, se priorizarán dichos requerimientos para intentar abarcar lo más posible, pero se entiende que cualquiera que no pueda ser implementado en su totalidad podrá ser implementado en un proyecto posterior.</li>
+<li>Teniendo en cuenta las funcionalidades requeridas se elegirán las librerías de software libre más idóneas según el criterio de desarrollo, y debido a que no se hará un desarrollo de todos y cada uno de los componentes desde cero, podrían presentarse dificultades para completar el 100% del funcionamiento deseado, sin embargo se intentará alcanzar el mayor porcentaje de similitud con lo esperado.</li>
+<li>Se usará librerías y frameworks como: jQuery, Materialize.css, Slim, FPDF, entre otros.</li>
+</ul>
+          </p>
+        <h4><a name="02340">2.3.4 Requerimientos Interfases Externas</a></h4>
+        <h4><a name="02341">2.3.4.1 Interfases de Usuario</a></h4>
+<p>
+Se diseñará la interfaz del usuario utilizando el framework css materialize, que permite adaptabilidad a diferentes dispositivos mediante el concepto RWD (Diseño de software responsivo/adaptativo –por sus siglas en inglés). Como imagen corporativa base, se utilizará la de la Fraternidad “Laudato Si”. A continuación se describen algunos de los componentes generales a todas las pantallas:
+</p>
+<p>
+La mayoría de las pantallas del sistema estará conformada por:
+Encabezado, Menú de Opciones, Contenido y Pie de Página.
+</p>
+<p>
+En el encabezado: Botón para mostrar/ocultar el menú de opciones, Título.
+En el menú de opciones: Nombre del usuario de la sesión, Lista de opciones habilitadas para este usuario según el servicio (rol) que presta a la fraternidad.
+En el contenido: Esta sección variará según la opción elegida, en general se conformará por Título de la opción, elementos de captura y/o muestra de información, botones y/o enlaces para realizar acciones, y enlaces tanto a ayudas como a otras opciones relacionadas.
+En el pie de página: Datos de contacto de la fraternidad y de contacto técnicos  y de licenciamiento, y enlace a términos y servicios.
+</p>
+        <h4><a name="02342">2.3.4.2 Interfases de Hardware</a></h4>
+<p>
+El sistema se comunicará via protocolo HTTP entre su frontend y su backend que a su vez se conectará ida y vuelta al motor de base de datos via TCP/IP. El backend devolverá los resultados también vía HTTP al navegador usado. Se diseñará y se intentará implementar de forma que se pueda usar en múltiples navegadores y múltiples sistemas operativos incluyendo los de dispositivos móviles.
+</p>
+          <h4><a name="02343">2.3.4.3 Interfases de Software</a></h4>
+          <p>
+El sistema se comunicará via protocolo http entre su frontend (HTML + CSS + JavaScript y librerías) y su backend (API http rest en php + librerías) que a su vez se conectará al motor de base de datos MySql. Los resultados se devolverán también vía http response al navegador usado.
+          </p>
+          <h4><a name="02344">2.3.4.4 Interfases de Comunicaciones</a></h4>
+<p>
+El sistema utilizará interfaz de comunicaciones pues realizará notificaciones vía email usando SMTP al servidor de correo del hosting a utilizar.
+</p>
+        <h4><a name="02350">2.3.5 Características del Sistema</a></h4>
+<p>
+Los siguientes son las funcionalidades o Requisitos Funcionales del sistema.
+
+<p>
+  <i><b>Nota 1</b>: Al utilizar la palabra Gestión dentro de las funcionalidades se hace referencia a Adición, Modificación, y Cambio de Estado de datos referente a la información.</i>
+</p>
+<p>
+<i><b>Nota 2</b>: La prioridad de las funcionalidades será Alta, Media y Baja.</i>
+</p>
+
+<table class="encajarTabla">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Prioridad</th>
+      <th>Requisitos Funcionales Generales del Sistema</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>REQ-001</td>
+    <td>Alta</td>
+    <td>Control de acceso mediante usuario y clave.</td>
+  </tr>
+  <tr>
+    <td>REQ-002</td>
+    <td>Alta</td>
+    <td>Gestión de Fraternidades.</td>
+  </tr>
+  <tr>
+    <td>REQ-003</td>
+    <td>Alta</td>
+    <td>Gestión los Tipos de Actas.</td>
+  </tr>
+  <tr>
+    <td>REQ-004</td>
+    <td>Alta</td>
+    <td>Gestión de Lugares de Reunión.</td>
+  </tr>
+  <tr>
+    <td>REQ-005</td>
+    <td>Alta</td>
+    <td>Gestión de Etiquetas (palabras clave).</td>
+  </tr>
+  <tr>
+    <td>REQ-006</td>
+    <td>Alta</td>
+    <td>Gestión de Actas.</td>
+  </tr>
+  <tr>
+    <td>REQ-007</td>
+    <td>Alta</td>
+    <td>Gestión de Usuarios.</td>
+  </tr>
+  <tr>
+    <td>REQ-008</td>
+    <td>Alta</td>
+    <td>Gestión de Servicios.</td>
+  </tr>
+  <tr>
+    <td>REQ-009</td>
+    <td>Baja</td>
+    <td>Notificación automática por correo electrónico cuando un acta cambie de estado.</td>
+  </tr>
+  <tr>
+    <td>REQ-010</td>
+    <td>Media</td>
+    <td>Búsqueda de actas por varios criterios, entre otros por número, fechas, estado, palabras clave.</td>
+  </tr>
+  <tr>
+    <td>REQ-011</td>
+    <td>Media</td>
+    <td>Revisión y Aprobación de Actas.</td>
+  </tr>
+  <tr>
+    <td>REQ-012</td>
+    <td>Media</td>
+    <td>Generación de archivo PDF de un acta siempre y cuando esté Aprobada.</td>
+  </tr>
+  <tr>
+    <td>REQ-013</td>
+    <td>Baja</td>
+    <td>Informe de actas clasificado por fechas, estados y días entre creación y aprobación.</td>
+  </tr>
+
+  </tbody>
+</table>
+<p>
+Pasaremos a detallar entonces cada uno de los requisitos funcionales identificados, con la estructura: Nombre Requerimiento, Código, Prioridad, Entradas, Procesos y Salidas:
+</p>
+
+          <h4><a name="02351">2.3.5.1 Requerimientos Funcionales</a></h4>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Control de acceso mediante usuario y clave.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-001 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>El código de Usuario y la contraseña (password).</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Valida que el usuario y contraseña pertenezcan a un usuario activo en la base de datos.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Un token de sesión, el servicio (rol) del usuario y el tipo de servicio (si es Administrador, Miembro de Fraternidad o Miembro Regional / Nacional).</li>
+          <li>Un mensaje de error si no fue permitido el acceso.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Gestión de Fraternidades.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-002 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos de la Fraternidad como id (si es modificación), código, nombre, estado.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de una Fraternidad, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados en la tabla de Fraternidades.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Gestión de Tipos de Acta</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-003 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos del Tipo de acta como id (si es modificación), código, nombre, estado.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un Tipo de Acta, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados en la tabla de Tipos de actas.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Gestión de Etiquetas (Palabras Clave).</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-004 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos de la Etiqueta como id (si es modificación), etiqueta, estado.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de una Etiqueta o Palabra Clave, siempre y cuando el usuario con sesión activa NO sea Miembro de junta Regional / Local.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados en la tabla de Etiquetas.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Gestión de Actas.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-005 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos de el Acta como id (si es modificación), número de acta, Fecha, Tipo, Tema, Lugar de Reunión, Objetivos, Asistentes, Comentarios, Lugar de la Próxima Reunión, Tareas/Compromisos, Responsables Tareas/Compromisos, estado.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un Acta, teniendo en cuenta las reglas de negocio descritas en la sección Requerimientos / Reglas de Negocio en este documento.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados en la tabla de actas.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Gestión de Usuarios.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-006 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos del Usuario como id (si es modificación), código de usuario, apellidos, nombres, servicio, email, contraseña (password), estado.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un usuario, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados en la tabla de usuarios.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Gestión de Servicios.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-007 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos del Servicio o rol como id (si es modificación), código, tipo de servicio (Administrador, Miembro de Junta Local o Miembro de la Junta Regional / Nacional), estado.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según la acción solicitada, realizar el ingreso, modificación, cambio de estado o marcar el estado como Retirado de un servicio, siempre y cuando el usuario con sesión activa sea Administrador.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados en la tabla de servicios.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la gestión.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Notificación automática por correo electrónico cuando un acta cambie de estado.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-008 <b>Prioridad:</b> ALTA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos del id del acta.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según los Asistentes a la reunión  que corresponde al acta, se hará una petición al servidor de correo para enviar un email a cada uno de los asistentes miembros de junta local de la Fraternidad, para notificarles que el acta ha sufrido cambio de estado. De ésta forma el usuario podrá ingresar al sistema para revisar, aprobar o hacer comentarios al acta, según sea el caso.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Email generado para cada uno de los miembros de junta asistentes a la reunión a la que corresponde el acta.</li>
+          <li>El número de emails generados.</li>
+          <li>El número de registros actualizados.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Búsqueda de actas por varios criterios, entre otros por número, fechas, estado, palabras clave.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-009 <b>Prioridad:</b> BAJA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar, Responsables del Acta.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según los datos ingresados como parámetros de búsqueda, recuperar de la base de datos las actas que coincidan con esos criterios.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Registros de las actas que coinciden con los criterios de búsqueda proporcionados.</li>
+          <li>El número de actas encontradas.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Revisión y Aprobación de Actas.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-010 <b>Prioridad:</b> MEDIA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>La identificación del acta (id) y la opción ya sea Revisar o Aprobar.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Si el acta existe y se cumplen las condiciones descritas en la sección Requerimientos / Reglas de Negocio, se marca el acta como Revisada o Aprobada (por el usuario con sesión activa), y si se diere el caso de que es el último usuario que faltaba por aprobar, se cambiaría el estado del acta a Aprobada.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los Datos actualizados del acta marcada como revisada o aprobada por el usuario con sesión activa.</li>
+          <li>El número de actas actualizadas.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Generación de archivo PDF de un acta siempre y cuando esté Aprobada.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-011 <b>Prioridad:</b> MEDIA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>La identificación del acta (id).</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Si el acta existe y se cumplen las condiciones descritas en la sección Requerimientos / Reglas de Negocio, se genera un archivo PDF descargable con los datos del acta correspondiente.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Un archivo en formato PDF con los datos del acta correspondiente.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="encajarTabla">
+  <tbody>
+    <tr>
+      <td>Nombre del Requerimiento</td>
+      <td><b>Informe de actas clasificado por fechas, estados y días entre creación y aprobación.</b></td>
+    </tr>
+    <tr>
+      <td>Código</td>
+      <td>REQ-012 <b>Prioridad:</b> BAJA</td>
+    </tr>
+    <tr>
+      <td>Entradas</td>
+      <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar, Responsables del Acta.</td>
+    </tr>
+    <tr>
+      <td>Proceso</td>
+      <td>Según los datos ingresados como parámetros de búsqueda, recuperar de la base de datos las actas que coincidan con esos criterios.</td>
+    </tr>
+    <tr>
+      <td>Salidas</td>
+      <td>
+        <ul>
+          <li>Los datos de las actas coincidentes con los parámetros del informe.</li>
+          <li>Un mensaje de error si no fue posible ejecutar la acción.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  De acuerdo al levantamiento de información realizado con los integrantes de la Junta Local, identificamos los siguientes casos de uso:
+</p>
+
+          <h4><a name="02352">2.3.5.2 Todos los Usuarios</a></h4>
+          <ul>
+            <li>Ingresar al Sistema</li>
+            <li>Validar Usuario</li>
+            <li>Iniciar Sesión</li>
+            <li>Cerrar Sesión</li>
+          </ul>
+
+          <h4><a name="02353">2.3.5.3 El usuario Administrador </a></h4>
+          <ul>
+            <li>Gestión de Fraternidades</li>
+            <li>Gestión de Servicios</li>
+            <li>Gestión de Lugares de Reunión</li>
+            <li>Gestión de Usuarios</li>
+            <li>Gestión de Tipos de Acta</li>
+          </ul>
+
+          <h4><a name="02354">2.3.5.4 Los usuarios miembros de la Junta Regional y Nacional</a></h4>
+          <ul>
+            <li>Buscar Actas</li>
+            <li>Ver las Actas por Revisar</li>
+            <li>Revisar Acta</li>
+            <li>Generar en PDF</li>
+            <li>Ver Informe de Actas</li>
+          </ul>
+
+          <h4><a name="02355">2.3.5.5 Los Usuarios miembros de la Junta Local</a></h4>
+          <ul>
+            <li>Gestión de Etiquetas</li>
+            <li>Elaborar Acta (Solo el Secretario) y podrá Guardar Progreso o Guardar Preliminar</li>
+            <li>Ver las Actas por Aprobar, Aprobar Acta y Generar en PDF (las aprobadas)</li>
+            <li>Además podrán utilizar todas las opciones de los usuarios miembros de la Junta Regional y Nacional descritas en el anterior punto 2.3.5.4</li>
+          </ul>
+
+<p>
+  Para mayor claridad, a continuación presentamos el diagrama Integrado de casos de uso detectados. Los tipos de usuario (Actores) identificados descritos previamente utilizarán las funcionalidades de este sistema de la forma que se representa en el siguiente diagrama:
+</p>
+<img class="encajarImg" src="img/00_diag_integ_casV2.png">
+
+<p>
+<i><b>NOTA</b>: En el item <a href="#02400">2.4 Documentación de Casos de Uso</a> Se encuentran los casos de uso en detalle.</i>
+</p>
+
+        <h4><a name="02360">2.3.6 Otros Requerimientos</a></h4>
+
+          <h4><a name="02361">2.3.6.1 Requerimientos No Funcionales</a></h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Requerimientos No Funcionales</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>
+                  <b>Eficiencia</b>
+                  <ul>
+                    <li>El sistema debe ser capaz de ser utilizado por mínimo 5 usuarios concurrentes.</li>
+                    <li>Toda funcionalidad del sistema y transacción de negocio debe responder al usuario en menos de 15 segundos.</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Usabilidad</b>
+                  <ul>
+                      <li>El tiempo de aprendizaje del usuario deberá ser mínimo.</li>
+                      <li>El sistema debe proporcionar mensajes de error que sean informativos y orientados a usuario final.</li>
+                      <li>El sistema debe contar con un módulo de ayuda en línea o con un manual de usuario.</li>
+                      <li>La interfaz del usuario debe permitir usarse mediante navegadores web para permitir el acceso a usuarios remotos.</li>
+                      <li>Se incluirá en el diseño del sistema las bases para que pueda ser (en proyectos posteriores) ampliado a otros idiomas.</li>
+                  </ul>
+                </td>
+                <tr>
+                  <td>
+                    <b>Seguridad</b>
+                    <ul>
+                        <li>Los permisos de acceso al sistema podrán ser cambiados solamente por el administrador de acceso a datos.</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4><a name="02362">2.3.6.2 Atributos de Calidad del Software</a></h4>
+          <p>
+No se relacionan atributos de calidad de software específicos, sin embargo, se implementarán casos de prueba pertinentes para alcanzar atributos como testeabilidad, correctitud, contra los requerimientos de éste documento y casos de uso.
+</p>
+
+<p>
+Se clasificarán los casos de prueba como <b>Obligatorios</b>, <b>Requeridos</b>, y <b>Postergables</b>.
+</p>
+
+<p>
+  <b><br>Obligatorios</b>: Si un caso de prueba falla, y se ha catalogado como Obligatorio, es porque tiene un impacto muy grande en el sistema y se debe detener la entrega hasta que el caso de prueba entregue resultado exitoso.
+<b><br>Requeridos</b>: Si un caso de prueba falla, y se ha catalogado como Requerido, es porque tiene un impacto medio en el sistema y se entra a evaluar si fue justificado y poco probable que se repita en producción, se evalúa el impacto de entregarlo resuelto o aplazarlo.
+<b><br>Postergable</b>: Si un caso de prueba falla, y se ha catalogado como Postergable, no se detiene la entrega y se marca como bug (defecto) para la siguiente entrega, siempre y cuando no se haya postergado antes en más de una ocasión.
+</p>
+
+<p>
+Se aplicarán como métricas porcentajes de éxitos en las pruebas contra el porcentaje de 100% de resultados esperados con un margen de error del 5%, de la siguiente forma:
+</p>
+
+<br><b>Obligatorios</b>: Los casos de prueba deben ser exitosos en un 100%.
+<br><b>Requeridos</b>: Los casos de prueba deben ser exitosos en más de un 95%.
+<br><b>Postergable</b>: Los casos de prueba deben ser exitosos en más de un 50% Esto quiere decir, que si más de la mitad de los postergables fallan, debe resolverse los suficientes (y no postergar su resolución) para que se cumpla que el al menos el 50% quedó resuelto en la entrega.
+          </p>
+
+          <h4><a name="02363">2.3.6.3 Reglas de Negocio</a></h4>
+          <table class="encajarTabla">
+            <thead>
+              <tr>
+                <th>Requerimientos y Reglas de Negocio</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>
+                  <ul>
+                    <li>El sistema debe tener las bases para poder habilitar (en proyectos futuros) prestar el servicio de actas online a otras fraternidades.</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li>El sistema solo debe permitir que las funciones de creación y modificación de actas las realice el integrante de la junta local que presta el servicio como Secretario.</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li>No se pueden añadir comentarios a las acta aprobadas.</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li>Solo pueden hacer comentarios a las actas El Presidente y Tesorero de la junta local. Por consiguiente, ni siquiera el Secretario puede adicionar comentarios.</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li>Los integrantes de Juntas Regional o Nacional que reciban acceso al sistema solo podrán tener acceso de lectura, y solo a las actas Aprobadas.</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li>Al momento de que el Secretario Crea o Modifica un Acta queda en estado En Progreso. Cuando el Secretario considera que el acta está terminada, la deja en estado Preliminar. Cuando todos los integrantes de junta local asistentes a la reunión han dado su aprobación en el sistema, el acta queda en estado Aprobada.</li>
+                  </ul>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+
+        <h4><a name="02370">2.3.7 Requerimientos Adicionales</a></h4>
+        <p>
+Se requiere que se fundamenten las bases dentro del diseño y la base de datos, para la internacionalización del sistema. Esto implica que en la configuración del usuario, se designará que el sistema utilice para ese usuario particular, un idioma disponible en el sistema. Esto incluye que puedan ser mostrados en más de un idioma: Las etiquetas, mensajes, diálogos, títulos, enlaces y botones del sistema.
+Esto no incluye: los datos que el usuario digite dentro del sistema, es decir, no habrá forma de controlar si el usuario digita palabras o contenido en otro idioma.
+</p>
+<p>
+<i><b>Nota</b>: Para este proyecto se contemplarán en pruebas y se estimará completado el uso de un solo idioma (Español), es decir, el cumplimiento de un segundo idioma implementado se debe dar en un proyecto posterior.</i>
+        </p>
+        <h4><a name="02380">2.3.8 Glosario</a></h4>
+<p>
+<b>API</b> – Interfaz de programación de aplicaciones – por sus siglas en inglés, es una las formas en que una pieza de software puede ser utilizada por otra, es decir, provee una lista de funcionalidades con parámetros especificados mediante programación, para que un software pueda enviar mensajes o instrucciones a otro software, y a su vez pueda leer las respuestas recibidas.
+</p>
+<p>
+<b>Backend</b> – Se le denomina a un conjunto de piezas de software que interactúan entre si del lado del servidor, usualmente no vistas por un usuario, pero que realiza las funcionalidades mayormente relacionadas con comunicación, almacenamiento y procesamiento de datos normalmente almacenadas en una base de datos.
+</p>
+<p>
+<b>Base de Datos</b> – Conjunto de Datos organizados y normalizados que siguen una estructura definida y que permiten operaciones de almacenamiento, edición, recuperación, procesamiento, cálculo sobre sus datos. Entre las más reconocidas encontramos la base de datos Oracle, PostgreSQL, MySQL.
+</p>
+<p>
+<b>Frontend</b> – Se le denomina a un conjunto de piezas de software que interactúan entre sí del lado del cliente, siendo la parte que normalmente es vista por el usuario, se encarga mayormente de proveer la interfaz entre el usuario y el sistema, y de llamar o invocar funcionalidades al Backend, y procesar las respuestas obtenidas para mostrarlas en la pantalla del usuario.
+</p>
+<p>
+<b>Hardware</b> - Pieza o conjunto de piezas físicas que usualmente permiten alojar piezas digitales llamadas Software con las que se determina mediante códigos llamados programas el comportamiento de sus partes físicas
+</p>
+<p>
+<b>HTTP</b> - Protocolo de transferencia de hipertexto (por sus siglas en inglés) mayormente usado para comunicar software como navegadores y otras piezas de software, comunicando a navegadores (browsers) del lado del cliente con servidores normalmente alojados en ubicaciones físicas lejanas y disponibles via Internet.
+</p>
+<p>
+<b>HTTPS</b> – Protocolo que complementa al protocolo http y que entrega un nivel adicional de seguridad debido a la encriptación de los datos.
+</p>
+<p>
+<b>Navegador</b> – Pieza de Software que permite a un usuario visitar páginas o sitios web. Entre los más conocidos está Google Chrome, Mozilla Firefox, Internet Explorer.
+</p>
+<p>
+<b>Sistema Operativo</b> – Conjunto de piezas de Software que permiten a un computador o dispositivo, realizar las operaciones básicas centrales de su funcionamiento. Entre los más conocidos se encuentran Microsoft Windows, Linux, OS, iOS, Android.
+</p>
+<p>
+<b>Software</b> -  Pieza o conjunto de piezas digitales que permiten al un sistema digital realizar acciones, funcionalidades, desarrolladas en un lenguaje de programación por uno o más desarrolladores, para alcanzar un fin determinado.
+</p>
+<p>
+<b>TCP/IP</b> – Protocolo de redes informáticas, que provee las bases de la comunicación en Internet por su método de verificación/control de transferencia de paquetes de información y así confirmar si toda la información seccionada en paquetes y enviada en capas inferiores de éste protocolo, se entregaron al destinatario como se esperaba.
+</p>

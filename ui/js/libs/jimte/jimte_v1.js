@@ -1,4 +1,4 @@
-// jimte (c) jumanja.net - 2018 - version 1.7.0
+// jimte (c) jumanja.net - 2018 - version 1.7
 class JimteMan {
 /*Simulate events like click*/
 eventFire(el, etype){
@@ -881,7 +881,8 @@ NOT WORKING on SAFARI for MAC
                 if(authorizaTabla){
                   var option = $('<option></option>').attr("value",
                     val.api
-                  ).text(val.descripcion );
+                  ).text(val.descripcion ).attr("data-icono",
+                                      val.icon);
                   $("#tabla").append(option);
 
                 }

@@ -1,0 +1,2 @@
+id=1&token=$2y$10$kSJK/eVpx5laQHFssEk1fOOIskQHLqcF5qMobY8jbv8RBuIsMlAFq&servicio=A&tiposerv=A&
+lugar=Seminario&estado=A

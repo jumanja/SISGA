@@ -1,5 +1,5 @@
 [{
-  "PUT:/logout":{
+   "PUT:/logout":{
      "tiposerv":{
          "incluye":"*",
          "excluye":""
@@ -19,6 +19,66 @@
         "excluye":""
       }
     },
+  "GET:/tags/count":{
+     "tiposerv":{
+         "incluye":"I",
+         "excluye":""
+         },
+     "servicio":{
+       "incluye":"S",
+       "excluye":""
+     }
+ },
+ "GET:/tags":{
+    "tiposerv":{
+        "incluye":"I",
+        "excluye":""
+        },
+    "servicio":{
+      "incluye":"S",
+      "excluye":""
+    }
+  },
+  "GET:/tags/:id":{
+     "tiposerv":{
+         "incluye":"I",
+         "excluye":""
+         },
+     "servicio":{
+       "incluye":"S",
+       "excluye":""
+     }
+   },
+   "POST:/tags":{
+      "tiposerv":{
+          "incluye":"I",
+          "excluye":""
+          },
+      "servicio":{
+        "incluye":"S",
+        "excluye":""
+      }
+     },
+     "PUT:/tags":{
+        "tiposerv":{
+            "incluye":"I",
+            "excluye":""
+            },
+        "servicio":{
+          "incluye":"S",
+          "excluye":""
+        }
+      },
+      "PUT:/tags/delete":{
+         "tiposerv":{
+             "incluye":"I",
+             "excluye":""
+             },
+         "servicio":{
+           "incluye":"S",
+           "excluye":""
+         }
+       },
    "GET:/users/count":{
    		"tiposerv":{
     			"incluye":"A",
@@ -28,8 +88,8 @@
   			"incluye":"*",
   			"excluye":""
   		}
-	},
-  "GET:/users":{
+	 },
+   "GET:/users":{
      "tiposerv":{
          "incluye":"A",
          "excluye":""
@@ -48,8 +108,8 @@
         "incluye":"*",
         "excluye":""
       }
-    },
-    "POST:/users":{
+   },
+   "POST:/users":{
        "tiposerv":{
            "incluye":"A",
            "excluye":""
@@ -58,8 +118,8 @@
          "incluye":"*",
          "excluye":""
        }
-     },
-     "PUT:/users/token":{
+   },
+   "PUT:/users/token":{
         "tiposerv":{
             "incluye":"*",
             "excluye":""
@@ -68,8 +128,48 @@
           "incluye":"*",
           "excluye":""
         }
-      },
-      "PUT:/users":{
+  },
+  "PUT:/users":{
+     "tiposerv":{
+         "incluye":"A",
+         "excluye":""
+         },
+     "servicio":{
+       "incluye":"*",
+       "excluye":""
+     }
+   },
+   "PUT:/users/delete":{
+      "tiposerv":{
+          "incluye":"A",
+          "excluye":""
+          },
+      "servicio":{
+        "incluye":"*",
+        "excluye":""
+      }
+  },
+  "GET:/frats/count":{
+     "tiposerv":{
+         "incluye":"A",
+         "excluye":""
+         },
+     "servicio":{
+       "incluye":"*",
+       "excluye":""
+     }
+ },
+   "GET:/frats":{
+        "tiposerv":{
+            "incluye":"A",
+            "excluye":""
+            },
+        "servicio":{
+          "incluye":"*",
+          "excluye":""
+        }
+    },
+      "GET:/frats/:id":{
          "tiposerv":{
              "incluye":"A",
              "excluye":""
@@ -79,7 +179,7 @@
            "excluye":""
          }
        },
-       "PUT:/users/delete":{
+       "POST:/frats":{
           "tiposerv":{
               "incluye":"A",
               "excluye":""
@@ -88,6 +188,156 @@
             "incluye":"*",
             "excluye":""
           }
-      }
-    }
+        },
+        "PUT:/frats/token":{
+           "tiposerv":{
+               "incluye":"*",
+               "excluye":""
+               },
+           "servicio":{
+             "incluye":"*",
+             "excluye":""
+           }
+         },
+         "PUT:/frats":{
+            "tiposerv":{
+                "incluye":"A",
+                "excluye":""
+                },
+            "servicio":{
+              "incluye":"*",
+              "excluye":""
+            }
+          },
+          "PUT:/frats/delete":{
+             "tiposerv":{
+                 "incluye":"A",
+                 "excluye":""
+                 },
+             "servicio":{
+               "incluye":"*",
+               "excluye":""
+             }
+         },
+         "GET:/places/count":{
+            "tiposerv":{
+                "incluye":"A",
+                "excluye":""
+                },
+            "servicio":{
+              "incluye":"*",
+              "excluye":""
+            }
+        },
+        "GET:/places":{
+           "tiposerv":{
+               "incluye":"A",
+               "excluye":""
+               },
+           "servicio":{
+             "incluye":"*",
+             "excluye":""
+           }
+         },
+         "GET:/places/:id":{
+            "tiposerv":{
+                "incluye":"A",
+                "excluye":""
+                },
+            "servicio":{
+              "incluye":"*",
+              "excluye":""
+            }
+          },
+          "POST:/places":{
+             "tiposerv":{
+                 "incluye":"A",
+                 "excluye":""
+                 },
+             "servicio":{
+               "incluye":"*",
+               "excluye":""
+             }
+            },
+            "PUT:/places":{
+               "tiposerv":{
+                   "incluye":"A",
+                   "excluye":""
+                   },
+               "servicio":{
+                 "incluye":"*",
+                 "excluye":""
+               }
+             },
+             "PUT:/places/delete":{
+                "tiposerv":{
+                    "incluye":"A",
+                    "excluye":""
+                    },
+                "servicio":{
+                  "incluye":"*",
+                  "excluye":""
+                }
+              },
+              "GET:/types/count":{
+                 "tiposerv":{
+                     "incluye":"A",
+                     "excluye":""
+                     },
+                 "servicio":{
+                   "incluye":"*",
+                   "excluye":""
+                 }
+             },
+             "GET:/types":{
+                "tiposerv":{
+                    "incluye":"A",
+                    "excluye":""
+                    },
+                "servicio":{
+                  "incluye":"*",
+                  "excluye":""
+                }
+              },
+              "GET:/types/:id":{
+                 "tiposerv":{
+                     "incluye":"A",
+                     "excluye":""
+                     },
+                 "servicio":{
+                   "incluye":"*",
+                   "excluye":""
+                 }
+               },
+               "POST:/types":{
+                  "tiposerv":{
+                      "incluye":"A",
+                      "excluye":""
+                      },
+                  "servicio":{
+                    "incluye":"*",
+                    "excluye":""
+                  }
+                 },
+                 "PUT:/types":{
+                    "tiposerv":{
+                        "incluye":"A",
+                        "excluye":""
+                        },
+                    "servicio":{
+                      "incluye":"*",
+                      "excluye":""
+                    }
+                  },
+                  "PUT:/types/delete":{
+                     "tiposerv":{
+                         "incluye":"A",
+                         "excluye":""
+                         },
+                     "servicio":{
+                       "incluye":"*",
+                       "excluye":""
+                     }
+                  }
+   }
 ]

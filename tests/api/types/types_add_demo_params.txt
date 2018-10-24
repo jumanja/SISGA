@@ -1,0 +1,1 @@
+tipo=N&nombre=Normal&estado=A

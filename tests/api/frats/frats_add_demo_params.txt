@@ -1,0 +1,1 @@
+frat=demo&nombre=Fraternidad Demostración&ciudad=Bogotá&direccion=Conocida&email=jumanja@gmail.com&&estado=A&logo=vacio.png

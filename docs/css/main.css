@@ -97,10 +97,13 @@ ol {
 
 .encajarImg {
   max-width:1000px;
+  margin: 10px;
+
 }
 
 .encajarTabla {
-  max-width:840px;
+  max-width:800px;
+  margin: 10px;
 }
 
 p {
@@ -125,7 +128,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 .baja { height:2px;}
 
-.anareq { content: "AR"; background-color: #569cd0}
+.adconf { background-color: #ffff00}
+.anareq { background-color: #8bbbdf}
 .arquit { background-color: #f17b41}
 .client { background-color: #cc00cc}
 .qualit { background-color: #ffbe41}
@@ -133,7 +137,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .gerent { background-color: #6bac56}
 .todos  { background-color: #cccccc}
 .w273   { background-color: #cccccc; width: 273px}
-
+.centered {text-align: center;}
 
 @media print {
     header, section {page-break-after: always;}

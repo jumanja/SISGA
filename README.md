@@ -2,6 +2,7 @@
 Sistema de Gestión de Actas
 
 # Integrantes
+- ALONSO CARLOS
 - DURANGO SNEIDER
 - MANJARRÉS JUAN
 - RODRIGUEZ LIANA
@@ -48,3 +49,6 @@ La solución de software debe diseñarse, implementarse y asegurar su calidad en
 - REQ-012: Generación PDF del acta.
 - REQ-013: Informe de Actas.
 - REQ-009: Notificación por Email.
+
+## Documentación Completa del Proyecto sisga
+En este enlace puede acceder a toda la documentación del proyecto: ![Documentación del Proyecto]http://jumanja.net/SISGA/docs

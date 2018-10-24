@@ -9,18 +9,18 @@ accediendo por fuera de la api, retorna Acceso Denegado
 if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
 /*--
-URL: /frats/count
+URL: /[tabla]/count
 MÉTODO: GET
-REQUERIMIENTOS: TO-DO identificar el req Tabla de Fraternidades mostrar cuenta
-TESTS: api/frats_count.sh
+REQUERIMIENTOS: TO-DO identificar el requermiento de la Tabla correspondiente a mostrar cuenta
+TESTS: api/[tabla]_count.sh
 
-DESCRIPCIÓN: Cuenta y retorna cuántas fraternidades hay en la
-						base de datos.
+DESCRIPCIÓN: Cuenta y retorna cuántos registros hay en la
+						base de datos para esta tabla.
 
 ENTRADA: Token y el Id del usuario.
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido cuenta cuántas fraternidades hay en la bd.
+				 válido cuenta cuántos registros de esta tabla hay en la bd.
 
 SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 				 [{"count":"8"}]
@@ -35,19 +35,13 @@ SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 frats_count
+SQLS: 	 [tabla]_count
 --*/
 $app->get('/frats/count', function () use($app) {
 
 	try{
-			/*
-			   A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
+			$authorized = checkPerm('GET:/frats/count', $app);
+			if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 		      $sqlCode = 'frats_count';
@@ -70,18 +64,18 @@ $app->get('/frats/count', function () use($app) {
 });
 
 /*--
-URL: /frats
+URL: /[tabla]
 MÉTODO: GET
-REQUERIMIENTOS: TO-DO identificar el req Tabla de Fraternidades
-TESTS: api/frats_all.sh
+REQUERIMIENTOS: TO-DO identificar el requerimiento de esta Tabla
+TESTS: api/[tabla]_all.sh
 
-DESCRIPCIÓN: Retorna la información de todas los fraternidades hay en la
-						base de datos.
+DESCRIPCIÓN: Retorna la información de todos los registros que hay de
+esta tabla en la base de datos.
 
 ENTRADA: Token y el Id del usuario.
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido retorna la información de todas los fraternidades de la bd.
+				 válido retorna la información de todos los registros de esta tabla en la bd.
 
 SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 					[{
@@ -110,33 +104,25 @@ SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 frats_all
+SQLS: 	 [tabla]_all
 --*/
 $app->get("/frats", function() use($app)
 {
  	try{
-		/*
-			 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-			 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-		*/
-		$permisos = "A";
-		//Si el token viene de un servicio que no tiene permiso, no siga
-		//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-		if(contains($app->request()->params('servicio'), $permisos) ){
-
-			$resultText = checkToken($app);
-			if(contains("validtoken", $resultText) ){
-				$sqlCode = 'frats_all';
-	      $forXSL = '../../xsl/count.xsl';
-	      simpleReturn($app, $sqlCode, $forXSL);
-			} else {
-				$connection = null;
-				$app->response->body($resultText);
-			}
-		}	else {
-			$connection = null;
-			$app->response->body("/frats " . ACCESSERROR);
-
+			$authorized = checkPerm('GET:/frats', $app);
+			if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+						$sqlCode = 'frats_all';
+			      $forXSL = '../../xsl/count.xsl';
+			      simpleReturn($app, $sqlCode, $forXSL);
+					} else {
+						$connection = null;
+						$app->response->body($resultText);
+					}
+				}	else {
+					$connection = null;
+					$app->response->body("/frats " . ACCESSERROR);
 		}
 	}
 	catch(PDOException $e)
@@ -146,20 +132,20 @@ $app->get("/frats", function() use($app)
 });
 
 /*--
-URL: /frats/:id
+URL: /[tabla]/:id
 MÉTODO: GET
-REQUERIMIENTOS: TO-DO identificar el req Consulta de fraternidades
-TESTS: api/frats_id.sh
+REQUERIMIENTOS: TO-DO identificar el requermiento de Consulta de esta tabla
+TESTS: [tabla]/frats_id.sh
 
-DESCRIPCIÓN: Retorna la información de un fraternidades en la
+DESCRIPCIÓN: Retorna la información de un registro de esta tabla en la
 						base de datos.
 
-ENTRADA: Token y el Id del usuario de la sesión, y el Id del usuario a retornar.
+ENTRADA: Token y el Id del usuario de la sesión, y el Id del registro a retornar.
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido retorna la información de todas los fraternidades de la bd.
+				 válido retorna la información de todos los registros de esta tabla de la bd.
 
-SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna en json, ejemplo:
+SALIDA:  Si el token y id son válidos, y existe ese registro con ese id, retorna en json, ejemplo:
 				 [{
 				 		"frat":"demo",
 						"id":"3",
@@ -185,19 +171,13 @@ SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna 
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 frats_all (filtrado por id del usuario a buscar)
+SQLS: 	 users_all (filtrado por id del usuario a buscar)
 --*/
 $app->get("/frats/:id", function($id) use($app)
 {
  	try{
-		/*
-			 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-			 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-		*/
-		$permisos = "A";
-		//Si el token viene de un servicio que no tiene permiso, no siga
-		//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-		if(contains($app->request()->params('servicio'), $permisos) ){
+		$authorized = checkPerm('GET:/frats/:id', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$sqlCode = 'frats_all';
@@ -224,14 +204,14 @@ $app->get("/frats/:id", function($id) use($app)
 });
 
 /*--
-URL: /frats
+URL: /[tabla]
 MÉTODO: POST
-REQUERIMIENTOS: TO-DO identificar el req adicion de fraternidades
-TESTS: api/frats_add.sh
+REQUERIMIENTOS: TO-DO identificar el req adicion de un registro en esta tabla
+TESTS: api/[tabla]_add.sh
 
-DESCRIPCIÓN: Agrega un usuario en la base de datos.
+DESCRIPCIÓN: Agrega un registro de esta tabla en la base de datos.
 
-ENTRADA: Token y el Id del usuario de la sesión, y los datos del usuario a retornar,
+ENTRADA: Token y el Id del usuario de la sesión, y los datos del registro a retornar,
 				 recibidos por el método POST, los datos a recibir (ejemplo):
 				 frat=demo
 				 usuario=admin
@@ -243,9 +223,11 @@ ENTRADA: Token y el Id del usuario de la sesión, y los datos del usuario a reto
 				 estado=A
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta adicionar una fraternidad en la bd con los datos recibidos.
+				 válido intenta adicionar un registro en esta tabla en la bd con los
+				 datos recibidos.
 
-SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de registros, ejemplo:
+SALIDA:  Si el token y id son válidos, y existe un registro con ese id, retorna
+				 la cantidad de registros, ejemplo:
 				 [{
 				 		"rows":"1"
 					}]';
@@ -260,53 +242,50 @@ SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna 
 				 <br />
 				 <b>Parse error</b>:  parse error .. y el mensaje de error.
 
-SQLS: 	 frats_add
+SQLS: 	 [tabla]_add
 --*/
 $app->post('/frats', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
+		$authorized = checkPerm('POST:/frats', $app);
+		if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+/*
+Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciada
+*/
+							$sqlCode = 'frats_add';
+							$forXSL = '../../xsl/count.xsl';
 
-				$resultText = checkToken($app);
-				if(contains("validtoken", $resultText) ){
+							$newId = null;
+							$prepParams = array(
+										':frat'       => $app->request()->params('frat'),
+										':id'         => $newId,
+										':nombre'    	=> $app->request()->params('nombre'),
+										':estado'     => $app->request()->params('estado'),
+										':logo'  			=> $app->request()->params('logo'),
+										':direccion'  => $app->request()->params('direccion'),
+										':ciudad' 		=> $app->request()->params('ciudad'),
+										':email'      => $app->request()->params('email')
+							);
 
-					$sqlCode = 'frats_add';
-					$forXSL = '../../xsl/count.xsl';
+							$query = getSQL($sqlCode, $app->request()->params('lang'));
+							$rows = getPDOPrepared($query, $prepParams);
+							$resultText = '[{"rows":"'.$rows.'"}]';
 
-					$newId = null;
-					$prepParams = array(
-								':frat'       => $app->request()->params('frat'),
-								':id'         => $newId,
-								':usuario'    => $app->request()->params('usuario'),
-								':apellidos'  => $app->request()->params('apellidos'),
-								':nombres'    => $app->request()->params('nombres'),
-								':password'   => password_hash($app->request()->params('password'), PASSWORD_DEFAULT),
-								':email'      => $app->request()->params('email'),
-								':servicio'   => $app->request()->params('servicio'),
-								':estado'     => $app->request()->params('estado')
-					);
-
-					$query = getSQL($sqlCode, $app->request()->params('lang'));
-					$rows = getPDOPrepared($query, $prepParams);
-					$resultText = '[{"rows":"'.$rows.'"}]';
-
-					normalheader($app, 'json', '');
-					//setResult($resultText, $app);
-					//echo "4. " . $resultText;
-					$connection = null;
-					$app->response->body($resultText);
-
-				} else {
-					$connection = null;
-					$app->response->body($resultText);
-				}
+							normalheader($app, 'json', '');
+							//setResult($resultText, $app);
+							//echo "4. " . $resultText;
+							$connection = null;
+							$app->response->body($resultText);
+		/*
+		 Inhabilitar siguiente bloque hasta el catch para agregar usuarios sin
+		 necesidad de terne sesión iniciada via token
+		*/
+						} else {
+							$connection = null;
+							$app->response->body($resultText);
+						}
 			}	else {
 				$connection = null;
 				$app->response->body("/frats (POST) " . ACCESSERROR);
@@ -322,25 +301,27 @@ $app->post('/frats', function () use($app) {
 });
 
 /*--
-URL: /frats
+URL: /[tabla]
 MÉTODO: PUT
-REQUERIMIENTOS: TO-DO identificar el req actualización de fraternidades
-TESTS: api/frats_update.sh
+REQUERIMIENTOS: TO-DO identificar el req actualización de registros de esta tabla
+TESTS: api/[tabla]_update.sh
 
-DESCRIPCIÓN: Actualiza los datos de un usuario en la base de datos.
+DESCRIPCIÓN: Actualiza los datos de un registro de esta tabla en la base de datos.
 
-ENTRADA: Token y el Id del usuario de la sesión, y el id de la fraternidad a retirar,
-				 recibidos por el método DELETE, los datos a recibir (ejemplo):
+ENTRADA: Token y el Id del usuario de la sesión, y el id del registro de
+ 				 la tabla a retirar, recibidos por el método PUT. Los datos a recibir
+				 (ejemplo):
 
 				 id=2
 				 iddelete=10
 				 token=updatedToken
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta modificar los datos de la fraternidad en la bd con los datos recibidos.
+				 válido intenta modificar los datos del registro en la bd con los datos
+				 recibidos.
 
-SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de
-				 registros actualizados, ejemplo:
+SALIDA:  Si el token y id son válidos, y existe un registro con ese id, retorna
+				 la cantidad de registros actualizados, ejemplo:
 
 				 Si realizó algún cambio en el registro:
 				 [{"rows":"1"}]
@@ -363,15 +344,8 @@ SQLS: 	 autogenerado
 $app->put('/frats', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/frats', $app);
+		if($authorized){
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$tableName = 'fraternidades';
@@ -380,7 +354,9 @@ $app->put('/frats', function () use($app) {
 					$arr = $app->request()->put();
 					foreach ( $arr as $key => $value) {
 							if($key == 'id'){
-								$queryUpdate = $queryUpdate . "{$key} = '" . $app->request()->params('idupdate') . "', ";
+								$queryUpdate = $queryUpdate .
+															 "{$key} = '" .
+															 $app->request()->params('idupdate') . "', ";
 							} else {
 								if($key == 'idupdate' || $key == 'token' || $key == 'tokenexpira'){
 									//saltese idupdate, token y tokenexpira. El id no se puede actualizar
@@ -391,7 +367,8 @@ $app->put('/frats', function () use($app) {
 					}
 					$queryUpdate = substr($queryUpdate, 0, -2);
 
-					$queryUpdate = $queryUpdate . " WHERE id = " . $app->request()->params('idupdate') ;
+					$queryUpdate = $queryUpdate .
+												 " WHERE id = " . $app->request()->params('idupdate') ;
 
 					//echo "2. " . $queryUpdate;
 
@@ -423,16 +400,18 @@ $app->put('/frats', function () use($app) {
 
 
 /*--
-URL: /frats/delete
+URL: /[tabla]/delete
 MÉTODO: PUT (el método DELETE da problemas no está implementado correctamente)
-REQUERIMIENTOS: TO-DO identificar el req actualización de fraternidades
-TESTS: api/frats_delete.sh
+REQUERIMIENTOS: TO-DO identificar el requerimiento de actualización de esta
+tabla.
+TESTS: api/[tabla]_delete.sh
 
-DESCRIPCIÓN: Actualiza el estado a R (Retirado) a una fraternidad en la base de datos,
-						 borrado lógico.
+DESCRIPCIÓN: Actualiza el estado a R (Retirado) a un registro de esta tabla en
+						 la base de datos, borrado lógico.
 
-ENTRADA: Token y el Id del usuario de la sesión, y los datos de la fratenidad a
-				 actualizar, los datos a recibir (ejemplo):
+ENTRADA: Token y el Id del usuario de la sesión, y los datos del registro
+ 				 a actualizar,
+				 los datos a recibir (ejemplo):
 
 				 id=2
 				 email=nuevoemail@email.com
@@ -440,10 +419,11 @@ ENTRADA: Token y el Id del usuario de la sesión, y los datos de la fratenidad a
 				 tokenexpira=2018-12-31 11:59:59
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta retirar un usuario (cambiando su estado a R) en la bd con los datos recibidos.
+				 válido intenta retirar el registro (cambiando su estado a R) en la bd
+				 con los datos recibidos.
 
-SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de
-				 registros actualizados, ejemplo:
+SALIDA:  Si el token y id son válidos, y existe el registro con ese id, retorna
+				 la cantidad de registros actualizados, ejemplo:
 
 				 Si realizó algún cambio en el registro:
 				 [{"rows":"1"}]
@@ -466,15 +446,8 @@ SQLS: 	 autogenerado
 $app->put('/frats/delete', function () use($app) {
 
 	try{
-			/*
-				 A - Administrador, P - Presidente, S - Secretario, T - Tesorero,
-				 E - Espiritual, R - Regional, N - Nacional, I - Invitado
-			*/
-			$permisos = "A";
-			//Si el token viene de un servicio que no tiene permiso, no siga
-			//echo "perm: " . $app->request()->params('servicio') . "/" . $permisos;
-			if(contains($app->request()->params('servicio'), $permisos) ){
-
+		$authorized = checkPerm('PUT:/frats/delete', $app);
+		if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
 						$tableName = 'fraternidades';

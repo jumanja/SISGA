@@ -2,7 +2,8 @@
 	"tablas":{
 		"etiquetas":{
 					"estado":"A",
-					"api":"labels",
+					"icon":"local_offer",
+					"api":"tags",
 					"descripcion":"Etiquetas",
 					"tiposerv":{
 						"inc":"I",
@@ -15,6 +16,7 @@
 		},
 			"fraternidades":{
 					"estado":"A",
+					"icon":"group",
 					"api":"frats",
 					"descripcion":"Fraternidades",
 					"tiposerv":{
@@ -28,6 +30,7 @@
 			},
 			"lugares":{
 						"estado":"A",
+						"icon":"place",
 						"api":"places",
 						"descripcion":"Lugares de Reunión",
 						"tiposerv":{
@@ -41,7 +44,8 @@
 			},
 		"tiposacta":{
 					"estado":"A",
-					"api":"minutypes",
+					"icon":"style",
+					"api":"types",
 					"descripcion":"Tipos de Actas",
 					"tiposerv":{
 						"inc":"A",
@@ -54,6 +58,7 @@
 			},
 		"servicios":{
 				"estado":"A",
+				"icon":"thumb_up",
 				"api":"servs",
 				"descripcion":"Servicios",
 				"tiposerv":{
@@ -67,6 +72,7 @@
 		},
 		"usuarios":{
 					"estado":"A",
+					"icon":"person",
 					"api":"users",
 					"descripcion":"Usuarios",
 					"tiposerv":{

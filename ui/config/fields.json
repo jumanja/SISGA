@@ -1,0 +1,317 @@
+{
+  "frats": {
+    "status":"A",
+    "type":"A",
+    "fields":[
+      {
+        "code":"frat", "alias":"codigo",
+        "desc":"Fraternidad", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
+      {
+        "code":"nombre",
+        "desc":"Nombre", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"edit"
+      },
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
+        "edit":"A", "edact":"ACB",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"mail"
+      },
+      {
+        "code":"logo",
+        "desc":"Logo", "required":false,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"edit"
+      },
+      {
+        "code":"direccion",
+        "desc":"Dirección", "required":false,
+        "view":"A", "vwact":"ACB", "vwctr":"label",
+        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"mail"
+      },
+      {
+        "code":"ciudad",
+        "desc":"Ciudad", "required":false,
+        "view":"A", "vwact":"ACB", "vwctr":"label",
+        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"mail"
+      },
+      {
+        "code":"email",
+        "desc":"Correo Electrónico", "required":false,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC", "edctr":"email", "eddef":"",
+        "icon":"mail"
+      }
+
+    ]
+
+  },
+  "places": {
+    "status":"A",
+    "type":"A",
+    "fields":[
+      {
+        "code":"lugar", "alias":"lugar",
+        "desc":"Lugar", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
+        "edit":"A", "edact":"ACB",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"mail"
+      }
+
+    ]
+
+  },
+  "types": {
+    "status":"A",
+    "type":"A",
+    "fields":[
+      {
+        "code":"tipo", "alias":"tipo",
+        "desc":"Tipo", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
+      {
+        "code":"nombre",
+        "desc":"Nombre", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"edit"
+      },
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
+        "edit":"A", "edact":"ACB",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"mail"
+      }
+
+    ]
+
+  },
+    "users": {
+    "status":"A",
+    "type":"A",
+    "fields":[
+      {
+        "code":"frat", "alias":"Fraternidad",
+        "desc":"Fraternidad", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
+      {
+        "code":"usuario", "alias":"Usuario",
+        "desc":"Usuario", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
+      {
+        "code":"nombres",
+        "desc":"Nombres", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"AC", "edctr":"text", "eddef":"",
+        "icon":"edit"
+      },
+      {
+        "code":"apellidos",
+        "desc":"Apellidos", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"AC", "edctr":"text", "eddef":"",
+        "icon":"edit"
+      },
+      {
+        "code":"password",
+        "desc":"Contraseña", "required":true,
+        "view":"A", "vwact":"AC", "vwctr":"label",
+        "edit":"A", "edact":"AC", "edctr":"password", "eddef":"",
+        "icon":"password"
+      },
+      {
+        "code":"email",
+        "desc":"Correo Electrónico", "required":false,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"AC", "edctr":"email", "eddef":"",
+        "icon":"mail"
+      },
+      {
+        "code":"servicio",
+        "desc":"Servicio", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
+        "edit":"A", "edact":"AC",
+        "edctr":"select;A-Administrador,E-Espiritual,F-Formador,N-Nacional,P-Presidente,S-Secretaria,T-Tesorero,R-Regional",
+        "eddef":"T",
+        "icon":"type"
+      },
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
+        "edit":"A", "edact":"AC",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"status"
+      }
+
+    ]
+
+  },
+  "partidos": {
+    "status":"A",
+    "type":"FA",
+    "fields":[
+      {
+        "code":"nro",
+        "desc":"Número", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"number"
+      },
+      {
+        "code":"nombre",
+        "desc":"Nombre", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"name"
+      },
+      {
+        "code":"repre",
+        "desc":"Representante", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"name"
+      },
+      {
+        "code":"ciudad",
+        "desc":"Ciudad", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"city"
+      },
+      {
+        "code":"codigocenso",
+        "desc":"Código Censo", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"code"
+      },
+      {
+        "code":"ordentarjeton",
+        "desc":"Orden Tarjetón", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"orden"
+      },
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
+        "edit":"FA", "edact":"AC",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"mail"
+      }
+
+    ]
+
+  },
+  "candidatos": {
+    "status":"A",
+    "type":"FA",
+    "fields":[
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
+        "edit":"FA", "edact":"AC",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"mail"
+      }
+
+    ]
+
+  },
+  "corporaciones": {
+    "status":"A",
+    "type":"FA",
+    "fields":[
+      {
+        "code":"nro",
+        "desc":"Número", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"number"
+      },
+      {
+        "code":"nombre",
+        "desc":"Nombre", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"name"
+      },
+      {
+        "code":"codigocenso",
+        "desc":"Código Censo", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"FA", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"code"
+      },
+      {
+        "code":"estado",
+        "desc":"Estado", "required":true,
+        "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
+        "edit":"FA", "edact":"AC",
+        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "eddef":"A",
+        "icon":"mail"
+      }
+
+    ]
+
+
+  }
+}

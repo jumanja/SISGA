@@ -51,9 +51,13 @@ input[type="checkbox"].filled-in:checked+label:after{
   background-color: #63D941;
 }
 .card-like{
-  background-color: #673AB7;
+  /*background-color: #673AB7;*/
+  background-color: #00695c;
 }
 .cardlike td {
   border: 1px solid #ccc;
   background-color: #ccc;
+}
+.icon-sisga {
+  color: #00695c;
 }

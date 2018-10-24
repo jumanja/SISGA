@@ -271,7 +271,11 @@ function parseParams($name, $flds, $sort, $max, $filter, $lang) {
 // returns true if $needle is a substring of $haystack
 function contains($needle, $haystack)
 {
-    return strpos($haystack, $needle) !== false;
+		if($needle == ""){
+			return false;
+		} else {
+			return strpos($haystack, $needle) !== false;
+		}
 }
 
 // confirmar si el token todavía es válido
@@ -362,7 +366,8 @@ function checkPerm($route, $app){
 	$servicio_include = $permArray[0][$route]['servicio']['incluye'];
 	$servicio_exclude = $permArray[0][$route]['servicio']['excluye'];
 
-	/*echo "<br>" . $tipserv;
+	/*
+	echo "<br>" . $tipserv;
 	echo "<br>" . $servicio;
 	echo "<br>" . $tipserv_include;
 	echo "<br>" . $tipserv_exclude;
