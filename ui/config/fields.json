@@ -4,7 +4,7 @@
     "type":"A",
     "fields":[
       {
-        "code":"frat", "alias":"codigo",
+        "code":"frat",
         "desc":"Fraternidad", "required":true,
         "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
         "edit":"A", "edact":"", "edctr":"text", "eddef":"",
@@ -118,14 +118,14 @@
     "type":"A",
     "fields":[
       {
-        "code":"frat", "alias":"Fraternidad",
+        "code":"frat",
         "desc":"Fraternidad", "required":true,
         "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
         "edit":"A", "edact":"", "edctr":"text", "eddef":"",
         "icon":"key"
       },
       {
-        "code":"usuario", "alias":"Usuario",
+        "code":"usuario",
         "desc":"Usuario", "required":true,
         "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
         "edit":"A", "edact":"", "edctr":"text", "eddef":"",
@@ -181,18 +181,27 @@
     ]
 
   },
-  "partidos": {
+  "servs": {
     "status":"A",
-    "type":"FA",
+    "type":"A",
     "fields":[
       {
-        "code":"nro",
-        "desc":"Número", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
+        "code":"servicio",
+        "desc":"Servicio", "required":true,
+        "view":"A", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"A", "edact":"AC",
         "edctr":"text",
         "eddef":"",
-        "icon":"number"
+        "icon":"servicio"
+      },
+      {
+        "code":"tiposerv",
+        "desc":"Tipo Servicio", "required":true,
+        "view":"A", "vwact":"ACRIMXV", "vwctr":"label",
+        "edit":"A", "edact":"AC",
+        "edctr":"text",
+        "eddef":"",
+        "icon":"name"
       },
       {
         "code":"nombre",
@@ -202,42 +211,6 @@
         "edctr":"text",
         "eddef":"",
         "icon":"name"
-      },
-      {
-        "code":"repre",
-        "desc":"Representante", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"name"
-      },
-      {
-        "code":"ciudad",
-        "desc":"Ciudad", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"city"
-      },
-      {
-        "code":"codigocenso",
-        "desc":"Código Censo", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"code"
-      },
-      {
-        "code":"ordentarjeton",
-        "desc":"Orden Tarjetón", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"orden"
       },
       {
         "code":"estado",
@@ -252,10 +225,24 @@
     ]
 
   },
-  "candidatos": {
+  "tags": {
     "status":"A",
-    "type":"FA",
+    "type":"S",
     "fields":[
+      {
+        "code":"frat",
+        "desc":"Fraternidad", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
+      {
+        "code":"etiqueta",
+        "desc":"Etiqueta", "required":true,
+        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
+        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
+        "icon":"key"
+      },
       {
         "code":"estado",
         "desc":"Estado", "required":true,

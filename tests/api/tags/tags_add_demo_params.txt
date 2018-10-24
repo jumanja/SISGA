@@ -1,1 +1,1 @@
-frat=demo&etiqueta=Electivo&estado=A
+frat=demo&etiqueta=Encuentro&estado=A

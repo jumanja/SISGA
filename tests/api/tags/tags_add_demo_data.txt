@@ -1,2 +1,2 @@
-id=3&token=$2y$10$.NrtQL9ozaCdcVbnMo7pc.2.GqrtvmLJPzpIPx2mEMmRLxWH6bVkG&servicio=S&tiposerv=I&
-frat=demo&etiqueta=Electivo&estado=A
+id=3&token=$2y$10$EvH5HNmeDQCMQucPXDI7OuLgG20JcO3.KtiA1giYPABdoE34qN5wm&frat=demo&servicio=S&tiposerv=I&
+frat=demo&etiqueta=Encuentro&estado=A
