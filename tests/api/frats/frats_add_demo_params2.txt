@@ -1,0 +1,1 @@
+frat=otra&nombre=Segunda Fraternidad Demostración&ciudad=Barranquilla&direccion=También Conocida&email=jumanja@hotmail.com&&estado=A&logo=vacio.png

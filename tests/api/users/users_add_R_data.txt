@@ -1,2 +1,2 @@
-id=1&token=$2y$10$JnUndKd6wOdQPyLn.ED1H./a19WYrt03HAF1HCB8kc4r/hXzWUXDK&servicio=A&
+id=1&token=$2y$10$z.oKeqwa2vxE8glgwJ8Fo.qjeV4nQOT3/2l7RqBgCY8o722LAkYqS&frat=demo&servicio=A&tiposerv=A&
 frat=demo&usuario=regional&apellidos=Apellidos Regional&nombres=Nombres Regional&password=regional&email=region@demo.com&servicio=R&estado=A

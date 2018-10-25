@@ -1,2 +1,2 @@
-id=1&token=$2y$10$4Px1Jfk5k8hdHnZAsoI7X.Y2b4CU4Q.98hkBlrwn/EXxCfrIcdGD.&servicio=A&tiposerv=A&
+id=1&token=$2y$10$fRcwoIP7x/6l.AFfjEOhsuqf8Cn4DamSPgqV.OC19N/dojMBRRbgO&frat=demo&servicio=A&tiposerv=A&
 tipo=N&nombre=Normal&estado=A

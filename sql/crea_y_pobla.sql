@@ -219,6 +219,12 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
 
 /*
-Poblar servicios, se requiere después de cerar la Bd, o de no, no deja entar
+Poblar servicios, se requiere después de limpiar o crear la Bd, o de no, no deja entar
 */
 INSERT INTO `sisga`.`servicios` (`servicio`, `tiposerv`, `id`, `nombre`, `estado`) VALUES ('A', 'A', '1', 'Administrador', 'A');
+
+/*
+Poblar usuarios, se requiere un usuario administrador para poder poblarla por scripts
+*/
+INSERT INTO `sisga`.`usuarios` (`frat`, `id`, `usuario`, `apellidos`, `nombres`, `password`, `email`, `servicio`, `token`, `tokenexpira`, `estado`) VALUES
+('demo', 1, 'admin', 'Del Sistema', 'Administrador', '$2y$10$kR0suOkr3Qx8bbqeLzDDyey54FcRyOgMm2p3d3PyLjCONLKWtWFju', 'jumanja@gmail.com', 'A', '$2y$10$yZGPGWIz2nV5SxzxHYJi4OjAuUWRoPtKORQ1xxDl2LusKu2IYAGyG', '2018-10-25 15:33:27', 'A');

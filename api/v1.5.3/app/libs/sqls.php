@@ -7,7 +7,7 @@ function getSQL($name, $app) {
 
     $SQLs  = array(
             "frats_act"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email " .
-                             "FROM fraternidades WHERE estado = 'A' AND frat = '" . $frat . "'",
+                             "FROM fraternidades WHERE estado = 'A'",
             "frats_add"   => "INSERT INTO fraternidades (frat, id, nombre, estado, logo, direccion, ciudad, email) " .
                              "VALUES (:frat, :id, :nombre, :estado, :logo, :direccion, :ciudad, :email)",
             "frats_all"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email FROM fraternidades",
@@ -34,18 +34,18 @@ function getSQL($name, $app) {
             "tags_all"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE frat = '" . $frat . "'",
 
             "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
-                             "FROM tipoactas a WHERE estado = 'A' WHERE frat = '" . $frat . "'",
+                             "FROM tipoactas a WHERE estado = 'A' AND frat = '" . $frat . "'",
             "types_all"   => "SELECT tipo, id, nombre, estado FROM tipoactas WHERE frat = '" . $frat . "'",
-            "types_add"   => "INSERT INTO tipoactas (tipo, id, nombre, estado) " .
-                             "VALUES (:tipo, :id, :nombre, :estado)",
-            "types_count" => "SELECT count(1) as count FROM tipoactas AND frat = '" . $frat . "'",
+            "types_add"   => "INSERT INTO tipoactas (frat, tipo, id, nombre, estado) " .
+                             "VALUES (:frat, :tipo, :id, :nombre, :estado)",
+            "types_count" => "SELECT count(1) as count FROM tipoactas WHERE frat = '" . $frat . "'",
 
             "users_act"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, b.tiposerv " .
                              "FROM usuarios a, servicios b WHERE a.estado = 'A' and a.servicio = b.servicio",
             "users_all"   => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio, estado FROM usuarios WHERE frat = '" . $frat . "'",
             "users_add"   => "INSERT INTO usuarios (frat, id, usuario, apellidos, nombres, password, email, servicio, estado) " .
                              "VALUES (:frat, :id, :usuario, :apellidos, :nombres, :password, :email, :servicio, :estado)",
-            "users_count" => "SELECT count(1) as count FROM usuarios AND frat = '" . $frat . "'",
+            "users_count" => "SELECT count(1) as count FROM usuarios WHERE frat = '" . $frat . "'",
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "" => "");
     //echo "sqls name : " . $name . " / " .  $SQLs[$name];
