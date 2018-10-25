@@ -1,1 +1,1 @@
-[{"rows":"1"}]
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'N' for key 'tipoactas_UNIQUE'

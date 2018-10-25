@@ -1,0 +1,2 @@
+id=1&token=$2y$10$fRcwoIP7x/6l.AFfjEOhsuqf8Cn4DamSPgqV.OC19N/dojMBRRbgO&frat=demo&servicio=A&tiposerv=A&
+frat=otra&tipo=Normal&nombre=Normal&estado=A
