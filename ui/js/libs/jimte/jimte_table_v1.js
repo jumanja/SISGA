@@ -422,9 +422,10 @@ class JimteTab {
 
             $.each( data, function( key, val ) {
 
+//                 val.type.indexOf(jimte.userType) !== -1) {
+              //Si está habilitaod A - Adicionar, B - Buscar, C - Cambiar
               if(key == tabla &&
-                 val.status == "A" &&
-                 val.type.indexOf(jimte.userType) !== -1) {
+                 val.status == "A") {
 
                    $.each( val.fields, function( key1, val1 ) {
 
@@ -435,75 +436,109 @@ class JimteTab {
 /*
 color, date, datetime-local, email, month, number, range, search, tel, time, url, week
 */
-                        if(controls[0] == "text" ||
-                           controls[0] == "password" ||
-                           controls[0] == "number" ||
-                           controls[0] == "email") {
+                        if(
+                            val1.vwact.indexOf("A") !== -1 ||
+                            val1.vwact.indexOf("C") !== -1 ||
+                            val1.vwact.indexOf("B") !== -1
+                          ){
+                            if(controls[0] == "text" ||
+                               controls[0] == "password" ||
+                               controls[0] == "number" ||
+                               controls[0] == "email") {
 
-                             inputCtrl = "<input class='input-control browser-default black-text' type='" +
-                                         controls[0] + "' " +
-                                         "id='add_" + alias + "' " +
-                                         "name='add_" + alias + "' " +
-                                         requiredCtrl +
-                                         "value='" + val1.eddef + "'>";
+                                 inputCtrl = "<input readonly class='input-control browser-default black-text' type='" +
+                                             controls[0] + "' " +
+                                             "id='add_" + alias + "' " +
+                                             "name='add_" + alias + "' " +
+                                             requiredCtrl +
+                                             "value='" + val1.eddef + "'>";
 
-                            if(controls[0] == "password"){
-                              inputCtrl += "<label class='right-inline'>Confirmar</label>" +
-                                          "<input class='input-control browser-default black-text' type='" +
-                                          controls[0] + "' " +
-                                          "id='add_confpwd_" + alias + "' " +
-                                          "name='add_confpwd_" + alias + "' " +
+                                if(controls[0] == "password"){
+                                  inputCtrl += "<label class='right-inline'>Confirmar</label>" +
+                                              "<input readonly class='input-control browser-default black-text' type='" +
+                                              controls[0] + "' " +
+                                              "id='add_confpwd_" + alias + "' " +
+                                              "name='add_confpwd_" + alias + "' " +
+                                              requiredCtrl +
+                                              "value='' onchange=\"jimte_table.confPwd('add_confpwd_" + alias + "', 'add_"+ alias+"');\">";
+                                }
+
+                            }
+                            if(controls[0] == "select"){
+                              var options = controls[1].split(",");
+                              var optionsCTRL ="";
+                              var i;
+                              for(i = 0; i< options.length; i++){
+                                var optionItem = options[i].split("-");
+                                optionsCTRL += "<option value='" + optionItem[0] + "'>" +
+                                               optionItem[1] +
+                                               "</option>"
+                              }
+
+                              inputCtrl = "<select disabled class='browser-default' " +
                                           requiredCtrl +
-                                          "value='' onchange=\"jimte_table.confPwd('add_confpwd_" + alias + "', 'add_"+ alias+"');\">";
+                                          "id='add_" + alias + "' " +
+                                          "name='add_" + alias + "' >" +
+                                          optionsCTRL +
+                                          "</select>";
+
                             }
 
-                        }
+                            if(controls[0] == "selectTable"){
+                              var options = controls[1].split(",");
+                              var optionsCTRL ="";
 
-                        if(controls[0] == "select"){
-                          var options = controls[1].split(",");
-                          var optionsCTRL ="";
-                          var i;
-                          for(i = 0; i< options.length; i++){
-                            var optionItem = options[i].split("-");
-                            optionsCTRL += "<option value='" + optionItem[0] + "'>" +
-                                           optionItem[1] +
-                                           "</option>"
+                              var query = options[0];
+
+                              inputCtrl = "<select disabled class='browser-default' " +
+                                          requiredCtrl +
+                                          "id='add_" + alias + "' " +
+                                          "name='add_" + alias + "' >" +
+                                          optionsCTRL +
+                                          "</select>";
+
+                              popSelectTable(alias, query);
+                            }
+
+                            //Si está permitido Adición
+                            if(
+                              val1.vwact.indexOf("A") !== -1 ||
+                              val1.edact.indexOf("A") !== -1
+                              ){
+                                var addCtrl = inputCtrl;
+                                if(val1.edact.indexOf("A") !== -1){
+                                  addCtrl = addCtrl.replace(/readonly/g, "");
+                                  addCtrl = addCtrl.replace(/disabled/g, "");
+                                }
+                                contentAdd.push( "<li title='"+ val1.help + "' >" +
+                                                  "<label class='right-inline'>" +
+                                                  "<i class='material-icons tiny'>" + val1.icon + "</i>&nbsp;" +
+                                                  val1.desc + "</label>" +
+                                                  addCtrl +
+                                                  "</li>");
+                            }
+                            //Si está permitido Cambio
+                            if( val1.vwact.indexOf("C") !== -1 ||
+                                val1.edact.indexOf("C") !== -1 ){
+                                var editCtrl = inputCtrl;
+                                editCtrl = inputCtrl.replace(/add_/g, "edit_");
+                                if(
+                                  val1.edact.indexOf("C") !== -1
+                                ){
+                                  editCtrl = editCtrl.replace(/readonly/g, "");
+                                  editCtrl = editCtrl.replace(/disabled/g, "");
+                                }
+
+                                contentEdit.push( "<li title='"+ val1.help + "'>" +
+                                                  "<label class='right-inline'>" +
+                                                  "<i class='material-icons tiny'>" + val1.icon + "</i>&nbsp;" +
+                                                  val1.desc + "</label>" +
+                                                  editCtrl.replace(/add_/g, "edit_") +
+                                                  "</li>");
+
+                            }
+
                           }
-
-                          inputCtrl = "<select class='browser-default' " +
-                                      requiredCtrl +
-                                      "id='add_" + alias + "' " +
-                                      "name='add_" + alias + "' >" +
-                                      optionsCTRL +
-                                      "</select>";
-
-                        }
-
-                        if(controls[0] == "selectTable"){
-                          var options = controls[1].split(",");
-                          var optionsCTRL ="";
-
-                          var query = options[0];
-
-                          inputCtrl = "<select class='browser-default' " +
-                                      requiredCtrl +
-                                      "id='add_" + alias + "' " +
-                                      "name='add_" + alias + "' >" +
-                                      optionsCTRL +
-                                      "</select>";
-
-                          popSelectTable(alias, query);
-                        }
-
-                        contentAdd.push( "<li>" +
-                                          "<label class='right-inline'>" + val1.desc + "</label>" +
-                                          inputCtrl +
-                                          "</li>");
-
-                        contentEdit.push( "<li>" +
-                                          "<label class='right-inline'>" + val1.desc + "</label>" +
-                                          inputCtrl.replace(/add_/g, "edit_") +
-                                          "</li>");
 
 
                   });
