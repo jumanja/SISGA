@@ -231,12 +231,13 @@
   font-weight: 300;
   letter-spacing: .09em;
   text-transform: uppercase;
+  color: #f1e6e6;
 }
 
 .flex-outer > li > label,
 .flex-outer li p {
   flex: 1 0 120px;
-  max-width: 220px;
+  max-width: 130px;
 }
 
 .flex-outer > li > label + *,

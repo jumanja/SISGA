@@ -1,58 +1,57 @@
 {
   "frats": {
     "status":"A",
-    "type":"A",
     "fields":[
       {
         "code":"frat",
         "desc":"Fraternidad", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"AB", "edctr":"text", "eddef":"",
+        "icon":"vpn_key", "help":"Código que identifica a la Fraternidad"
       },
       {
         "code":"nombre",
         "desc":"Nombre", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
-        "icon":"edit"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"group", "help":"Nombre de la Fraternidad"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
-        "edit":"A", "edact":"ACB",
-        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "vwact":"ACRIBMXV", "vwctr":"select",
+        "edact":"ACB",
+        "edctr":"select;A-Activa,I-Inactiva,R-Retirada",
         "eddef":"A",
-        "icon":"mail"
+        "icon":"traffic", "help":"Estado de la Fraternidad"
       },
       {
         "code":"logo",
         "desc":"Logo", "required":false,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
-        "icon":"edit"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"image", "help":"Logo de la Fraternidad"
       },
       {
         "code":"direccion",
         "desc":"Dirección", "required":false,
-        "view":"A", "vwact":"ACB", "vwctr":"label",
-        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
-        "icon":"mail"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"location_on", "help":"Dirección de la Fraternidad"
       },
       {
         "code":"ciudad",
         "desc":"Ciudad", "required":false,
-        "view":"A", "vwact":"ACB", "vwctr":"label",
-        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
-        "icon":"mail"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"location_city", "help":"Ciudad de la Fraternidad"
       },
       {
         "code":"email",
-        "desc":"Correo Electrónico", "required":false,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC", "edctr":"email", "eddef":"",
-        "icon":"mail"
+        "desc":"Email", "required":false,
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"AC", "edctr":"email", "eddef":"",
+        "icon":"email", "help":"Correo Electrónico de Contacto"
       }
 
     ]
@@ -60,23 +59,22 @@
   },
   "places": {
     "status":"A",
-    "type":"A",
     "fields":[
       {
         "code":"lugar", "alias":"lugar",
         "desc":"Lugar", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"text", "eddef":"",
+        "icon":"vpn_key", "help":"Lugar de Reuniones"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
-        "edit":"A", "edact":"ACB",
+        "vwact":"ACRIBMXV", "vwctr":"select",
+        "edact":"ACB",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
-        "icon":"mail"
+        "icon":"traffic", "help":"Estado del Lugar"
       }
 
     ]
@@ -84,30 +82,29 @@
   },
   "types": {
     "status":"A",
-    "type":"A",
     "fields":[
       {
         "code":"tipo", "alias":"tipo",
         "desc":"Tipo", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"text", "eddef":"",
+        "icon":"vpn_key", "help":"Tipo de Actas"
       },
       {
         "code":"nombre",
         "desc":"Nombre", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"ACB", "edctr":"text", "eddef":"",
-        "icon":"edit"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"ACB", "edctr":"text", "eddef":"",
+        "icon":"sort_by_alpha", "help":"Nombre del Tipo de Acta"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
-        "edit":"A", "edact":"ACB",
+        "vwact":"ACRIBMXV", "vwctr":"select",
+        "edact":"ACB",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
-        "icon":"mail"
+        "icon":"traffic", "help":"Estado del Tipo de Acta"
       }
 
     ]
@@ -115,67 +112,66 @@
   },
     "users": {
     "status":"A",
-    "type":"A",
     "fields":[
       {
         "code":"frat",
         "desc":"Fraternidad", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"text", "eddef":"",
+        "icon":"group", "help":"Código de la Fraternidad"
       },
       {
         "code":"usuario",
         "desc":"Usuario", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"text", "eddef":"",
+        "icon":"vpn_key", "help":"Código de Usuario"
       },
       {
         "code":"nombres",
         "desc":"Nombres", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"AC", "edctr":"text", "eddef":"",
-        "icon":"edit"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"AC", "edctr":"text", "eddef":"",
+        "icon":"sort_by_alpha", "help":"Nombres del Usuario"
       },
       {
         "code":"apellidos",
         "desc":"Apellidos", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"AC", "edctr":"text", "eddef":"",
-        "icon":"edit"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"AC", "edctr":"text", "eddef":"",
+        "icon":"sort_by_alpha", "help":"Apellidos del Usuario"
       },
       {
         "code":"password",
         "desc":"Contraseña", "required":true,
-        "view":"A", "vwact":"AC", "vwctr":"label",
-        "edit":"A", "edact":"AC", "edctr":"password", "eddef":"",
-        "icon":"password"
+        "vwact":"AC", "vwctr":"label",
+        "edact":"AC", "edctr":"password", "eddef":"",
+        "icon":"lock", "help":"Contraseña del Usuario"
       },
       {
         "code":"email",
         "desc":"Correo Electrónico", "required":false,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"AC", "edctr":"email", "eddef":"",
-        "icon":"mail"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"AC", "edctr":"email", "eddef":"",
+        "icon":"mail", "help":"Correo Electrónico"
       },
       {
         "code":"servicio",
         "desc":"Servicio", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
-        "edit":"A", "edact":"AC",
+        "vwact":"ACRIBMXV", "vwctr":"select",
+        "edact":"AC",
         "edctr":"select;A-Administrador,E-Espiritual,F-Formador,N-Nacional,P-Presidente,S-Secretaria,T-Tesorero,R-Regional",
         "eddef":"T",
-        "icon":"type"
+        "icon":"thumb_up", "help":"Servicio que presta"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"select",
-        "edit":"A", "edact":"AC",
+        "vwact":"ACRIBMXV", "vwctr":"select",
+        "edact":"AC",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
-        "icon":"status"
+        "icon":"traffic", "help":"Estado del Usuario"
       }
 
     ]
@@ -183,43 +179,42 @@
   },
   "servs": {
     "status":"A",
-    "type":"A",
     "fields":[
       {
         "code":"servicio",
         "desc":"Servicio", "required":true,
-        "view":"A", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"A", "edact":"AC",
+        "vwact":"ACRIMXV", "vwctr":"label",
+        "edact":"AC",
         "edctr":"text",
         "eddef":"",
-        "icon":"servicio"
+        "icon":"vpn_key", "help":"Código del Servicio"
       },
       {
         "code":"tiposerv",
         "desc":"Tipo Servicio", "required":true,
-        "view":"A", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"A", "edact":"AC",
-        "edctr":"text",
+        "vwact":"ACRIMXV", "vwctr":"select",
+        "edact":"AC",
+        "edctr":"select;A-Administrador,I-Integrante,V-Visitante",
         "eddef":"",
-        "icon":"name"
+        "icon":"title", "help":"Tipo de Servicio"
       },
       {
         "code":"nombre",
         "desc":"Nombre", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
+        "vwact":"ACRIMXV", "vwctr":"label",
+        "edact":"AC",
         "edctr":"text",
         "eddef":"",
-        "icon":"name"
+        "icon":"sort_by_alpha", "help":"Nombre del Servicio"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
-        "edit":"FA", "edact":"AC",
+        "vwact":"ACRIMXV", "vwctr":"select",
+        "edact":"AC",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
-        "icon":"mail"
+        "icon":"traffic","help":"Estado del Servicio"
       }
 
     ]
@@ -227,78 +222,32 @@
   },
   "tags": {
     "status":"A",
-    "type":"S",
     "fields":[
       {
         "code":"frat",
         "desc":"Fraternidad", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"text", "eddef":"",
+        "icon":"group", "help":"Código de la Fraternidad"
       },
       {
         "code":"etiqueta",
         "desc":"Etiqueta", "required":true,
-        "view":"A", "vwact":"ACRIBMXV", "vwctr":"label",
-        "edit":"A", "edact":"", "edctr":"text", "eddef":"",
-        "icon":"key"
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"text", "eddef":"",
+        "icon":"vpn_key", "help":"Etiqueta o Palabra Clave"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
         "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
         "edit":"FA", "edact":"AC",
-        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
+        "edctr":"select;A-Activa,I-Inactiva,R-Retirada",
         "eddef":"A",
-        "icon":"mail"
+        "icon":"traffic","help":"Estado de la Etiqueta"
       }
 
     ]
-
-  },
-  "corporaciones": {
-    "status":"A",
-    "type":"FA",
-    "fields":[
-      {
-        "code":"nro",
-        "desc":"Número", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"number"
-      },
-      {
-        "code":"nombre",
-        "desc":"Nombre", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"name"
-      },
-      {
-        "code":"codigocenso",
-        "desc":"Código Censo", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"label",
-        "edit":"FA", "edact":"AC",
-        "edctr":"text",
-        "eddef":"",
-        "icon":"code"
-      },
-      {
-        "code":"estado",
-        "desc":"Estado", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
-        "edit":"FA", "edact":"AC",
-        "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
-        "eddef":"A",
-        "icon":"mail"
-      }
-
-    ]
-
 
   }
 }
