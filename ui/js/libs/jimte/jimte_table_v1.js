@@ -191,7 +191,7 @@ class JimteTab {
           }
         }else {
           jimte.alertMe(l("%denied", data[0].acceso) + " " +
-                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Ingreso al Sistema"));
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Recuperar Tablas"));
 
         }
       },
@@ -202,6 +202,91 @@ class JimteTab {
     })
    //end popSelectTables
   }
+
+  sendAdd(){
+    var self = $(this);
+
+    var form_data = new FormData();
+
+  }
+
+  working(id){
+    $("#" + id).parent().find(".determinate").attr("class", "indeterminate");
+  }
+
+  notWorking(id){
+    $("#" + id).parent().find(".indeterminate").attr("class", "determinate");
+  }
+
+  sendUpdate(){
+    //begin sendUpdate
+    var self = $(this);
+
+    this.working("editTable");
+
+    //Crear un arreglo con campos y valores para poblar form_data
+    var arrayFields = new Array();
+    //$("#editTable").find( "*[id^='edit_']" ).css( "background-color", "blue" );
+    $("#editTable").find( "*[id^='edit_']" ).each( function() {
+        //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
+        arrayFields.push($(this).attr("id"));
+    });
+
+    var form_data = new FormData();
+    form_data.append("id", jimte.currentUser.id );
+    form_data.append("tiposerv", jimte.currentUser.tiposerv );
+    form_data.append("servicio", jimte.currentUser.servicio );
+    form_data.append("frat", jimte.currentUser.frat );
+    form_data.append("table", this.table );
+    form_data.append("token", jimte.token );
+
+    var inc;
+    for (inc = 0; inc < arrayFields.length; inc++) {
+        form_data.append(arrayFields[inc], $("#" + arrayFields[inc]).val() );
+    }
+
+    console.log("sendUpdate!" + form_data);
+    // Display the key/value pairs
+    for (var pair of form_data.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
+
+    $.ajax({
+      url: jimte.serverPath + 'index.php/' + this.table,
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: form_data,
+      type: 'PUT',
+      success: function(data){
+        console.log( "sendUpdate success - data: " + data );
+
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+               jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                             l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
+
+        }else {
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+        }
+
+        this.notWorking("editTable");
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          jimte_table.notWorking("editTable");
+
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+   //end sendUpdate
+
+  }
+
   load_grafica(vista, ctx){
 //    if(jimte.tekken == "localhost"){
 //      return;
@@ -616,8 +701,8 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
             overlays[1].getElementsByTagName("ul")[0].innerHTML = contentEdit.join("");
 
             //$('select').material_select();
-            jimte_table.popSelectTables();
-            if(jimte_table.popArraySelectTable.length > 0){
+            if(jimte_table.popArraySelectTable != undefined &&
+               jimte_table.popArraySelectTable.length > 0){
                 jimte_table.popSelectTables();
             }
 
