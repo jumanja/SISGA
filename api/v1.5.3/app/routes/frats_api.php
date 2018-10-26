@@ -113,7 +113,11 @@ $app->get("/frats", function() use($app)
 			if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
-						$sqlCode = 'frats_all';
+						if($app->request()->params('selpop') == "1"){
+							$sqlCode = 'frats_sel';
+					  } else {
+							$sqlCode = 'frats_all';
+						}
 			      $forXSL = '../../xsl/count.xsl';
 			      simpleReturn($app, $sqlCode, $forXSL);
 					} else {

@@ -135,6 +135,73 @@ class JimteTab {
     })
   }
 
+  popSelectTables(){
+    //begin popSelectTables
+    var self = $(this);
+
+    this.aliasPop = this.popArraySelectTable[0][0];
+    this.descrPop = this.popArraySelectTable[0][1];
+    this.valuePop = this.popArraySelectTable[0][2];
+    this.tablePop = this.popArraySelectTable[0][3];
+
+    console.log("popSelectTables!");
+    $.ajax({
+      url: jimte.serverPath + 'index.php/' + this.tablePop +
+                              "?id=" + jimte.currentUser.id +
+                              "&selpop=1" +
+                              "&tiposerv=" + jimte.currentUser.tiposerv +
+                              "&servicio=" + jimte.currentUser.servicio +
+                              "&frat=" + jimte.currentUser.frat +
+                              "&table=" + this.table +
+                              "&token=" + jimte.token,
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      type: 'GET',
+      success: function(data){
+        console.log( "popSelectTables - data: " + data );
+
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+
+          var currentAddValue  = $("#add_" + jimte_table.aliasPop).val();
+          var currentEditValue = $("#edit_" + jimte_table.aliasPop).val();
+
+          $("#add_" + jimte_table.aliasPop).children().remove();
+          $("#edit_" + jimte_table.aliasPop).children().remove();
+
+          //var records = [];
+          $.each( data, function( key, val ) {
+              $("#add_" + jimte_table.aliasPop)
+                .append($("<option></option>")
+                .attr("value",val[jimte_table.valuePop])
+                .text(val[jimte_table.descrPop]));
+
+              $("#edit_" + jimte_table.aliasPop)
+              .append($("<option></option>")
+              .attr("value",val[jimte_table.valuePop])
+              .text(val[jimte_table.descrPop]));
+          });
+
+          jimte_table.popArraySelectTable.shift();
+          if(jimte_table.popArraySelectTable.length > 0){
+              jimte_table.popSelectTables();
+          }
+        }else {
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Ingreso al Sistema"));
+
+        }
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+   //end popSelectTables
+  }
   load_grafica(vista, ctx){
 //    if(jimte.tekken == "localhost"){
 //      return;
@@ -398,6 +465,7 @@ class JimteTab {
   load_table_forms(tabla){
         var self = $(this);
         var url = jimte.configPath + "fields.json";
+        jimte_table.popArraySelectTable = new Array();
         console.log("load_table_forms: " + tabla + " / " + url);
 
         $.ajax({
@@ -486,9 +554,8 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
 
                             if(controls[0] == "selectTable"){
                               var options = controls[1].split(",");
-                              var optionsCTRL ="";
-
-                              var query = options[0];
+                              // Cola de procesos
+                              jimte_table.popArraySelectTable.push([alias, options[1], options[2], options[0]]);
 
                               inputCtrl = "<select disabled class='browser-default' " +
                                           requiredCtrl +
@@ -497,7 +564,6 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
                                           optionsCTRL +
                                           "</select>";
 
-                              popSelectTable(alias, query);
                             }
 
                             //Si está permitido Adición
@@ -550,6 +616,11 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
             overlays[1].getElementsByTagName("ul")[0].innerHTML = contentEdit.join("");
 
             //$('select').material_select();
+            jimte_table.popSelectTables();
+            if(jimte_table.popArraySelectTable.length > 0){
+                jimte_table.popSelectTables();
+            }
+
 
           },
           error: function(xhr, status, error) {

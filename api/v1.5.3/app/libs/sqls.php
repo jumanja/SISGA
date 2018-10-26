@@ -11,6 +11,7 @@ function getSQL($name, $app) {
             "frats_add"   => "INSERT INTO fraternidades (frat, id, nombre, estado, logo, direccion, ciudad, email) " .
                              "VALUES (:frat, :id, :nombre, :estado, :logo, :direccion, :ciudad, :email)",
             "frats_all"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email FROM fraternidades",
+            "frats_sel"   => "SELECT nombre, frat FROM fraternidades where estado = 'A'",
             "frats_count" => "SELECT count(1) as count FROM fraternidades",
 
             "places_act"  => "SELECT frat, lugar, id, estado FROM lugares WHERE estado = 'A' AND frat = '" . $frat . "'",
@@ -23,6 +24,7 @@ function getSQL($name, $app) {
                              "VALUES (:servicio, :tiposerv, :id, :nombre, :estado)",
             "servs_count" => "SELECT count(1) as count FROM servicios",
             "servs_act"   => "SELECT servicio, tiposerv, id, nombre, estado FROM servicios WHERE estado = 'A'",
+            "servs_sel"   => "SELECT nombre, servicio FROM servicios WHERE estado = 'A'",
             "servs_all"   => "SELECT servicio, tiposerv, id, nombre, estado FROM servicios",
 
             "token_check" => "SELECT tokenexpira FROM usuarios WHERE token = :token AND id = :id ",

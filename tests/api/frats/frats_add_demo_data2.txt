@@ -1,2 +1,2 @@
-id=1&token=$2y$10$z.oKeqwa2vxE8glgwJ8Fo.qjeV4nQOT3/2l7RqBgCY8o722LAkYqS&frat=demo&servicio=A&tiposerv=A&
+id=1&token=$2y$10$IqS.T91QS6lX5Y1yBghBju9koAMMjF0Qd05Jy9T4htojHRrr7HHHe&frat=demo&servicio=A&tiposerv=A&
 frat=otra&nombre=Segunda Fraternidad Demostración&ciudad=Barranquilla&direccion=También Conocida&email=jumanja@hotmail.com&&estado=A&logo=vacio.png
