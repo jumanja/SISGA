@@ -366,14 +366,14 @@ function checkPerm($route, $app){
 	$servicio_include = $permArray[0][$route]['servicio']['incluye'];
 	$servicio_exclude = $permArray[0][$route]['servicio']['excluye'];
 
-	/*
-	echo "<br>" . $tipserv;
-	echo "<br>" . $servicio;
-	echo "<br>" . $tipserv_include;
-	echo "<br>" . $tipserv_exclude;
-	echo "<br>" . $servicio_include;
-	echo "<br>" . $servicio_exclude;
-*/
+
+	echo '<br>$tipserv: ' . $tipserv;
+	echo '<br>$servicio: ' . $servicio;
+	echo '<br>$tipserv_include: ' . $tipserv_include;
+	echo '<br>$tipserv_exclude: ' . $tipserv_exclude;
+	echo '<br>$servicio_include: ' . $servicio_include;
+	echo '<br>$servicio_exclude: ' . $servicio_exclude;
+
 	$authorized = false;
 	if( $tipserv_include == "*" && !contains($tipserv, $tipserv_exclude) ) {
 		if( $servicio_include == "*" && !contains($servicio, $servicio_exclude) ) {

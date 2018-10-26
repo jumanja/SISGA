@@ -160,7 +160,7 @@ NOT WORKING on SAFARI for MAC
 
     sendForm(){
       var self = $(this);
-
+      $("#loginWorking").show();
       /*
       NOT WORKING ON SAFARI for mac
       let form_data = new FormData();
@@ -170,7 +170,7 @@ NOT WORKING on SAFARI for MAC
       form_data.append('password', $('#password').val());
       form_data.append('lang', this.currentLang);
 
-      //console.log("sendForm!" + form_data);
+      console.log("sendForm!" + form_data);
       $.ajax({
         url: this.serverPath + 'index.php/login',
         dataType: "json",
@@ -181,6 +181,7 @@ NOT WORKING on SAFARI for MAC
         type: 'POST',
         success: function(php_response){
           //console.log("presp: " + php_response[0].acceso);
+          $("#loginWorking").hide();
 
           if (php_response[0].acceso == undefined) {
             //window.location.href = 'main.html';
@@ -192,6 +193,7 @@ NOT WORKING on SAFARI for MAC
             jimte.llave = php_response[0].usuario;
             jimte.defaultOption = "";
             jimte.buildSideMenu(php_response.token);
+            $("#languageSelect").hide();
           }else {
             //alert(php_response.acceso + " " + php_response.motivo);
             jimte.alertMe(l("%denied", php_response[0].acceso) + " " +
@@ -200,7 +202,20 @@ NOT WORKING on SAFARI for MAC
         },
         error: function(xhr, status, error) {
             //alert(xhr.responseText + "\nCon el error:\n" + error);
-            jimte.alertMe(xhr.responseText + "\nCon el error:\n" + error, "Ingreso al Sistema");
+            /*
+            Error: SQLSTATE[HY000] [2002] No such file or directory
+Fatal error: Call to a member function prepare() on a non-object in /Library/WebServer/Documents/jumanja.net/SISGA/api/v1.5.3/app/routes/api.php on line 25
+Con el error: SyntaxError: Unexpected token E in JSON at position 0
+*/
+            $("#loginWorking").hide();
+
+            if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+              jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Ingreso al Sistema");
+
+            } else {
+              jimte.alertMe(xhr.responseText + "\nCon el error:\n" + error, "Ingreso al Sistema");
+
+            }
         }
       })
     }

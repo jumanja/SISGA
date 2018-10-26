@@ -179,16 +179,6 @@
       "excluye": ""
     }
   },
-  "PUT:/frats/token": {
-    "tiposerv": {
-      "incluye": "*",
-      "excluye": ""
-    },
-    "servicio": {
-      "incluye": "*",
-      "excluye": ""
-    }
-  },
   "PUT:/frats": {
     "tiposerv": {
       "incluye": "A",

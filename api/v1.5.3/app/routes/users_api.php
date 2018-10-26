@@ -449,7 +449,7 @@ $app->put('/users', function () use($app) {
 
 					$queryUpdate = $queryUpdate . " WHERE id = " . $app->request()->params('idupdate') ;
 
-					//echo "2. " . $queryUpdate;
+					echo "2. " . $queryUpdate;
 
 
 		      $rows = getPDO($queryUpdate);

@@ -1,1 +1,1 @@
-[{"rows":"0"}]
+<br>$tipserv: A<br>$servicio: A<br>$tipserv_include: A<br>$tipserv_exclude: <br>$servicio_include: *<br>$servicio_exclude: 2. UPDATE usuarios SET  id = '2', frat = 'demo', servicio = 'A', tiposerv = 'A', email = 'simple2@email.com' WHERE id = 2Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tiposerv' in 'field list'
