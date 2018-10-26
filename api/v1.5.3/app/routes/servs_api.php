@@ -110,7 +110,11 @@ $app->get("/servs", function() use($app)
 		if($authorized){
 			$resultText = checkToken($app);
 			if(contains("validtoken", $resultText) ){
-				$sqlCode = 'servs_all';
+				if($app->request()->params('selpop') == "1"){
+					$sqlCode = 'servs_sel';
+				} else {
+					$sqlCode = 'servs_all';
+				}
 	      $forXSL = '../../xsl/count.xsl';
 	      simpleReturn($app, $sqlCode, $forXSL);
 			} else {

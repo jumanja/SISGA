@@ -151,7 +151,7 @@
   },
   "GET:/frats": {
     "tiposerv": {
-      "incluye": "A",
+      "incluye": "AI",
       "excluye": ""
     },
     "servicio": {

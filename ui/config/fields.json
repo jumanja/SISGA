@@ -61,10 +61,17 @@
     "status":"A",
     "fields":[
       {
+        "code":"frat",
+        "desc":"Fraternidad", "required":true,
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"selectTable;frats,nombre,frat", "eddef":"",
+        "icon":"group", "help":"Código de la Fraternidad"
+      },
+      {
         "code":"lugar", "alias":"lugar",
         "desc":"Lugar", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"label",
-        "edact":"", "edctr":"text", "eddef":"",
+        "edact":"ACB", "edctr":"text", "eddef":"",
         "icon":"vpn_key", "help":"Lugar de Reuniones"
       },
       {
@@ -87,7 +94,7 @@
         "code":"tipo", "alias":"tipo",
         "desc":"Tipo", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"label",
-        "edact":"", "edctr":"text", "eddef":"",
+        "edact":"A", "edctr":"text", "eddef":"",
         "icon":"vpn_key", "help":"Tipo de Actas"
       },
       {
@@ -117,14 +124,14 @@
         "code":"frat",
         "desc":"Fraternidad", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"label",
-        "edact":"", "edctr":"text", "eddef":"",
+        "edact":"A", "edctr":"selectTable;frats,nombre,frat", "eddef":"",
         "icon":"group", "help":"Código de la Fraternidad"
       },
       {
         "code":"usuario",
         "desc":"Usuario", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"label",
-        "edact":"", "edctr":"text", "eddef":"",
+        "edact":"A", "edctr":"text", "eddef":"",
         "icon":"vpn_key", "help":"Código de Usuario"
       },
       {
@@ -160,7 +167,7 @@
         "desc":"Servicio", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"select",
         "edact":"AC",
-        "edctr":"select;A-Administrador,E-Espiritual,F-Formador,N-Nacional,P-Presidente,S-Secretaria,T-Tesorero,R-Regional",
+        "edctr":"selectTable;servs,nombre,servicio",
         "eddef":"T",
         "icon":"thumb_up", "help":"Servicio que presta"
       },
@@ -227,21 +234,21 @@
         "code":"frat",
         "desc":"Fraternidad", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"label",
-        "edact":"", "edctr":"text", "eddef":"",
+        "edact":"", "edctr":"selectTable;frats,nombre,frat", "eddef":"",
         "icon":"group", "help":"Código de la Fraternidad"
       },
       {
         "code":"etiqueta",
         "desc":"Etiqueta", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"label",
-        "edact":"", "edctr":"text", "eddef":"",
+        "edact":"ACB", "edctr":"text", "eddef":"",
         "icon":"vpn_key", "help":"Etiqueta o Palabra Clave"
       },
       {
         "code":"estado",
         "desc":"Estado", "required":true,
-        "view":"FA", "vwact":"ACRIMXV", "vwctr":"select",
-        "edit":"FA", "edact":"AC",
+        "view":"A", "vwact":"ACRIMXV", "vwctr":"select",
+        "edit":"A", "edact":"AC",
         "edctr":"select;A-Activa,I-Inactiva,R-Retirada",
         "eddef":"A",
         "icon":"traffic","help":"Estado de la Etiqueta"

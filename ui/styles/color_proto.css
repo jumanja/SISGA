@@ -61,3 +61,6 @@ input[type="checkbox"].filled-in:checked+label:after{
 .icon-sisga {
   color: #00695c;
 }
+input:read-only {
+    background-color: #ccc;
+}
