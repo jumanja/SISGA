@@ -1,2 +1,1 @@
-export myapi=https://jumanja.net/SISGA/api/v1.5.3/index.php/
 export myapi=http://localhost/jumanja.net/sisga/api/v1.5.3/index.php/

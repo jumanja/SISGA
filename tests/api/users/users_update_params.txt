@@ -1,1 +1,1 @@
-idupdate=2&email=simple2@email.com
+idupdate=2&edit_email=simple2@email.com

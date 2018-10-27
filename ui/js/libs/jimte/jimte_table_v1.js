@@ -100,7 +100,14 @@ class JimteTab {
                 key2.indexOf("password") == -1 &&
                 key2.indexOf("token") == -1  ){
 
-                  contenido += "<td>" + val2 + "</td>";
+                  if(key2 == "estado"){
+                    contenido += '<td class="' +
+                                 (val2 == "R" ? "red" : (val2 == "I" ? "orange" : "teal")) +
+                                 ' lighten-3">' + val2 + '</td>';
+
+                  } else {
+                    contenido += "<td>" + val2 + "</td>";
+                  }
               }
             });
             contenido += "</tr>";
@@ -226,6 +233,7 @@ class JimteTab {
 
     //Crear un arreglo con campos y valores para poblar form_data
     var arrayFields = new Array();
+    arrayFields.push("edit_idupdate");
     //$("#editTable").find( "*[id^='edit_']" ).css( "background-color", "blue" );
     $("#editTable").find( "*[id^='edit_']" ).each( function() {
         //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
@@ -252,34 +260,39 @@ class JimteTab {
     }
 
     $.ajax({
-      url: jimte.serverPath + 'index.php/' + this.table,
+      url: jimte.serverPath + 'index.php/' + this.table + '/update',
       dataType: "json",
       cache: false,
       processData: false,
       contentType: false,
       data: form_data,
-      type: 'PUT',
+      type: 'POST',
       success: function(data){
         console.log( "sendUpdate success - data: " + data );
 
         //&& data.length > 0
         if ((typeof data !== undefined ) &&
              (data.length == 0 || data[0].acceso == undefined)) {
+               /*
                jimte.alertMe(l("%denied", data[0].acceso) + " " +
                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
-
+               */
+               jimte_table.overlayOff('C');
+               jimte_table.refreshTable();
         }else {
           jimte.alertMe(l("%denied", data[0].acceso) + " " +
                         l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
 
         }
 
-        this.notWorking("editTable");
+        jimte_table.notWorking("editTable");
       },
       error: function(xhr, status, error) {
           //alert(xhr.responseText + "\nCon el error:\n" + error);
+          if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+            jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Guardando Cambios");
+          }
           jimte_table.notWorking("editTable");
-
           console.log(xhr.responseText + "\nCon el error:\n" + error);
       }
     })
@@ -517,6 +530,9 @@ class JimteTab {
                               "name='edit_" + field + "' " +
                               "value='" + tds[i].innerHTML + "'>" +
                               "</li>"; */
+
+              field = (field == 'id' ? "idupdate" : field);
+
               var elem = document.getElementById("edit_" + field);
               if(elem != null) {
                 document.getElementById("edit_" + field).value = tds[i].innerHTML;

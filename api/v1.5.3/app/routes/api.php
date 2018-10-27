@@ -355,34 +355,55 @@ function getPermissions(){
 function checkPerm($route, $app){
 	//$permArray, $app->request()->params('tiposerv'), $app->request()->params('servicio')
 	//echo $permArray[0]['GET:/users/count']['tiposerv']['incluye'];
-	$permArray = getPermissions();;
+	$permArray = getPermissions();
 
-	$tipserv  = $app->request()->params('tiposerv');
+	$tiposerv = $app->request()->params('tiposerv');
 	$servicio = $app->request()->params('servicio');
 
-	$tipserv_include = $permArray[0][$route]['tiposerv']['incluye'];
-	$tipserv_exclude = $permArray[0][$route]['tiposerv']['excluye'];
+	$tiposerv_include = $permArray[0][$route]['tiposerv']['incluye'];
+	$tiposerv_exclude = $permArray[0][$route]['tiposerv']['excluye'];
 
 	$servicio_include = $permArray[0][$route]['servicio']['incluye'];
 	$servicio_exclude = $permArray[0][$route]['servicio']['excluye'];
 
-
-	echo '<br>$tipserv: ' . $tipserv;
+ 	/*echo 'Método:' . $app->request->getMethod();
+	echo 'get tiposerv:<br>' . $app->request->get('tiposerv');
+	echo 'put tiposerv:<br>' . $app->request->put('tiposerv');
+	echo 'post tiposerv:<br>' . $app->request->post('tiposerv');
+	echo 'all_put:<br>' . $app->request->put();
+	echo '<br>$tiposerv: ' . $tiposerv;
 	echo '<br>$servicio: ' . $servicio;
-	echo '<br>$tipserv_include: ' . $tipserv_include;
-	echo '<br>$tipserv_exclude: ' . $tipserv_exclude;
+	echo '<br>$tipserv_include: ' . $tiposerv_include;
+	echo '<br>$tipserv_exclude: ' . $tiposerv_exclude;
 	echo '<br>$servicio_include: ' . $servicio_include;
 	echo '<br>$servicio_exclude: ' . $servicio_exclude;
-
+	*/
+	/*
+	$arr = $app->request()->put();
+	echo "\n<br>put:" . $key . "/" . $value;
+	foreach ( $arr as $key => $value) {
+			echo $key . "/" . $value;
+	}
+	$arr = $app->request()->post();
+	echo "\n<br>post:" . $key . "/" . $value;
+	foreach ( $arr as $key => $value) {
+			echo $key . "/" . $value;
+	}
+	$arr = $app->request()->get();
+	echo "\n<br>get:" . $key . "/" . $value;
+	foreach ( $arr as $key => $value) {
+			echo $key . "/" . $value;
+	}
+*/
 	$authorized = false;
-	if( $tipserv_include == "*" && !contains($tipserv, $tipserv_exclude) ) {
+	if( $tiposerv_include == "*" && !contains($tiposerv, $tiposerv_exclude) ) {
 		if( $servicio_include == "*" && !contains($servicio, $servicio_exclude) ) {
 			$authorized = true;
 		}
 	}
 
 	if(	!$authorized ) {
-		if( contains($tipserv, $tipserv_include) ) {
+		if( contains($tiposerv, $tiposerv_include) ) {
 			if( contains($servicio, $servicio_include) ||
 					($servicio_include == "*" && !contains($servicio, $servicio_exclude)) ) {
 				$authorized = true;
