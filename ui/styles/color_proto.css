@@ -64,3 +64,7 @@ input[type="checkbox"].filled-in:checked+label:after{
 input:read-only {
     background-color: #ccc;
 }
+:required{
+  /*background-color: #fff176;*/
+  background-color: #fff9c4;
+}

@@ -194,6 +194,9 @@ NOT WORKING on SAFARI for MAC
             jimte.defaultOption = "";
             jimte.buildSideMenu(php_response.token);
             $("#languageSelect").hide();
+
+            Materialize.toast('Bienvenido(a) <br>' + jimte.nombres +'!', 3000, 'rounded');
+
           }else {
             //alert(php_response.acceso + " " + php_response.motivo);
             jimte.alertMe(l("%denied", php_response[0].acceso) + " " +
