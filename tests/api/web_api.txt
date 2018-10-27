@@ -1,0 +1,1 @@
+export myapi=https://jumanja.net/SISGA/api/v1.5.3/index.php/

@@ -1,2 +1,2 @@
-id=1&token=$2y$10$cxT6qWa2LYntaxF.9gt6MOPz8okxiQD37pnVvfq9PV3NHk14KaEzK&frat=demo&servicio=A&tiposerv=A&
-idupdate=2&email=simple2@email.com
+id=1&token=$2y$10$Tdty6lWlY2BsCYk1ffi0J.VGlREBYMLr/pAGwnu60lAoLcDjfdqR6&frat=demo&servicio=A&tiposerv=A&
+idupdate=2&edit_email=simple2@email.com

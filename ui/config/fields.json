@@ -151,8 +151,8 @@
       {
         "code":"password",
         "desc":"Contraseña", "required":true,
-        "vwact":"AC", "vwctr":"label",
-        "edact":"AC", "edctr":"password", "eddef":"",
+        "vwact":"", "vwctr":"label",
+        "edact":"", "edctr":"password", "eddef":"",
         "icon":"lock", "help":"Contraseña del Usuario"
       },
       {

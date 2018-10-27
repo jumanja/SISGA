@@ -129,6 +129,16 @@
       "excluye": ""
     }
   },
+  "POST:/users/update": {
+    "tiposerv": {
+      "incluye": "A",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
   "PUT:/users/delete": {
     "tiposerv": {
       "incluye": "A",
@@ -240,6 +250,16 @@
     }
   },
   "PUT:/places": {
+    "tiposerv": {
+      "incluye": "A",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
+  "POST:/places/update": {
     "tiposerv": {
       "incluye": "A",
       "excluye": ""
