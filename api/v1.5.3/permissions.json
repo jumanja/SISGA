@@ -59,6 +59,16 @@
       "excluye": ""
     }
   },
+  "POST:/tags/update": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "S",
+      "excluye": ""
+    }
+  },
   "PUT:/tags/delete": {
     "tiposerv": {
       "incluye": "I",
@@ -199,6 +209,16 @@
       "excluye": ""
     }
   },
+  "POST:/frats/update": {
+    "tiposerv": {
+      "incluye": "A",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
   "PUT:/frats/delete": {
     "tiposerv": {
       "incluye": "A",
@@ -329,6 +349,16 @@
       "excluye": ""
     }
   },
+  "POST:/types/update": {
+    "tiposerv": {
+      "incluye": "A",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
   "PUT:/types/delete": {
     "tiposerv": {
       "incluye": "A",
@@ -380,6 +410,16 @@
     }
   },
   "PUT:/servs": {
+    "tiposerv": {
+      "incluye": "A",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
+  "POST:/servs/update": {
     "tiposerv": {
       "incluye": "A",
       "excluye": ""
