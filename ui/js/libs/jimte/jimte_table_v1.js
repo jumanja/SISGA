@@ -227,6 +227,23 @@ class JimteTab {
 
   sendUpdate(){
     //begin sendUpdate
+    //Si hay algún campo requerido y vacío, no se puede seguir
+    var empty = false;
+    $("#editTable").find( "*[required]" ).each( function() {
+        //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
+        if($(this).val() == ""){
+          $(this).css("border", "2px dotted red");
+          empty = true;
+        } else {
+          $(this).css("border", "");
+        }
+    });
+
+    if(empty){
+      return false;
+    }
+
+
     var self = $(this);
 
     this.working("editTable");
@@ -277,6 +294,8 @@ class JimteTab {
                jimte.alertMe(l("%denied", data[0].acceso) + " " +
                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
                */
+               // 'rounded' is the class I'm applying to the toast
+               Materialize.toast('Se Guardó OK!', 3000, 'rounded');
                jimte_table.overlayOff('C');
                jimte_table.refreshTable();
         }else {
