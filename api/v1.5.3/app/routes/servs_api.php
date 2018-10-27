@@ -297,26 +297,28 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 	}
 });
 
+
 /*--
 URL: /servs
 MÉTODO: PUT
-REQUERIMIENTOS: TO-DO identificar el req actualización de servicios
+REQUERIMIENTOS: TO-DO identificar el req actualización de usuarios
 TESTS: api/servs_update.sh
 
 DESCRIPCIÓN: Actualiza los datos de un usuario en la base de datos.
 
-ENTRADA: Token y el Id del usuario de la sesión, y el id del servicio a retirar,
-				 recibidos por el método DELETE, los datos a recibir (ejemplo):
+ENTRADA: Token y el Id del usuario de la sesión, y el id del tipoacta a actualizar,
+				 recibidos por el método PUT, los datos a recibir (ejemplo):
 
 				 id=2
 				 iddelete=10
 				 token=updatedToken
 
 PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
-				 válido intenta modificar los datos de un servicio en la bd con los datos recibidos.
+				 válido intenta modificar los datos de un tipo de acta en la bd con los
+				 datos recibidos.
 
-SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de
-				 registros actualizados, ejemplo:
+SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna
+				 la cantidad de registros actualizados, ejemplo:
 
 				 Si realizó algún cambio en el registro:
 				 [{"rows":"1"}]
@@ -344,18 +346,22 @@ $app->put('/servs', function () use($app) {
 				$resultText = checkToken($app);
 				if(contains("validtoken", $resultText) ){
 					$tableName = 'servicios';
-		      $queryUpdate = 'UPDATE ' . $tableName . ' SET  ';
+		      $queryUpdate = 'UPDATE ' . $tableName . ' SET ';
 
 					$arr = $app->request()->put();
 					foreach ( $arr as $key => $value) {
-							if($key == 'id'){
-								$queryUpdate = $queryUpdate . "{$key} = '" . $app->request()->params('idupdate') . "', ";
-							} else {
-								if($key == 'idupdate' || $key == 'token' || $key == 'tokenexpira'){
-									//saltese idupdate, token y tokenexpira. El id no se puede actualizar
-								} else {
-									$queryUpdate = $queryUpdate ."{$key} = '{$value}', ";
-								}
+							//echo substr($key, 0, 5);
+							if(substr($key, 0, 5) == 'edit_'){
+								  $key  = substr($key, 5);
+									if($key == 'id'){
+										$queryUpdate = $queryUpdate . "{$key} = '" . $app->request()->params('idupdate') . "', ";
+									} else {
+										if($key == 'idupdate' || $key == 'token' || $key == 'tokenexpira'){
+											//saltese idupdate, token y tokenexpira. El id no se puede actualizar
+										} else {
+											$queryUpdate = $queryUpdate ."{$key} = '{$value}', ";
+										}
+									}
 							}
 					}
 					$queryUpdate = substr($queryUpdate, 0, -2);
@@ -390,6 +396,102 @@ $app->put('/servs', function () use($app) {
 	}
 });
 
+/*--
+URL: /servs/update
+MÉTODO: POST
+REQUERIMIENTOS: TO-DO identificar el req actualización de usuarios
+TESTS: api/servs_update_post.sh
+
+DESCRIPCIÓN: Actualiza los datos de un usuario en la base de datos.
+
+ENTRADA: Token y el Id del usuario de la sesión, y el id del usuario a retirar,
+				 recibidos por el método POST, los datos a recibir (ejemplo):
+
+				 id=2
+				 iddelete=10
+				 token=updatedToken
+
+PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
+				 válido intenta modificar los datos de un usuario en la bd con los datos recibidos.
+
+SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de
+				 registros actualizados, ejemplo:
+
+				 Si realizó algún cambio en el registro:
+				 [{"rows":"1"}]
+
+				 Si la información estaba igual y no actualizó nada:
+				 [{"rows":"0"}]
+
+				 Si no es válido el token, retorna en json:
+					[{
+						"acceso":"Denegado.",
+						"motivo":"Token no existe o Ya ha expirado."
+					}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 autogenerado
+--*/
+$app->post('/servs/update', function () use($app) {
+
+	try{
+		$authorized = checkPerm('POST:/servs/update', $app);
+		if($authorized){
+				$resultText = checkToken($app);
+				if(contains("validtoken", $resultText) ){
+					$tableName = 'servicios';
+		      $queryUpdate = 'UPDATE ' . $tableName . ' SET ';
+
+					$arr = $app->request()->post();
+					foreach ( $arr as $key => $value) {
+							//echo substr($key, 0, 5);
+							if(substr($key, 0, 5) == 'edit_'){
+								  $key  = substr($key, 5);
+									if($key == 'id'){
+										$queryUpdate = $queryUpdate . "{$key} = '" . $app->request()->params('idupdate') . "', ";
+									} else {
+										if($key == 'confpwd_password' || $key == 'idupdate' || $key == 'token' || $key == 'tokenexpira'){
+											//saltese idupdate, token y tokenexpira. El id no se puede actualizar
+										} else {
+											$queryUpdate = $queryUpdate ."{$key} = '{$value}', ";
+										}
+									}
+							}
+					}
+					$queryUpdate = substr($queryUpdate, 0, -2);
+
+					$queryUpdate = $queryUpdate . " WHERE id = " . $app->request()->params('edit_idupdate') ;
+
+					//echo "2. " . $queryUpdate;
+
+
+		      $rows = getPDO($queryUpdate);
+		      $resultText = '[{"rows":"'. $rows->rowCount() .'"}]';
+
+		      normalheader($app, 'json', '');
+		      //setResult($resultText, $app);
+		      $connection = null;
+		  		$app->response->body($resultText);
+
+				} else {
+					$connection = null;
+					$app->response->body($resultText);
+				}
+
+			}	else {
+				$connection = null;
+				$app->response->body("/servs/update (POST) " . ACCESSERROR);
+
+			}
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
 
 /*--
 URL: /servs/delete
