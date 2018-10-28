@@ -5,7 +5,7 @@ class JimteTab {
   }
 
   changeTable(obj) {
-      console.log("changeTable " + obj.value);
+      //console.log("changeTable " + obj.value);
       if(obj.value != ""){
         $("#tabla_loader").show();
         this.table = obj.value;
@@ -16,7 +16,7 @@ class JimteTab {
       } else {   //No hay tabla seleccionada
         $("#tabla_loader").hide();
 
-        $("#addTable").hide();
+        $("#addRecord").hide();
         $("#resetFilters").hide();
         $("#refreshTable").hide();
         $("#table_content").hide();
@@ -28,7 +28,7 @@ class JimteTab {
   }
 
   check_grafica(ctx) {
-      console.log("check_grafica ");
+      //console.log("check_grafica ");
 
       this.load_grafica("graph_mesas", ctx);
   }
@@ -39,7 +39,7 @@ class JimteTab {
 
     var icono = this.tableIcon;
 
-    console.log("load_table!");
+    //console.log("load_table!");
     $.ajax({
       url: jimte.serverPath + 'index.php/' + this.table +
                               "?id=" + jimte.currentUser.id +
@@ -54,7 +54,7 @@ class JimteTab {
       contentType: false,
       type: 'GET',
       success: function(data){
-        console.log( "load_table - data: " + data );
+        //console.log( "load_table - data: " + data );
 
         //&& data.length > 0
         if ((typeof data !== undefined ) &&
@@ -101,8 +101,11 @@ class JimteTab {
                 key2.indexOf("token") == -1  ){
 
                   if(key2 == "estado"){
-                    contenido += '<td class="' +
-                                 (val2 == "R" ? "red" : (val2 == "I" ? "orange" : "teal")) +
+                    contenido += '<td ' +
+                                 'onclick="jimte_table.overlayOn(\'R\', this.parentNode)"' +
+                                 'class="' +
+                                 (val2 == "R" ? "red" :
+                                 (val2 == "I" ? "yellow" : "teal")) +
                                  ' lighten-3">' + val2 + '</td>';
 
                   } else {
@@ -118,7 +121,7 @@ class JimteTab {
 
           $("#tabla_loader").hide();
 
-          $("#addTable").show();
+          $("#addRecord").show();
           $("#resetFilters").show();
           $("#refreshTable").show();
           $("#table_content").show();
@@ -151,7 +154,7 @@ class JimteTab {
     this.valuePop = this.popArraySelectTable[0][2];
     this.tablePop = this.popArraySelectTable[0][3];
 
-    console.log("popSelectTables!");
+    //console.log("popSelectTables!");
     $.ajax({
       url: jimte.serverPath + 'index.php/' + this.tablePop +
                               "?id=" + jimte.currentUser.id +
@@ -167,7 +170,7 @@ class JimteTab {
       contentType: false,
       type: 'GET',
       success: function(data){
-        console.log( "popSelectTables - data: " + data );
+        //console.log( "popSelectTables - data: " + data );
 
         //&& data.length > 0
         if ((typeof data !== undefined ) &&
@@ -178,6 +181,7 @@ class JimteTab {
 
           $("#add_" + jimte_table.aliasPop).children().remove();
           $("#edit_" + jimte_table.aliasPop).children().remove();
+          $("#ret_" + jimte_table.aliasPop).children().remove();
 
           //var records = [];
           $.each( data, function( key, val ) {
@@ -187,6 +191,11 @@ class JimteTab {
                 .text(val[jimte_table.descrPop]));
 
               $("#edit_" + jimte_table.aliasPop)
+              .append($("<option></option>")
+              .attr("value",val[jimte_table.valuePop])
+              .text(val[jimte_table.descrPop]));
+
+              $("#ret_" + jimte_table.aliasPop)
               .append($("<option></option>")
               .attr("value",val[jimte_table.valuePop])
               .text(val[jimte_table.descrPop]));
@@ -211,18 +220,111 @@ class JimteTab {
   }
 
   sendAdd(){
+    //begin sendAdd
+    //console.log("sendAdd");
+    //Si hay algún campo requerido y vacío, no se puede seguir
+    var empty = false;
+    $("#addTable").find( "*[required]" ).each( function() {
+        //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
+        //console.log($(this));
+
+        if($(this).val() == ""){
+          $(this).css("border", "2px dotted red");
+          empty = true;
+        } else {
+          $(this).css("border", "");
+        }
+    });
+
+    if(empty){
+      return false;
+    }
     var self = $(this);
 
+    this.working("addTable");
+
+    //Crear un arreglo con campos y valores para poblar form_data
+    var arrayFields = new Array();
+    //arrayFields.push("add_idupdate");
+    //$("#addTable").find( "*[id^='edit_']" ).css( "background-color", "blue" );
+    $("#addTable").find( "*[id^='add_']" ).each( function() {
+        //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
+        arrayFields.push($(this).attr("id"));
+    });
+
     var form_data = new FormData();
+    form_data.append("id", jimte.currentUser.id );
+    form_data.append("tiposerv", jimte.currentUser.tiposerv );
+    form_data.append("servicio", jimte.currentUser.servicio );
+    form_data.append("frat", jimte.currentUser.frat );
+    form_data.append("table", this.table );
+    form_data.append("token", jimte.token );
+
+    var inc;
+    for (inc = 0; inc < arrayFields.length; inc++) {
+        form_data.append(arrayFields[inc], $("#" + arrayFields[inc]).val() );
+    }
+
+    //console.log("sendAdd!" + form_data);
+    // Display the key/value pairs
+    /*for (var pair of form_data.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }*/
+
+    $.ajax({
+      url: jimte.serverPath + 'index.php/' + this.table + '/add',
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: form_data,
+      type: 'POST',
+      success: function(data){
+        //console.log( "sendAdd success - data: " + data );
+
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+               /*
+               jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                             l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
+               */
+               // 'rounded' is the class I'm applying to the toast
+               Materialize.toast('Se Adicionó OK!', 3000, 'rounded');
+               jimte_table.overlayOff('A');
+               jimte_table.refreshTable();
+        }else {
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+        }
+
+        jimte_table.notWorking("addTable");
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+            jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Adicionando Registro");
+          }
+          if(xhr.responseText.startsWith("Error: SQLSTATE[23000]")){
+            jimte.alertMe("Ya existe un registro con esa llave en la base de datos, Por favor verifique.", "Adicionando Registro");
+          }
+          jimte_table.notWorking("addTable");
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+   //end sendAdd
 
   }
 
   working(id){
     $("#" + id).parent().find(".determinate").attr("class", "indeterminate");
+    $("#" + id + "_Save").attr("disabled", "disabled");
   }
 
   notWorking(id){
     $("#" + id).parent().find(".indeterminate").attr("class", "determinate");
+    $("#" + id + "_Save").removeAttr("disabled");
   }
 
   sendUpdate(){
@@ -270,11 +372,11 @@ class JimteTab {
         form_data.append(arrayFields[inc], $("#" + arrayFields[inc]).val() );
     }
 
-    console.log("sendUpdate!" + form_data);
+    //console.log("sendUpdate!" + form_data);
     // Display the key/value pairs
-    for (var pair of form_data.entries()) {
+    /*for (var pair of form_data.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
-    }
+    }*/
 
     $.ajax({
       url: jimte.serverPath + 'index.php/' + this.table + '/update',
@@ -285,7 +387,7 @@ class JimteTab {
       data: form_data,
       type: 'POST',
       success: function(data){
-        console.log( "sendUpdate success - data: " + data );
+        //console.log( "sendUpdate success - data: " + data );
 
         //&& data.length > 0
         if ((typeof data !== undefined ) &&
@@ -319,6 +421,101 @@ class JimteTab {
 
   }
 
+  sendEstado(){
+    //begin sendEstado
+    //Si hay algún campo requerido y vacío, no se puede seguir
+    var empty = false;
+    $("#retTable").find( "*[required]" ).each( function() {
+        if($(this).val() == ""){
+          $(this).css("border", "2px dotted red");
+          empty = true;
+        } else {
+          $(this).css("border", "");
+        }
+    });
+
+    if(empty){
+      return false;
+    }
+
+    var self = $(this);
+
+    this.working("retTable");
+
+    //Crear un arreglo con campos y valores para poblar form_data
+    var arrayFields = new Array();
+    //arrayFields.push("ret_idupdate");
+    //$("#editTable").find( "*[id^='edit_']" ).css( "background-color", "blue" );
+    //$("#retTable").find( "*[id^='ret_estad']" ).each( function() {
+        //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
+        //arrayFields.push($(this).attr("id"));
+    //});
+
+    var form_data = new FormData();
+    form_data.append("id", jimte.currentUser.id );
+    form_data.append("tiposerv", jimte.currentUser.tiposerv );
+    form_data.append("servicio", jimte.currentUser.servicio );
+    form_data.append("frat", jimte.currentUser.frat );
+    form_data.append("table", this.table );
+    form_data.append("token", jimte.token );
+
+    form_data.append("edit_idupdate", $("#ret_idupdate").val() );
+    form_data.append("edit_estado", $("#ret_estado").val() );
+
+    /*var inc;
+    for (inc = 0; inc < arrayFields.length; inc++) {
+        form_data.append(arrayFields[inc], $("#" + arrayFields[inc]).val() );
+    }*/
+
+    //console.log("sendUpdate!" + form_data);
+    // Display the key/value pairs
+    /*for (var pair of form_data.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }*/
+
+    $.ajax({
+      url: jimte.serverPath + 'index.php/' + this.table + '/update',
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: form_data,
+      type: 'POST',
+      success: function(data){
+        //console.log( "sendUpdate success - data: " + data );
+
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+               /*
+               jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                             l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
+               */
+               // 'rounded' is the class I'm applying to the toast
+               Materialize.toast('Se Guardó OK!', 3000, 'rounded');
+               jimte_table.overlayOff('R');
+               jimte_table.refreshTable();
+        }else {
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+        }
+
+        jimte_table.notWorking("retTable");
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+            jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Guardando Cambios");
+          }
+          jimte_table.notWorking("retTable");
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+   //end sendEstado
+
+  }
+
   load_grafica(vista, ctx){
 //    if(jimte.tekken == "localhost"){
 //      return;
@@ -330,7 +527,7 @@ class JimteTab {
     form_data.append('tekken', jimte.tekken);
     form_data.append('tabla', vista);
 
-    console.log("load_grafica!");
+    //console.log("load_grafica!");
     $.ajax({
       url: jimte.serverPath + '/tabla_select.php',
       dataType: "json",
@@ -375,8 +572,8 @@ class JimteTab {
           });
 
           //Actualizar Grafica;
-          console.log("motivo: " + php_response.motivo);
-          console.log("tot load_grafica:" + t_total +" / "+ t_noasig+" / "+ t_siasig+" / "+ t_norepo+" / "+ t_sirepo);
+          //console.log("motivo: " + php_response.motivo);
+          //console.log("tot load_grafica:" + t_total +" / "+ t_noasig+" / "+ t_siasig+" / "+ t_norepo+" / "+ t_sirepo);
           var myChart = new Chart(ctx, {
             type: 'bar',
             responsive: true,
@@ -419,7 +616,7 @@ class JimteTab {
           });
 
 
-          console.log("fin load_grafica");
+          //console.log("fin load_grafica");
 
         }else {
           jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Tabla");
@@ -528,8 +725,12 @@ class JimteTab {
     }
   }
   overlayOn(overlay, obj) {
-      console.log("overlayOn! " + overlay );
-
+      //console.log("overlayOn! " + overlay );
+      if(jimte_table.overlayBusy){
+        return false;
+      }else{
+        jimte_table.overlayBusy = true;
+      }
       document.getElementById("overlay" + overlay).style.display = "block";
 
       var ul = document.getElementById("overlay" + overlay).getElementsByTagName("ul")[0];
@@ -552,9 +753,10 @@ class JimteTab {
 
               field = (field == 'id' ? "idupdate" : field);
 
-              var elem = document.getElementById("edit_" + field);
+              var prefix = (overlay == "C" ? "edit_" : "ret_");
+              var elem = document.getElementById(prefix + field);
               if(elem != null) {
-                document.getElementById("edit_" + field).value = tds[i].innerHTML;
+                document.getElementById(prefix + field).value = tds[i].innerHTML;
               }
 
           }
@@ -564,11 +766,15 @@ class JimteTab {
       //not needed anymore, los controles ya existirán en editTable, solo se
       //actualizarán los valores cada vez que se haga click.
       //ul.innerHTML = contentTable;
+      /*if(overlay == "R"){
+        $("#ret_estado").focus();
+      }*/
 
   }
 
   overlayOff(overlay) {
       document.getElementById("overlay" + overlay).style.display = "none";
+      jimte_table.overlayBusy = false;
   }
 
 
@@ -586,7 +792,7 @@ class JimteTab {
         var self = $(this);
         var url = jimte.configPath + "fields.json";
         jimte_table.popArraySelectTable = new Array();
-        console.log("load_table_forms: " + tabla + " / " + url);
+        //console.log("load_table_forms: " + tabla + " / " + url);
 
         $.ajax({
           url: url,
@@ -607,6 +813,7 @@ class JimteTab {
 
             var contentAdd = [];
             var contentEdit = [];
+            var contentRet = [];
 
             $.each( data, function( key, val ) {
 
@@ -723,6 +930,26 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
                                                   "</li>");
 
                             }
+                            //Si está permitido Retiro
+                            if( val1.vwact.indexOf("R") !== -1 ||
+                                val1.edact.indexOf("R") !== -1 ){
+                                var retCtrl = inputCtrl;
+                                retCtrl = inputCtrl.replace(/add_/g, "ret_");
+                                if(
+                                  val1.edact.indexOf("R") !== -1
+                                ){
+                                  retCtrl = retCtrl.replace(/readonly/g, "");
+                                  retCtrl = retCtrl.replace(/disabled/g, "");
+                                }
+
+                                contentRet.push( "<li title='"+ val1.help + "'>" +
+                                                  "<label class='right-inline'>" +
+                                                  "<i class='material-icons tiny'>" + val1.icon + "</i>&nbsp;" +
+                                                  val1.desc + "</label>" +
+                                                  retCtrl.replace(/add_/g, "edit_") +
+                                                  "</li>");
+
+                            }
 
                           }
 
@@ -734,6 +961,7 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
 
             overlays[0].getElementsByTagName("ul")[0].innerHTML = contentAdd.join("");
             overlays[1].getElementsByTagName("ul")[0].innerHTML = contentEdit.join("");
+            overlays[2].getElementsByTagName("ul")[0].innerHTML = contentRet.join("");
 
             //$('select').material_select();
             if(jimte_table.popArraySelectTable != undefined &&

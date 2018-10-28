@@ -32,7 +32,7 @@ eventFire(el, etype){
     //next lines to load real mainContent
     //var statePage = document.querySelector('#' + state);
 
-    console.log("changeState: " + state);
+    //console.log("changeState: " + state);
     //statePage.innerHTML = MonitorApp[state]();
 
     if (state == 'cerrarSesion') {
@@ -170,7 +170,7 @@ NOT WORKING on SAFARI for MAC
       form_data.append('password', $('#password').val());
       form_data.append('lang', this.currentLang);
 
-      console.log("sendForm!" + form_data);
+      //console.log("sendForm!" + form_data);
       $.ajax({
         url: this.serverPath + 'index.php/login',
         dataType: "json",
@@ -246,7 +246,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         let url = this.configPath + this.header;
         */
         var url = this.configPath + this.header;
-        console.log(url);
+        //console.log(url);
 
         //call header
         $.ajax({
@@ -561,7 +561,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
             $("#imageCarContainer").css("display","block");
             //this.startCarousel();
           }
-          console.log("imageCar:" + this.currentArt);
+          //console.log("imageCar:" + this.currentArt);
 
           //console.log(this.carousel) ;
 
@@ -611,7 +611,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
           $("#imageCar")[0].innerHTML = this.carousel[this.carouselIndex - 1];
           $("#imageCar").animate({'opacity':1}, 'slow');
 
-          console.log("updating imageCar..." + $("#imageCarContainer")[0]);
+          //console.log("updating imageCar..." + $("#imageCarContainer")[0]);
 
       if(this.currentArt !== undefined && this.currentArt !== "000"){
         $("#imageCarContainer").css("display","none");
@@ -748,7 +748,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       form_data.append('Token', this.token);
       form_data.append('tipollave', this.userType);
 
-      console.log("check_mesas!");
+      //console.log("check_mesas!");
       $.ajax({
         url: this.serverPath + '/mesas_testigos.php',
         dataType: "json",
@@ -841,7 +841,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     check_tables() {
         var self = $(this);
         var url = this.configPath + this.tables;
-        console.log("check_tables:" + url);
+        //console.log("check_tables:" + url);
         //$('#configurarTablas').show();
         //$('#configurar').removeClass("oculto");
 
@@ -1015,12 +1015,12 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         var buttonsBottom = "";
         var prev = "";
         var next = "";
-        console.log("buildCentral paramArt:" + paramArt);
+        //console.log("buildCentral paramArt:" + paramArt);
         if(paramArt != undefined){
           this.params.art = ("000" + "" + paramArt).substr(("000" + "" + paramArt).length -3);
           this.currentArt = this.params.art.substring(0,3);
         }
-        console.log("buildCentral this.params.art:" + this.params.art);
+        //console.log("buildCentral this.params.art:" + this.params.art);
 
         if(this.params.art != undefined){
             var nomart = "article" + this.params.art.substring(0,3) + ".json";
@@ -1036,15 +1036,15 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
           	next = (this.currentArt * 1 ) + 1;
           	next = (""+next).substring('000' + next, -3);
 
-            console.log("buttons:" + prev + " / " + this.currentArt + " / " + next);
-            console.log("url:"+url);
+            //console.log("buttons:" + prev + " / " + this.currentArt + " / " + next);
+            //console.log("url:"+url);
           //console.log(params);
         } else {
             prev = "0-1";
             this.currentArt = "000";
             next = "001";
 
-            console.log("buttons:" + prev + " / " + this.currentArt + " / " + next);
+            //console.log("buttons:" + prev + " / " + this.currentArt + " / " + next);
 
         }
         buttonsTop = this.buildButtons(prev, this.currentArt, next, false);
@@ -1232,7 +1232,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     changeCorp(obj) {
-      console.log("changeCorp " + obj.value);
+      //console.log("changeCorp " + obj.value);
       $(".mesaForm").hide();
 
       $("#loader").show();

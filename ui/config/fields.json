@@ -20,7 +20,7 @@
         "code":"estado",
         "desc":"Estado", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"select",
-        "edact":"ACB",
+        "edact":"ACRB",
         "edctr":"select;A-Activa,I-Inactiva,R-Retirada",
         "eddef":"A",
         "icon":"traffic", "help":"Estado de la Fraternidad"
@@ -78,7 +78,7 @@
         "code":"estado",
         "desc":"Estado", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"select",
-        "edact":"ACB",
+        "edact":"ACRB",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
         "icon":"traffic", "help":"Estado del Lugar"
@@ -90,6 +90,13 @@
   "types": {
     "status":"A",
     "fields":[
+      {
+        "code":"frat",
+        "desc":"Fraternidad", "required":true,
+        "vwact":"ACRIBMXV", "vwctr":"label",
+        "edact":"", "edctr":"selectTable;frats,nombre,frat", "eddef":"",
+        "icon":"group", "help":"Código de la Fraternidad"
+      },
       {
         "code":"tipo", "alias":"tipo",
         "desc":"Tipo", "required":true,
@@ -108,7 +115,7 @@
         "code":"estado",
         "desc":"Estado", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"select",
-        "edact":"ACB",
+        "edact":"ACRB",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
         "icon":"traffic", "help":"Estado del Tipo de Acta"
@@ -175,7 +182,7 @@
         "code":"estado",
         "desc":"Estado", "required":true,
         "vwact":"ACRIBMXV", "vwctr":"select",
-        "edact":"AC",
+        "edact":"ACRB",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
         "icon":"traffic", "help":"Estado del Usuario"
@@ -218,7 +225,7 @@
         "code":"estado",
         "desc":"Estado", "required":true,
         "vwact":"ACRIMXV", "vwctr":"select",
-        "edact":"AC",
+        "edact":"ACRB",
         "edctr":"select;A-Activo,I-Inactivo,R-Retirado",
         "eddef":"A",
         "icon":"traffic","help":"Estado del Servicio"
@@ -248,7 +255,7 @@
         "code":"estado",
         "desc":"Estado", "required":true,
         "view":"A", "vwact":"ACRIMXV", "vwctr":"select",
-        "edit":"A", "edact":"AC",
+        "edit":"A", "edact":"ACRB",
         "edctr":"select;A-Activa,I-Inactiva,R-Retirada",
         "eddef":"A",
         "icon":"traffic","help":"Estado de la Etiqueta"

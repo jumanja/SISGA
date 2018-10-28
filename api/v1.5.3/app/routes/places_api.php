@@ -491,6 +491,99 @@ $app->post('/places/update', function () use($app) {
 	}
 });
 
+/*--
+URL: /[tabla]/add
+MÉTODO: POST
+REQUERIMIENTOS: TO-DO identificar el req adicionar en esta tabla
+TESTS: api/[tabla]_add_post.sh
+
+DESCRIPCIÓN: Adiciona los datos de un registro de esta tabka en la base de datos.
+
+ENTRADA: Token y el Id del usuario de la sesión, y los datos a agregar,
+				 recibidos por el método POST, los datos a recibir (ejemplo):
+
+				 id=2
+				 iddelete=10
+				 token=updatedToken
+
+PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
+				 válido intenta agregar los datos del registro en la bd con los datos recibidos.
+
+SALIDA:  Si el token y id son válidos, y existe es usuario con ese id, retorna la cantidad de
+				 registros agregados, ejemplo:
+
+				 Si realizó algún cambio en el registro:
+				 [{"rows":"1"}]
+
+				 Si no agregó nada:
+				 [{"rows":"0"}]
+
+				 Si no es válido el token, retorna en json:
+					[{
+						"acceso":"Denegado.",
+						"motivo":"Token no existe o Ya ha expirado."
+					}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 autogenerado
+--*/
+$app->post('/places/add', function () use($app) {
+
+	try{
+		$authorized = checkPerm('POST:/places/add', $app);
+		if($authorized){
+				$resultText = checkToken($app);
+				if(contains("validtoken", $resultText) ){
+					$tableName = 'lugares';
+		      $queryAdd = 'INSERT INTO ' . $tableName . ' (';
+					$queryFields = "";
+					$queryValues = " VALUES (";
+
+					$arr = $app->request()->post();
+					foreach ( $arr as $key => $value) {
+							//echo substr($key, 0, 5);
+							if(substr($key, 0, 4) == 'add_'){
+								  $key  = substr($key, 4);
+									$queryFields = $queryFields ."{$key}, ";
+									$queryValues = $queryValues ."'{$value}', ";
+							}
+					}
+					$queryFields = substr($queryFields, 0, -2);
+					$queryValues = substr($queryValues, 0, -2);
+
+					$queryAdd = $queryAdd .
+											$queryFields . ") " .
+											$queryValues . ");";
+
+					//echo "1. " . $queryAdd;
+
+		      $rows = getPDO($queryAdd);
+		      $resultText = '[{"rows":"'. $rows->rowCount() .'"}]';
+
+		      normalheader($app, 'json', '');
+		      //setResult($resultText, $app);
+		      $connection = null;
+		  		$app->response->body($resultText);
+
+				} else {
+					$connection = null;
+					$app->response->body($resultText);
+				}
+
+			}	else {
+				$connection = null;
+				$app->response->body("/places/add (POST) " . ACCESSERROR);
+
+			}
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
 
 /*--
 URL: /[tabla]/delete
