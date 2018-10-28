@@ -28,12 +28,12 @@ La solución de software debe diseñarse, implementarse y asegurar su calidad en
 ## Desarrollo Inicial (Terminada en Oct 12/2018)
 - REQ-001: Control de Acceso con Usuario y Clave.
 
-## Desarrollo Incremento 1
+## Desarrollo Incremento 1 (Terminada en Oct 27/2018)
 - REQ-002: Gestión Fraternidades.
 - REQ-003: Gestión Tipos de Acta.
 - REQ-004: Gestión Lugares de Reunión.
 
-## Desarrollo Incremento 2
+## Desarrollo Incremento 2 (Terminada en Oct 27/2018)
 - REQ-005: Gestión de Etiquetas.
 - REQ-007: Gestión de Usuarios.
 - REQ-008: Gestión de Servicios.
