@@ -353,7 +353,7 @@
 
               <div class="row">
                   <div class="col s10 m8">
-                      <a class="btn" id="addTable" title="Agregar Registro" onclick="jimte_table.overlayOn('A');">
+                      <a class="btn" id="addRecord" title="Agregar Registro" onclick="jimte_table.overlayOn('A');">
                           <i class="material-icons left">add</i>Agregar</a>
                   </div>
                   <div class="col s12 m4">
@@ -392,8 +392,8 @@
             <div class="determinate">
             </div>
           </div>
-          <button style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('A');return(false);">Cancelar</button>
-          <button style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendAdd();return(false);">Guardar</button>
+          <button id="addTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('A');return(false);">Cancelar</button>
+          <button id="addTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendAdd();return(false);">Guardar</button>
         </form>
       </div>
     </div>
@@ -412,8 +412,28 @@
             <div class="determinate">
             </div>
           </div>
-          <button style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('C');return(false);">Cancelar</button>
-          <button style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendUpdate();return(false);">Guardar</button>
+          <button id="editTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('C');return(false);">Cancelar</button>
+          <button id="editTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendUpdate();return(false);">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="overlay oculto" id="overlayR">
+      <div class="card-like">
+        <a href="#" onclick="jimte_table.overlayOff('R')"><span class="close">&#x2715;</span></a>
+        <i id="iconRetForm" class="material-icons left teal-text medium">traffic</i>
+
+        <h3 style="margin-left: 10px;">Cambiar de Estado</h3>
+        <form>
+          <input type="hidden" id="ret_idupdate">
+          <ul id="retTable" class="flex-outer black-text" >
+          </ul>
+          <div class="progress">
+            <div class="determinate">
+            </div>
+          </div>
+          <button id="retTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('R');return(false);">Cancelar</button>
+          <button id="retTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendEstado();return(false);">Guardar</button>
         </form>
       </div>
     </div>
@@ -448,10 +468,10 @@
     <script src="ui/js/libs/jquery/jquery.min.js"></script>
     <script src="ui/js/libs/materialize/js/materialize.min.js"></script>
     <script src="ui/js/libs/chart/Chart.min.js"></script>
-    <script src="ui/js/libs/jimte/jimte_v1.js?v=0.0.5"></script>
-    <script src="ui/js/libs/jimte/jimte_table_v1.js?v=0.0.5"></script>
-    <script src="ui/js/class/user.js?v=0.0.5"></script>
-    <script src="ui/js/index.js?v=0.0.5"></script>
+    <script src="ui/js/libs/jimte/jimte_v1.js?v=0.0.6"></script>
+    <script src="ui/js/libs/jimte/jimte_table_v1.js?v=0.0.6"></script>
+    <script src="ui/js/class/user.js?v=0.0.6"></script>
+    <script src="ui/js/index.js?v=0.0.6"></script>
   </body>
 
 </html>

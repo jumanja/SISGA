@@ -37,7 +37,7 @@ function getSQL($name, $app) {
 
             "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
                              "FROM tipoactas a WHERE estado = 'A' AND frat = '" . $frat . "'",
-            "types_all"   => "SELECT tipo, id, nombre, estado FROM tipoactas WHERE frat = '" . $frat . "'",
+            "types_all"   => "SELECT frat, tipo, id, nombre, estado FROM tipoactas WHERE frat = '" . $frat . "'",
             "types_add"   => "INSERT INTO tipoactas (frat, tipo, id, nombre, estado) " .
                              "VALUES (:frat, :tipo, :id, :nombre, :estado)",
             "types_count" => "SELECT count(1) as count FROM tipoactas WHERE frat = '" . $frat . "'",
