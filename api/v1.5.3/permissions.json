@@ -101,7 +101,7 @@
   },
   "GET:/users": {
     "tiposerv": {
-      "incluye": "A",
+      "incluye": "AI",
       "excluye": ""
     },
     "servicio": {
@@ -271,7 +271,7 @@
   },
   "GET:/places": {
     "tiposerv": {
-      "incluye": "A",
+      "incluye": "AI",
       "excluye": ""
     },
     "servicio": {
@@ -351,7 +351,7 @@
   },
   "GET:/types": {
     "tiposerv": {
-      "incluye": "A",
+      "incluye": "AI",
       "excluye": ""
     },
     "servicio": {

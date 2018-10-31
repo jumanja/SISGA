@@ -1,14 +1,66 @@
 $(document).ready(function() {
+
+    $('.sidenav').sidenav();
     $('.modal').modal();
 
-    // Show sideNav
-    //$('#hideSideMenu').sideNav('hide');
-    // Hide sideNav
-    //$('#showSideMenu').sideNav('show');
+    //$('select').material_select();
+    $('select').formSelect();
 
-   $('select').material_select();
+   $('.tabs').tabs();
 
-   $('.datepicker').pickadate({
+   //$('.datepicker').pickadate({
+   $('.datepicker').datepicker({
+     i18n:{
+       months: [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre'
+      ],
+      monthsShort:
+      [
+        'Ene',
+        'Feb',
+        'Mar',
+        'Abr',
+        'May',
+        'Jun',
+        'Jul',
+        'Ago',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ] ,
+      weekdays:[
+        'Domingo',
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado'
+      ],
+      weekdaysShort:
+      [
+        'Dom',
+        'Lun',
+        'Mar',
+        'Mié',
+        'Jue',
+        'Vie',
+        'Sáb'
+      ],
+      weekdaysAbbrev:	['D','L','M','M','J','V','S']
+    },
        selectMonths: true, // Creates a dropdown to control month
        selectYears: 15, // Creates a dropdown of 15 years to control year,
        today: 'Hoy',
@@ -17,7 +69,8 @@ $(document).ready(function() {
        format: 'dd/mm/yyyy',
        closeOnSelect: false // Close upon selecting a date,
      });
-     $('.button-collapse').sideNav({
+
+     $('.button-collapse').sidenav({
        closeOnClick: true
      });
 
@@ -31,6 +84,19 @@ $(document).ready(function() {
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
     });
+/*
+    $('.chips-autocomplete').chips({
+      autocompleteOptions: {
+        data: {
+          'Apple': null,
+          'Microsoft': null,
+          'Google': null
+        },
+        limit: Infinity,
+        minLength: 1
+      }
+    });
+*/
 
  });
 

@@ -113,9 +113,10 @@ $app->get("/tags", function() use($app)
 			if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
-						$sqlCode = 'tags_all';
-			      $forXSL = '../../xsl/count.xsl';
-			      simpleReturn($app, $sqlCode, $forXSL);
+						$sqlCode = ($app->request()->params('sqlCode') == "" ? 'tags_all' : $app->request()->params('sqlCode') );
+						$forXSL = '../../xsl/count.xsl';
+						simpleReturn($app, $sqlCode, $forXSL);
+
 					} else {
 						$connection = null;
 						$app->response->body($resultText);
