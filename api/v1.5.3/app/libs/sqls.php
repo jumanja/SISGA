@@ -29,7 +29,7 @@ function getSQL($name, $app) {
 
             "token_check" => "SELECT tokenexpira FROM usuarios WHERE token = :token AND id = :id ",
 
-            "tags_act"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE estado = 'A' WHERE frat = '" . $frat . "'",
+            "tags_act"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE estado = 'A' AND frat = '" . $frat . "'",
             "tags_add"  => "INSERT INTO etiquetas (frat, etiqueta, id, estado) " .
                              "VALUES (:frat, :etiqueta, :id, :estado)",
             "tags_count"=> "SELECT count(1) as count FROM etiquetas WHERE frat = '" . $frat . "'",
@@ -48,6 +48,8 @@ function getSQL($name, $app) {
             "users_add"   => "INSERT INTO usuarios (frat, id, usuario, apellidos, nombres, password, email, servicio, estado) " .
                              "VALUES (:frat, :id, :usuario, :apellidos, :nombres, :password, :email, :servicio, :estado)",
             "users_count" => "SELECT count(1) as count FROM usuarios WHERE frat = '" . $frat . "'",
+            "users_int"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, b.tiposerv " .
+                             "FROM usuarios a, servicios b WHERE a.estado = 'A' and a.servicio = b.servicio and b.tiposerv = 'I'",
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "" => "");
     //echo "sqls name : " . $name . " / " .  $SQLs[$name];

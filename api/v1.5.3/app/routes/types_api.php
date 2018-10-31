@@ -113,7 +113,7 @@ $app->get("/types", function() use($app)
 			if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
-						$sqlCode = 'types_all';
+						$sqlCode = ($app->request()->params('sqlCode') == "" ? 'types_all' : $app->request()->params('sqlCode') );
 			      $forXSL = '../../xsl/count.xsl';
 			      simpleReturn($app, $sqlCode, $forXSL);
 					} else {

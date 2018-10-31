@@ -6,6 +6,13 @@
     "item":"Iniciar Sesión",
     "status":"A"
   },
+  "elaborarActas": {
+    "type":"S",
+    "isLogged":"Y",
+    "icon":"keyboard",
+    "item":"Elaborar Actas",
+    "status":"A"
+  },
   "actasPorAprobar": {
     "type":"PSTFE",
     "isLogged":"Y",
@@ -17,14 +24,7 @@
     "type":"PSTFE",
     "isLogged":"Y",
     "icon":"visibility",
-    "item":"Acta por Revisasr",
-    "status":"A"
-  },
-  "elaborarActas": {
-    "type":"S",
-    "isLogged":"Y",
-    "icon":"keyboard",
-    "item":"Elaborar Actas",
+    "item":"Actas por Revisasr",
     "status":"A"
   },
   "buscarActas": {

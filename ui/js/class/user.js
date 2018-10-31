@@ -1,8 +1,33 @@
 /*
 Clase: User
-
+Autor: Juan Manjarrés
 Descripción: Servir de especificación para la construcción
              de objetos de tipo Usuario de la Tabla users.
+
+Uso: Sirve para mapear persistencia de datos contra la tabla Usuarios,
+     se incluye aquí el sql de creación de dicha tabla para referencia:
+     -- -----------------------------------------------------
+     -- Table `sisga`.`usuarios`
+     -- -----------------------------------------------------
+     CREATE TABLE IF NOT EXISTS `sisga`.`usuarios` (
+       `frat` VARCHAR(15) NOT NULL,
+       `id` INT(11) NOT NULL AUTO_INCREMENT,
+       `usuario` VARCHAR(25) NOT NULL,
+       `apellidos` TEXT NOT NULL,
+       `nombres` TEXT NOT NULL,
+       `password` TEXT NOT NULL,
+       `email` VARCHAR(100) NOT NULL,
+       `servicio` VARCHAR(10) NOT NULL,
+       `token` VARCHAR(100) NOT NULL,
+       `tokenexpira` DATETIME NOT NULL,
+       `estado` CHAR(1) NOT NULL,
+       PRIMARY KEY (`id`),
+       UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC),
+       INDEX `fk_frats` (`frat` ASC),
+       INDEX `fk_serv_idx` (`servicio` ASC))
+     ENGINE = MyISAM
+     AUTO_INCREMENT = 12
+     DEFAULT CHARACTER SET = utf8;
 */
 class User {
 
@@ -35,7 +60,7 @@ class User {
   Métodos: getters y setters (get [prop], set [prop])
   Descripción: Los métodos get recuperan el valor de la propiedad,
                Los métodos set fijan o actualizan el valor de la propiedad.
-               
+
   */
 
   get frat() {

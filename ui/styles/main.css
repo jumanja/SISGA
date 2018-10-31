@@ -140,7 +140,7 @@
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #ddd;
-  font-size: 18px;
+  /*font-size: 18px;*/
 }
 
 #myTable th, #myTable td {
@@ -166,7 +166,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    z-index: 1002; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 }
 .card-like {
@@ -270,4 +270,21 @@ select.browser-default {
 
 .flex-inner li {
   width: 100px;
+}
+
+.minH220 {
+  min-height: 320px !important;
+}
+
+header, main, .mainContent, card-like, footer {
+    padding-left: 300px;
+  }
+
+  @media only screen and (max-width : 992px) {
+    header, main, .mainContent, card-cardlike, footer {
+      padding-left: 0;
+    }
+  }
+.card-panel {
+  padding: 12px;
 }

@@ -366,11 +366,13 @@ function checkPerm($route, $app){
 	$servicio_include = $permArray[0][$route]['servicio']['incluye'];
 	$servicio_exclude = $permArray[0][$route]['servicio']['excluye'];
 
- 	/*echo 'Método:' . $app->request->getMethod();
-	echo 'get tiposerv:<br>' . $app->request->get('tiposerv');
-	echo 'put tiposerv:<br>' . $app->request->put('tiposerv');
-	echo 'post tiposerv:<br>' . $app->request->post('tiposerv');
-	echo 'all_put:<br>' . $app->request->put();
+	//$app->request()->params('format');
+ 	/*
+	echo 'Método:' . $app->request()->getMethod();
+	echo '<br>get tiposerv:' . $app->request()->get('tiposerv');
+	echo '<br>put tiposerv:' . $app->request()->put('tiposerv');
+	echo '<br>post tiposerv:' . $app->request()->post('tiposerv');
+	echo '<br>all_put:' . $app->request()->put();
 	echo '<br>$tiposerv: ' . $tiposerv;
 	echo '<br>$servicio: ' . $servicio;
 	echo '<br>$tipserv_include: ' . $tiposerv_include;

@@ -33,7 +33,113 @@ class JimteTab {
       this.load_grafica("graph_mesas", ctx);
   }
 
+  load_detail(detail, icon){
+    var self = $(this);
+    $.ajax({
+      url: jimte.serverPath + 'index.php/' + self.detail +
+                              "?id=" + jimte.currentUser.id +
+                              "&tiposerv=" + jimte.currentUser.tiposerv +
+                              "&servicio=" + jimte.currentUser.servicio +
+                              "&frat=" + jimte.currentUser.frat +
+                              "&table=" + this.detail +
+                              "&token=" + jimte.token,
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      type: 'GET',
+      success: function(data){
+        //console.log( "load_table - data: " + data );
 
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+          //window.location.href = 'main.html';
+          var links = [];
+          var cuantos = 0;
+          var contenido = "";
+          $("#myTable")[0].innerHTML = "";
+
+          //var records = [];
+          $.each( data, function( key, val ) {
+            if(cuantos == 0) {
+                contenido = '<tr class="header">';
+                var columns = 0;
+                //var fields = [];
+                //console.log(val);
+                $.each( val, function( key2, val2 ) {
+                  //console.log(key2 + ' = "' + val2 + '"');
+                  //fields.push(key2 + ' = "' + val2 + '"');
+                  if(
+                    key2.indexOf("password") == -1 &&
+                    key2.indexOf("token") == -1  ){
+
+                    contenido += '<th>' +
+                    '<input type="text" class="search_fld" id="search_fld' + key2 + '" ' +
+                    'onkeyup="jimte_table.searchTable(this.id, '+columns+')" placeholder="&#x1f50d; Buscar">' +
+                    '<br>' +
+                    '<span onclick="jimte_table.sortTable('+columns+')">&#x2195;</span>'+
+                    '<span onclick="jimte_table.sortTable('+columns+')">' + key2 + '</span>' +
+                    '</th>';
+
+                    columns++;
+
+                  }
+
+                });
+                contenido += "</tr>";
+            }
+            contenido += '<tr id="row_' + cuantos + '" onclick="jimte_table.overlayOn(\'C\', this)">';
+            $.each( val, function( key2, val2 ) {
+              if(
+                key2.indexOf("password") == -1 &&
+                key2.indexOf("token") == -1  ){
+
+                  if(key2 == "estado"){
+                    contenido += '<td ' +
+                                 'onclick="jimte_table.overlayOn(\'R\', this.parentNode)"' +
+                                 'class="' +
+                                 (val2 == "R" ? "red" :
+                                 (val2 == "I" ? "yellow" : "teal")) +
+                                 ' lighten-3">' + val2 + '</td>';
+
+                  } else {
+                    contenido += "<td>" + val2 + "</td>";
+                  }
+              }
+            });
+            contenido += "</tr>";
+
+            cuantos++;
+          //  records.push( "<meta " + fields.join(" ") + ">" );
+          });
+
+          $("#tabla_loader").hide();
+
+          $("#addRecord").show();
+          $("#resetFilters").show();
+          $("#refreshTable").show();
+          $("#table_content").show();
+
+          $("#tableIcon")[0].innerHTML = icono;
+
+          $("#myTable")[0].innerHTML = contenido;
+
+          //$("#tbody_reportadas").show();
+        }else {
+          //jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Tabla");
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Ingreso al Sistema"));
+
+        }
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+
+  }
   load_table(){
     var self = $(this);
 
@@ -290,7 +396,12 @@ class JimteTab {
                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
                */
                // 'rounded' is the class I'm applying to the toast
-               Materialize.toast('Se Adicionó OK!', 3000, 'rounded');
+               //Materialize.toast('Se Adicionó OK!', 3000, 'rounded');
+               M.toast(
+                         {html:'Se Guardó OK!',
+                         displayLenght: 3000,
+                         classes: 'rounded'}
+                       );
                jimte_table.overlayOff('A');
                jimte_table.refreshTable();
         }else {
@@ -397,7 +508,12 @@ class JimteTab {
                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
                */
                // 'rounded' is the class I'm applying to the toast
-               Materialize.toast('Se Guardó OK!', 3000, 'rounded');
+               //Materialize.toast('Se Guardó OK!', 3000, 'rounded');
+               M.toast(
+                         {html:'Se Guardó OK!',
+                         displayLenght: 3000,
+                         classes: 'rounded'}
+                       );
                jimte_table.overlayOff('C');
                jimte_table.refreshTable();
         }else {
@@ -492,7 +608,12 @@ class JimteTab {
                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
                */
                // 'rounded' is the class I'm applying to the toast
-               Materialize.toast('Se Guardó OK!', 3000, 'rounded');
+               //Materialize.toast('Se Guardó OK!', 3000, 'rounded');
+               M.toast(
+                         {html:'Se Guardó OK!',
+                         displayLenght: 3000,
+                         classes: 'rounded'}
+                       );
                jimte_table.overlayOff('R');
                jimte_table.refreshTable();
         }else {
@@ -653,6 +774,22 @@ class JimteTab {
 
   refreshTable(){
     this.load_table($("#tabla")[0].value);
+  }
+  
+  resetFiltId(myId) {
+    //console.log("resetFilters!");
+    var table, tr, td, i, filters;
+    table = document.getElementById(myId);
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        tr[i].style.display = "";
+    }
+
+    filters = document.getElementsByClassName("search_fld");
+    for (i = 0; i < filters.length; i++) {
+        filters[i].value = "";
+    }
+
   }
 
   resetFilters() {
@@ -963,7 +1100,7 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
             overlays[1].getElementsByTagName("ul")[0].innerHTML = contentEdit.join("");
             overlays[2].getElementsByTagName("ul")[0].innerHTML = contentRet.join("");
 
-            //$('select').material_select();
+            //$('select').formSelect();
             if(jimte_table.popArraySelectTable != undefined &&
                jimte_table.popArraySelectTable.length > 0){
                 jimte_table.popSelectTables();

@@ -113,9 +113,9 @@ $app->get("/places", function() use($app)
 			if($authorized){
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
-						$sqlCode = 'places_all';
-			      $forXSL = '../../xsl/count.xsl';
-			      simpleReturn($app, $sqlCode, $forXSL);
+						$sqlCode = ($app->request()->params('sqlCode') == "" ? 'places_all' : $app->request()->params('sqlCode') );
+						$forXSL = '../../xsl/count.xsl';
+						simpleReturn($app, $sqlCode, $forXSL);
 					} else {
 						$connection = null;
 						$app->response->body($resultText);

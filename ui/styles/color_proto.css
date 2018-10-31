@@ -9,13 +9,14 @@
 .divider-color         { border-color: #BDBDBD; }
 
 .pagination li.active, span.badge.new, .progress .determinate,
-.page-footer, .userView  {
+.page-footer, .user-view  {
   background: #00695c;
 }
-.userView{
+.user-view{
      background-image: url(../img/logowhite.png);
      background-repeat: no-repeat;
      background-position: 10% 0% ;
+     padding: 8px 8px 0 !important;
 }
 
 
@@ -67,4 +68,26 @@ input:read-only {
 :required{
   /*background-color: #fff176;*/
   background-color: #fff9c4;
+}
+/*.tabs:focus-within .tab {
+  color: red;
+}*/
+/*when hover*/
+.tabs .tab {
+   background-color: #009688;
+   color: white;
+}
+.tabs .tab a {
+   background-color: transparent;
+   color: white;
+}
+
+.tabs .tab a:hover{
+   background-color: #b2dfdb;
+   color: white;
+}
+/*when active*/
+.tabs .tab a.active{
+   background-color: #4db6ac;
+   color: white;
 }
