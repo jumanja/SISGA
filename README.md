@@ -2,7 +2,7 @@
 Sistema de Gestión de Actas
 
 # Integrantes
-- ALONSO CARLOS
+- ALONSO CRISTIAN
 - DURANGO SNEIDER
 - MANJARRÉS JUAN
 - RODRIGUEZ LIANA
