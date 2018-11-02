@@ -9,6 +9,10 @@ $(document).ready(function() {
    $('.tabs').tabs();
 
    //$('.datepicker').pickadate({
+   $('.timepicker').timepicker({
+     defaultTime: "now"
+   });
+
    $('.datepicker').datepicker({
      i18n:{
        months: [
@@ -63,6 +67,8 @@ $(document).ready(function() {
     },
        selectMonths: true, // Creates a dropdown to control month
        selectYears: 15, // Creates a dropdown of 15 years to control year,
+       defaultDate: new Date(),
+       setDefaultDate: true,
        today: 'Hoy',
        clear: 'Limpiar',
        close: 'Ok',

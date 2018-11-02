@@ -760,6 +760,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         success: function(data){
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
+                 $('#tipo_de_acta')[0].innerHTML = '<option value="" ' +
+                          'disabled selected>Seleccione Tipo Acta</option>';
                  $.each( data, function( key, val ) {
 
                    //console.log(key + "/" + val.tipo + "/" + val.nombre);
@@ -803,6 +805,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         success: function(data){
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
+
+                 $('#lugar_reunion')[0].innerHTML = '<option value="" disabled selected>Seleccione Lugar</option>';
+                 $('#lugar_proxima')[0].innerHTML = '<option value="" disabled selected>Seleccione Lugar</option>';
+
                  $.each( data, function( key, val ) {
 
                    //console.log(key + "/" + val.id + "/" + val.lugar);
@@ -850,21 +856,27 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
                  $("#Asistentes")[0].innerHTML = "";
-
+                 $("#responsadd")[0].innerHTML = '<option value="" disabled selected>Seleccione Responsable</option>';
                  var myAttend = [];
                  $.each( data, function( key, val ) {
                     myAttend.push(
                     '<div class="col s12 m6">' +
                     '  <label for="asi_' + val.id + '">' +
                     '    <input id="asi_' + val.id + '" type="checkbox" />' +
-                    '    <span title="(' + val.servicio + ')">' +
+                    '    <span title="(' + val.nombreser + ')">' +
                     val.nombres + ' ' + val.apellidos + '</span>' +
                     '  </label>' +
                     '</div>');
 
+                    //De una vez poblar Responsables
+                    $('#responsadd').append($('<option>', {
+                         value: val.usuario,
+                         text: val.apellidos + " " + val.nombres
+                     }));
+
                  });
                  $("#Asistentes")[0].innerHTML = myAttend.join("");
-
+                 $('#responsadd').formSelect();
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
                           l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
@@ -917,7 +929,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                     autocompleteOptions: {
                         data: myTagsData
                     },
-                    placeholder: 'Ingrese Etiqueta',
+                    placeholder: 'Ingrese Etiquetas',
                     secondaryPlaceholder: '+Etiqueta',
                     limit: 10,
                     minLength: 1
@@ -1735,7 +1747,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         })
     }
 
-    validaCamara() {
+    validaActa(tipo) {
       /*
         if (typeof title === 'undefined'){
           title = "Atención:";
@@ -1743,34 +1755,45 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         if (typeof message === 'undefined'){
           message = "!";
         }*/
-        var title = "Validación Reporte de Mesa";
+        var title = "No se pudo Guardr el Acta, falta:";
         var message = "";
-        var reportar = true;
-        if($("#TOTA_SUF").val() +
-           $("#TOTA_BLA").val() +
-           $("#TOTA_NMA").val() +
-           $("#TOTA_VAL").val() +
-           $("#TOTA_NUL").val()  == ""){
+        var guardar = true;
 
-          if($("#observaciones").val() == "") {
-             message += "\nSi no hubo votación en esta mesa, por favor ingrese observaciones.";
-          }
+        var tipo_de_acta = $("#tipo_de_acta").val();
+        var acta_a_elaborar = $("#acta_a_elaborar").val();
+        var temaacta = $("#temaacta").val();
+        var lugar_reunion = $("#lugar_reunion").val();
+        var fecacta = $("#fecacta").val();
+        var horacta = $("#horacta").val();
+        var objetivos = $("#objetivos").val();
+        var conclusiones = $("#conclusiones").val();
+        //var Asistentes (validar checkboxes) = $("#conclusiones").val();
+        if( tipo_de_acta == null || tipo_de_acta == ""){
+          message += "- El tipo de acta.<br>";
+          guardar = false;
         }
-        if($("#mesa_a_reportar").val() == null){
-          message += "\nPor favor seleccione el Número de Mesa a Reportar";
-          reportar = false;
+        if( acta_a_elaborar == null || acta_a_elaborar == ""){
+          message += "- El número de acta o elegir que sea Nueva.<br>";
+          guardar = false;
         }
-        if($("#corporacion").val() == null){
-          message += "\nPor favor seleccione la Corporación.";
-          reportar = false;
+        if( temaacta == null || temaacta == ""){
+          message += "- El Tema principal del acta.<br>";
+          guardar = false;
         }
-        if (reportar){
-            $("#hidCorpo").val($("#corporacion").val());
-            $("#hidMesa").val($("#mesa_a_reportar").val());
-            $("#hidLlave").val(this.llave);
-            $("#hidToken").val(this.token);
-
-            $('#repomesa').submit();
+        if( lugar_reunion == null || lugar_reunion == ""){
+          message += "- El Lugar de la Reunión relacionada con el acta.<br>";
+          guardar = false;
+        }
+        if( fecacta == null || fecacta == ""){
+          message += "- La Fecha del acta.<br>";
+          guardar = false;
+        }
+        if( horacta == null || horacta == ""){
+          message += "- La Hora del acta.<br>";
+          guardar = false;
+        }
+        if (guardar){
+          jimte_table.sendActa(tipo, acta_a_elaborar);
         } else {
            $('#standardAlert .modal-content h4').html(title);
            $('#standardAlert .modal-content p').html(message);
@@ -1780,7 +1803,59 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
     }
 
-    validaSenado() {
+    sendMail() {
+
+          var form_data = new FormData();
+          form_data.append("id", jimte.currentUser.id );
+          form_data.append("tiposerv", jimte.currentUser.tiposerv );
+          form_data.append("servicio", jimte.currentUser.servicio );
+          form_data.append("frat", jimte.currentUser.frat );
+          form_data.append("table", this.table );
+          form_data.append("token", jimte.token );
+
+          form_data.append("mail_to", $("#mail_to").val() );
+          form_data.append("mail_sb", $("#mail_sb").val() );
+          form_data.append("mail_tx", $("#mail_tx").val() );
+
+          $.ajax({
+            url: jimte.serverPath + 'index.php/mails',
+            dataType: "json",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: form_data,
+            type: 'POST',
+            success: function(data){
+              //console.log( "sendAdd success - data: " + data );
+
+              //&& data.length > 0
+              if ((typeof data !== undefined ) &&
+                   (data.length == 0 || data[0].acceso == undefined)) {
+                     M.toast(
+                               {html:'Se Envió email!',
+                               displayLenght: 3000,
+                               classes: 'rounded'}
+                             );
+              } else {
+                jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+              }
+
+            },
+            error: function(xhr, status, error) {
+                //alert(xhr.responseText + "\nCon el error:\n" + error);
+                if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+                  jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Adicionando Registro");
+                }
+                if(xhr.responseText.startsWith("Error: SQLSTATE[23000]")){
+                  jimte.alertMe("Ya existe un registro con esa llave en la base de datos, Por favor verifique.", "Adicionando Registro");
+                }
+                jimte_table.notWorking("addTable");
+                console.log(xhr.responseText + "\nCon el error:\n" + error);
+            }
+          })
+
     }
 
     changeLanguage(obj) {

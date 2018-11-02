@@ -48,8 +48,10 @@ function getSQL($name, $app) {
             "users_add"   => "INSERT INTO usuarios (frat, id, usuario, apellidos, nombres, password, email, servicio, estado) " .
                              "VALUES (:frat, :id, :usuario, :apellidos, :nombres, :password, :email, :servicio, :estado)",
             "users_count" => "SELECT count(1) as count FROM usuarios WHERE frat = '" . $frat . "'",
-            "users_int"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, b.tiposerv " .
-                             "FROM usuarios a, servicios b WHERE a.estado = 'A' and a.servicio = b.servicio and b.tiposerv = 'I'",
+            "users_int"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, " .
+                             "b.tiposerv, b.nombre as nombreser, b.id as idserv " .
+                             "FROM usuarios a, servicios b WHERE a.estado = 'A' and a.servicio = b.servicio and b.tiposerv = 'I' " .
+                             "ORDER BY idserv, apellidos, nombres",
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "" => "");
     //echo "sqls name : " . $name . " / " .  $SQLs[$name];

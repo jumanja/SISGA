@@ -21,6 +21,7 @@ require 'app/routes/places_api.php';  //lugares de reunión
 require 'app/routes/servs_api.php';   //servicios
 require 'app/routes/tags_api.php';    //etiquetas
 require 'app/routes/types_api.php';   //tiposacta
+require 'app/routes/mails_api.php';   //correo electrónico
 
 $app->config('debug', true);
 $app->setName('sisga');

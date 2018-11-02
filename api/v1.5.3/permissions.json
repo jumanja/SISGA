@@ -498,5 +498,26 @@
       "incluye": "*",
       "excluye": ""
     }
+  },
+  "POST:/users": {
+    "tiposerv": {
+      "incluye": "A",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
+  "POST:/mails": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
   }
+
 }]
