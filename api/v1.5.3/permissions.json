@@ -518,6 +518,16 @@
       "incluye": "*",
       "excluye": ""
     }
+  },
+  "POST:/mins": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
   }
 
 }]

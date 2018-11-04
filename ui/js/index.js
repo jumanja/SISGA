@@ -72,7 +72,7 @@ $(document).ready(function() {
        today: 'Hoy',
        clear: 'Limpiar',
        close: 'Ok',
-       format: 'dd/mm/yyyy',
+       format: 'yyyy/mm/dd',
        closeOnSelect: false // Close upon selecting a date,
      });
 

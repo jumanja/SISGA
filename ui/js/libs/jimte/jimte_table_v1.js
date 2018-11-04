@@ -595,60 +595,83 @@ class JimteTab {
     $("#finplanadd").val("");
   }
 
-  sendActa(tipo, acta_a_elaborar){
-    //begin sendEstado
-    //Si hay algún campo requerido y vacío, no se puede seguir
-    var empty = false;
-    $("#retTable").find( "*[required]" ).each( function() {
-        if($(this).val() == ""){
-          $(this).css("border", "2px dotted red");
-          empty = true;
-        } else {
-          $(this).css("border", "");
-        }
-    });
+  convertTime12to24(time12h) {
+    const [time, modifier] = time12h.split(' ');
 
-    if(empty){
-      return false;
+    let [hours, minutes] = time.split(':');
+
+    if (hours === '12') {
+      hours = '00';
     }
 
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return hours + ':' + minutes + ':00';
+  }
+
+  sendActa(tipo, acta_a_elaborar){
+    //begin sendActa
     var self = $(this);
 
-    this.working("retTable");
-
-    //Crear un arreglo con campos y valores para poblar form_data
-    var arrayFields = new Array();
-    //arrayFields.push("ret_idupdate");
-    //$("#editTable").find( "*[id^='edit_']" ).css( "background-color", "blue" );
-    //$("#retTable").find( "*[id^='ret_estad']" ).each( function() {
-        //myText += $(this).attr("id").substring(5) + "|" + $(this).val();
-        //arrayFields.push($(this).attr("id"));
-    //});
+    this.working("botActa");
 
     var form_data = new FormData();
     form_data.append("id", jimte.currentUser.id );
+    form_data.append("usuario", jimte.currentUser.usuario );
     form_data.append("tiposerv", jimte.currentUser.tiposerv );
     form_data.append("servicio", jimte.currentUser.servicio );
     form_data.append("frat", jimte.currentUser.frat );
     form_data.append("table", this.table );
     form_data.append("token", jimte.token );
 
-    form_data.append("edit_idupdate", $("#ret_idupdate").val() );
-    form_data.append("edit_estado", $("#ret_estado").val() );
+    var horact24 = this.convertTime12to24($("#horacta").val());
+    var horsig24 = this.convertTime12to24($("#horproxima").val());
 
-    /*var inc;
-    for (inc = 0; inc < arrayFields.length; inc++) {
-        form_data.append(arrayFields[inc], $("#" + arrayFields[inc]).val() );
-    }*/
+    //Si es adicionar
+    if( $("#acta_a_elaborar").val() == "add"){
+      form_data.append("mod_acta", "add" );           //Adición
+      form_data.append("add_estado", $("#estado").val() );
 
-    //console.log("sendUpdate!" + form_data);
-    // Display the key/value pairs
-    /*for (var pair of form_data.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]);
-    }*/
+      form_data.append("add_tipo_de_acta", $("#tipo_de_acta").val() );
+      form_data.append("add_temaacta", $("#temaacta").val() );
+      form_data.append("add_lugar_reunion", $("#lugar_reunion").val() );
+      form_data.append("add_lugar_proxima", $("#lugar_proxima").val() );
+      form_data.append("add_fecacta", $("#fecacta").val() + " " + horact24 );
+      form_data.append("add_fecproxima", $("#fecproxima").val() + " " + horsig24 );
+      form_data.append("add_objetivos", $("#objetivos").val() );
+      form_data.append("add_conclusiones", $("#conclusiones").val() );
+
+    } else {
+      form_data.append("mod_acta", "edit" );           //Edición
+      form_data.append("edit_idupdate", $("#acta_a_elaborar").val() );
+      form_data.append("edit_estado", $("#estado").val() );
+
+      form_data.append("edit_tipo_de_acta", $("#tipo_de_acta").val() );
+      form_data.append("edit_acta_a_elaborar", $("#acta_a_elaborar").val() );
+      form_data.append("edit_temaacta", $("#temaacta").val() );
+      form_data.append("edit_lugar_reunion", $("#lugar_reunion").val() );
+      form_data.append("edit_lugar_proxima", $("#lugar_proxima").val() );
+      form_data.append("edit_fecacta", $("#fecacta").val() + " " + horact24 );
+      form_data.append("edit_fecproxima", $("#fecproxima").val() + " " + horsig24 );
+      form_data.append("edit_objetivos", $("#objetivos").val() );
+      form_data.append("edit_conclusiones", $("#conclusiones").val() );
+
+    }
+
+    var chipInstance = M.Chips.getInstance($("#etiquetasActa"));
+    var etiquetasActa = "";
+    $.each( chipInstance.chipsData, function( key, val ) {
+      etiquetasActa += val.tag + ",";
+    });
+    if(etiquetasActa != ""){
+      etiquetasActa = etiquetasActa.substring(0, etiquetasActa.length-1);
+    }
+    form_data.append("upd_etiquetasActa", etiquetasActa );
 
     $.ajax({
-      url: jimte.serverPath + 'index.php/' + this.table + '/update',
+      url: jimte.serverPath + 'index.php/mins',
       dataType: "json",
       cache: false,
       processData: false,
@@ -661,33 +684,27 @@ class JimteTab {
         //&& data.length > 0
         if ((typeof data !== undefined ) &&
              (data.length == 0 || data[0].acceso == undefined)) {
-               /*
-               jimte.alertMe(l("%denied", data[0].acceso) + " " +
-                             l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Se retornaron Datos!"));
-               */
-               // 'rounded' is the class I'm applying to the toast
-               //Materialize.toast('Se Guardó OK!', 3000, 'rounded');
                M.toast(
                          {html:'Se Guardó OK!',
                          displayLenght: 3000,
                          classes: 'rounded'}
                        );
-               jimte_table.overlayOff('R');
-               jimte_table.refreshTable();
+               //jimte_table.overlayOff('R');
+               //jimte_table.refreshTable();
         }else {
           jimte.alertMe(l("%denied", data[0].acceso) + " " +
                         l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
 
         }
 
-        jimte_table.notWorking("retTable");
+        jimte_table.notWorking("botActa");
       },
       error: function(xhr, status, error) {
           //alert(xhr.responseText + "\nCon el error:\n" + error);
           if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
             jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Guardando Cambios");
           }
-          jimte_table.notWorking("retTable");
+          jimte_table.notWorking("botActa");
           console.log(xhr.responseText + "\nCon el error:\n" + error);
       }
     })
