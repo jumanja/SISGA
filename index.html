@@ -310,11 +310,12 @@
                   <input id="horacta" class="timepicker" title="Hora del Acta" placeholder="Hora del Acta" >
                 </div>
                 <div class="col s10 l11">
-                    <div class="chips chips-autocomplete"></div>
+                    <div id="etiquetasActa" class="chips chips-autocomplete"></div>
                 </div>
 
                 <div class="col s1 l1">
                   <i title="En Progreso" class="material-icons grey-text medium">card_travel</i>
+                  <input type="hidden" id="estado" value="G">
                   <!--<h5>En Progreso</h5>-->
                   <!--
                   <i class="material-icons gray-text small">cancel</i>
@@ -491,19 +492,23 @@
           </div>
 
           <div class="row">
-              <div class="col s12">
+              <div id="botActa" class="col s12">
                 <a
                   class="waves-effect waves-light btn-large center-align"
                   onclick="jimte.validaActa('Progreso');">
                   <i class="material-icons left">card_travel</i>
                   Guardar en Progreso
                 </a>
-                <a
+                <a id="botActa_Save"
                   class="waves-effect waves-light btn-large modal-trigger center-align"
                   href="#modPreliminar">
                   <i class="material-icons left">work</i>
                   Guardar Preliminar
                 </a>
+              </div>
+              <div class="progress">
+                <div class="determinate">
+                </div>
               </div>
 
               <div class="row oculto">

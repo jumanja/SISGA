@@ -6,6 +6,10 @@ function getSQL($name, $app) {
     $lang = strtolower(substr($lang, 0, 2));
 
     $SQLs  = array(
+            "mins_add"    => "INSERT INTO actas (frat, id, estado, fecha, tipoacta, tema, lugar, objetivos, responsable, conclusiones, fechasig, lugarsig) " .
+                             "VALUES (:frat, :id, :estado, :fecha, :tipoacta, :tema, :lugar, :objetivos, :responsable, :conclusiones, :fechasig, :lugarsig) ",
+            "mins_update" => "UPDATE actas set frat = :frat, estado = :estado, fecha = :fecha, tipoacta = :tipoacta, tema = :tema, " .
+                             "lugar = :lugar, objetivos = :objetivos, conclusiones = :conclusiones, fechasig = :fechasig ) ",
             "frats_act"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email " .
                              "FROM fraternidades WHERE estado = 'A'",
             "frats_add"   => "INSERT INTO fraternidades (frat, id, nombre, estado, logo, direccion, ciudad, email) " .
@@ -34,6 +38,9 @@ function getSQL($name, $app) {
                              "VALUES (:frat, :etiqueta, :id, :estado)",
             "tags_count"=> "SELECT count(1) as count FROM etiquetas WHERE frat = '" . $frat . "'",
             "tags_all"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE frat = '" . $frat . "'",
+
+            "tags_mindelete" => "DELETE from etiquetasActa WHERE idacta = :idacta",
+            "tags_minadd"    => "INSERT into etiquetasActa (idacta, etiqueta, estado) VALUES ( :idacta, :etiqueta, :estado) ",
 
             "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
                              "FROM tipoactas a WHERE estado = 'A' AND frat = '" . $frat . "'",

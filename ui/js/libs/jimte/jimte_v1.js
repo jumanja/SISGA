@@ -1748,13 +1748,6 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     validaActa(tipo) {
-      /*
-        if (typeof title === 'undefined'){
-          title = "Atención:";
-        }
-        if (typeof message === 'undefined'){
-          message = "!";
-        }*/
         var title = "No se pudo Guardr el Acta, falta:";
         var message = "";
         var guardar = true;

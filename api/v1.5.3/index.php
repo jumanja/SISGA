@@ -22,6 +22,7 @@ require 'app/routes/servs_api.php';   //servicios
 require 'app/routes/tags_api.php';    //etiquetas
 require 'app/routes/types_api.php';   //tiposacta
 require 'app/routes/mails_api.php';   //correo electrónico
+require 'app/routes/mins_api.php';    //actas
 
 $app->config('debug', true);
 $app->setName('sisga');

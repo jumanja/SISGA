@@ -35,13 +35,34 @@ function getPDOPrepared($query, $arrayParams) {
 
 		//echo '9.1 ';
 		$dbh->execute($arrayParams);
-		//echo '9. getPDOPrepared_query:' . $query . ' ';
-		//echo '9.1 ' . $arrayParams[":token"];
-		//echo '9.2 ' . $arrayParams[":tokenexpira"];
-		//echo '9.3 ' . $arrayParams[":id"];
 
-		//echo '9.2 ' . $dbh->rowCount();
+		//echo '9.2 getPDOPrepared_query:' . $query . ' ';
+		//echo '9.3 ' . $arrayParams[":fecha"] ;
+		//echo '9.4 ' . $arrayParams[":fechasig"] ;
+		//echo '9.3 ' . $arrayParams[":token"];
+		//echo '9.4 ' . $arrayParams[":tokenexpira"];
+		//echo '9.5 ' . $arrayParams[":id"];
+
+		//echo '9.6 ' . $dbh->rowCount();
 		return $dbh->rowCount();
+}
+function getPDOPreparedIns($query, $arrayParams) {
+		$connection = getConnection();
+
+		$dbh = $connection->prepare($query);
+
+		//echo '9.1 ';
+		$dbh->execute($arrayParams);
+
+		//echo '9.2 getPDOPrepared_query:' . $query . ' ';
+		//echo '9.3 ' . $arrayParams[":fecha"] ;
+		//echo '9.4 ' . $arrayParams[":fechasig"] ;
+		//echo '9.3 ' . $arrayParams[":token"];
+		//echo '9.4 ' . $arrayParams[":tokenexpira"];
+		//echo '9.5 ' . $arrayParams[":id"];
+
+		//echo '9.6 ' . $dbh->rowCount();
+		return $connection->lastInsertId();
 }
 
 //$resultText .= PDO2json($dbh, '');
