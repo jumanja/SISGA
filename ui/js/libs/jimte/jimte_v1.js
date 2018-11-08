@@ -741,6 +741,323 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         }
     }
 
+    getEstadosActa(){
+      $.ajax({
+        url: this.serverPath + 'index.php/mins/count' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + "mins_exec" ,
+
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+
+                 var actasEjecu = 0;
+                 var actasTotal = 0;
+                 $.each( data, function( key, val ) {
+
+                   actasTotal += parseInt(val.cuenta);
+
+                   //Aprobadas
+                   if(val.estado == "A"){
+                     actasEjecu += parseInt(val.cuenta);
+                     $('#actas_aprobadas')[0].innerHTML = val.cuenta;
+                   }
+
+                   //Preliminares
+                   if(val.estado == "M"){
+                     $('#actas_preliminares')[0].innerHTML = val.cuenta;
+                   }
+
+                   //En Progreso
+                   if(val.estado == "G"){
+                     $('#actas_progreso')[0].innerHTML = val.cuenta;
+                   }
+
+                   //Retiradas
+                   if(val.estado == "R"){
+                      actasEjecu += parseInt(val.cuenta);
+                      $('#actas_retiradas')[0].innerHTML = val.cuenta;
+                   }
+
+                 });
+                 /*console.log("aprob: " + actasAprob);
+                 console.log("total: " + actasTotal);*/
+                 var actasPorc = ( actasEjecu / actasTotal ) * 100;
+                 actasPorc = actasPorc.toFixed(0);
+                 $(".actas_ejec")[0].innerHTML = actasPorc;
+                 $(".actas_bar").css("width", actasPorc + "%");
+
+          }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
+
+    cleanActa(){
+      $("#lugar_reunion").val("");
+      $("#tipo_de_acta").val("");
+      $("#fecacta").val("");
+      $("#horacta").val("");
+      $("#lugar_reunion").val("");
+      $("#fecproxima").val("");
+      $("#horproxima").val("");
+      $("#lugar_proxima").val("");
+      $("#estado").val("G");
+
+      $('.chips-autocomplete').chips({
+         data: [],
+         autocompleteOptions: {
+             data: jimte.currentTags
+         },
+         placeholder: 'Ingrese Etiquetas',
+         secondaryPlaceholder: '+Etiqueta',
+         limit: 10,
+         minLength: 1
+       });
+
+      $("#temaacta").val("");
+      $("#fecacta").val("");
+      $("#objetivos").val("");
+      $("#conclusiones").val("");
+
+      $("#lugar_reunion").formSelect();
+      $("#tipo_de_acta").formSelect();
+      $("#fecacta").formSelect();
+      $("#horacta").formSelect();
+      $("#lugar_reunion").formSelect();
+      $("#fecproxima").formSelect();
+      $("#horproxima").formSelect();
+      $("#lugar_proxima").formSelect();
+    }
+
+    getActaId(nroActa){
+      $.ajax({
+        url: this.serverPath + 'index.php/mins' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + "mins_nro" +
+              "&nroActa=" + nroActa,
+
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+
+                 //ciclo
+                 $.each( data, function( key, val ) {
+                   //console.log(val.tema);
+                   $("#tipo_de_acta").val(val.tipoacta);
+                   $("#acta_a_elaborar").val(val.id);
+                   $("#temaacta").val(val.tema);
+                   $("#lugar_reunion").val(val.lugar);
+                   $("#objetivos").val(val.objetivos);
+                   $("#conclusiones").val(val.conclusiones);
+                   $("#estado").val(val.estado);
+
+                   var resArray = val.fecha.split(" ");
+                   $("#fecacta").val(resArray[0]);
+                   $("#horacta").val(resArray[1]);
+
+                   resArray = val.fechasig.split(" ");
+                   $("#fecproxima").val(resArray[0]);
+                   $("#horproxima").val(resArray[1]);
+
+                   $("#lugar_proxima").val(val.lugarsig);
+
+                 });
+                 $("#lugar_reunion").formSelect();
+                 $("#tipo_de_acta").formSelect();
+                 $("#acta_a_elaborar").formSelect();
+                 $("#fecacta").formSelect();
+                 $("#horacta").formSelect();
+                 $("#lugar_reunion").formSelect();
+                 $("#fecproxima").formSelect();
+                 $("#horproxima").formSelect();
+                 $("#lugar_proxima").formSelect();
+
+                jimte.getTagsMinId($("#acta_a_elaborar").val());
+
+          }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
+
+    getTagsMinId(nroActa){
+      $.ajax({
+        url: this.serverPath + 'index.php/mins/items' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + "tags_minid" +
+              "&nroActa=" + nroActa,
+
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+
+                 $('.chips-autocomplete').chips({
+                    data: [],
+                    autocompleteOptions: {
+                        data: jimte.currentTags
+                    },
+                    placeholder: 'Ingrese Etiquetas',
+                    secondaryPlaceholder: '+Etiqueta',
+                    limit: 10,
+                    minLength: 1
+                  });
+
+                 var instance = M.Chips.getInstance ( $('#etiquetasActa') );
+
+                 //var actaTags = [];
+                 $.each( data, function( key, val ) {
+                    //actaTags.push({"tags": val.etiqueta});
+
+                    //console.log(key + "/" + val.etiqueta);
+                    /*$('#etiquetasActa').append("<div class='chip' tabindex='0'>" +
+                                        val.etiqueta +
+                                        "<i class='material-icons'>close</i>" +
+                                        "</div>");*/
+                    //instance.addChip({"tags": val.etiqueta});
+                    instance.addChip({
+                      tag: val.etiqueta
+                    });
+
+                 });
+
+                 //$('.chips-autocomplete')[0].chips({
+                 /*$('#etiquetasActa').chips({
+                    chipsData: actaTags,
+                    data: actaTags,
+                    autocompleteOptions: {
+                        data: jimte.currentTags
+                    },
+                    placeholder: 'Ingrese Etiquetas',
+                    secondaryPlaceholder: '+Etiqueta',
+                    limit: 10,
+                    minLength: 1
+                  });*/
+
+          }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
+
+    getActasProgreso(){
+      $.ajax({
+        url: this.serverPath + 'index.php/mins' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + "mins_prog" ,
+
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+
+                 $('#acta_a_elaborar').children('option:not(:first)').remove();
+
+                 var option = $('<option></option>').attr("value",
+                   "add"
+                 ).text(
+                   "Agregar Acta Nueva"
+                 );
+                 $("#acta_a_elaborar").append(option);
+
+                 //Limpiar la Tabla
+                 $('#tbody_enprogreso')[0].innerHTML  = "";
+
+                 //ciclo
+                 $.each( data, function( key, val ) {
+
+                     //$('#tbody_enprogreso')[0].innerHTML += "<tr><td>Ver</td>" +
+                     $('#tbody_enprogreso')[0].innerHTML += "<tr>" +
+                        '<td>' + val.id + '</td>' +
+                        '<td>' + val.fecha + '</td>' +
+                        '<td>' + val.objetivos + '</td>' +
+                        '<td>' + val.conclusiones + '</td>' +
+                        '</tr>';
+
+                    var option = $('<option></option>').attr("value",
+                      val.id
+                    ).text(
+                      "Nro: " + val.id + " " +
+                      "Fec: " + val.fecha
+                    );
+                    $("#acta_a_elaborar").append(option);
+
+                 });
+                 $('#acta_a_elaborar').formSelect();
+
+          }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
+
     getTiposActa(){
       $.ajax({
         url: this.serverPath + 'index.php/types' +
@@ -838,6 +1155,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getAsistentes(){
+      var idacta = $("#acta_a_elaborar").val();
+      var paramAdic = (idacta == "add"? "asi": "int&idacta=" + idacta);
+      console.log(idacta + "/" + paramAdic);
       $.ajax({
         url: this.serverPath + 'index.php/users' +
               "?id=" + jimte.currentUser.id +
@@ -846,7 +1166,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
               "&frat=" + jimte.currentUser.frat +
               "&table=" + this.table +
               "&token=" + jimte.token +
-              "&sqlCode=" + 'users_int',
+              "&sqlCode=" + 'users_' + paramAdic,
         dataType: "json",
         cache: false,
         processData: false,
@@ -857,22 +1177,35 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                (data.length == 0 || data[0].acceso == undefined)) {
                  $("#Asistentes")[0].innerHTML = "";
                  $("#responsadd")[0].innerHTML = '<option value="" disabled selected>Seleccione Responsable</option>';
+
                  var myAttend = [];
                  $.each( data, function( key, val ) {
-                    myAttend.push(
-                    '<div class="col s12 m6">' +
-                    '  <label for="asi_' + val.id + '">' +
-                    '    <input id="asi_' + val.id + '" type="checkbox" />' +
-                    '    <span title="(' + val.nombreser + ')">' +
-                    val.nombres + ' ' + val.apellidos + '</span>' +
-                    '  </label>' +
-                    '</div>');
 
-                    //De una vez poblar Responsables
-                    $('#responsadd').append($('<option>', {
-                         value: val.usuario,
-                         text: val.apellidos + " " + val.nombres
-                     }));
+                   console.log(val.idacta + ":" + idacta +
+                               val.usuario + ":" + val.asisestado);
+                   
+                   if( (idacta == "add" || val.idacta == idacta) ) {
+                     myAttend.push(
+                     '<div class="col s12 m6">' +
+                     '  <label>' +
+                     '    <input title="' + val.usuario + ':' + val.tiposerv + ':' +
+                                            val.servicio + '" id="asi_' + val.id + '" type="checkbox" ' +
+                                            (val.asisestado == 'S' ? ' checked="checked" ' : '') +
+                                            (val.asisestado == 'F' ? '  checked="checked" class="filled-in" ' : '') +
+                                            '/>' +
+                     '    <span title="(' + val.nombreser + '/' + val.asisestado +')">' +
+                     val.nombres + ' ' + val.apellidos + '</span>' +
+                     '  </label>' +
+                     '</div>');
+
+                     //De una vez poblar Responsables
+                     $('#responsadd').append($('<option>', {
+                          value: val.usuario,
+                          text: val.apellidos + " " + val.nombres
+                      }));
+
+                   }
+
 
                  });
                  $("#Asistentes")[0].innerHTML = myAttend.join("");
@@ -915,17 +1248,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                     myTagsData[val.etiqueta] = null;
                     //console.log(key + "/" + myTagsData[val.etiqueta]);
                  });
-                 /*
-                 [{
-                         tag: 'Apple',
-                       }, {
-                         tag: 'Microsoft',
-                       }, {
-                         tag: 'Google',
-                       }]
-                  */
+                 jimte.currentTags = myTagsData;
                  $('.chips-autocomplete').chips({
-                    data: jimte.currentTags,
+                    data: [],
                     autocompleteOptions: {
                         data: myTagsData
                     },
@@ -934,20 +1259,6 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                     limit: 10,
                     minLength: 1
                   });
-                  /*
-                  var my_data = {
-                    "0":"Apple",
-                    "1":"Microsoft",
-                    "2":"Google"
-                  }
-                  var myConvertedData = {};
-                  $.each(my_data, function(index, value) {
-                    myConvertedData[value] = null;
-                  });
-                  $('.chips-autocomplete').material_chip({
-                    autocompleteData: myConvertedData
-                  });
-                  */
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -966,107 +1277,16 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       //if(this.Token == "localhost"){
       //  return;
       //}
+      this.getEstadosActa();
+      this.getActasProgreso();
       this.getTiposActa();
       this.getLugares();
       this.getEtiquetas();
-      this.getAsistentes();
+      //Mejor traer asistentes si ya se sabe que va a adicionar o
+      //a modificar, y poblar los responsables también
+      //this.getAsistentes();
       $("#loader").hide();
       return;
-
-      var self = $(this);
-
-      var form_data = new FormData();
-      form_data.append('llave', this.llave);
-      form_data.append('Token', this.token);
-      form_data.append('tipollave', this.userType);
-
-      //console.log("check_mesas!");
-      $.ajax({
-        url: this.serverPath + '/mesas_testigos.php',
-        dataType: "json",
-        cache: false,
-        processData: false,
-        contentType: false,
-        data: form_data,
-        type: 'POST',
-        success: function(php_response){
-          if (php_response.acceso == "concedido") {
-            //window.location.href = 'main.html';
-            var links = [];
-            var mesasTotal = 0;
-            var mesasRepo = 0;
-            var mesasPorc = 0;
-            $("#mesa_a_reportar").empty();
-
-            jimte.mesastestigos = JSON.parse(php_response.mesastestigos);
-            $.each( jimte.mesastestigos, function( key, val ) {
-
-              if(val.repo == "S"){
-                mesasRepo ++;
-              } else {
-                //Las no reportadas irán en el select
-                var option = $('<option></option>').attr("value",
-                  val.llave + "," +
-                  val.dd + "," +
-                  val.mm + "," +
-                  val.zz + "," +
-                  val.pp + "," +
-                  val.nro
-                ).text(
-                  val.municipio + ", " +
-                  val.puesto + " Mesa: " + val.nro);
-                $("#mesa_a_reportar").append(option);
-/*
-                aReportar.push(
-                            "<option value='" +
-                              val.llave + "," +
-                              val.dd + "," +
-                              val.mm + "," +
-                              val.zz + "," +
-                              val.puesto + "," +
-                              val.llave + "," +
-                              val.nro + ">" +
-                              val.puesto + " Mesa: " + val.nro +
-                            "</option>");
-                            */
-              }
-              mesasTotal++;
-              links.push(
-                          "<tr>" +
-                          "<td>" + val.departamento + "</td>" +
-                          "<td>" + val.municipio + "</td>" +
-                          "<td>" + val.puesto + "</td>" +
-                          "<td>" + val.nro + "</td>" +
-                          "<td>" + val.repo + "</td>" +
-                          "<td>" + val.fecrepo + "</td>" +
-                          "</tr>");
-            });
-            $("#tbody_reportadas")[0].innerHTML = links.join("");
-            $(".mesas_en_total")[0].innerHTML = mesasTotal;
-            $(".mesas_reportadas")[0].innerHTML = mesasRepo;
-
-            mesasPorc = (mesasRepo / mesasTotal ) * 100;
-            mesasPorc = mesasPorc.toFixed(2);
-            $(".mesas_progreso")[0].innerHTML = mesasPorc;
-            $(".mesas_bar").css("width", mesasPorc + "%");
-            $("#queryCertif").attr("href", "server/certif/?nro=" + jimte.llave);
-
-            if(mesasPorc == 100){
-              $("#reportarMesa").hide();
-            }
-            $('#mesa_a_reportar').formSelect();
-            //$("#tbody_reportadas").show();
-          }else {
-            jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Mesas Testigos");
-          }
-          $("#loader").hide();
-
-        },
-        error: function(xhr, status, error) {
-            //alert(xhr.responseText + "\nCon el error:\n" + error);
-            console.log(xhr.responseText + "\nCon el error:\n" + error);
-        }
-      })
     }
 
 
@@ -1465,7 +1685,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
     changeTipoActa(obj) {
       //console.log("changeActa " + obj.value);
-      $("#creaacta").hide();
+
+      //$("#creaacta").hide();
 
       //$("#loader").show();
 
@@ -1478,6 +1699,16 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
     changeActa(obj) {
       //console.log("changeActa " + obj.value);
+      this.getAsistentes();
+
+      if(obj.value == "add"){
+        //Limpiar el acta pues se está adicionando
+        this.cleanActa();
+      } else {
+        //this.getEtiquetas();
+        this.getActaId(obj.value);
+      }
+
       $("#creaacta").show();
 
       //$("#loader").show();

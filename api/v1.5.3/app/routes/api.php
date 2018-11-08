@@ -140,7 +140,7 @@ function simpleReturn($app, $sqlCode, $style, $filter = '') {
 
     $query = parseParams($sqlCode, $flds, $sort, $max, $filter, $app);
 
-    //echo $query . '\n';
+    //echo "143. " . $query . '\n';
     $connection = getConnection();
     $dbh = $connection->prepare($query);
 		$dbh->execute();
