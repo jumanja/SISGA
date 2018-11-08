@@ -833,9 +833,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
        });
 
       $("#temaacta").val("");
-      $("#fecacta").val("");
       $("#objetivos").val("");
       $("#conclusiones").val("");
+      $("#table_Tasks tbody")[0].innerHTML = "";
+
 
       $("#lugar_reunion").formSelect();
       $("#tipo_de_acta").formSelect();
@@ -901,6 +902,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $("#lugar_proxima").formSelect();
 
                 jimte.getTagsMinId($("#acta_a_elaborar").val());
+                jimte.getTasksMinId($("#acta_a_elaborar").val());
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -977,6 +979,58 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                     limit: 10,
                     minLength: 1
                   });*/
+
+          }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
+
+    getTasksMinId(nroActa){
+      $.ajax({
+        url: this.serverPath + 'index.php/mins/items' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + "tasks_minid" +
+              "&nroActa=" + nroActa,
+
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+
+                 //cleanActa para Tasks
+                 $("#table_Tasks tbody")[0].innerHTML = "";
+
+                 $.each( data, function( key, val ) {
+                   $("#table_Tasks").find("tbody")
+                                    .append("<tr>" +
+                                     '<td><a onclick="$(this).closest(\'tr\').remove();">' +
+                                     '<i class="material-icons tiny"' +
+                                     '>close</i></a>' + "</td><td>" +
+                                     val.usuario + "</td><td><textarea>" +
+                                     val.text + "</textarea></td><td>" +
+                                     val.creada + "</td><td>" +
+                                     "Planeada" + "</td><td>" +
+                                     val.inicioplan + "</td><td>" +
+                                     val.finalplan + "</td>" +
+                                     "</tr>");
+                 });
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -1181,9 +1235,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  var myAttend = [];
                  $.each( data, function( key, val ) {
 
-                   console.log(val.idacta + ":" + idacta +
-                               val.usuario + ":" + val.asisestado);
-                   
+                  //console.log(val.idacta + ":" + idacta +
+                  //             val.usuario + ":" + val.asisestado);
+
                    if( (idacta == "add" || val.idacta == idacta) ) {
                      myAttend.push(
                      '<div class="col s12 m6">' +
@@ -1282,6 +1336,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       this.getTiposActa();
       this.getLugares();
       this.getEtiquetas();
+
       //Mejor traer asistentes si ya se sabe que va a adicionar o
       //a modificar, y poblar los responsables también
       //this.getAsistentes();
