@@ -540,10 +540,20 @@ class JimteTab {
       var d = new Date();
       var month = d.getMonth()+1;
       var day = d.getDate();
-      var output = (day<10 ? '0' : '') + day + '/' +
+      /*var output = (day<10 ? '0' : '') + day + '/' +
           (month<10 ? '0' : '') + month + '/' +
-          d.getFullYear();
+          d.getFullYear();*/
+      var output = d.getFullYear() + '/' +
+                  (month<10 ? '0' : '') + month + '/' +
+                  (day<10 ? '0' : '') + day;
       return output;
+  }
+
+  getNow(){
+    var time = new Date();
+    return ("0" + time.getHours()).slice(-2) + ":" +
+           ("0" + time.getMinutes()).slice(-2) + ":" +
+          ("0" + time.getSeconds()).slice(-2);
   }
 
   addTask(){
@@ -581,7 +591,7 @@ class JimteTab {
                       '>close</i></a>' + "</td><td>" +
                       $("#responsadd").val() + "</td><td><textarea>" +
                       $("#tareadd").val() + "</textarea></td><td>" +
-                      this.getToday() + "</td><td>" +
+                      this.getToday() + " " + this.getNow() + "</td><td>" +
                       "Planeada" + "</td><td>" +
                       $("#iniplanadd").val() + "</td><td>" +
                       $("#finplanadd").val() + "</td>" +
@@ -686,6 +696,25 @@ class JimteTab {
       asistentesActa = asistentesActa.substring(0, asistentesActa.length-1);
     }
     form_data.append("upd_asistentesActa", asistentesActa );
+
+    //Grabar Tareas
+    var tareasActa = "";
+    $("#table_Tasks tbody").find("tr").each(function() {
+      var task = "";
+      task += "A|";
+
+      var celdaTexto = this.cells[2].children[0].value;
+      task += celdaTexto +"|";
+      task += this.cells[1].textContent + "|";
+      task += this.cells[3].textContent + "|";
+      task += this.cells[5].textContent  + "|";
+      task += this.cells[6].textContent  + "ç";
+      tareasActa += task;
+    });
+    if(tareasActa != ""){
+      tareasActa = tareasActa.substring(0, tareasActa.length-1);
+    }
+    form_data.append("upd_tareasActa", tareasActa );
 
     $.ajax({
       url: jimte.serverPath + 'index.php/mins',

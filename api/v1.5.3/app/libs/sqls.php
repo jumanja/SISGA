@@ -58,6 +58,15 @@ function getSQL($name, $app) {
             "tags_minadd"    => "INSERT into etiquetasActa (idacta, etiqueta, estado) VALUES ( :idacta, :etiqueta, :estado) ",
             "tags_minid"     => "SELECT etiqueta FROM etiquetasActa WHERE idacta = :idacta ",
 
+            "tasks_minretire" => "UPDATE tareas SET estado = 'R' WHERE idacta = :idacta",
+            "tasks_mindelete" => "DELETE from tareas WHERE idacta = :idacta ",
+            "tasks_minadd"    => "INSERT into tareas (idacta, estado, " .
+                                 "text, usuario, creada, inicioplan, finalplan) " .
+                                 "VALUES ( :idacta, :estado, " .
+                                 ":text, :usuario, :creada, :inicioplan, :finalplan) ",
+            "tasks_minid"     => "SELECT estado, usuario, text, creada, inicioplan, finalplan " .
+                                 "FROM tareas WHERE idacta = :idacta ",
+
             "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
                              "FROM tipoactas a WHERE estado = 'A' AND frat = '" . $frat . "'",
             "types_all"   => "SELECT frat, tipo, id, nombre, estado FROM tipoactas WHERE frat = '" . $frat . "'",

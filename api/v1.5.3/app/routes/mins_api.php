@@ -190,6 +190,15 @@ $app->post('/mins', function () use($app) {
 							$rows = getPDOPrepared($query, $prepParams);
 							//echo "asis_mindelete: " + $rows;
 
+							//Borre tareasActa
+							$sqlCode = "tasks_mindelete";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);
+							//echo "tasks_mindelete: " + $rows;
+
 						}
 
 						//Actualice Etiquetas
@@ -239,6 +248,36 @@ $app->post('/mins', function () use($app) {
 											':estado'  	  => $arrayItem[1],
 											':servicio'   => $arrayItem[4],
 											':tiposerv'   => $arrayItem[3]
+								);
+
+								$dbh->execute($prepParams);
+
+							}
+						}
+
+						//Actualice Tareas
+						$tasks = $app->request()->params('upd_tareasActa');
+						if($tasks != ""){
+
+							$sqlCode = "tasks_minadd";
+							$query = getSQL($sqlCode, $app);
+
+							$connection = getConnection();
+
+							$dbh = $connection->prepare($query);
+							$arrayTasks = explode('ç', $tasks);
+							//print_r($arrayTasks);
+							foreach($arrayTasks as $taskItem){
+								//print_r($taskItem);
+								$arrayItem = explode('|', $taskItem);
+								$prepParams = array(
+											':idacta'     => $idacta,
+											':estado'  		=> $arrayItem[0],
+											':text'  			=> $arrayItem[1],
+											':usuario'  	=> $arrayItem[2],
+											':creada'   	=> $arrayItem[3],
+											':inicioplan' => $arrayItem[4],
+											':finalplan'  => $arrayItem[5]
 								);
 
 								$dbh->execute($prepParams);
