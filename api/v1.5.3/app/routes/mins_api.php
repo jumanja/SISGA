@@ -9,6 +9,62 @@ accediendo por fuera de la api, retorna Acceso Denegado
 if(!defined("SPECIALCONSTANT")) die(ACCESSERROR);
 
 /*--
+URL: /[tabla]/count
+MÉTODO: GET
+REQUERIMIENTOS: TO-DO identificar el req Tabla de Actas mostrar cuenta
+TESTS: api/mins_count.sh
+
+DESCRIPCIÓN: Cuenta y retorna cuántas actas hay en la
+						base de datos.
+
+ENTRADA: Token y el Id del usuario.
+
+PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
+				 válido cuenta cuántos usuarios hay en la bd.
+
+SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
+				 [{"count":"8"}]
+
+				 Si no es válido:
+					[{
+						"acceso":"Denegado.",
+						"motivo":"Token no existe o Ya ha expirado."
+					}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 mins_count
+--*/
+$app->get('/mins/count', function () use($app) {
+
+	try{
+			$authorized = checkPerm('GET:/mins/count', $app);
+			if($authorized){
+				$resultText = checkToken($app);
+				if(contains("validtoken", $resultText) ){
+					$sqlCode = ($app->request()->params('sqlCode') == "" ? 'mins_count' : $app->request()->params('sqlCode') );
+
+		      $forXSL = '../../../xsl/count.xsl';
+		      simpleReturn($app, $sqlCode, $forXSL);
+				} else {
+					$connection = null;
+					$app->response->body($resultText);
+				}
+			}	else {
+				$connection = null;
+				$app->response->body("/mins/count " . ACCESSERROR);
+
+			}
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
+
+/*--
 URL: /[tabla]
 MÉTODO: POST
 REQUERIMIENTOS: TO-DO identificar el req guardar el acta
@@ -80,7 +136,7 @@ $app->post('/mins', function () use($app) {
 
 						} else {
 							$prepParams = array(
-										':id'         	=> $app->request()->params('idupdate'),
+										':id'         	=> $app->request()->params('edit_idupdate'),
 										':estado'     	=> $app->request()->params('edit_estado'),
 										':fecha'    		=> $app->request()->params('edit_fecacta'),
 										':tipoacta'  		=> $app->request()->params('edit_tipo_de_acta'),
@@ -96,7 +152,9 @@ $app->post('/mins', function () use($app) {
 
 						$query = getSQL($sqlCode, $app);
 
-						$idacta = $app->request()->params('idupdate');
+						//echo "7,5 query: " . $query;
+
+						$idacta = $app->request()->params('edit_idupdate');
 						if( $app->request()->params('mod_acta') == "add" ){
 							$rows = getPDOPreparedIns($query, $prepParams);
 							$resultText = '[{"newId":"'.$rows.'"}]';
@@ -106,19 +164,35 @@ $app->post('/mins', function () use($app) {
 						} else {
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
+
+							//Borre EtiquetasActa
+							/*$sqlCode = "tags_minretire";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);*/
+
+							$sqlCode = "tags_mindelete";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);
+							//echo "tags_mindelete: " + $rows;
+
+							//Borre asistentesActa
+							$sqlCode = "asis_mindelete";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);
+							//echo "asis_mindelete: " + $rows;
+
 						}
 
-						//Actualice Asistentes
-						//Actualice Comentarios? si, solo los no-secretarios
-
-						//Actualice EtiquetasActa
-						$sqlCode = "tags_mindelete";
-						$prepParams = array(
-									':idacta'       => $idacta,
-						);
-						$query = getSQL($sqlCode, $app);
-						$rows = getPDOPrepared($query, $prepParams);
-
+						//Actualice Etiquetas
 						$tags = $app->request()->params('upd_etiquetasActa');
 						if($tags != ""){
 
@@ -144,6 +218,50 @@ $app->post('/mins', function () use($app) {
 							}
 						}
 
+						//Actualice Asistentes
+						$asis = $app->request()->params('upd_asistentesActa');
+						if($asis != ""){
+
+							$sqlCode = "asis_minadd";
+							$query = getSQL($sqlCode, $app);
+
+							$connection = getConnection();
+
+							$dbh = $connection->prepare($query);
+							$arrayAsis = explode(',', $asis);
+							//print_r($arrayTags);
+							foreach($arrayAsis as $asis){
+								//print_r($asis);
+								$arrayItem = explode(':', $asis);
+								$prepParams = array(
+											':idacta'     => $idacta,
+											':asistente'  => $arrayItem[2],
+											':estado'  	  => $arrayItem[1],
+											':servicio'   => $arrayItem[4],
+											':tiposerv'   => $arrayItem[3]
+								);
+
+								$dbh->execute($prepParams);
+
+							}
+						}
+
+						//Actualice Comentarios? si, solo los no-secretarios
+
+
+						/*
+						if( $app->request()->params('mod_acta') == "add" ){
+							//do nothing
+						} else {
+							$sqlCode = "tags_mindelete";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);
+						}
+						*/
+
 						//Actualice Notificaciones
 						//Actualice Tareas
 
@@ -166,6 +284,158 @@ $app->post('/mins', function () use($app) {
 			}
 
 
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
+/*--
+URL: /[tabla]
+MÉTODO: GET
+REQUERIMIENTOS: TO-DO identificar el req Tabla de Actas
+TESTS: api/[tabla]_all.sh
+
+DESCRIPCIÓN: Retorna la información de todos las actas que hay en la
+						base de datos.
+
+ENTRADA: Token y el Id del usuario.
+
+PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
+				 válido retorna la información de todos las actas de la bd.
+
+SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
+					[{
+					"frat":"demo",
+					"id":"1",
+					"usuario":"admin",
+					"apellidos":"Del Sistema",
+					"nombres":"Administrador",
+					"password":"$2y$10$a/j70S8aDh3cwNi2J4UmeeE7OcesoUTp0KXoh87B1MbX4DoGO0SZa",
+					"email":"jumanja@gmail.com",
+					"servicio":"A",
+					"estado":"A"},
+					{"frat":"demo",
+					"id":"2",
+					...
+					"estado":"A"
+					}]
+
+				 Si no es válido:
+					[{
+						"acceso":"Denegado.",
+						"motivo":"Token no existe o Ya ha expirado."
+					}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 users_all
+--*/
+$app->get("/mins", function() use($app)
+{
+ 	try{
+			$authorized = checkPerm('GET:/mins', $app);
+			if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+						$sqlCode = ($app->request()->params('sqlCode') == "" ? 'mins_all' : $app->request()->params('sqlCode') );
+						$forXSL = '../../xsl/count.xsl';
+						simpleReturn($app, $sqlCode, $forXSL);
+
+					} else {
+						$connection = null;
+						$app->response->body($resultText);
+					}
+				}	else {
+					$connection = null;
+					$app->response->body("/mins " . ACCESSERROR);
+		}
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
+
+/*--
+URL: /[tabla]/items
+MÉTODO: GET
+REQUERIMIENTOS: TO-DO identificar el req Tabla de Actas
+TESTS: api/[tabla]_items.sh
+
+DESCRIPCIÓN: Retorna la información de todos los items del acta en la bd.
+
+ENTRADA: Token y el Id del usuario.
+
+PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
+				 válido retorna la información de todos las etiquetas del acta de la bd.
+
+SALIDA:  Si el token y id son válidos, retorna en json, ejemplo:
+					[{
+					"frat":"demo",
+					"id":"1",
+					"usuario":"admin",
+					"apellidos":"Del Sistema",
+					"nombres":"Administrador",
+					"password":"$2y$10$a/j70S8aDh3cwNi2J4UmeeE7OcesoUTp0KXoh87B1MbX4DoGO0SZa",
+					"email":"jumanja@gmail.com",
+					"servicio":"A",
+					"estado":"A"},
+					{"frat":"demo",
+					"id":"2",
+					...
+					"estado":"A"
+					}]
+
+				 Si no es válido:
+					[{
+						"acceso":"Denegado.",
+						"motivo":"Token no existe o Ya ha expirado."
+					}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 items_all
+--*/
+$app->get("/mins/items", function() use($app)
+{
+ 	try{
+			$authorized = checkPerm('GET:/mins/items', $app);
+			if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+						$sqlCode = ($app->request()->params('sqlCode') == "" ? 'mins_all' : $app->request()->params('sqlCode') );
+						$forXSL = '../../xsl/count.xsl';
+
+						//Recupere EtiquetasActa
+						$prepParams = array(
+									':idacta'       => $idacta = $app->request()->params('nroActa'),
+						);
+						$query = getSQL($sqlCode, $app);
+
+						$connection = getConnection();
+						$dbh = $connection->prepare($query);
+						$dbh->execute($prepParams);
+
+						$resultText = "";
+						normalheader($app, 'json', '');
+		        $resultText .= PDO2json($dbh, '');
+		        $connection = null;
+
+		        $app->response->body($resultText);
+
+					} else {
+						$connection = null;
+						$app->response->body($resultText);
+					}
+				}	else {
+					$connection = null;
+					$app->response->body("/mins/items " . ACCESSERROR);
+		}
 	}
 	catch(PDOException $e)
 	{

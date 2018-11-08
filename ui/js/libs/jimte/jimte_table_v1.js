@@ -629,6 +629,10 @@ class JimteTab {
     var horact24 = this.convertTime12to24($("#horacta").val());
     var horsig24 = this.convertTime12to24($("#horproxima").val());
 
+    if(tipo == "Preliminar"){
+      $("#estado").val("M");      //Guardar Preliminar
+    }
+
     //Si es adicionar
     if( $("#acta_a_elaborar").val() == "add"){
       form_data.append("mod_acta", "add" );           //Adición
@@ -660,6 +664,7 @@ class JimteTab {
 
     }
 
+    //Grabar Etiquetas
     var chipInstance = M.Chips.getInstance($("#etiquetasActa"));
     var etiquetasActa = "";
     $.each( chipInstance.chipsData, function( key, val ) {
@@ -669,6 +674,18 @@ class JimteTab {
       etiquetasActa = etiquetasActa.substring(0, etiquetasActa.length-1);
     }
     form_data.append("upd_etiquetasActa", etiquetasActa );
+
+    //Grabar asistentes
+    var asistentesActa = "";
+    $("#Asistentes input:checkbox").each(function() {
+      var ids = this.id.split("_");
+      var checked = (this.checked ? "S" : "N");
+      asistentesActa += ids[1] + ":" + checked + ":" + this.title + ",";
+    });
+    if(asistentesActa != ""){
+      asistentesActa = asistentesActa.substring(0, asistentesActa.length-1);
+    }
+    form_data.append("upd_asistentesActa", asistentesActa );
 
     $.ajax({
       url: jimte.serverPath + 'index.php/mins',
@@ -686,9 +703,20 @@ class JimteTab {
              (data.length == 0 || data[0].acceso == undefined)) {
                M.toast(
                          {html:'Se Guardó OK!',
-                         displayLenght: 3000,
+                         displayLength: 3000,
                          classes: 'rounded'}
                        );
+
+               jimte.cleanActa();
+               $("#acta_a_elaborar").val("");
+               $("#acta_a_elaborar").formSelect();
+               $("#creaacta").hide();
+
+               $("#progresoActas").show();
+
+               $("#loader").show();
+
+               jimte.check_actas();
                //jimte_table.overlayOff('R');
                //jimte_table.refreshTable();
         }else {

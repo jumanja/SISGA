@@ -528,6 +528,36 @@
       "incluye": "*",
       "excluye": ""
     }
+  },
+  "GET:/mins/count": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
+  "GET:/mins/items": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
+  },
+  "GET:/mins": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
   }
 
 }]

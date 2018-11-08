@@ -115,7 +115,33 @@ $app->get("/users", function() use($app)
 					if(contains("validtoken", $resultText) ){
 						$sqlCode = ($app->request()->params('sqlCode') == "" ? 'users_all' : $app->request()->params('sqlCode') );
 						$forXSL = '../../xsl/count.xsl';
-						simpleReturn($app, $sqlCode, $forXSL);
+						if($sqlCode == "users_int"){
+							$prepParams = array(
+										':idacta'     => $app->request()->params('idacta')
+							);
+
+							//echo "4. " . $resultText;
+							$resultText = "";
+
+							$query = getSQL($sqlCode, $app);
+
+							//echo "42. " . $query;
+							$connection = getConnection();
+							$dbh = $connection->prepare($query);
+							$dbh->execute($prepParams);
+
+							normalheader($app, 'json', '');
+			        $resultText .= PDO2json($dbh, '');
+
+							//echo "4. " . $resultText;
+
+			        $connection = null;
+
+			        $app->response->body($resultText);
+
+						} else {
+							simpleReturn($app, $sqlCode, $forXSL);
+						}
 
 					} else {
 						$connection = null;
