@@ -452,9 +452,15 @@ $app->get("/mins/items", function() use($app)
 
 						//Recupere EtiquetasActa
 						$prepParams = array(
-									':idacta'       => $idacta = $app->request()->params('nroActa'),
+									':idacta'       => $app->request()->params('nroActa')
 						);
 						$query = getSQL($sqlCode, $app);
+
+						/*echo "<br>\r\n789. query:" .  $sqlCode .
+								" idacta:" . $app->request()->params('nroActa') .
+								" :<br>\r\n" . $query . '\r\n';
+
+						print_r($prepParams);*/
 
 						$connection = getConnection();
 						$dbh = $connection->prepare($query);
@@ -475,6 +481,127 @@ $app->get("/mins/items", function() use($app)
 					$connection = null;
 					$app->response->body("/mins/items " . ACCESSERROR);
 		}
+	}
+	catch(PDOException $e)
+	{
+		echo "Error: " . $e->getMessage();
+	}
+});
+
+/*--
+URL: /[tabla]/query
+MÉTODO: POST
+REQUERIMIENTOS: TO-DO identificar el req buscar el acta
+TESTS: api/[tabla]_query.sh
+
+DESCRIPCIÓN: Hacer un Query Avanzdo para buscar el acta.
+
+ENTRADA: Token y el Id del usuario de la sesión, y los datos del registro a retornar,
+				 recibidos por el método POST, los datos a recibir (ejemplo):
+				 frat=demo
+				 usuario=admin
+				 apellidos=Del Sistema
+				 nombres=Administrador
+				 password=webmaster
+				 email=jumanja@gmail.com
+				 servicio=A
+				 estado=A
+
+PROCESO: Comprueba si el token es válido mediante el método checkToken, y si es
+				 válido intenta adicionar un registro en esta tabla en la bd con los
+				 datos recibidos.
+
+SALIDA:  Si el token y id son válidos, y existe un registro con ese id, retorna
+				 la cantidad de registros, ejemplo:
+				 [{
+				 		"rows":"1"
+					}]';
+
+				 Si no es válido el token, retorna en json:
+					[{
+						"acceso":"Denegado.",
+						"motivo":"Token no existe o Ya ha expirado."
+					}]
+
+				 Si hubo error de programación no resuelto en el servidor:
+				 <br />
+				 <b>Parse error</b>:  parse error .. y el mensaje de error.
+
+SQLS: 	 [tabla]_add
+--*/
+$app->post('/mins/query', function () use($app) {
+
+	try{
+		$authorized = checkPerm('POST:/mins/query', $app);
+		if($authorized){
+					$resultText = checkToken($app);
+					if(contains("validtoken", $resultText) ){
+
+						$sqlCode = 'mins_qry';
+						$forXSL = '../../xsl/count.xsl';
+
+						//params
+						$qryFrat     = $app->request()->params('frat');
+						$qryEstado   = $app->request()->params('qry_estado');
+						$qryFecini	 = $app->request()->params('qry_fecini');
+						$qryFecfin	 = $app->request()->params('qry_fecfin');
+						$qryNroini	 = $app->request()->params('qry_nroini');
+						$qryNrofin	 = $app->request()->params('qry_nrofin');
+						$qryTipoacta = $app->request()->params('qry_tipoacta');
+						$qryTemaacta = $app->request()->params('qry_temaacta');
+						$qryLugar    = $app->request()->params('qry_lugar');
+
+						//Fix params
+						$qryEstado   = ( (is_null( $qryEstado ) || $qryEstado == '' ) ? 'ZZZ' : $qryEstado );
+						$qryNrofin   = ( (is_null( $qryNrofin ) || $qryNrofin == '' ) ? 'ZZZ' : $qryNrofin );
+						$qryTipoacta = ( (is_null($qryTipoacta) || $qryTipoacta == '' ) ? 'ZZZ' : $qryTipoacta );
+						$qryTemaacta = ( (is_null($qryTemaacta) || $qryTemaacta == '' ) ? 'ZZZ' : $qryTemaacta );
+						$qryLugar    = ( (is_null( $qryLugar ) || $qryLugar == '') ? 'ZZZ' : $qryLugar );
+
+						//Prep params
+						$prepParams = array(
+									':frat'      	 	=> $qryFrat,
+									':estado'     	=> $qryEstado,
+									':fecini'    		=> $qryFecini,
+									':fecfin'    		=> $qryFecfin,
+									':nroini'    		=> $qryNroini,
+									':nrofin'    		=> $qryNrofin,
+									':tipoacta'  		=> $qryTipoacta,
+									':temaacta'  		=> $qryTemaacta,
+									':lugar'   			=> $qryLugar
+
+						);
+
+						$query = getSQL($sqlCode, $app);
+
+						/*echo "<br>\r\n789. query:" .  $sqlCode .
+								" idacta:" . $app->request()->params('nroActa') .
+								" :<br>\r\n" . $query . '\r\n';
+
+						print_r($prepParams);
+*/
+						$connection = getConnection();
+						$dbh = $connection->prepare($query);
+						$dbh->execute($prepParams);
+
+						$resultText = "";
+						normalheader($app, 'json', '');
+		        $resultText .= PDO2json($dbh, '');
+		        $connection = null;
+
+		        $app->response->body($resultText);
+
+					} else {
+						$connection = null;
+						$app->response->body($resultText);
+					}
+			}	else {
+				$connection = null;
+				$app->response->body("/mins/query (POST) " . ACCESSERROR);
+
+			}
+
+
 	}
 	catch(PDOException $e)
 	{

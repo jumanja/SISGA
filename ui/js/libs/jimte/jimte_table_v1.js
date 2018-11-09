@@ -251,6 +251,155 @@ class JimteTab {
     })
   }
 
+  load_query(tableName, iconName, tableId){
+
+    if(jimte.currentUser.id == undefined){
+        return false;
+    }
+
+    var self = $(this);
+    //console.log("load_table!");
+    var form_data = new FormData();
+    form_data.append("id", jimte.currentUser.id );
+    form_data.append("tiposerv", jimte.currentUser.tiposerv );
+    form_data.append("servicio", jimte.currentUser.servicio );
+    form_data.append("frat", jimte.currentUser.frat );
+    form_data.append("table", this.table );
+    form_data.append("token", jimte.token );
+
+    form_data.append("qry_estado", $("#qry_estado").val() );
+    form_data.append("qry_fecini", $("#qry_fecini").val() );
+    form_data.append("qry_fecfin", $("#qry_fecfin").val() );
+    form_data.append("qry_nroini", $("#qry_nroini").val() );
+    form_data.append("qry_nrofin", $("#qry_nrofin").val() );
+    form_data.append("qry_tipoacta", $("#qry_tipoacta").val() );
+    form_data.append("qry_temaacta", $("#qry_temaacta").val() );
+    form_data.append("qry_lugar", $("#qry_lugar").val() );
+
+    $.ajax({
+      url: jimte.serverPath + 'index.php/mins/query',
+      data: form_data,
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+        //console.log( "load_table - data: " + data );
+
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+          //window.location.href = 'main.html';
+          var links = [];
+          var cuantos = 0;
+          var contenido = "";
+          $("#" + tableId)[0].innerHTML = "";
+
+          //var records = [];
+          $.each( data, function( key, val ) {
+            if(cuantos == 0) {
+                contenido = '<tr class="header">';
+                var columns = 0;
+                //var fields = [];
+                //console.log(val);
+                $.each( val, function( key2, val2 ) {
+                  //console.log(key2 + ' = "' + val2 + '"');
+                  //fields.push(key2 + ' = "' + val2 + '"');
+                  if(
+                    key2.indexOf("password") == -1 &&
+                    key2.indexOf("token") == -1  ){
+
+                    contenido += '<th>' +
+                    '<input type="text" class="search_fld" id="search_fld' + key2 + '" ' +
+                    'onkeyup="jimte_table.searchQuery(this.id, '+columns+')" placeholder="&#x1f50d; Buscar">' +
+                    '<br>' +
+                    '<span onclick="jimte_table.sortQuery('+columns+')">&#x2195;</span>'+
+                    '<span onclick="jimte_table.sortQuery('+columns+')">' + key2 + '</span>' +
+                    '</th>';
+
+                    columns++;
+
+                  }
+
+                });
+                contenido += "</tr>";
+            }
+            //contenido += '<tr id="row_' + cuantos + '" onclick="jimte_table.overlayOn(\'V\', this)">';
+            contenido += '<tr id="row_' + cuantos + '" >';
+            $.each( val, function( key2, val2 ) {
+              if(
+                key2.indexOf("password") == -1 &&
+                key2.indexOf("token") == -1  ){
+
+                  if(key2 == "estado"){
+                    var newEstado = "";
+                    var newClass = "";
+
+                    if(val2 == "R"){
+                      newEstado = "Retirada";
+                      newClass  = "red";
+                    }
+                    if(val2 == "G"){
+                      newEstado = "En Progreso";
+                      newClass  = "yellow";
+                    }
+                    if(val2 == "M"){
+                      newEstado = "Preliminar";
+                      newClass  = "orange";
+                    }
+                    if(val2 == "F"){
+                      newEstado = "Aprobada";
+                      newClass  = "teal";
+                    }
+                    contenido += '<td ' +
+                                 'class="' +
+                                 newClass +
+                                 ' lighten-3">' + newEstado + '</td>';
+
+                  } else {
+                    contenido += "<td>" + val2 + "</td>";
+                  }
+              }
+            });
+            contenido += "</tr>";
+
+            cuantos++;
+          //  records.push( "<meta " + fields.join(" ") + ">" );
+          });
+
+          //$("#tabla_loader").hide();
+
+          /*
+          $("#addRecord").show();
+          $("#resetFilters").show();
+          $("#refreshTable").show();
+          $("#table_content").show();
+          */
+          $("#queryIcon")[0].innerHTML = iconName;
+
+          $("#" + tableId)[0].innerHTML = contenido;
+
+          $("#qry_progress").attr("class", "determinate");
+
+          var nRegistros = document.getElementById("buscarActa_table").rows.length - 1;
+          nRegistros = (nRegistros < 0 ? 0: nRegistros);
+          $(".nroQueryRows").html(nRegistros);
+          //$("#tbody_reportadas").show();
+        }else {
+          //jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Tabla");
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "Ingreso al Sistema"));
+
+        }
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+  }
+
   popSelectTables(){
     //begin popSelectTables
     var self = $(this);
@@ -536,14 +685,17 @@ class JimteTab {
    //end sendUpdate
 
   }
-﻿  getToday(){
+﻿  getToday(suma){
+      if(suma == undefined){
+        suma = 0;
+      }
       var d = new Date();
       var month = d.getMonth()+1;
       var day = d.getDate();
       /*var output = (day<10 ? '0' : '') + day + '/' +
           (month<10 ? '0' : '') + month + '/' +
           d.getFullYear();*/
-      var output = d.getFullYear() + '/' +
+      var output = (d.getFullYear() + suma) + '/' +
                   (month<10 ? '0' : '') + month + '/' +
                   (day<10 ? '0' : '') + day;
       return output;
@@ -575,6 +727,11 @@ class JimteTab {
     }
     if(val_finplan == null || val_finplan == "" ){
       errores += "- La Fecha de Final.<br>";
+    }
+    if(val_iniplan != null && val_finplan == null ){
+      if( val_iniplan > val_finplan ){
+        errores += "- Corregir Fecha Final debe ser mayor que Inicial.<br>";
+      }
     }
 
     if(errores != ""){
@@ -626,6 +783,9 @@ class JimteTab {
     var self = $(this);
 
     this.working("botActa");
+
+    $("#objetivos").val($('#objetivos').val().replace(/\n/g,'.'));
+    $("#conclusiones").val($('#conclusiones').val().replace(/\n/g,'.'));
 
     var form_data = new FormData();
     form_data.append("id", jimte.currentUser.id );
@@ -736,6 +896,8 @@ class JimteTab {
                          classes: 'rounded'}
                        );
 
+               jimte.badgeUpdates();
+
                jimte.cleanActa();
                $("#acta_a_elaborar").val("");
                $("#acta_a_elaborar").formSelect();
@@ -746,6 +908,7 @@ class JimteTab {
                $("#loader").show();
 
                jimte.check_actas();
+
                //jimte_table.overlayOff('R');
                //jimte_table.refreshTable();
         }else {
@@ -1004,8 +1167,34 @@ class JimteTab {
     }
   }
 
+  searchQuery(myInput, fieldN) {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById(myInput);
+    filter = input.value.toUpperCase();
+    table = document.getElementById("buscarActa_table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[fieldN];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          //if(tr[i].style.display == "none"){
+            //already hidden, don't show
+          //} else {
+            tr[i].style.display = "";
+          //}
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
   refreshTable(){
     this.load_table($("#tabla")[0].value);
+  }
+
+  refreshQuery(){
+    this.load_query("actas", "find_in_page", "buscarActa_table")
   }
 
   resetFiltId(myId) {
@@ -1042,6 +1231,60 @@ class JimteTab {
   sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable");
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+      // Start by saying: no switching is done:
+      switching = false;
+      rows = table.getElementsByTagName("TR");
+      /* Loop through all table rows (except the
+      first, which contains table headers): */
+      for (i = 1; i < (rows.length - 1); i++) {
+        // Start by saying there should be no switching:
+        shouldSwitch = false;
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /* Check if the two rows should switch place,
+        based on the direction, asc or desc: */
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        // Each time a switch is done, increase this count by 1:
+        switchcount ++;
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+  sortQuery(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("buscarActa_table");
     switching = true;
     // Set the sorting direction to ascending:
     dir = "asc";

@@ -66,7 +66,7 @@ $(document).ready(function() {
       weekdaysAbbrev:	['D','L','M','M','J','V','S']
     },
        selectMonths: true, // Creates a dropdown to control month
-       selectYears: 15, // Creates a dropdown of 15 years to control year,
+       selectYears: 8, // Creates a dropdown of 15 years to control year,
        defaultDate: new Date(),
        setDefaultDate: true,
        today: 'Hoy',
@@ -75,6 +75,67 @@ $(document).ready(function() {
        format: 'yyyy/mm/dd',
        closeOnSelect: false // Close upon selecting a date,
      });
+
+     $('.empty_date').datepicker({
+       i18n:{
+         months: [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
+        ],
+        monthsShort:
+        [
+          'Ene',
+          'Feb',
+          'Mar',
+          'Abr',
+          'May',
+          'Jun',
+          'Jul',
+          'Ago',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'
+        ] ,
+        weekdays:[
+          'Domingo',
+          'Lunes',
+          'Martes',
+          'Miércoles',
+          'Jueves',
+          'Viernes',
+          'Sábado'
+        ],
+        weekdaysShort:
+        [
+          'Dom',
+          'Lun',
+          'Mar',
+          'Mié',
+          'Jue',
+          'Vie',
+          'Sáb'
+        ],
+        weekdaysAbbrev:	['D','L','M','M','J','V','S']
+      },
+         selectMonths: true, // Creates a dropdown to control month
+         selectYears: 8, // Creates a dropdown of 15 years to control year,
+         today: 'Hoy',
+         clear: 'Limpiar',
+         close: 'Ok',
+         format: 'yyyy/mm/dd',
+         closeOnSelect: false // Close upon selecting a date,
+       });
 
      $('.button-collapse').sidenav({
        closeOnClick: true

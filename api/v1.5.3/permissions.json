@@ -558,6 +558,16 @@
       "incluye": "*",
       "excluye": ""
     }
+  },
+  "POST:/mins/query": {
+    "tiposerv": {
+      "incluye": "I",
+      "excluye": ""
+    },
+    "servicio": {
+      "incluye": "*",
+      "excluye": ""
+    }
   }
 
 }]
