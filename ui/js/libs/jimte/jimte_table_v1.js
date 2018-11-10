@@ -251,7 +251,7 @@ class JimteTab {
     })
   }
 
-  load_query(tableName, iconName, tableId){
+  load_query(state, tableName, tableId){
 
     if(jimte.currentUser.id == undefined){
         return false;
@@ -376,11 +376,12 @@ class JimteTab {
           $("#refreshTable").show();
           $("#table_content").show();
           */
-          $("#queryIcon")[0].innerHTML = iconName;
+          $("#queryIcon")[0].innerHTML = jimte.currentIcon;
+          $("#queryTitle")[0].innerHTML = jimte.currentTitle;
 
           $("#" + tableId)[0].innerHTML = contenido;
 
-          $("#qry_progress").attr("class", "determinate");
+          $("#qry_progress").find(".indeterminate").attr("class", "determinate");
 
           var nRegistros = document.getElementById("buscarActa_table").rows.length - 1;
           nRegistros = (nRegistros < 0 ? 0: nRegistros);
@@ -1194,7 +1195,7 @@ class JimteTab {
   }
 
   refreshQuery(){
-    this.load_query("actas", "find_in_page", "buscarActa_table")
+    this.load_query(jimte.currentState, "actas", "buscarActa_table")
   }
 
   resetFiltId(myId) {
@@ -1228,6 +1229,23 @@ class JimteTab {
     }
 
   }
+
+  resetQryFilters() {
+    //console.log("resetFilters!");
+    var table, tr, td, i, filters;
+    table = document.getElementById("buscarActa_table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        tr[i].style.display = "";
+    }
+
+    filters = document.getElementsByClassName("search_fld");
+    for (i = 0; i < filters.length; i++) {
+        filters[i].value = "";
+    }
+
+  }
+
   sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable");

@@ -34,7 +34,7 @@ eventFire(el, etype){
 
     //console.log("changeState: " + state);
     //statePage.innerHTML = MonitorApp[state]();
-
+    this.currentState = state;
     if (state == 'cerrarSesion') {
       this.token = "";
       this.userType = "";
@@ -56,6 +56,8 @@ eventFire(el, etype){
 
     $('.menuLinks').removeClass('menuActive');
     $('#' + state + 'Link').addClass('menuActive');
+    jimte.currentIcon = $('#' + state + 'Link').find("i")[0].innerText;
+    jimte.currentTitle = $('#' + state + 'Link').find("span")[0].innerText;
     //$('.button-collapse').sideNav();
 
   }
@@ -734,7 +736,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         $("#" + key).show();
 
         //key == reportarMesa
-        if(key == "elaborarActas" || key == "abrirCertif"){
+        if(key == "elaborarActas" ){
           $("#progresoActas").show();
 
           $("#loader").show();
@@ -745,12 +747,21 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
           this.check_tables();
         }
-        if(key == "buscarActas") {
+
+        if(key == "buscarActas" ||
+           key == "actasPorAprobar" ||
+           key == "actasPorRevisar" ||
+           key == "informeActas") {
+
+          $("#buscarActas").show();
+
           this.getTiposActa();
           this.getLugares();
           this.getEtiquetas();
 
-          jimte_table.load_query("actas", "find_in_page", "buscarActa_table");
+          this.resetEstado(key);
+
+          jimte_table.load_query(key, "actas", "buscarActa_table");
         }
         if(key == "cuadroMando") {
           //$("footer")[0].style.marginTop = '600px';
@@ -763,6 +774,27 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         }
     }
 
+    resetEstado(key){
+
+      if(key == "buscarActas"){
+        $("#qry_estado").prop('disabled', false);
+        $("#qry_estado").val("ZZZ");
+      }
+      if(key == "actasPorAprobar"){
+        $("#qry_estado").val("M");
+        $("#qry_estado").prop('disabled', 'disabled');
+      }
+      if(key == "actasPorRevisar"){
+        $("#qry_estado").prop('disabled', 'disabled');
+        $("#qry_estado").val("F");
+      }
+      if(key == "informeActas") {
+        $("#qry_estado").prop('disabled', 'disabled');
+        $("#qry_estado").val("F");
+      }
+
+      $("#qry_estado").formSelect();
+    }
     getEstadosActa(){
       $.ajax({
         url: this.serverPath + 'index.php/mins/count' +
@@ -2253,8 +2285,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
     runQueryActas(){
       //console.log("runQueryActas!");
-      $("#qry_progress").attr("class", "indeterminate");
-      jimte_table.load_query("actas", "find_in_page", "buscarActa_table");
+      $("#qry_progress").find(".determinate").attr("class", "indeterminate");
+      jimte_table.load_query(this.currentState, "actas", "buscarActa_table");
     }
     getBadges(objId){
       if(jimte.currentUser.id == undefined){
