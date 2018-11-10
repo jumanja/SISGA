@@ -11,21 +11,24 @@
     "isLogged":"Y",
     "icon":"keyboard",
     "item":"Elaborar Actas",
-    "status":"A"
+    "status":"A",
+    "badge":"new badge"
   },
   "actasPorAprobar": {
     "type":"PSTFE",
     "isLogged":"Y",
     "icon":"border_color",
-    "item":"Actas por Aprobar",
-    "status":"A"
+    "item":"Aprobar Actas",
+    "status":"A",
+    "badge":"new badge"
   },
   "actasPorRevisar": {
     "type":"PSTFE",
     "isLogged":"Y",
     "icon":"visibility",
-    "item":"Actas por Revisasr",
-    "status":"A"
+    "item":"Revisar Actas",
+    "status":"A",
+    "badge":"new badge"
   },
   "buscarActas": {
     "type":"PSTFERN",

@@ -200,6 +200,115 @@
       </div>
     </div>
 
+    <div id="paramBusqueda" class="modal bottom-sheet">
+      <div class="col s12 center">
+        <h5><i id="queryIcon" class="material-icons icon-sisga small">user</i>&nbsp;<span id="queryTitle">Buscar Actas</span>
+          <span class="right blue lighten-3 z-depth-3" style="padding:10px" ><em class="nroQueryRows" >0</em> registro(s).</span>
+        </h5>
+      </div>
+
+      <div id="qry_progress" class="progress">
+            <div class="determinate"></div>
+      </div>
+
+      <div class="row">
+
+        <div class="col s12 m2">
+          <label for="qry_fecini">Fecha Inicial</label>
+          <input id="qry_fecini" onchange="jimte.runQueryActas();" class="empty_date" title="Fecha Inicial" placeholder="Fecha Inicial">
+        </div>
+        <div class="col s12 m2">
+          <label for="qry_fecfin">Fecha Final</label>
+          <input id="qry_fecfin" onchange="jimte.runQueryActas();" class="datepicker" title="Fecha Final" placeholder="Fecha Final">
+        </div>
+
+        <div class="col s12 m4">
+          <!--<div id="qry_tags" onchange="jimte.runQueryActas();" class="chips chips-autocomplete"></div>-->
+          <label for="qry_temaacta">Tema Principal</label>
+          <input id="qry_temaacta" onchange="jimte.runQueryActas();" title="Tema Principal" placeholder="Tema Principal">
+
+        </div>
+
+        <div class="col s12 l4">
+          <label for="qry_lugar">Lugar Reunión:</label>
+          <select id="qry_lugar" onchange="jimte.runQueryActas();" name="qry_lugar"  class="browser-default">
+            <option value="ZZZ" selected>Todos</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col s12 m2">
+          <label for="qry_nroini">Número Inicial</label>
+          <input id="qry_nroini" value="0" onchange="jimte.runQueryActas();" type="text" title="Número Inicial" placeholder="Número Inicial">
+        </div>
+        <div class="col s12 m2">
+          <label for="qry_nrofin">Número Final</label>
+          <input id="qry_nrofin" value="999999" onchange="jimte.runQueryActas();" type="text" title="Número Final" placeholder="Número Final">
+        </div>
+
+        <div class="col s12 l4">
+          <label for="qry_tipoacta">Tipo de Acta:</label>
+          <select id="qry_tipoacta" onchange="jimte.runQueryActas();" name="qry_tipoacta"  class="browser-default">
+            <option value="ZZZ" selected>Todos</option>
+          </select>
+        </div>
+
+        <div class="col s12 l4">
+          <label for="qry_estado">Estado:</label>
+          <select id="qry_estado" onchange="jimte.runQueryActas();" name="qry_estado" class="browser-default" >
+            <option value="ZZZ" selected>Todos</option>
+            <option value="G">En Progreso</option>
+            <option value="M">Preliminares</option>
+            <option value="F">Aprobadas</option>
+            <option value="R">Retiradas</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!--
+      <div class="row">
+        <div class="col s12 m6">
+          <button class="waves-effect waves-light btn-large"
+                  onclick="jimte_table.load_query();return(false);">Buscar</button>
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    <div id="buscarActas" class="mainContent oculto">
+      <div class="col s12">
+          <div class="card-panel">
+            <div class="card-content">
+              <div class="row">
+                <div class="col s10 m8">
+                  <!-- Modal Trigger -->
+                  <a class="waves-effect waves-light btn modal-trigger" href="#paramBusqueda">Búsqueda Avanzada</a>
+                </div>
+                <div class="col s12 m4">
+                    <a class="btn" id="resetQryFilters" title="Ver Todo" onclick="jimte_table.resetQryFilters();">
+                        <i class="material-icons">remove_red_eye</i></a>
+
+                    <a class="btn" href="#!" title="Refrescar Tabla" id="refreshQryTable" onclick="jimte_table.refreshQuery();">
+                        <i class="material-icons center">replay</i></a>
+
+                    <span class="right blue lighten-3 z-depth-3" style="padding:10px"><em class="nroQueryRows" >0</em> registro(s).</span>
+
+                </div>
+
+              </div>
+
+                <table id="buscarActa_table" > <!-- class="responsive-table" -->
+                </table>
+            </div>
+
+          </div>
+        </div>
+    </div>
+
     <div id="progresoActas" class="mainContent oculto">
       <div class="col s12">
           <div class="card-panel">
@@ -442,6 +551,7 @@
               <div id="test-swipe-4" class="col s12 lighten-2 z-depth-3">
                 <!--<h5>Comentarios</h5>-->
                 <div id="divComments">
+                  <!--
                     <div class="row teal zeroBottom">
                       <div class="col s2"><br>
                         <span class="chip">presidenta</span>
@@ -495,6 +605,7 @@
                           <h6 class="grey-text lighten-3">2017/11/01 13:45:00</h6>
                       </div>
                     </div>
+                  -->
 
                 </div>
 

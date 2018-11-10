@@ -34,7 +34,7 @@ eventFire(el, etype){
 
     //console.log("changeState: " + state);
     //statePage.innerHTML = MonitorApp[state]();
-
+    this.currentState = state;
     if (state == 'cerrarSesion') {
       this.token = "";
       this.userType = "";
@@ -56,10 +56,17 @@ eventFire(el, etype){
 
     $('.menuLinks').removeClass('menuActive');
     $('#' + state + 'Link').addClass('menuActive');
+    jimte.currentIcon = $('#' + state + 'Link').find("i")[0].innerText;
+    jimte.currentTitle = $('#' + state + 'Link').find("span")[0].innerText;
     //$('.button-collapse').sideNav();
 
   }
 
+  badgeUpdates(){
+    $("span.badge").each( function() {
+        jimte.getBadges($(this)[0].id);
+    });
+  }
 //  changeState('actividadFisica');
 //
   /* now constructor
@@ -192,8 +199,9 @@ NOT WORKING on SAFARI for MAC
             jimte.nombres = php_response[0].nombres;
             jimte.llave = php_response[0].usuario;
             jimte.defaultOption = "";
-            jimte.buildSideMenu(php_response.token);
             $("#languageSelect").hide();
+
+            jimte.buildSideMenu(php_response.token);
 
             M.toast(
                       {html:'Bienvenido(a) <br>' + jimte.nombres +'!',
@@ -364,11 +372,16 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                         jimte.defaultOption = key;
                       }
 
+                      var badge = "";
+                      if(val.badge != undefined){
+                        badge = "<span id='badge_"+key+"' data-badge-caption='' class='hide "+ val.badge + "'></span>";
+                      }
                       links.push( "<li><a href='#' class='menuLinks " + activeLink + "' " +
                                   'onclick="jimte.changeState(\'' + key + '\')" ' +
                                   'id="' + key + 'Link" >'  +
                                   '<i class="material-icons text-primary-color">' + val.icon + '</i>' +
-                                  "<span translate='yes' id='sp_"+key+"' class=''>" + val.item + "</span></a></li>");
+                                  "<span translate='yes' id='sp_"+key+"' class=''>" + val.item + "</span>" +
+                                  badge + "</a></li>");
 
                     }
 
@@ -713,13 +726,17 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     buildInnerPage(key) {
+        //Actualice los badges
+        jimte.badgeUpdates();
+
+
         $(".mainContent").hide();
         //$("main").addClass("oculto");
         //$("#" + key).removeClass("oculto");
         $("#" + key).show();
 
         //key == reportarMesa
-        if(key == "elaborarActas" || key == "abrirCertif"){
+        if(key == "elaborarActas" ){
           $("#progresoActas").show();
 
           $("#loader").show();
@@ -729,6 +746,22 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         if(key == "configurarTablas") {
 
           this.check_tables();
+        }
+
+        if(key == "buscarActas" ||
+           key == "actasPorAprobar" ||
+           key == "actasPorRevisar" ||
+           key == "informeActas") {
+
+          $("#buscarActas").show();
+
+          this.getTiposActa();
+          this.getLugares();
+          this.getEtiquetas();
+
+          this.resetEstado(key);
+
+          jimte_table.load_query(key, "actas", "buscarActa_table");
         }
         if(key == "cuadroMando") {
           //$("footer")[0].style.marginTop = '600px';
@@ -741,6 +774,27 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         }
     }
 
+    resetEstado(key){
+
+      if(key == "buscarActas"){
+        $("#qry_estado").prop('disabled', false);
+        $("#qry_estado").val("ZZZ");
+      }
+      if(key == "actasPorAprobar"){
+        $("#qry_estado").val("M");
+        $("#qry_estado").prop('disabled', 'disabled');
+      }
+      if(key == "actasPorRevisar"){
+        $("#qry_estado").prop('disabled', 'disabled');
+        $("#qry_estado").val("F");
+      }
+      if(key == "informeActas") {
+        $("#qry_estado").prop('disabled', 'disabled');
+        $("#qry_estado").val("F");
+      }
+
+      $("#qry_estado").formSelect();
+    }
     getEstadosActa(){
       $.ajax({
         url: this.serverPath + 'index.php/mins/count' +
@@ -836,6 +890,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       $("#objetivos").val("");
       $("#conclusiones").val("");
       $("#table_Tasks tbody")[0].innerHTML = "";
+      $("#divComments")[0].innerHTML = "";
 
 
       $("#lugar_reunion").formSelect();
@@ -901,8 +956,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $("#horproxima").formSelect();
                  $("#lugar_proxima").formSelect();
 
-                jimte.getTagsMinId($("#acta_a_elaborar").val());
-                jimte.getTasksMinId($("#acta_a_elaborar").val());
+                var nroActa =  $("#acta_a_elaborar").val();
+                jimte.getTagsMinId(nroActa);
+                jimte.getTasksMinId(nroActa);
+                jimte.getCommentsId(nroActa);
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -955,7 +1012,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $.each( data, function( key, val ) {
                     //actaTags.push({"tags": val.etiqueta});
 
-                    //console.log(key + "/" + val.etiqueta);
+                    console.log(key + "/" + val.etiqueta);
                     /*$('#etiquetasActa').append("<div class='chip' tabindex='0'>" +
                                         val.etiqueta +
                                         "<i class='material-icons'>close</i>" +
@@ -1033,6 +1090,75 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  });
 
           }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
+
+    getCommentsId(nroActa){
+      $.ajax({
+        url: this.serverPath + 'index.php/mins/items' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + "comments_minid" +
+              "&nroActa=" + nroActa,
+
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+
+                 //cleanActa para Tasks
+                 $("#divComments")[0].innerHTML = "";
+
+                 var primero = "x";
+                 var anterior = "";
+                 var push = "";
+                 var lado = "";
+                 $.each( data, function( key, val ) {
+
+                   if(anterior != val.asistente && primero != anterior) {
+                      lado = "izquierda";
+                      push = "";
+                   } else {
+                      push = "push-s10";
+                      lado = "derecha";
+                   }
+                   if(anterior == "") {
+                     primero = val.asistente;
+                   }
+
+                   $("#divComments").append(
+                                    '<div class="row teal zeroBottom">' +
+                                    '  <div class="col s2 ' + push + '"><br>' +
+                                    '    <span class="chip">' + val.asistente + '</span>' +
+                                    '  </div>' +
+                                    '  <div class="col s8 vigneta '+ lado +' orange lighten-4">' +
+                                    val.text +
+                                    '      <h6 class="grey-text lighten-3">' + val.fechahora + '</h6>' +
+                                    '  </div>' +
+                                    '</div>');
+
+                   anterior = val.asistente;
+
+                 });
+
+          } else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
                           l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
 
@@ -1133,6 +1259,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                (data.length == 0 || data[0].acceso == undefined)) {
                  $('#tipo_de_acta')[0].innerHTML = '<option value="" ' +
                           'disabled selected>Seleccione Tipo Acta</option>';
+                 $('#qry_tipoacta')[0].innerHTML = '<option value="ZZZ" ' +
+                         ' selected>Todos</option>';
                  $.each( data, function( key, val ) {
 
                    //console.log(key + "/" + val.tipo + "/" + val.nombre);
@@ -1140,9 +1268,13 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                         value: val.tipo,
                         text: val.nombre
                     }));
-
+                    $('#qry_tipoacta').append($('<option>', {
+                         value: val.tipo,
+                         text: val.nombre
+                     }));
                  });
                  $('#tipo_de_acta').formSelect();
+                 $('#qry_tipoacta').formSelect();
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -1179,6 +1311,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                  $('#lugar_reunion')[0].innerHTML = '<option value="" disabled selected>Seleccione Lugar</option>';
                  $('#lugar_proxima')[0].innerHTML = '<option value="" disabled selected>Seleccione Lugar</option>';
+                 $('#qry_lugar')[0].innerHTML = '<option value="ZZZ" selected>Todos</option>';
 
                  $.each( data, function( key, val ) {
 
@@ -1191,9 +1324,14 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                          value: val.id,
                          text: val.lugar
                      }));
+                     $('#qry_lugar').append($('<option>', {
+                          value: val.id,
+                          text: val.lugar
+                      }));
                  });
                  $('#lugar_reunion').formSelect();
                  $('#lugar_proxima').formSelect();
+                 $('#qry_lugar').formSelect();
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -1211,7 +1349,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     getAsistentes(){
       var idacta = $("#acta_a_elaborar").val();
       var paramAdic = (idacta == "add"? "asi": "int&idacta=" + idacta);
-      console.log(idacta + "/" + paramAdic);
+      //console.log(idacta + "/" + paramAdic);
       $.ajax({
         url: this.serverPath + 'index.php/users' +
               "?id=" + jimte.currentUser.id +
@@ -2145,6 +2283,55 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
        //if(status=="1")
       //   $("#icon_class, #background_class").hide();// hide multiple sections
     }
+    runQueryActas(){
+      //console.log("runQueryActas!");
+      $("#qry_progress").find(".determinate").attr("class", "indeterminate");
+      jimte_table.load_query(this.currentState, "actas", "buscarActa_table");
+    }
+    getBadges(objId){
+      if(jimte.currentUser.id == undefined){
+          return false;
+      }
 
+      $.ajax({
+        url: this.serverPath + 'index.php/mins/count' +
+              "?id=" + jimte.currentUser.id +
+              "&tiposerv=" + jimte.currentUser.tiposerv +
+              "&servicio=" + jimte.currentUser.servicio +
+              "&frat=" + jimte.currentUser.frat +
+              "&table=" + this.table +
+              "&token=" + jimte.token +
+              "&sqlCode=" + objId,
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        type: 'GET',
+        success: function(data){
+          if ((typeof data !== undefined ) &&
+               (data.length == 0 || data[0].acceso == undefined)) {
+                 //console.log("updating badge:" + objId);
+                 if(data[0].badge == undefined ||
+                    data[0].badge == 0 ||
+                    data[0].badge == "0"){
+                   //do nothing
+                   $("#" + objId).addClass("hide");
+                 } else {
+                   $("#" + objId)[0].innerHTML = data[0].badge;
+                   $("#" + objId).removeClass("hide");
+                 }
+
+          }else {
+            jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                          l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+          }
+        },
+        error: function(xhr, status, error) {
+            //alert(xhr.responseText + "\nCon el error:\n" + error);
+            console.log(xhr.responseText + "\nCon el error:\n" + error);
+        }
+      })
+    }
 
 }

@@ -8,8 +8,17 @@ function getSQL($name, $app) {
     $SQLs  = array(
             "asis_minretire" => "UPDATE asistentes SET estado = 'R' WHERE idacta = :idacta",
             "asis_mindelete" => "DELETE from asistentes WHERE idacta = :idacta ",
-            "asis_minadd" => "INSERT into asistentes (idacta, asistente, estado, servicio, tiposerv) " .
-                             "VALUES ( :idacta, :asistente, :estado, :servicio, :tiposerv) ",
+            "asis_minadd"    => "INSERT into asistentes (idacta, asistente, estado, servicio, tiposerv) " .
+                                "VALUES ( :idacta, :asistente, :estado, :servicio, :tiposerv) ",
+
+            "badge_elaborarActas"    => "SELECT count(1) as badge FROM actas WHERE estado = 'G' ",
+            "badge_actasPorAprobar"  => "SELECT count(1) as badge FROM actas WHERE estado = 'M' ",
+            "badge_actasPorRevisar"  => "SELECT count(1) as badge FROM actas WHERE estado = 'F' ",
+
+             "comments_minretire" => "UPDATE comentarios SET estado = 'R' WHERE idacta = :idacta",
+             "comments_mindelete" => "DELETE from comentarios WHERE idacta = :idacta ",
+             "comments_minadd"    => "INSERT into comentarios (idacta, asistente, estado, text, fechahora) VALUES ( :idacta, :asistente, :estado, :text, :fechahora) ",
+             "comments_minid"     => "SELECT idacta, asistente, estado, text, fechahora FROM comentarios WHERE idacta = :idacta order by id",
 
              "frats_act"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email " .
                               "FROM fraternidades WHERE estado = 'A'",
@@ -19,6 +28,7 @@ function getSQL($name, $app) {
              "frats_sel"   => "SELECT nombre, frat FROM fraternidades where estado = 'A'",
              "frats_count" => "SELECT count(1) as count FROM fraternidades",
 
+            "mins_all"    => "SELECT id, fecha, tema, objetivos, conclusiones, estado FROM actas WHERE frat = '" . $frat . "'",
             "mins_add"    => "INSERT INTO actas (frat, id, estado, fecha, tipoacta, tema, lugar, objetivos, responsable, conclusiones, fechasig, lugarsig) " .
                              "VALUES (:frat, :id, :estado, :fecha, :tipoacta, :tema, :lugar, :objetivos, :responsable, :conclusiones, :fechasig, :lugarsig) ",
             "mins_exec"   => "SELECT estado, count(1) as cuenta FROM actas GROUP BY 1 ",
@@ -27,7 +37,22 @@ function getSQL($name, $app) {
                              "a.lugarsig, a.estado FROM actas a " .
                              "WHERE a.id = " . $app->request()->params('nroActa') .
                              "",
+            "mins_count"  => "SELECT count(1) as count FROM actas WHERE frat = '" . $frat . "'",
             "mins_prog"   => "SELECT fecha, id, tema, objetivos, conclusiones FROM actas WHERE estado = 'G' ",
+            "mins_qry_copy"    => "SELECT id, fecha, tema, objetivos, conclusiones, estado FROM actas WHERE frat = :frat " .
+                             "AND (:estado = 'ZZZ' OR estado = :estado) AND fecha >= :fecini AND fecha <= :fecfin " .
+                             "AND id >= :nroini AND id <= :nrofin AND (:tipoacta = 'ZZZ' OR tipoacta = :tipoacta) " .
+                             "AND (:lugar = 'ZZZ' OR lugar = :lugar)",
+
+           "mins_qry"  => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+                               " FROM actas a " .
+                               " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
+                               " WHERE a.frat = :frat " .
+                                "AND (:estado = 'ZZZ' OR a.estado = :estado) AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
+                                "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
+                                "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                                "GROUP BY a.id ",
+
             "mins_update" => "UPDATE actas set estado = :estado, fecha = :fecha, tipoacta = :tipoacta, tema = :tema, " .
                              "lugar = :lugar, objetivos = :objetivos, conclusiones = :conclusiones, fechasig = :fechasig, lugarsig = :lugarsig  " .
                              "WHERE id = :id",

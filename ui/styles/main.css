@@ -136,23 +136,26 @@
   margin-bottom: 12px;
 }
 
-#myTable {
+#myTable, #buscarActa_table {
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #ddd;
   /*font-size: 18px;*/
 }
 
-#myTable th, #myTable td {
+#myTable th, #myTable td,
+  #buscarActa_table th, #buscarActa_table td {
   text-align: left;
   padding: 12px;
 }
 
-#myTable tr {
+#myTable tr,
+#buscarActa_table tr  {
   border-bottom: 1px solid #ddd;
 }
 
-#myTable tr.header, #myTable tr:hover {
+#myTable tr.header, #myTable tr:hover,
+#buscarActa_table tr.header, #buscarActa_table tr:hover  {
   background-color: #f1f1f1;
 }
 
