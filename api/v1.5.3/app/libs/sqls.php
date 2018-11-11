@@ -109,10 +109,10 @@ function getSQL($name, $app) {
             "tags_count"=> "SELECT count(1) as count FROM etiquetas WHERE frat = '" . $frat . "'",
             "tags_all"  => "SELECT frat, etiqueta, id, estado FROM etiquetas WHERE frat = '" . $frat . "'",
 
-            "tags_minretire" => "UPDATE etiquetasActa SET estado = 'R' WHERE idacta = :idacta",
-            "tags_mindelete" => "DELETE from etiquetasActa WHERE idacta = :idacta ",
-            "tags_minadd"    => "INSERT into etiquetasActa (idacta, etiqueta, estado) VALUES ( :idacta, :etiqueta, :estado) ",
-            "tags_minid"     => "SELECT etiqueta FROM etiquetasActa WHERE idacta = :idacta ",
+            "tags_minretire" => "UPDATE etiquetasacta SET estado = 'R' WHERE idacta = :idacta",
+            "tags_mindelete" => "DELETE from etiquetasacta WHERE idacta = :idacta ",
+            "tags_minadd"    => "INSERT into etiquetasacta (idacta, etiqueta, estado) VALUES ( :idacta, :etiqueta, :estado) ",
+            "tags_minid"     => "SELECT etiqueta FROM etiquetasacta WHERE idacta = :idacta ",
 
             "tasks_minretire" => "UPDATE tareas SET estado = 'R' WHERE idacta = :idacta",
             "tasks_mindelete" => "DELETE from tareas WHERE idacta = :idacta ",
