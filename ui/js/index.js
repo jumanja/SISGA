@@ -202,6 +202,10 @@ $(document).ready(function() {
 
 //Load jimte library
 var jimte = new JimteMan();
+
+jimte.imgData = new Image();
+jimte.imgData.src = $('#logoFrat').attr('src');
+
 var jimte_table = new JimteTab();
 
 //Now attempt the localization

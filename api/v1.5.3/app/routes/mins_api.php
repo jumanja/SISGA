@@ -537,7 +537,7 @@ $app->post('/mins/query', function () use($app) {
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
 
-						$sqlCode = 'mins_qry';
+						$sqlCode = 'mins_' . $app->request()->params('state');
 						$forXSL = '../../xsl/count.xsl';
 
 						//params

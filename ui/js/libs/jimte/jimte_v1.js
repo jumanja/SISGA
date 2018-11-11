@@ -776,6 +776,16 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
     resetEstado(key){
 
+      //$("#qry_estado").val();
+      $("#qry_nroini").val("0");
+      $("#qry_nrofin").val("999999");
+      $("#qry_tipoacta").val("ZZZ");
+      $("#qry_temaacta").val("");
+      $("#qry_lugar").val("ZZZ");
+
+      $("#qry_tipoacta").formSelect();
+      $("#qry_lugar").formSelect();
+
       if(key == "buscarActas"){
         $("#qry_estado").prop('disabled', false);
         $("#qry_estado").val("ZZZ");
@@ -786,7 +796,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       }
       if(key == "actasPorRevisar"){
         $("#qry_estado").prop('disabled', 'disabled');
-        $("#qry_estado").val("F");
+        $("#qry_estado").val("M");
       }
       if(key == "informeActas") {
         $("#qry_estado").prop('disabled', 'disabled');
@@ -795,6 +805,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
       $("#qry_estado").formSelect();
     }
+
     getEstadosActa(){
       $.ajax({
         url: this.serverPath + 'index.php/mins/count' +
@@ -822,7 +833,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                    actasTotal += parseInt(val.cuenta);
 
                    //Aprobadas
-                   if(val.estado == "A"){
+                   if(val.estado == "F"){
                      actasEjecu += parseInt(val.cuenta);
                      $('#actas_aprobadas')[0].innerHTML = val.cuenta;
                    }
@@ -904,6 +915,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getActaId(nroActa){
+      console.log("getActaId: " + nroActa);
       $.ajax({
         url: this.serverPath + 'index.php/mins' +
               "?id=" + jimte.currentUser.id +
@@ -924,9 +936,11 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
 
+                 jimte.currentActaNro  = nroActa;
+                 jimte.currentActaMain = data;
                  //ciclo
                  $.each( data, function( key, val ) {
-                   //console.log(val.tema);
+                   console.log(val.tema);
                    $("#tipo_de_acta").val(val.tipoacta);
                    $("#acta_a_elaborar").val(val.id);
                    $("#temaacta").val(val.tema);
@@ -956,7 +970,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $("#horproxima").formSelect();
                  $("#lugar_proxima").formSelect();
 
-                var nroActa =  $("#acta_a_elaborar").val();
+                //var nroActa =  $("#acta_a_elaborar").val();
                 jimte.getTagsMinId(nroActa);
                 jimte.getTasksMinId(nroActa);
                 jimte.getCommentsId(nroActa);
@@ -975,6 +989,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getTagsMinId(nroActa){
+      console.log("getTagsMinId:" + nroActa);
       $.ajax({
         url: this.serverPath + 'index.php/mins/items' +
               "?id=" + jimte.currentUser.id +
@@ -994,6 +1009,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         success: function(data){
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
+
+                 jimte.currentActaTags = data;
 
                  $('.chips-autocomplete').chips({
                     data: [],
@@ -1051,6 +1068,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getTasksMinId(nroActa){
+      console.log("getTasksMinId:" + nroActa);
+
       $.ajax({
         url: this.serverPath + 'index.php/mins/items' +
               "?id=" + jimte.currentUser.id +
@@ -1070,6 +1089,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         success: function(data){
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
+
+                 jimte.currentActaTasks = data;
 
                  //cleanActa para Tasks
                  $("#table_Tasks tbody")[0].innerHTML = "";
@@ -1103,6 +1124,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getCommentsId(nroActa){
+      console.log("getCommentsId:" + nroActa);
+
       $.ajax({
         url: this.serverPath + 'index.php/mins/items' +
               "?id=" + jimte.currentUser.id +
@@ -1122,6 +1145,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         success: function(data){
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
+
+                 jimte.currentActaComments = data;
 
                  //cleanActa para Tasks
                  $("#divComments")[0].innerHTML = "";
@@ -1346,8 +1371,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       })
     }
 
-    getAsistentes(){
-      var idacta = $("#acta_a_elaborar").val();
+    getAsistentes(idacta){
+      //var idacta = $("#acta_a_elaborar").val();
       var paramAdic = (idacta == "add"? "asi": "int&idacta=" + idacta);
       //console.log(idacta + "/" + paramAdic);
       $.ajax({
@@ -1367,6 +1392,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         success: function(data){
           if ((typeof data !== undefined ) &&
                (data.length == 0 || data[0].acceso == undefined)) {
+
+                 jimte.currentActaAsis = data;
+
                  $("#Asistentes")[0].innerHTML = "";
                  $("#responsadd")[0].innerHTML = '<option value="" disabled selected>Seleccione Responsable</option>';
 
@@ -1890,9 +1918,19 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       //this.loadActa(obj.value);
     }
 
+    checkActaPDF(idRow){
+      console.log("PDF del acta: " + idRow);
+      this.currentPDFId = idRow;
+      this.getActaId(idRow);
+      this.getAsistentes(idRow);
+      /*var instance = M.Modal.getInstance( $('#modGeneraPDF') );
+      instance.openModal();*/
+      $('#modGeneraPDF').modal('open');
+    }
+
     changeActa(obj) {
       //console.log("changeActa " + obj.value);
-      this.getAsistentes();
+      this.getAsistentes(obj.value);
 
       if(obj.value == "add"){
         //Limpiar el acta pues se está adicionando
@@ -2283,11 +2321,81 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
        //if(status=="1")
       //   $("#icon_class, #background_class").hide();// hide multiple sections
     }
+
+    getBase64FromImageUrl(url) {
+        var img = new Image();
+        img.onload = function () {
+            var canvas = document.createElement("canvas");
+            canvas.width =this.width;
+            canvas.height =this.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            //alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+        };
+        img.src = url;
+    }
+
+    generaPDF(){
+      // Landscape export, 2×4 inches
+      var pdf = new jsPDF({
+        format: 'letter'
+      })
+
+      pdf.addImage(jimte.imgData, 'PNG', 180, 15, 18, 22);
+
+      pdf.rect(10, 10, 200, 50);
+
+      pdf.setFont("helvetica");
+      pdf.setFontType("bold");
+      pdf.text(25, 17, 'ACTA # ' + jimte.currentActaNro );
+
+      var arrayFechaHora = jimte.currentActaMain[0].fecha.split(' ');
+      pdf.text(100, 17, 'TIPO: ' + (jimte.currentActaMain[0].tipoacta == "N" ? "NORMAL" : "DE JUNTA") );
+      pdf.text(100, 25, 'FECHA: ' + arrayFechaHora[0] );
+      pdf.text(100, 33, 'HORA: ' + arrayFechaHora[1] );
+      pdf.text(100, 41, 'LUGAR: ' + $("#lugar_reunion").find('option:selected').text() );
+      pdf.text(100, 49, 'ESTADO: ' + 'APROBADA');
+
+      var asistePDF = "";
+      $.each( jimte.currentActaAsis, function( key, val ) {
+        if(val.asisestado == "S" || val.asisestado == "F"){
+          asistePDF += "[" + val.asisestado + "] -" + val.nombreser + "- " + val.nombres + " " + val.apellidos + "\r\n";
+        }
+      });
+
+      var tareasPDF = "Responsable       Compromiso / Tarea e Inicio Estimado\r\n";
+      $.each( jimte.currentActaTasks, function( key, val ) {
+        tareasPDF += "[" + val.usuario + "] " + val.text + " " + val.inicioplan + "\r\n";
+      });
+
+      var text = pdf.splitTextToSize( "- TEMA PRINCIPAL:\r\n" +
+                                      jimte.currentActaMain[0].tema + "\r\n\r\n" +
+                                      "- OBJETIVOS:\r\n" +
+                                      jimte.currentActaMain[0].objetivos  + "\r\n\r\n" +
+                                      "- ASISTENTES:\r\n" +
+                                      asistePDF + "\r\n" +
+                                      "- COMPROMISOS Y TAREAS:\r\n" +
+                                      tareasPDF + "\r\n" +
+                                      "- CONCLUSIONES:\r\n" +
+                                      jimte.currentActaMain[0].conclusiones  + "\r\n\r\n" +
+                                      "- SIGUIENTE REUNIÓN:\r\n" +
+                                      jimte.currentActaMain[0].fechasig + " " +
+                                      $("#lugar_proxima").find('option:selected').text() + "\r\n\r\n"
+                                      , 190);
+      pdf.text(15, 70, text);
+
+      pdf.save('sisga-acta-' + jimte.currentActaNro + '.pdf')
+
+
+    }
+
     runQueryActas(){
       //console.log("runQueryActas!");
       $("#qry_progress").find(".determinate").attr("class", "indeterminate");
       jimte_table.load_query(this.currentState, "actas", "buscarActa_table");
     }
+
     getBadges(objId){
       if(jimte.currentUser.id == undefined){
           return false;
@@ -2296,6 +2404,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       $.ajax({
         url: this.serverPath + 'index.php/mins/count' +
               "?id=" + jimte.currentUser.id +
+              "&usuario=" + jimte.currentUser.usuario +
               "&tiposerv=" + jimte.currentUser.tiposerv +
               "&servicio=" + jimte.currentUser.servicio +
               "&frat=" + jimte.currentUser.frat +
