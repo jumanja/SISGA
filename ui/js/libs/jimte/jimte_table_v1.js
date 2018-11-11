@@ -236,6 +236,10 @@ class JimteTab {
 
           $("#myTable")[0].innerHTML = contenido;
 
+          var nRegistros = document.getElementById("myTable").rows.length - 1;
+          nRegistros = (nRegistros < 0 ? 0: nRegistros);
+          $(".nroTableRows").html(nRegistros);
+
           //$("#tbody_reportadas").show();
         }else {
           //jimte.alertMe(php_response.acceso + " " + php_response.motivo, "Tabla");
@@ -261,6 +265,8 @@ class JimteTab {
     //console.log("load_table!");
     var form_data = new FormData();
     form_data.append("id", jimte.currentUser.id );
+    form_data.append("usuario", jimte.currentUser.usuario );
+    form_data.append("state", state );
     form_data.append("tiposerv", jimte.currentUser.tiposerv );
     form_data.append("servicio", jimte.currentUser.servicio );
     form_data.append("frat", jimte.currentUser.frat );
@@ -326,7 +332,7 @@ class JimteTab {
                 contenido += "</tr>";
             }
             //contenido += '<tr id="row_' + cuantos + '" onclick="jimte_table.overlayOn(\'V\', this)">';
-            contenido += '<tr id="row_' + cuantos + '" >';
+            contenido += '<tr onclick="jimte.checkActaPDF('+val.id+');" id="qryRow_' + cuantos + '" >';
             $.each( val, function( key2, val2 ) {
               if(
                 key2.indexOf("password") == -1 &&
@@ -376,8 +382,12 @@ class JimteTab {
           $("#refreshTable").show();
           $("#table_content").show();
           */
-          $("#queryIcon")[0].innerHTML = jimte.currentIcon;
-          $("#queryTitle")[0].innerHTML = jimte.currentTitle;
+          $(".queryIcon").each(function(){
+            this.innerHTML = jimte.currentIcon;
+          });
+          $(".queryTitle").each(function(){
+            this.innerHTML = jimte.currentTitle;
+          });
 
           $("#" + tableId)[0].innerHTML = contenido;
 
@@ -1195,6 +1205,8 @@ class JimteTab {
   }
 
   refreshQuery(){
+
+    jimte.resetEstado(jimte.currentState);
     this.load_query(jimte.currentState, "actas", "buscarActa_table")
   }
 

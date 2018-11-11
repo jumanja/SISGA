@@ -52,6 +52,17 @@
     padding-left: 0px;
   }
 }
+@media print {
+  .mainContent, .navContent {
+    padding-left: 0px;
+  }
+  .sidenav{
+    display:none !important;
+  }
+  .noprint{
+    display:none !important;
+  }
+}
 
 .page-title {
   padding-left: 20px;
@@ -284,6 +295,11 @@ header, main, .mainContent, card-like, footer {
   }
 
   @media only screen and (max-width : 992px) {
+    header, main, .mainContent, card-cardlike, footer {
+      padding-left: 0;
+    }
+  }
+  @media only print {
     header, main, .mainContent, card-cardlike, footer {
       padding-left: 0;
     }

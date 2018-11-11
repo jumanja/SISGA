@@ -3,6 +3,7 @@
 function getSQL($name, $app) {
     $lang = $app->request()->params('lang');
     $frat = $app->request()->params('frat');
+    $user = $app->request()->params('usuario');
     $lang = strtolower(substr($lang, 0, 2));
 
     $SQLs  = array(
@@ -12,8 +13,12 @@ function getSQL($name, $app) {
                                 "VALUES ( :idacta, :asistente, :estado, :servicio, :tiposerv) ",
 
             "badge_elaborarActas"    => "SELECT count(1) as badge FROM actas WHERE estado = 'G' ",
-            "badge_actasPorAprobar"  => "SELECT count(1) as badge FROM actas WHERE estado = 'M' ",
-            "badge_actasPorRevisar"  => "SELECT count(1) as badge FROM actas WHERE estado = 'F' ",
+            "badge_actasPorRevisar"  => "SELECT count(1) as badge FROM actas WHERE estado = 'M' ",
+            "badge_actasPorAprobar"  => "SELECT count(1) as badge FROM actas a " .
+                                        "LEFT JOIN asistentes b on b.idacta = a.id " .
+                                        "WHERE a.estado = 'M' " .
+                                        "AND b.asistente = '" . $user . "' " .
+                                        "AND (b.estado <> 'F' and b.estado <> 'N') " ,
 
              "comments_minretire" => "UPDATE comentarios SET estado = 'R' WHERE idacta = :idacta",
              "comments_mindelete" => "DELETE from comentarios WHERE idacta = :idacta ",
@@ -39,18 +44,44 @@ function getSQL($name, $app) {
                              "",
             "mins_count"  => "SELECT count(1) as count FROM actas WHERE frat = '" . $frat . "'",
             "mins_prog"   => "SELECT fecha, id, tema, objetivos, conclusiones FROM actas WHERE estado = 'G' ",
-            "mins_qry_copy"    => "SELECT id, fecha, tema, objetivos, conclusiones, estado FROM actas WHERE frat = :frat " .
-                             "AND (:estado = 'ZZZ' OR estado = :estado) AND fecha >= :fecini AND fecha <= :fecfin " .
-                             "AND id >= :nroini AND id <= :nrofin AND (:tipoacta = 'ZZZ' OR tipoacta = :tipoacta) " .
-                             "AND (:lugar = 'ZZZ' OR lugar = :lugar)",
 
-           "mins_qry"  => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+  "mins_buscarActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+                           " FROM actas a " .
+                           " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
+                           " WHERE a.frat = :frat " .
+                            "AND (:estado = 'ZZZ' OR a.estado = :estado) AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
+                            "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
+                            "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                            "GROUP BY a.id ",
+
+  "mins_informeActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+                           " FROM actas a " .
+                           " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
+                           " WHERE a.frat = :frat " .
+                            "AND (:estado = 'ZZZ' OR a.estado = :estado) AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
+                            "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
+                            "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                            "GROUP BY a.id ",
+
+  "mins_actasPorRevisar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
                                " FROM actas a " .
                                " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
                                " WHERE a.frat = :frat " .
                                 "AND (:estado = 'ZZZ' OR a.estado = :estado) AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
                                 "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
                                 "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                                "GROUP BY a.id ",
+
+  "mins_actasPorAprobar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+                               " FROM actas a " .
+                               " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
+                               " LEFT JOIN asistentes c on c.idacta = a.id " .
+                               " WHERE a.frat = :frat " .
+                                "AND a.estado = 'M' AND (c.estado <> 'F' AND c.estado <> 'N') " .
+                                "AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
+                                "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
+                                "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                                "AND c.asistente = '" . $user . "' " .
                                 "GROUP BY a.id ",
 
             "mins_update" => "UPDATE actas set estado = :estado, fecha = :fecha, tipoacta = :tipoacta, tema = :tema, " .

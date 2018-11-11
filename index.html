@@ -108,6 +108,19 @@
        </div>
      </div>
 
+     <div id="modGeneraPDF" class="modal">
+       <div class="modal-content">
+         <h4>Está a punto de Generar PDF</h4>
+         <p>Solo se pueden generar PDF de Actas Aprobadas. Si desea regresar a la
+         página seleccione Cancelar.</p>
+       </div>
+       <div class="modal-footer">
+         <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
+         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.generaPDF();">Generar</a>
+       </div>
+     </div>
+
+
     <main class="mainContent">
           <!--<div class="row card-panel dark-primary-color valign-wrapper z-depth-3">
           </div>-->
@@ -155,7 +168,7 @@
               <!--<img style="float:left;width:25%;height:25%" src="ui/img/logo_laudatosi.png">-->
               <h6>Fraternidad "Laudato Si" - JUFRA</h6>
               <!--<h6>Politécnico Grancolombiano</h6>-->
-              <img style="width:100px" src="ui/img/logo_laudatosi.png">
+              <img id="logoFrat" src="ui/img/logo_laudatosi_peq.png">
             </p>
           </div>
 
@@ -202,8 +215,8 @@
 
     <div id="paramBusqueda" class="modal bottom-sheet">
       <div class="col s12 center">
-        <h5><i id="queryIcon" class="material-icons icon-sisga small">user</i>&nbsp;<span id="queryTitle">Buscar Actas</span>
-          <span class="right blue lighten-3 z-depth-3" style="padding:10px" ><em class="nroQueryRows" >0</em> registro(s).</span>
+        <h5><i class="queryIcon material-icons icon-sisga small">user</i>&nbsp;<span class="queryTitle">Buscar Actas</span>
+          <span class="noprint right blue lighten-3 z-depth-3" style="padding:10px" ><em class="nroQueryRows" >0</em> registro(s).</span>
         </h5>
       </div>
 
@@ -279,14 +292,52 @@
 
     </div>
 
+    <div id="informeActas" class="mainContent oculto">
+      <details open="open">
+        <summary>Actas por Estado</summary>
+              <table id="progresoActas_table"  class="responsive-table">
+                  <thead>
+                    <tr>
+                      <th class="center-align">En Progreso</th>
+                      <th class="center-align">Preliminares</th>
+                      <th class="center-align">Aprobadas</th>
+                      <th class="center-align">Retiradas</th>
+                      <th class="center-align">% Ejecución</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="center-align"><span id="actas_progreso" class="actas_progreso"></span></td>
+                    <td class="center-align"><span id="actas_preliminares" class="actas_preliminares"></span></td>
+                    <td class="center-align"><span id="actas_aprobadas" class="actas_aprobadas"></span></td>
+                    <td class="center-align"><span id="actas_retiradas" class="actas_retiradas"></span></td>
+                    <td class="center-align">
+                      <span class="badge actas_ejec" data-badge-caption="%"></span>
+                      <div class="progress">
+                          <div class="determinate actas_bar"></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+      </details>
+    </div>
+
     <div id="buscarActas" class="mainContent oculto">
       <div class="col s12">
           <div class="card-panel">
             <div class="card-content">
               <div class="row">
+                <div class="col s12">
+                  <h5><i class="queryIcon material-icons icon-sisga small">user</i>&nbsp;<span class="queryTitle">Buscar Actas</span></h5>
+                </div>
+              </div>
+
+              <div class="noprint row">
                 <div class="col s10 m8">
                   <!-- Modal Trigger -->
                   <a class="waves-effect waves-light btn modal-trigger" href="#paramBusqueda">Búsqueda Avanzada</a>
+
                 </div>
                 <div class="col s12 m4">
                     <a class="btn" id="resetQryFilters" title="Ver Todo" onclick="jimte_table.resetQryFilters();">
@@ -313,34 +364,6 @@
       <div class="col s12">
           <div class="card-panel">
             <div class="card-content">
-              <details>
-                <summary>Actas por Estado</summary>
-                      <table id="progresoActas_table"  class="responsive-table">
-                          <thead>
-                            <tr>
-                              <th class="center-align">En Progreso</th>
-                              <th class="center-align">Preliminares</th>
-                              <th class="center-align">Aprobadas</th>
-                              <th class="center-align">Retiradas</th>
-                              <th class="center-align">% Ejecución</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="center-align"><span id="actas_progreso" class="actas_progreso"></span></td>
-                            <td class="center-align"><span id="actas_preliminares" class="actas_preliminares"></span></td>
-                            <td class="center-align"><span id="actas_aprobadas" class="actas_aprobadas"></span></td>
-                            <td class="center-align"><span id="actas_retiradas" class="actas_retiradas"></span></td>
-                            <td class="center-align">
-                              <span class="badge actas_ejec" data-badge-caption="%"></span>
-                              <div class="progress">
-                                  <div class="determinate actas_bar"></div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-              </details>
               <details>
                 <summary>Lista de Actas en Progreso</summary>
                     <table id="elaborarActa_table" class="responsive-table">
@@ -742,7 +765,7 @@
 
           <div class="oculto" id="table_content">
 
-              <div class="row">
+              <div class="noprint row">
                   <div class="col s10 m8">
                       <a class="btn" id="addRecord" title="Agregar Registro" onclick="jimte_table.overlayOn('A');">
                           <i class="material-icons left">add</i>Agregar</a>
@@ -753,13 +776,16 @@
 
                       <a class="btn" href="#!" title="Refrescar Tabla" id="refreshTable" onclick="jimte_table.refreshTable();">
                           <i class="material-icons center">replay</i></a>
+
+                          <span class="right blue lighten-3 z-depth-3" style="padding:10px"><em class="nroTableRows" >0</em> registro(s).</span>
                   </div>
 
 
               </div>
             <div class="row">
               <div class="col s12">
-                  <table id="myTable" class="responsive-table"></table>
+                <!-- class="responsive-table" -->
+                  <table id="myTable" ></table>
               </div>
             </div>
         </div>
@@ -859,6 +885,7 @@
 
     <footer class="page-footer navContent"></footer>
 
+    <script src="ui/js/libs/jspdf/jspdf.min.js"></script>
     <script src="ui/js/libs/jquery/jquery.min.js"></script>
     <script src="ui/js/libs/materialize/js/materialize.min.js"></script>
     <script src="ui/js/libs/chart/Chart.min.js"></script>
