@@ -38,7 +38,7 @@ La solución de software debe diseñarse, implementarse y asegurar su calidad en
 - REQ-007: Gestión de Usuarios.
 - REQ-008: Gestión de Servicios.
 
-## Desarrollo Incremento 3
+## Desarrollo Incremento 3 (Terminada en Nov 11/2018)
 - REQ-006: Gestión de Actas.
 
 ## Desarrollo Incremento 4
