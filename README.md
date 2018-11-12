@@ -40,8 +40,8 @@ La solución de software debe diseñarse, implementarse y asegurar su calidad en
 
 ## Desarrollo Incremento 3 (Terminada en Nov 11/2018)
 - REQ-006: Gestión de Actas.
-- REQ-013: Informe de Actas.
 - REQ-010: Búsqueda de Actas.
+- REQ-013: Informe de Actas.
 
 ## Desarrollo Incremento 4
 - REQ-011: Revisión y Aprobación Actas.
