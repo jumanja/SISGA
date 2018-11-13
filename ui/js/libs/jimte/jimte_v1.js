@@ -203,6 +203,13 @@ NOT WORKING on SAFARI for MAC
 
             jimte.buildSideMenu(php_response.token);
 
+            //Configurar "mi" cuenta
+            $("#cmc_firstName").val(jimte.currentUser.nombres);
+            $("#cmc_lastName").val(jimte.currentUser.apellidos);
+            $("#cmc_email").val(jimte.currentUser.email);
+            $("#cmc_user").val(jimte.currentUser.usuario);
+            $("#cmc_img").prop("src", "uploads/" + jimte.currentUser.usuario + ".png");
+
             M.toast(
                       {html:'Bienvenido(a) <br>' + jimte.nombres +'!',
                       displayLenght: 3000,
@@ -971,9 +978,17 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $("#lugar_proxima").formSelect();
 
                 //var nroActa =  $("#acta_a_elaborar").val();
+                /*this.currentInfoProgress
                 jimte.getTagsMinId(nroActa);
                 jimte.getTasksMinId(nroActa);
                 jimte.getCommentsId(nroActa);
+                */
+
+                //Progresamos
+                jimte.currentInfoProgress += 20;
+                jimte.barMove();
+
+
 
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
@@ -1054,6 +1069,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                     minLength: 1
                   });*/
 
+                  //Progresamos
+                  jimte.currentInfoProgress += 20;
+                  jimte.barMove();
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
                           l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
@@ -1110,6 +1128,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                                      "</tr>");
                  });
 
+                 //Progresamos
+                 jimte.currentInfoProgress += 20;
+                 jimte.barMove();
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
                           l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
@@ -1183,6 +1204,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                  });
 
+                 //Progresamos
+                 jimte.currentInfoProgress += 20;
+                 jimte.barMove();
           } else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
                           l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
@@ -1430,6 +1454,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  });
                  $("#Asistentes")[0].innerHTML = myAttend.join("");
                  $('#responsadd').formSelect();
+
+                 //Progresamos
+                 jimte.currentInfoProgress += 20;
+                 jimte.barMove();
           }else {
             jimte.alertMe(l("%denied", data[0].acceso) + " " +
                           l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
@@ -1921,24 +1949,46 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     checkActaPDF(idRow){
       console.log("PDF del acta: " + idRow);
       this.currentPDFId = idRow;
-      this.getActaId(idRow);
+
+      this.currentInfoProgress = 80;
+      if(idRow != "add"){
+        this.currentInfoProgress = 0;
+        this.getActaId(idRow);
+        this.getTagsMinId(idRow);
+        this.getTasksMinId(idRow);
+        this.getCommentsId(idRow);
+      }
       this.getAsistentes(idRow);
+
       /*var instance = M.Modal.getInstance( $('#modGeneraPDF') );
       instance.openModal();*/
       $('#modGeneraPDF').modal('open');
     }
 
+    barMove(){
+      this.barElement = document.getElementById("myBar");
+      this.barElement.style.width = this.currentInfoProgress + '%';
+      this.barElement.innerHTML = (this.currentInfoProgress * 1) + '%';
+    }
+
     changeActa(obj) {
       //console.log("changeActa " + obj.value);
-      this.getAsistentes(obj.value);
+      //this.getAsistentes(obj.value);
 
+      this.currentInfoProgress = 80;
       if(obj.value == "add"){
         //Limpiar el acta pues se está adicionando
         this.cleanActa();
       } else {
         //this.getEtiquetas();
+        this.currentInfoProgress = 0;
         this.getActaId(obj.value);
+        this.getTagsMinId(obj.value);
+        this.getTasksMinId(obj.value);
+        this.getCommentsId(obj.value);
       }
+      this.getAsistentes(obj.value);
+
 
       $("#creaacta").show();
 
