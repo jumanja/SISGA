@@ -1,0 +1,39 @@
+<html>
+<head>
+<title> ForMail 8.03 - HowTo </title>
+</head>
+
+
+<body>
+<pre>
+ * Purpose:
+ * ~~~~~~~~
+ *      To accept information from an HTML form via HTTP and mail it to recipients.
+ *
+ * What does this PHP script do?
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *      On your web site, you may have one or more HTML forms that accept
+ *      information from people visiting your website.  Your aim is for your
+ *      website to email that information to you and/or add it to a database.
+ *      FormMail performs those functions.
+ *
+ * Quick Start
+ * ~~~~~~~~~~~
+ *      1. Edit formmail.php and set TARGET_EMAIL for your requirements (near
+ *              line 256 in this file - replace "yourhost\.com" with your mail server's
+ *              name).  We also strongly recommend you set DEF_ALERT (the next
+ *              configuration below TARGET_EMAIL).
+ *      2. Install as formmail.php (or other name ending in .php) on your web server.
+ *      3. Create an HTML form and:
+ *              - specify a hidden field called "recipients" with the email address
+ *                of the person to receive the form's results.
+ *              - in the your form tag set the action attribute to
+ *                the formmail.php you uploaded to your web server
+ *
+ *      Once you have FormMail working, you may be interested in some advanced
+ *      usage and features.  We have HOW-TO guides at www.tectite.com which
+ *      describe many of the advanced processing you can do with FormMail.
+ *      http://www.tectite.com/fmhowto/guides.php
+</pre>		  
+<p>Hosted by &lt;<a href="http://www.ixwebhosting.com/">ixwebhosting.com</a>&gt;</p>
+</body>

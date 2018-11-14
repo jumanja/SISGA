@@ -203,8 +203,9 @@ $(document).ready(function() {
 //Load jimte library
 var jimte = new JimteMan();
 
-jimte.imgData = new Image();
-jimte.imgData.src = $('#logoFrat').attr('src');
+//jimte.imgData = new Image();
+//jimte.imgData.src = $('#logoFrat').attr('src');
+//jimte.imgData = $('#logoFrat');
 
 var jimte_table = new JimteTab();
 

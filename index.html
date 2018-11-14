@@ -1,179 +1,184 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>SISGA - Sistema para Gestión de Actas</title>
-    <script type="text/javascript" src="ui/js/libs/json2/json2.min.js"></script>
-    <script type="text/javascript" src="ui/js/libs/l10n/l10n.min.js"></script>
-    <script type="text/javascript" src="ui/config/localizations.js"></script>
-  </head>
 
-  <body style="display:none">
-    <!--<aside id="menu">-->
-      <!--<ul id="sideMenu" class="side-nav ">grey darken-3 fixed -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>SISGA - Sistema para Gestión de Actas</title>
+  <script type="text/javascript" src="ui/js/libs/json2/json2.min.js"></script>
+  <script type="text/javascript" src="ui/js/libs/l10n/l10n.min.js"></script>
+  <script type="text/javascript" src="ui/config/localizations.js"></script>
+</head>
 
-      <!-- inicio ejemplo -->
-      <!--<nav> </nav> -->
+<body style="display:none">
+  <!--<aside id="menu">-->
+  <!--<ul id="sideMenu" class="side-nav ">grey darken-3 fixed -->
 
-       <ul id="slide-out" class="sidenav">
-         <li><div class="user-view">
-           <div class="background">
-             <!--<img src="images/office.jpg">-->
-           </div>
-           <!--<a href="#user"><img class="circle" src="images/yuna.jpg"></a>-->
-           <a href="#name"><span class="white-text name">John Doe</span></a>
-           <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-         </div></li>
-         <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-         <li><a href="#!">Second Link</a></li>
-         <li><div class="divider"></div></li>
-         <li><a class="subheader">Subheader</a></li>
-         <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-       </ul>
-             <!-- fin ejemplo -->
-      <ul id="sideMenu" class="sidenav sidenav-fixed"><!-- grey darken-3 fixed -->
-        <!--<li><a class="sidenav-close  show-on-large" href="#!">Clicking this will close Sidenav</a></li>
+  <!-- inicio ejemplo -->
+  <!--<nav> </nav> -->
+
+  <ul id="slide-out" class="sidenav">
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <!--<img src="images/office.jpg">-->
+        </div>
+        <!--<a href="#user"><img class="circle" src="images/yuna.jpg"></a>-->
+        <a href="#name"><span class="white-text name">John Doe</span></a>
+        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+      </div>
+    </li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+  <!-- fin ejemplo -->
+  <ul id="sideMenu" class="sidenav sidenav-fixed">
+    <!-- grey darken-3 fixed -->
+    <!--<li><a class="sidenav-close  show-on-large" href="#!">Clicking this will close Sidenav</a></li>
 -->
-        <li>
-            <!--<div class="userView" >-->
-            <div class="user-view" >
-              <a href="."
-                id="myHomePage">
-              <!--  <img class="logo" style="float:left" src="ui/img/logowhite.png"> -->
-                <!--
+    <li>
+      <!--<div class="userView" >-->
+      <div class="user-view">
+        <a href="." id="myHomePage">
+          <!--  <img class="logo" style="float:left" src="ui/img/logowhite.png"> -->
+          <!--
                 <img  style="float:right" src="ui/img/gray.png">
               -->
 
-              </a><br>
-              <label id="userData" class="datosUsu" translate="yes">Usuario:</label>
-              <label id="userFirstName" class="datosUsu" translate="yes">Inicie</label>
-              <label id="userLastName" class="datosUsu" translate="yes">Sesión</label>
-              <label id="userToken" class="oculto" ></label>
+        </a><br>
+        <label id="userData" class="datosUsu" translate="yes">Usuario:</label>
+        <label id="userFirstName" class="datosUsu" translate="yes">Inicie</label>
+        <label id="userLastName" class="datosUsu" translate="yes">Sesión</label>
+        <label id="userToken" class="oculto"></label>
 
-            </div>
-        </li>
-      </ul>
-    <!--</aside>-->
+      </div>
+    </li>
+  </ul>
+  <!--</aside>-->
 
-    <header>
-      <!--
+  <header>
+    <!--
       <iframe id="counter" style="display:none;border:0;width:50%;height:90px;overflow:hidden;float:right;" scrolling="no" src="ui/countdown/clock_assets/clock.html">
       </iframe>
 -->
-      <nav class="top-nav default-primary-color navContent">
-          <!--<a href="#" data-activates="sideMenu" class="button-collapse show-on-medium-and-up">
+    <nav class="top-nav default-primary-color navContent">
+      <!--<a href="#" data-activates="sideMenu" class="button-collapse show-on-medium-and-up">
             <i class="material-icons">menu</i>
           </a>-->
-          <!--<a href="#" data-target="slideMenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>-->
-          <div class="page-title default-primary-color">
-            <a href="#" data-target="sideMenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <!--<a href="#" data-target="slideMenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>-->
+      <div class="page-title default-primary-color">
+        <a href="#" data-target="sideMenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
-              <a href="https://sisga.jumanja.net">
+        <a href="https://sisga.jumanja.net">
 
               <img class="logo" style="float:left" src="ui/img/logowhite.png">
               <span id="org" style="display:none" translate="yes">org</span>
               </a>
-              <a target="web" style="display:none" id="org_URL">url</a>
+        <a target="web" style="display:none" id="org_URL">url</a>
 
-              <select id="languageSelect" onchange="jimte.changeLanguage(this);" class="browser-default default-primary-color"
-                style="max-width:100px;font-size:16px;height:4.2rem;border:none;">
+        <select id="languageSelect" onchange="jimte.changeLanguage(this);" class="browser-default default-primary-color" style="max-width:100px;font-size:16px;height:4.2rem;border:none;">
                 <option id="langSelect" translate="yes" selected value="">Idioma</option>
                 <option id="lang_es" translate="yes" value="es">Español</option>
                 <option id="lang_en" translate="yes" value="en">Inglés</option>
               </select>
 
-<!--<h6>                 <span translate="yes" id="sp_cerrarSesion2" class="">Cerrar Sesión</span>
+        <!--<h6>                 <span translate="yes" id="sp_cerrarSesion2" class="">Cerrar Sesión</span>
 </h6>-->
-              <a href="#" title="Cerrar Sesión" class="right" onclick="jimte.changeState('cerrarSesion')"
-                 id="cerrarSesionLink2">
+        <a href="#" title="Cerrar Sesión" class="right" onclick="jimte.changeState('cerrarSesion')" id="cerrarSesionLink2">
                  <i class="material-icons text-primary-color">close</i>
               </a>
-        </div>
+      </div>
 
-      </nav>
+    </nav>
 
-    </header>
+  </header>
 
-    <div class="ciontainer"><!-- begin container-->
+  <div class="ciontainer">
+    <!-- begin container-->
 
 
     <!-- Modal Structure -->
-     <div id="standardAlert" class="modal">
-       <div class="modal-content">
-         <h4>Atención</h4>
-         <p>Este es un Aviso Importante</p>
-       </div>
-       <div class="modal-footer">
-         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
-       </div>
-     </div>
+    <div id="standardAlert" class="modal">
+      <div class="modal-content">
+        <h4>Atención</h4>
+        <p>Este es un Aviso Importante</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+      </div>
+    </div>
 
-     <div id="modGeneraPDF" class="modal">
-       <div class="modal-content">
-         <h4>Está a punto de Generar PDF</h4>
-         <p>Solo se pueden generar PDF de Actas Aprobadas. Si desea regresar a la
-         página seleccione Cancelar.</p>
-       </div>
-       <div class="modal-footer">
-         <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
-         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.generaPDF();">Generar</a>
-       </div>
-     </div>
+    <div id="modGeneraPDF" class="modal">
+      <div class="modal-content">
+        <h4>Está a punto de Generar PDF</h4>
+        <div class="grey lighten-2">
+            <div id="myBar" class="teal white-text center" style="width:0%">0%</div>
+        </div>
+        <p>Solo se pueden generar PDF de Actas Aprobadas. Si desea regresar a la página seleccione Cancelar.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.generaPDF();">Generar</a>
+      </div>
+    </div>
 
 
     <main class="mainContent">
-          <!--<div class="row card-panel dark-primary-color valign-wrapper z-depth-3">
+      <!--<div class="row card-panel dark-primary-color valign-wrapper z-depth-3">
           </div>-->
-        <div class="row">
+      <div class="row">
 
-          <div class="col s12 m3 card-panel center-align minH220">
-            <form id="loginForm">
-              <br>
-              <h5 id="loginTitle" translate="yes">Ingresar</h5>
-              <div class="input-field" id="usuario1">
-                <input  type="text" id="usuario" class="validate">
-                <label for="usuario" id="loginUserName" translate="yes">Usuario</label>
+        <div class="col s12 m3 card-panel center-align minH220">
+          <form id="loginForm">
+            <br>
+            <h5 id="loginTitle" translate="yes">Ingresar</h5>
+            <div class="input-field" id="usuario1">
+              <input type="text" id="usuario" class="validate">
+              <label for="usuario" id="loginUserName" translate="yes">Usuario</label>
+            </div>
+
+            <div class="input-field" id="password1">
+              <input type="password" id="password" class="validate">
+              <label for="password" id="loginUserPassword" translate="yes">Contraseña</label>
+            </div>
+            <button type="submit" translate="yes" class="waves-effect waves-light btn" id="loginBtn">Entrar</button><br><br>
+
+            <div id="loginWorking" class="progress oculto">
+              <div class="indeterminate">
               </div>
-
-              <div class="input-field" id="password1">
-                  <input  type="password" id="password" class="validate">
-                  <label for="password" id="loginUserPassword" translate="yes">Contraseña</label>
-              </div>
-              <button type="submit" translate="yes" class="waves-effect waves-light btn"
-              id="loginBtn">Entrar</button><br><br>
-
-              <div id="loginWorking" class="progress oculto">
-                <div class="indeterminate">
-                </div>
-              </div>
-            </form>
-
-          </div>
-
-          <div class="col s12 m3 card-panel center-align minH220">
-                <h5 id="software" translate="yes">Desarrollado por:</h5>
-                <p>
-                  <b>Alonso Cristian</b><br>
-                  <b>Durango Sneider</b><br>
-                  <b>Manjarrés Juan</b><br>
-                  <b>Rodriguez Liana</b><br>
-                  <b>Zambrano Leonardo</b>
-
-                </p>
-          </div>
-
-          <div class="col s12 m5 card-panel center-align minH220">
-            <h5 id="thanksto" translate="yes">Agradecimientos a:</h5>
-            <p>
-              <!--<img style="float:left;width:25%;height:25%" src="ui/img/logo_laudatosi.png">-->
-              <h6>Fraternidad "Laudato Si" - JUFRA</h6>
-              <!--<h6>Politécnico Grancolombiano</h6>-->
-              <img id="logoFrat" src="ui/img/logo_laudatosi_peq.png">
-            </p>
-          </div>
-
+            </div>
+          </form>
 
         </div>
+
+        <div class="col s12 m3 card-panel center-align minH220">
+          <h5 id="software" translate="yes">Desarrollado por:</h5>
+          <p>
+            <b>Alonso Cristian</b><br>
+            <b>Durango Sneider</b><br>
+            <b>Manjarrés Juan</b><br>
+            <b>Rodriguez Liana</b><br>
+            <b>Zambrano Leonardo</b>
+
+          </p>
+        </div>
+
+        <div class="col s12 m5 card-panel center-align minH220">
+          <h5 id="thanksto" translate="yes">Agradecimientos a:</h5>
+          <p>
+            <!--<img style="float:left;width:25%;height:25%" src="ui/img/logo_laudatosi.png">-->
+            <h6>Fraternidad "Laudato Si" - JUFRA</h6>
+            <!--<h6>Politécnico Grancolombiano</h6>-->
+            <img id="logoFrat" src="ui/img/logo_laudatosi_peq.png">
+          </p>
+        </div>
+
+
+      </div>
 
     </main>
 
@@ -187,29 +192,26 @@
 
     <div id="abrirCertif" class="mainContent oculto">
       <div class="card-panel">
-          <div class="card-content">
-            <h5>Abrir Paz y Salvo</h5>
-            <table id="abrirCertif_table" class="responsive-table">
-                <thead>
-                  <tr>
-                    <th>Importante:</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Para abrir su Paz y Salvo, primero debe
-                      haber reportado el 100% de las mesas asignadas.
-                    </td>
-                    <td>
-                      <a target="pazysalvo" href="server/certif/?nro="
-                      class="waves-effect waves-light btn"
-                      id="queryCertif">Abrir</a>
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
+        <div class="card-content">
+          <h5>Abrir Paz y Salvo</h5>
+          <table id="abrirCertif_table" class="responsive-table">
+            <thead>
+              <tr>
+                <th>Importante:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Para abrir su Paz y Salvo, primero debe haber reportado el 100% de las mesas asignadas.
+                </td>
+                <td>
+                  <a target="pazysalvo" href="server/certif/?nro=" class="waves-effect waves-light btn" id="queryCertif">Abrir</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-          </div>
+        </div>
       </div>
     </div>
 
@@ -221,7 +223,7 @@
       </div>
 
       <div id="qry_progress" class="progress">
-            <div class="determinate"></div>
+        <div class="determinate"></div>
       </div>
 
       <div class="row">
@@ -244,7 +246,7 @@
 
         <div class="col s12 l4">
           <label for="qry_lugar">Lugar Reunión:</label>
-          <select id="qry_lugar" onchange="jimte.runQueryActas();" name="qry_lugar"  class="browser-default">
+          <select id="qry_lugar" onchange="jimte.runQueryActas();" name="qry_lugar" class="browser-default">
             <option value="ZZZ" selected>Todos</option>
           </select>
         </div>
@@ -263,14 +265,14 @@
 
         <div class="col s12 l4">
           <label for="qry_tipoacta">Tipo de Acta:</label>
-          <select id="qry_tipoacta" onchange="jimte.runQueryActas();" name="qry_tipoacta"  class="browser-default">
+          <select id="qry_tipoacta" onchange="jimte.runQueryActas();" name="qry_tipoacta" class="browser-default">
             <option value="ZZZ" selected>Todos</option>
           </select>
         </div>
 
         <div class="col s12 l4">
           <label for="qry_estado">Estado:</label>
-          <select id="qry_estado" onchange="jimte.runQueryActas();" name="qry_estado" class="browser-default" >
+          <select id="qry_estado" onchange="jimte.runQueryActas();" name="qry_estado" class="browser-default">
             <option value="ZZZ" selected>Todos</option>
             <option value="G">En Progreso</option>
             <option value="M">Preliminares</option>
@@ -295,93 +297,94 @@
     <div id="informeActas" class="mainContent oculto">
       <details open="open">
         <summary>Actas por Estado</summary>
-              <table id="progresoActas_table"  class="responsive-table">
-                  <thead>
-                    <tr>
-                      <th class="center-align">En Progreso</th>
-                      <th class="center-align">Preliminares</th>
-                      <th class="center-align">Aprobadas</th>
-                      <th class="center-align">Retiradas</th>
-                      <th class="center-align">% Ejecución</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="center-align"><span id="actas_progreso" class="actas_progreso"></span></td>
-                    <td class="center-align"><span id="actas_preliminares" class="actas_preliminares"></span></td>
-                    <td class="center-align"><span id="actas_aprobadas" class="actas_aprobadas"></span></td>
-                    <td class="center-align"><span id="actas_retiradas" class="actas_retiradas"></span></td>
-                    <td class="center-align">
-                      <span class="badge actas_ejec" data-badge-caption="%"></span>
-                      <div class="progress">
-                          <div class="determinate actas_bar"></div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        <table id="progresoActas_table" class="responsive-table">
+          <thead>
+            <tr>
+              <th class="center-align">En Progreso</th>
+              <th class="center-align">Preliminares</th>
+              <th class="center-align">Aprobadas</th>
+              <th class="center-align">Retiradas</th>
+              <th class="center-align">% Ejecución</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="center-align"><span id="actas_progreso" class="actas_progreso"></span></td>
+              <td class="center-align"><span id="actas_preliminares" class="actas_preliminares"></span></td>
+              <td class="center-align"><span id="actas_aprobadas" class="actas_aprobadas"></span></td>
+              <td class="center-align"><span id="actas_retiradas" class="actas_retiradas"></span></td>
+              <td class="center-align">
+                <span class="badge actas_ejec" data-badge-caption="%"></span>
+                <div class="progress">
+                  <div class="determinate actas_bar"></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </details>
     </div>
 
     <div id="buscarActas" class="mainContent oculto">
       <div class="col s12">
-          <div class="card-panel">
-            <div class="card-content">
-              <div class="row">
-                <div class="col s12">
-                  <h5><i class="queryIcon material-icons icon-sisga small">user</i>&nbsp;<span class="queryTitle">Buscar Actas</span></h5>
-                </div>
+        <div class="card-panel">
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12">
+                <h5><i class="queryIcon material-icons icon-sisga small">user</i>&nbsp;<span class="queryTitle">Buscar Actas</span></h5>
               </div>
-
-              <div class="noprint row">
-                <div class="col s10 m8">
-                  <!-- Modal Trigger -->
-                  <a class="waves-effect waves-light btn modal-trigger" href="#paramBusqueda">Búsqueda Avanzada</a>
-
-                </div>
-                <div class="col s12 m4">
-                    <a class="btn" id="resetQryFilters" title="Ver Todo" onclick="jimte_table.resetQryFilters();">
-                        <i class="material-icons">remove_red_eye</i></a>
-
-                    <a class="btn" href="#!" title="Refrescar Tabla" id="refreshQryTable" onclick="jimte_table.refreshQuery();">
-                        <i class="material-icons center">replay</i></a>
-
-                    <span class="right blue lighten-3 z-depth-3" style="padding:10px"><em class="nroQueryRows" >0</em> registro(s).</span>
-
-                </div>
-
-              </div>
-
-                <table id="buscarActa_table" > <!-- class="responsive-table" -->
-                </table>
             </div>
 
+            <div class="noprint row">
+              <div class="col s10 m8">
+                <!-- Modal Trigger -->
+                <a class="waves-effect waves-light btn modal-trigger" href="#paramBusqueda">Búsqueda Avanzada</a>
+
+              </div>
+              <div class="col s12 m4">
+                <a class="btn" id="resetQryFilters" title="Ver Todo" onclick="jimte_table.resetQryFilters();">
+                        <i class="material-icons">remove_red_eye</i></a>
+
+                <a class="btn" href="#!" title="Refrescar Tabla" id="refreshQryTable" onclick="jimte_table.refreshQuery();">
+                        <i class="material-icons center">replay</i></a>
+
+                <span class="right blue lighten-3 z-depth-3" style="padding:10px"><em class="nroQueryRows" >0</em> registro(s).</span>
+
+              </div>
+
+            </div>
+
+            <table id="buscarActa_table">
+              <!-- class="responsive-table" -->
+            </table>
           </div>
+
         </div>
+      </div>
     </div>
 
     <div id="progresoActas" class="mainContent oculto">
       <div class="col s12">
-          <div class="card-panel">
-            <div class="card-content">
-              <details>
-                <summary>Lista de Actas en Progreso</summary>
-                    <table id="elaborarActa_table" class="responsive-table">
-                        <thead>
-                          <tr>
-                            <!--<th>Acción</th>-->
-                            <th>Nro.</th>
-                            <th>Fecha Hora</th>
-                            <th>Objetivos</th>
-                            <th>Conclusiones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="tbody_enprogreso">
-                        </tbody>
-                    </table>
-              </details>
-            </div>
+        <div class="card-panel">
+          <div class="card-content">
+            <details>
+              <summary>Lista de Actas en Progreso</summary>
+              <table id="elaborarActa_table" class="responsive-table">
+                <thead>
+                  <tr>
+                    <!--<th>Acción</th>-->
+                    <th>Nro.</th>
+                    <th>Fecha Hora</th>
+                    <th>Objetivos</th>
+                    <th>Conclusiones</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody_enprogreso">
+                </tbody>
+              </table>
+            </details>
           </div>
+        </div>
       </div>
     </div>
 
@@ -413,85 +416,85 @@
           </div>
         </div>
 
-      <div class="row">
-      <form class="oculto" id="creaacta">
-          <input type="hidden" name="hidCorpo" id="hidCorpo">
-          <input type="hidden" name="hidMesa" id="hidMesa">
-          <input type="hidden" name="hidLlave" id="hidLlave">
-          <input type="hidden" name="hidToken" id="hidToken">
+        <div class="row">
+          <form class="oculto" id="creaacta">
+            <input type="hidden" name="hidCorpo" id="hidCorpo">
+            <input type="hidden" name="hidMesa" id="hidMesa">
+            <input type="hidden" name="hidLlave" id="hidLlave">
+            <input type="hidden" name="hidToken" id="hidToken">
 
-          <div class="row">
+            <div class="row">
               <div class="col s12 l6">
                 <label for="temaacta">Tema Principal:</label>
-                <input id="temaacta" type="text" >
+                <input id="temaacta" type="text">
               </div>
               <div class="col s12 l6">
                 <label for="temaacta">Lugar Reunión:</label>
-                <select id="lugar_reunion" name="lugar_reunion" >
+                <select id="lugar_reunion" name="lugar_reunion">
                   <option value="" disabled selected>Seleccione Lugar</option>
                 </select>
               </div>
 
-                <div title="Fecha del Acta" class="col s6 l6">
-                    <i title="Fecha del Acta" class="material-icons prefix">date_range</i>
-                    <input id="fecacta" class="datepicker" title="Fecha del Acta" placeholder="Fecha del Acta">
-                </div>
+              <div title="Fecha del Acta" class="col s6 l6">
+                <i title="Fecha del Acta" class="material-icons prefix">date_range</i>
+                <input id="fecacta" class="datepicker" title="Fecha del Acta" placeholder="Fecha del Acta">
+              </div>
 
-                <div title="Hora del Acta" class="col s6 l6">
-                  <i title="Hora del Acta" class="material-icons prefix">access_time</i>
-                  <input id="horacta" class="timepicker" title="Hora del Acta" placeholder="Hora del Acta" >
-                </div>
+              <div title="Hora del Acta" class="col s6 l6">
+                <i title="Hora del Acta" class="material-icons prefix">access_time</i>
+                <input id="horacta" class="timepicker" title="Hora del Acta" placeholder="Hora del Acta">
+              </div>
 
-                <div class="col s10 l11">
-                    <div id="etiquetasActa" class="chips chips-autocomplete"></div>
-                </div>
+              <div class="col s10 l11">
+                <div id="etiquetasActa" class="chips chips-autocomplete"></div>
+              </div>
 
-                <div class="col s1 l1">
-                  <i title="En Progreso" class="material-icons grey-text medium">card_travel</i>
-                  <input type="hidden" id="estado" value="G">
-                  <!--<h5>En Progreso</h5>-->
-                  <!--
+              <div class="col s1 l1">
+                <i title="En Progreso" class="material-icons grey-text medium">card_travel</i>
+                <input type="hidden" id="estado" value="G">
+                <!--<h5>En Progreso</h5>-->
+                <!--
                   <i class="material-icons gray-text small">cancel</i>
                   <i class="material-icons gray-text small">check</i>
                   <i class="material-icons teal small">card_travel</i>
                   <i class="material-icons gray-text small">work</i>-->
-                </div>
-          </div>
+              </div>
+            </div>
 
 
-          <div class="row">
-            <div class="col s12">
-              <ul id="tabs-swipe-demo" class="tabs z-depth-3">
+            <div class="row">
+              <div class="col s12">
+                <ul id="tabs-swipe-demo" class="tabs z-depth-3">
                   <li class="tab col s3"><a class="active" href="#test-swipe-1"><i class="material-icons tiny">adjust</i>&nbsp;Objetivos</a></li>
                   <li class="tab col s3"><a href="#test-swipe-2"><i class="material-icons tiny">directions_walk</i>&nbsp;Asistentes</a></li>
                   <li class="tab col s3"><a href="#test-swipe-3"><i class="material-icons tiny">assignment</i>&nbsp;Tareas</a></li>
                   <li class="tab col s3"><a href="#test-swipe-4"><i class="material-icons tiny">comment</i>&nbsp;Comentarios</a></li>
-              </ul>
-              <div id="test-swipe-1" class="col s12 lighten-2 z-depth-3">
-                <h5>Objetivos y Conclusiones</h5>
-                <div class="card-panel">
-                  <div class="card-content">
-                    <div class="input-field">
-                      <label for="objetivos">Objetivos</label>
+                </ul>
+                <div id="test-swipe-1" class="col s12 lighten-2 z-depth-3">
+                  <h5>Objetivos y Conclusiones</h5>
+                  <div class="card-panel">
+                    <div class="card-content">
+                      <div class="input-field">
+                        <label for="objetivos">Objetivos</label>
                         <i class="material-icons prefix">adjust</i>
                         <textarea id="objetivos" class="materialize-textarea" placeholder="Escriba los objetivos de esta Reunión"></textarea>
-                    </div>
-                    <div class="input-field">
+                      </div>
+                      <div class="input-field">
                         <label for="objetivos">Conclusiones</label>
                         <i class="material-icons prefix">filter_list</i>
                         <textarea id="conclusiones" class="materialize-textarea" placeholder="Escriba las Conclusiones de esta Reunión"></textarea>
+                      </div>
                     </div>
-                </div>
-                </div>
+                  </div>
 
 
-              </div>
-              <div id="test-swipe-2" class="col s12 lighten-2 z-depth-3">
-                <h5>Asistentes a la Reunión</h5>
-                <!--<img class="hide-on-med-and-down show-on-large" title="Significado Asistencia" src="ui/img/convencion_large.png">-->
-                <img class="hide-on-small-only show-on-med-and-up" title="Significado Asistencia" src="ui/img/convencion_medium.png">
-                <img class="hide-on-med-and-up show-on-small" title="Significado Asistencia" src="ui/img/convencion_small.png">
-                <!--
+                </div>
+                <div id="test-swipe-2" class="col s12 lighten-2 z-depth-3">
+                  <h5>Asistentes a la Reunión</h5>
+                  <!--<img class="hide-on-med-and-down show-on-large" title="Significado Asistencia" src="ui/img/convencion_large.png">-->
+                  <img class="hide-on-small-only show-on-med-and-up" title="Significado Asistencia" src="ui/img/convencion_medium.png">
+                  <img class="hide-on-med-and-up show-on-small" title="Significado Asistencia" src="ui/img/convencion_small.png">
+                  <!--
                 <fieldset>
                   <legend>Convención</legend>
                   <label>
@@ -515,66 +518,64 @@
                   </label>
                 </fieldset>
 -->
-                <div class="card-panel">
+                  <div class="card-panel">
                     <div class="card-content">
-                        <div id="Asistentes" class="row"></div>
+                      <div id="Asistentes" class="row"></div>
 
                     </div>
+                  </div>
                 </div>
-              </div>
 
-              <div id="test-swipe-3" class="col s12 lighten-2 z-depth-3">
-                <h5>Tareas Relacionadas</h5>
+                <div id="test-swipe-3" class="col s12 lighten-2 z-depth-3">
+                  <h5>Tareas Relacionadas</h5>
 
-                <div class="row">
+                  <div class="row">
                     <div class="col s12 m8">
-                        <label for="responsadd">A Cargo De</label>
-                        <select id="responsadd" name="responsadd" >
+                      <label for="responsadd">A Cargo De</label>
+                      <select id="responsadd" name="responsadd">
                           <option value="" disabled selected>Seleccione Responsable</option>
                         </select>
                     </div>
                     <div class="col s5 m2">
-                        <label for="iniplanadd">Inicio Planeado</label>
-                        <input id="iniplanadd" class="datepicker" >
+                      <label for="iniplanadd">Inicio Planeado</label>
+                      <input id="iniplanadd" class="datepicker">
                     </div>
                     <div class="col s5 m2">
-                        <label for="finplanadd">Final Planeado</label>
-                        <input id="finplanadd" class="datepicker" >
+                      <label for="finplanadd">Final Planeado</label>
+                      <input id="finplanadd" class="datepicker">
                     </div>
                     <div class="col s12 m10">
-                        <label for="tareadd">Tareas</label>
-                        <textarea id="tareadd" name="tareadd"
-                          placeholder="Escriba la Tarea para ese Responsable"></textarea>
+                      <label for="tareadd">Tareas</label>
+                      <textarea id="tareadd" name="tareadd" placeholder="Escriba la Tarea para ese Responsable"></textarea>
                     </div>
                     <div class="col s12 m1">
-                      <button class="waves-effect waves-light btn-small"
-                              onclick="jimte_table.addTask();return(false);">Agregar</button>
+                      <button class="waves-effect waves-light btn-small" onclick="jimte_table.addTask();return(false);">Agregar</button>
                     </div>
+                  </div>
+
+                  <table id="table_Tasks" class="responsive-table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Responsables</th>
+                        <th>Tareas</th>
+                        <th>Creación</th>
+                        <th>Estado</th>
+                        <th>Ini.Plan</th>
+                        <th>Fin.Plan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+
+
                 </div>
 
-                <table id="table_Tasks" class="responsive-table">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Responsables</th>
-                      <th>Tareas</th>
-                      <th>Creación</th>
-                      <th>Estado</th>
-                      <th>Ini.Plan</th>
-                      <th>Fin.Plan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-
-
-              </div>
-
-              <div id="test-swipe-4" class="col s12 lighten-2 z-depth-3">
-                <!--<h5>Comentarios</h5>-->
-                <div id="divComments">
-                  <!--
+                <div id="test-swipe-4" class="col s12 lighten-2 z-depth-3">
+                  <!--<h5>Comentarios</h5>-->
+                  <div id="divComments">
+                    <!--
                     <div class="row teal zeroBottom">
                       <div class="col s2"><br>
                         <span class="chip">presidenta</span>
@@ -630,40 +631,36 @@
                     </div>
                   -->
 
-                </div>
+                  </div>
 
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="row" id="creaacta_content">
-          </div>
+            <div class="row" id="creaacta_content">
+            </div>
 
-          <div class="row">
+            <div class="row">
               <div class="col s4">
                 <label for="fecproxima">Fecha y Hora Próxima:</label>
-                <input id="fecproxima" class="datepicker" >
-                <input id="horproxima" class="timepicker" >
+                <input id="fecproxima" class="datepicker">
+                <input id="horproxima" class="timepicker">
               </div>
               <div class="col s8">
                 <label for="temaacta">Lugar Próxima:</label>
-                <select id="lugar_proxima" name="lugar_proxima" >
+                <select id="lugar_proxima" name="lugar_proxima">
                   <option value="" disabled selected>Seleccione Lugar</option>
                 </select>
               </div>
-          </div>
+            </div>
 
-          <div class="row">
+            <div class="row">
               <div id="botActa" class="col s12">
-                <a
-                  class="waves-effect waves-light btn-large center-align"
-                  onclick="jimte.validaActa('Progreso');">
+                <a class="waves-effect waves-light btn-large center-align" onclick="jimte.validaActa('Progreso');">
                   <i class="material-icons left">card_travel</i>
                   Guardar en Progreso
                 </a>
-                <a id="botActa_Save"
-                  class="waves-effect waves-light btn-large modal-trigger center-align"
-                  href="#modPreliminar">
+                <a id="botActa_Save" class="waves-effect waves-light btn-large modal-trigger center-align" href="#modPreliminar">
                   <i class="material-icons left">work</i>
                   Guardar Preliminar
                 </a>
@@ -674,225 +671,364 @@
               </div>
 
               <div class="row oculto">
-                  <div class="col s4">
-                    <label for="mail_to">Para:</label>
-                    <input type="text" id="mail_to">
+                <div class="col s4">
+                  <label for="mail_to">Para:</label>
+                  <input type="text" id="mail_to">
 
-                    <label for="mail_sb">Asunto:</label>
-                    <input type="text" id="mail_sb">
+                  <label for="mail_sb">Asunto:</label>
+                  <input type="text" id="mail_sb">
 
-                    <label for="mail_tx">Mensaje:</label>
-                    <textarea type="text" id="mail_tx"></textarea>
+                  <label for="mail_tx">Mensaje:</label>
+                  <textarea type="text" id="mail_tx"></textarea>
 
-                    <button onclick="jimte.sendMail();return false;">Enviar</button>
-                  </div>
+                  <button onclick="jimte.sendMail();return false;">Enviar</button>
+                </div>
               </div>
-          </div>
-          <!-- Modal Trigger -->
+            </div>
+            <!-- Modal Trigger -->
 
-         <!-- Modal Structure -->
-         <div id="delTask" class="modal">
-           <div class="modal-content card-panel orange lighten-3">
-             <h4>Está a punto de Eliminar esta Tarea</h4>
-             <p>Si decide Eliminar, esta información No se puede recuperar. Si desea regresar al
-             formulario seleccione Cancelar.</p>
-           </div>
-           <div class="modal-footer">
-             <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
-             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.delTask();">Eliminar</a>
-           </div>
-         </div>
+            <!-- Modal Structure -->
+            <div id="delTask" class="modal">
+              <div class="modal-content card-panel orange lighten-3">
+                <h4>Está a punto de Eliminar esta Tarea</h4>
+                <p>Si decide Eliminar, esta información No se puede recuperar. Si desea regresar al formulario seleccione Cancelar.</p>
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.delTask();">Eliminar</a>
+              </div>
+            </div>
 
-         <div id="modPreliminar" class="modal">
-           <div class="modal-content">
-             <h4>Está a punto de Guardar Preliminar</h4>
-             <p>Si decide Guardar, se notificará a los asistentes registrados
-             en el acta que ya se puede revisar o aprobar. Si desea regresar al
-             formulario seleccione Cancelar.</p>
-           </div>
-           <div class="modal-footer">
-             <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
-             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.validaActa('Preliminar');">Guardar</a>
-           </div>
-         </div>
+            <div id="modPreliminar" class="modal">
+              <div class="modal-content">
+                <h4>Está a punto de Guardar Preliminar</h4>
+                <p>Si decide Guardar, se notificará a los asistentes registrados en el acta que ya se puede revisar o aprobar. Si desea regresar al formulario seleccione Cancelar.</p>
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.validaActa('Preliminar');">Guardar</a>
+              </div>
+            </div>
 
-      </form>
-    </div><!-- div row card-panel-->
+          </form>
+        </div>
+        <!-- div row card-panel-->
 
-  </div><!-- end row elaborarActas -->
-    </div><!-- end elaborarActas -->
+      </div>
+      <!-- end row elaborarActas -->
+    </div>
+    <!-- end elaborarActas -->
 
     <div id="cuadroMando" class="mainContent oculto">
       <div class="card-panel">
-          <div class="card-content">
-            <h5>Cuadro de Mando</h5>
-<!--                  style="position: relative; height:10vh; width:40vw" -->
-            <div class="chart-container">
-                 <canvas id="myChart" style="position: relative; height:10vh; width:40vw"></canvas>
-            </div>
-
+        <div class="card-content">
+          <h5>Cuadro de Mando</h5>
+          <!--                  style="position: relative; height:10vh; width:40vw" -->
+          <div class="chart-container">
+            <canvas id="myChart" style="position: relative; height:10vh; width:40vw"></canvas>
           </div>
+
+        </div>
       </div>
 
     </div>
 
     <div id="configurarTablas" class="mainContent oculto">
       <!--<h5><i class="material-icons">settings</i>&nbsp;Configurar</h5>-->
-
       <div class="card-panel">
-          <div class="card-content">
-            <div class="row">
-              <div class="col s1 hide-on-small-only">
-                  <i id="tableIcon" class="material-icons icon-sisga medium">settings</i>
-              </div>
-              <div class="col s6">
-                  <select id="tabla" name="tabla" onchange="jimte_table.changeTable(this);">
-                    <option value="" disabled selected>Seleccione Tabla</option>
-                  </select>
-              </div>
+        <div class="card-content">
+          <div class="row">
 
+            <div class="col s1 hide-on-small-only">
+              <i id="tableIcon" class="material-icons icon-sisga medium">settings</i>
+            </div>
+
+            <div class="col s6">
+              <h5>Configurar</h5>
             </div>
 
           </div>
 
-          <div class="row oculto" id="tabla_loader">
-            <p>Espere, Cargando la Tabla...</p>
-            <div class="progress">
-              <div class="indeterminate">
-              </div>
+          <div class="row">
+            <div class="col s12">
+
+              <details open="open">
+                <summary>Tablas</summary>
+
+                <div class="card-panel">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s6">
+                        <select id="tabla" name="tabla" onchange="jimte_table.changeTable(this);">
+                        <option value="" disabled selected>Seleccione Tabla</option>
+                      </select>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="row oculto" id="tabla_loader">
+                    <p>Espere, Cargando la Tabla...</p>
+                    <div class="progress">
+                      <div class="indeterminate">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="oculto" id="table_content">
+
+                    <div class="noprint row">
+                      <div class="col s10 m8">
+                        <a class="btn" id="addRecord" title="Agregar Registro" onclick="jimte_table.overlayOn('A');">
+                              <i class="material-icons left">add</i>Agregar</a>
+                      </div>
+                      <div class="col s12 m4">
+                        <a class="btn" id="resetFilters" title="Ver Todo" onclick="jimte_table.resetFilters();">
+                              <i class="material-icons">remove_red_eye</i></a>
+
+                        <a class="btn" href="#!" title="Refrescar Tabla" id="refreshTable" onclick="jimte_table.refreshTable();">
+                              <i class="material-icons center">replay</i></a>
+
+                        <span class="right blue lighten-3 z-depth-3" style="padding:10px"><em class="nroTableRows" >0</em> registro(s).</span>
+                      </div>
+
+
+                    </div>
+                    <div class="row">
+                      <div class="col s12">
+                        <!-- class="responsive-table" -->
+                        <table id="myTable"></table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
             </div>
           </div>
 
-          <div class="oculto" id="table_content">
+          <div class="row">
+            <div class="col s11">
+              <details>
+                <summary>Mi Cuenta</summary>
+                <div class="card-panel">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s12">
 
-              <div class="noprint row">
-                  <div class="col s10 m8">
-                      <a class="btn" id="addRecord" title="Agregar Registro" onclick="jimte_table.overlayOn('A');">
-                          <i class="material-icons left">add</i>Agregar</a>
+                        <form method="post" action="fmail/upload.php" name="ContactForm" enctype="multipart/form-data">
+                          <input type="hidden" name="env_report" value="REMOTE_HOST,REMOTE_ADDR,HTTP_USER_AGENT,AUTH_TYPE,REMOTE_USER">
+                          <!-- STEP 2: Put your email address in the 'recipients' value.
+                                                 Note that you also have to allow this email address in the
+                                                 $TARGET_EMAIL setting within formmail.php!
+                                    -->
+                          <input type="hidden" name="recipients" value="adminsisga@jumanja.net" />
+                          <!-- STEP 3: Specify required fields in the 'required' value -->
+                          <!--<input type="hidden" name="required" value="email:Tu correo electronico,FirstName:Escribe tu nombre,LastName:Escribe tu apellido" />-->
+                          <input type="hidden" name="required" value="email:Tu correo electronico,FirstName:Escribe tu nombre,LastName:Escribe tu apellido" />
+                          <!-- STEP 4: Put your subject line in the 'subject' value. -->
+                          <input type="hidden" name="subject" value="Imagen con la Firma enviada" />
+                          <input type="hidden" name="cmc_user" id="cmc_user" value="Imagen con la Firma enviada" />
+
+                          <div class="row">
+
+                              <div class="col s12 m6">
+                                <label for="form1-p-FirstName">Nombres<span class="form-asterisk">*</span></label>
+                                <input type="text" id="cmc_firstName" name="FirstName" class="input-control" />
+                              </div>
+
+                              <div class="col s12 m6">
+                                <label for="form1-p-LastName">Apellidos<span class="form-asterisk">*</span></label>
+                                <input type="text" id="cmc_lastName" name="LastName" class="input-control" />
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m6">
+                              <label for="form1-p-email">Email<span class="form-asterisk">*</span></label>
+                              <input type="email" id="cmc_email" class="input-control" id="cmc_email" name="email">
+                            </div>
+
+                            <div class="col s12 m6">
+                              <img id="cmc_img" style="max-width:200px">
+                                <label class="form-control-label" for="form1-p-message">Seleccione la imagen a enviar.
+                                                          Archivo a subir (Máximo 1 MB. Solo png):</label>
+                                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" /></textarea><br>
+                                <input type="hidden" name="conditions1" value=":@
+                              @TEST@img_file@Por favor suba un archivo:@:
+                              @TEST@img_file~/^.*\.(png|PNG)$/i@Solo jpg,jpeg,png o gif y que no supere 1 MB@:
+                              @TEST@img_file#<2097152@Maximo tamaño de la imagen 1 MB.@" />
+                                <input type="hidden" name="file_names" value="img_file=FirstName.%'_'%.LastName.%'_'%.%date%.%2E%.%ext(img_file)%" />
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m6">
+                              <p>¿Autoriza a este sitio web para mostrar su firma al aprobar un acta?</p>
+                              <label>
+                                <input class="with-gap" type="radio" name="contact" disabled value="Y" checked />
+                                <span>Si</span>
+                              </label><br>
+                              <label>
+                                <input class="with-gap" type="radio" name="contact" disabled value="N" />
+                                <span>No</span>
+                              </label>
+                            </div>
+                            <div class="col s12 m6">
+                                <p><b>Nota 1: </b>Haciendo click en Enviar usted acepta los términos y condiciones de éste servicio y declara que tiene todos los derechos sobre la imagen enviada.</p>
+                                <p><b>Nota 2: </b>Luego de Enviar se cerrará esta sesión por seguridad. Simplemente
+                                  re-ingrese digitando usuario y contraseña.</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col s12 m6">
+                              <!-- <input type="submit" value="Enviar" /> -->
+                              <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+                                <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <!--<div><button type="submit" class="btn btn-primary">ENVIAR</button></div>-->
+
+                          <input type="hidden" name="procesar" value="http://localhost/jumanja.net/uploads" />
+                          <input type="hidden" name="derive_fields" value="realname = FirstName + LastName" />
+
+                          <!--plain-->
+                          <input type="hidden" name="mail_options" value="PlainTemplate=plain.txt,AlwaysList" />
+                          <!--html-->
+                          <!--<input type="hidden" name="mail_options"
+                              value="HTMLTemplate=html.html,AlwaysList" /> -->
+
+                          <br>
+                          <!--
+                                Please support the ongoing development of FormMail and our other
+                                freeware products by keeping the following text on your form
+                                (or placing it elsewhere on your website).  Thanks!
+                            -->
+                          <small>This form and its
+                            <a href="http://www.tectite.com/">form processor</a>
+                            supplied by www.tectite.com.
+                            </small>
+
+                        </form>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col s12 m4">
-                      <a class="btn" id="resetFilters" title="Ver Todo" onclick="jimte_table.resetFilters();">
-                          <i class="material-icons">remove_red_eye</i></a>
-
-                      <a class="btn" href="#!" title="Refrescar Tabla" id="refreshTable" onclick="jimte_table.refreshTable();">
-                          <i class="material-icons center">replay</i></a>
-
-                          <span class="right blue lighten-3 z-depth-3" style="padding:10px"><em class="nroTableRows" >0</em> registro(s).</span>
-                  </div>
-
-
-              </div>
-            <div class="row">
-              <div class="col s12">
-                <!-- class="responsive-table" -->
-                  <table id="myTable" ></table>
-              </div>
+                </div>
+              </details>
             </div>
+          </div>
+
+
         </div>
-      </div>
-
-    </div>
 
 
-    <div class="overlay oculto" id="overlayA">
-      <div class="card-like">
-        <a href="#" onclick="jimte_table.overlayOff('A')"><span class="close">&#x2715;</span></a>
-        <i id="iconAddForm" class="material-icons left teal-text medium">add</i>
+        <div class="overlay oculto" id="overlayA">
+          <div class="card-like">
+            <a href="#" onclick="jimte_table.overlayOff('A')"><span class="close">&#x2715;</span></a>
+            <i id="iconAddForm" class="material-icons left teal-text medium">add</i>
 
-        <h3 style="margin-left: 10px;">Agregar</h3>
+            <h3 style="margin-left: 10px;">Agregar</h3>
 
-        <form>
-          <input type="hidden" id="add_id">
-          <ul id="addTable" class="flex-outer black-text">
-          </ul>
-          <div class="progress">
-            <div class="determinate">
+            <form>
+              <input type="hidden" id="add_id">
+              <ul id="addTable" class="flex-outer black-text">
+              </ul>
+              <div class="progress">
+                <div class="determinate">
+                </div>
+              </div>
+              <button id="addTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('A');return(false);">Cancelar</button>
+              <button id="addTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendAdd();return(false);">Guardar</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="overlay oculto" id="overlayC">
+          <div class="card-like">
+            <a href="#" onclick="jimte_table.overlayOff('C')"><span class="close">&#x2715;</span></a>
+            <i id="iconAddForm" class="material-icons left teal-text medium">edit</i>
+
+            <h3 style="margin-left: 10px;">Editar</h3>
+            <form>
+              <input type="hidden" id="edit_idupdate">
+              <ul id="editTable" class="flex-outer black-text">
+              </ul>
+              <div class="progress">
+                <div class="determinate">
+                </div>
+              </div>
+              <button id="editTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('C');return(false);">Cancelar</button>
+              <button id="editTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendUpdate();return(false);">Guardar</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="overlay oculto" id="overlayR">
+          <div class="card-like">
+            <a href="#" onclick="jimte_table.overlayOff('R')"><span class="close">&#x2715;</span></a>
+            <i id="iconRetForm" class="material-icons left teal-text medium">traffic</i>
+
+            <h3 style="margin-left: 10px;">Cambiar de Estado</h3>
+            <form>
+              <input type="hidden" id="ret_idupdate">
+              <ul id="retTable" class="flex-outer black-text">
+              </ul>
+              <div class="progress">
+                <div class="determinate">
+                </div>
+              </div>
+              <button id="retTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('R');return(false);">Cancelar</button>
+              <button id="retTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendEstado();return(false);">Guardar</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="debateActual" class="mainContent oculto">
+          <div class="card-panel">
+            <div class="card-content">
+              <h5>Debate Actual</h5>
+              <div class="row">
+                En construcción
+              </div>
+
             </div>
           </div>
-          <button id="addTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('A');return(false);">Cancelar</button>
-          <button id="addTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendAdd();return(false);">Guardar</button>
-        </form>
-      </div>
-    </div>
+        </div>
 
-    <div class="overlay oculto" id="overlayC">
-      <div class="card-like">
-        <a href="#" onclick="jimte_table.overlayOff('C')"><span class="close">&#x2715;</span></a>
-        <i id="iconAddForm" class="material-icons left teal-text medium">edit</i>
+        <div id="workInProgress" class="mainContent oculto">
+          <div class="card-panel">
+            <div class="card-content">
+              <h5>No Disponible aún</h5>
+              <div class="row">
+                En construcción
+              </div>
 
-        <h3 style="margin-left: 10px;">Editar</h3>
-        <form>
-          <input type="hidden" id="edit_idupdate">
-          <ul id="editTable" class="flex-outer black-text" >
-          </ul>
-          <div class="progress">
-            <div class="determinate">
             </div>
           </div>
-          <button id="editTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('C');return(false);">Cancelar</button>
-          <button id="editTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendUpdate();return(false);">Guardar</button>
-        </form>
+
+        </div>
+
+        <div id="imgFirmas" class="mainContent oculto">
+        </div>
+
       </div>
-    </div>
+      <!-- container --->
 
-    <div class="overlay oculto" id="overlayR">
-      <div class="card-like">
-        <a href="#" onclick="jimte_table.overlayOff('R')"><span class="close">&#x2715;</span></a>
-        <i id="iconRetForm" class="material-icons left teal-text medium">traffic</i>
+      <footer class="page-footer navContent"></footer>
 
-        <h3 style="margin-left: 10px;">Cambiar de Estado</h3>
-        <form>
-          <input type="hidden" id="ret_idupdate">
-          <ul id="retTable" class="flex-outer black-text" >
-          </ul>
-          <div class="progress">
-            <div class="determinate">
-            </div>
-          </div>
-          <button id="retTable_Cancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('R');return(false);">Cancelar</button>
-          <button id="retTable_Save" style="float:right" class="waves-effect waves-light btn" onclick="jimte_table.sendEstado();return(false);">Guardar</button>
-        </form>
-      </div>
-    </div>
-
-    <div id="debateActual" class="mainContent oculto">
-      <div class="card-panel">
-          <div class="card-content">
-            <h5>Debate Actual</h5>
-            <div class="row">
-              En construcción
-            </div>
-
-          </div>
-      </div>
-    </div>
-
-    <div id="workInProgress" class="mainContent oculto">
-      <div class="card-panel">
-          <div class="card-content">
-            <h5>No Disponible aún</h5>
-            <div class="row">
-              En construcción
-            </div>
-
-          </div>
-      </div>
-
-    </div>
-
-
-    </div><!-- container --->
-
-    <footer class="page-footer navContent"></footer>
-
-    <script src="ui/js/libs/jspdf/jspdf.min.js"></script>
-    <script src="ui/js/libs/jquery/jquery.min.js"></script>
-    <script src="ui/js/libs/materialize/js/materialize.min.js"></script>
-    <script src="ui/js/libs/chart/Chart.min.js"></script>
-    <script src="ui/js/libs/jimte/jimte_v1.js?v=0.0.8"></script>
-    <script src="ui/js/libs/jimte/jimte_table_v1.js?v=0.0.8"></script>
-    <script src="ui/js/class/user.js?v=0.0.8"></script>
-    <script src="ui/js/index.js?v=0.0.8"></script>
-  </body>
+      <script src="ui/js/libs/jspdf/jspdf.min.js"></script>
+      <script src="ui/js/libs/jquery/jquery.min.js"></script>
+      <script src="ui/js/libs/materialize/js/materialize.min.js"></script>
+      <script src="ui/js/libs/chart/Chart.min.js"></script>
+      <script src="ui/js/libs/jimte/jimte_v1.js?v=0.0.8"></script>
+      <script src="ui/js/libs/jimte/jimte_table_v1.js?v=0.0.8"></script>
+      <script src="ui/js/class/user.js?v=0.0.8"></script>
+      <script src="ui/js/index.js?v=0.0.8"></script>
+</body>
 
 </html>
