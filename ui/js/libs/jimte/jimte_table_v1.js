@@ -332,7 +332,19 @@ class JimteTab {
                 contenido += "</tr>";
             }
             //contenido += '<tr id="row_' + cuantos + '" onclick="jimte_table.overlayOn(\'V\', this)">';
-            contenido += '<tr onclick="jimte.checkActaPDF('+val.id+');" id="qryRow_' + cuantos + '" >';
+            //console.log("Acta estado:" + val.estado);
+            if(val.estado == "G"){
+              //Si es en progreso, checkActaROM
+              contenido += '<tr onclick="jimte.checkActaROM('+val.id+');" id="qryRow_' + cuantos + '" >';
+            }
+            if(val.estado == "M"){
+              //Si es preliminar, muestre para revisar Acta
+              contenido += '<tr onclick="jimte.checkActaFIR('+val.id+');" id="qryRow_' + cuantos + '" >';
+            }
+            if(val.estado == "F"){
+              //Si está aprobada, habilitar generación PDF
+              contenido += '<tr onclick="jimte.checkActaPDF('+val.id+');" id="qryRow_' + cuantos + '" >';
+            }
             $.each( val, function( key2, val2 ) {
               if(
                 key2.indexOf("password") == -1 &&
@@ -774,9 +786,9 @@ class JimteTab {
   }
 
   convertTime12to24(time12h) {
-    const [time, modifier] = time12h.split(' ');
+    var [time, modifier] = time12h.split(' ');
 
-    let [hours, minutes] = time.split(':');
+    var [hours, minutes] = time.split(':');
 
     if (hours === '12') {
       hours = '00';

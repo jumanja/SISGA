@@ -1419,6 +1419,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                  jimte.currentActaAsis = data;
 
+                 $("#imgFirmas")[0].innerHTML = "";
                  $("#Asistentes")[0].innerHTML = "";
                  $("#responsadd")[0].innerHTML = '<option value="" disabled selected>Seleccione Responsable</option>';
 
@@ -1447,6 +1448,12 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                           value: val.usuario,
                           text: val.apellidos + " " + val.nombres
                       }));
+
+                      //De una vez poblar Responsables
+                      $('#imgFirmas').append($('<img>', {
+                           id: "sign_" + val.usuario,
+                           src: "uploads/" + val.usuario + ".png"
+                       }));
 
                    }
 
@@ -2392,8 +2399,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         format: 'letter'
       })
 
-      pdf.addImage(jimte.imgData, 'PNG', 180, 15, 18, 22);
-
+      //PDF header
+      //jimte.imgData
+      //$('#logoFrat')
+      pdf.addImage(document.getElementById("logoFrat"), 'PNG', 180, 15, 18, 22);
       pdf.rect(10, 10, 200, 50);
 
       pdf.setFont("helvetica");
@@ -2401,11 +2410,18 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       pdf.text(25, 17, 'ACTA # ' + jimte.currentActaNro );
 
       var arrayFechaHora = jimte.currentActaMain[0].fecha.split(' ');
-      pdf.text(100, 17, 'TIPO: ' + (jimte.currentActaMain[0].tipoacta == "N" ? "NORMAL" : "DE JUNTA") );
-      pdf.text(100, 25, 'FECHA: ' + arrayFechaHora[0] );
-      pdf.text(100, 33, 'HORA: ' + arrayFechaHora[1] );
-      pdf.text(100, 41, 'LUGAR: ' + $("#lugar_reunion").find('option:selected').text() );
-      pdf.text(100, 49, 'ESTADO: ' + 'APROBADA');
+      pdf.text(100, 17, '  Tipo'  );
+      pdf.text(100, 25, ' Fecha' );
+      pdf.text(100, 33, '  Hora' );
+      pdf.text(100, 41, ' Lugar'  );
+      pdf.text(100, 49, 'Estado' );
+
+      pdf.setFontType("normal");
+      pdf.text(125, 17, (jimte.currentActaMain[0].tipoacta == "N" ? "NORMAL" : "DE JUNTA") );
+      pdf.text(125, 25, arrayFechaHora[0] );
+      pdf.text(125, 33, arrayFechaHora[1] );
+      pdf.text(125, 41, $("#lugar_reunion").find('option:selected').text() );
+      pdf.text(125, 49, 'APROBADA');
 
       var asistePDF = "";
       $.each( jimte.currentActaAsis, function( key, val ) {
@@ -2418,6 +2434,33 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       $.each( jimte.currentActaTasks, function( key, val ) {
         tareasPDF += "[" + val.usuario + "] " + val.text + " " + val.inicioplan + "\r\n";
       });
+
+      var xx = 15;
+      var yy = 70;
+
+      jimte.popArrayPDFacta = new Array();
+
+      // Cola de contenido a imprimir
+      // Agrega al final del array
+      jimte_table.popArrayPDFacta.push("* TEMA PRINCIPAL");
+      jimte_table.popArrayPDFacta.push("* OBJETIVOS");
+      jimte_table.popArrayPDFacta.push("* ASISTENTES");
+      jimte_table.popArrayPDFacta.push("* COMPROMISOS Y TAREAS");
+      jimte_table.popArrayPDFacta.push("* CONCLUSIONES");
+      jimte_table.popArrayPDFacta.push("* SIGUIENTE REUNIÓN");
+      jimte_table.popArrayPDFacta.push(
+            jimte.currentActaMain[0].fechasig + " " +
+            $("#lugar_proxima").find('option:selected').text() 
+
+      if(jimte_table.popArraySelectTable != undefined &&
+         jimte_table.popArraySelectTable.length > 0){
+          jimte_table.popSelectTables();
+      }
+      // Borra del inicio del array
+      jimte_table.popArraySelectTable.shift();
+      if(jimte_table.popArraySelectTable.length > 0){
+          jimte_table.popSelectTables();
+      }
 
       var text = pdf.splitTextToSize( "- TEMA PRINCIPAL:\r\n" +
                                       jimte.currentActaMain[0].tema + "\r\n\r\n" +
