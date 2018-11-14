@@ -2448,10 +2448,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       jimte_table.popArrayPDFacta.push("* COMPROMISOS Y TAREAS");
       jimte_table.popArrayPDFacta.push("* CONCLUSIONES");
       jimte_table.popArrayPDFacta.push("* SIGUIENTE REUNIÓN");
-      jimte_table.popArrayPDFacta.push(
+    /*  jimte_table.popArrayPDFacta.push(
             jimte.currentActaMain[0].fechasig + " " +
-            $("#lugar_proxima").find('option:selected').text() 
-
+            $("#lugar_proxima").find('option:selected').text() ) ;
+*/
       if(jimte_table.popArraySelectTable != undefined &&
          jimte_table.popArraySelectTable.length > 0){
           jimte_table.popSelectTables();
