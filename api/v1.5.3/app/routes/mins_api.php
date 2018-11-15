@@ -128,10 +128,16 @@ $app->post('/mins', function () use($app) {
 										':tema'    			=> $app->request()->params('add_temaacta'),
 										':lugar'   			=> $app->request()->params('add_lugar_reunion'),
 										':objetivos'  	=> $app->request()->params('add_objetivos'),
+										':desarrollo'  	=> $app->request()->params('add_desarrollo'),
 										':responsable'  => $app->request()->params('usuario'),
 										':conclusiones' => $app->request()->params('add_conclusiones'),
 										':fechasig' 		=> $app->request()->params('add_fecproxima'),
 										':lugarsig'   	=> $app->request()->params('add_lugar_proxima'),
+										':creacion' 		=> $app->request()->params('add_creacion'),
+										':progreso' 		=> $app->request()->params('add_progreso'),
+										':preliminar' 	=> $app->request()->params('add_preliminar'),
+										':retiro' 			=> $app->request()->params('add_retiro'),
+										':aprobacion' 	=> $app->request()->params('add_aprobacion')
 							);
 
 						} else {
@@ -143,9 +149,15 @@ $app->post('/mins', function () use($app) {
 										':tema'    			=> $app->request()->params('edit_temaacta'),
 										':lugar'   			=> $app->request()->params('edit_lugar_reunion'),
 										':objetivos'  	=> $app->request()->params('edit_objetivos'),
+										':desarrollo'  	=> $app->request()->params('edit_desarrollo'),
 										':conclusiones' => $app->request()->params('edit_conclusiones'),
 										':fechasig' 		=> $app->request()->params('edit_fecproxima'),
-										':lugarsig' 		=> $app->request()->params('edit_lugar_proxima')
+										':lugarsig' 		=> $app->request()->params('edit_lugar_proxima'),
+										':creacion' 		=> $app->request()->params('edit_creacion'),
+										':progreso' 		=> $app->request()->params('edit_progreso'),
+										':preliminar' 	=> $app->request()->params('edit_preliminar'),
+										':retiro' 			=> $app->request()->params('edit_retiro'),
+										':aprobacion' 	=> $app->request()->params('edit_aprobacion')
 							);
 
 						}
@@ -247,7 +259,8 @@ $app->post('/mins', function () use($app) {
 											':asistente'  => $arrayItem[2],
 											':estado'  	  => $arrayItem[1],
 											':servicio'   => $arrayItem[4],
-											':tiposerv'   => $arrayItem[3]
+											':tiposerv'   => $arrayItem[3],
+											':fecha'  	  => $arrayItem[5],
 								);
 
 								$dbh->execute($prepParams);

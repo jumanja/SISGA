@@ -55,6 +55,14 @@ class User {
     }
     this._estado = obj.estado;
 
+    //Para la fraternidad
+    this._nombrefrat = obj.nombrefrat;
+    this._estadofrat = obj.estadofrat;
+    this._logofrat = obj.logofrat;
+    this._dirfrat = obj.dirfrat;
+    this._ciudadfrat = obj.ciudadfrat;
+    this._emailfrat = obj.emailfrat;
+
   }
   /*
   Métodos: getters y setters (get [prop], set [prop])
@@ -133,6 +141,55 @@ class User {
 
   set estado(estado) {
     this._estado = estado;
+  }
+
+  //frats
+  get nombrefrat() {
+    return this._nombrefrat;
+  }
+
+  set nombrefrat(nombrefrat) {
+    this._nombrefrat = nombrefrat;
+  }
+
+  get estadofrat() {
+    return this._estadofrat;
+  }
+
+  set estadofrat(estadofrat) {
+    this._estadofrat = estadofrat;
+  }
+
+  get logofrat() {
+    return this._logofrat;
+  }
+
+  set logofrat(logofrat) {
+    this._logoFrat = logofrat;
+  }
+
+  get dirfrat() {
+    return this._dirfrat;
+  }
+
+  set dirfrat(dirfrat) {
+    this._dirFrat = dirfrat;
+  }
+
+  get ciudadfrat() {
+    return this._ciudadfrat;
+  }
+
+  set ciudadfrat(ciudadfrat) {
+    this._ciudadfrat = ciudadfrat;
+  }
+
+  get emailfrat() {
+    return this._emailfrat;
+  }
+
+  set emailfrat(emailfrat) {
+    this._emailfrat = emailfrat;
   }
 
 }

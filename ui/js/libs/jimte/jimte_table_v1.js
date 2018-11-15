@@ -808,6 +808,7 @@ class JimteTab {
     this.working("botActa");
 
     $("#objetivos").val($('#objetivos').val().replace(/\n/g,'.'));
+    $("#desarrollo").val($('#desarrollo').val().replace(/\n/g,'.'));
     $("#conclusiones").val($('#conclusiones').val().replace(/\n/g,'.'));
 
     var form_data = new FormData();
@@ -824,10 +825,17 @@ class JimteTab {
 
     if(tipo == "Preliminar"){
       $("#estado").val("M");      //Guardar Preliminar
+
+      $("#preliminar").val(this.getToday() + " " + this.getNow() );
+    } else {
+      $("#progreso").val(this.getToday() + " " + this.getNow() );
     }
 
     //Si es adicionar
     if( $("#acta_a_elaborar").val() == "add"){
+
+      $("#creacion").val(this.getToday() + " " + this.getNow() );
+
       form_data.append("mod_acta", "add" );           //Adición
       form_data.append("add_estado", $("#estado").val() );
 
@@ -838,7 +846,14 @@ class JimteTab {
       form_data.append("add_fecacta", $("#fecacta").val() + " " + horact24 );
       form_data.append("add_fecproxima", $("#fecproxima").val() + " " + horsig24 );
       form_data.append("add_objetivos", $("#objetivos").val() );
+      form_data.append("add_desarrollo", $("#desarrollo").val() );
       form_data.append("add_conclusiones", $("#conclusiones").val() );
+
+      form_data.append("add_creacion", this.getToday() + " " + this.getNow() );
+      form_data.append("add_progreso", $("#progreso").val() );
+      form_data.append("add_preliminar", "" );
+      form_data.append("add_retiro", "" );
+      form_data.append("add_aprobacion", "" );
 
     } else {
       form_data.append("mod_acta", "edit" );           //Edición
@@ -853,7 +868,14 @@ class JimteTab {
       form_data.append("edit_fecacta", $("#fecacta").val() + " " + horact24 );
       form_data.append("edit_fecproxima", $("#fecproxima").val() + " " + horsig24 );
       form_data.append("edit_objetivos", $("#objetivos").val() );
+      form_data.append("edit_desarrollo", $("#desarrollo").val() );
       form_data.append("edit_conclusiones", $("#conclusiones").val() );
+
+      form_data.append("edit_creacion", $("#creacion").val() );
+      form_data.append("edit_progreso", $("#progreso").val() );
+      form_data.append("edit_preliminar", $("#preliminar").val() );
+      form_data.append("edit_retiro", $("#retiro").val() );
+      form_data.append("edit_aprobacion", $("#aprobacion").val() );
 
     }
 
@@ -873,7 +895,8 @@ class JimteTab {
     $("#Asistentes input:checkbox").each(function() {
       var ids = this.id.split("_");
       var checked = (this.checked ? "S" : "N");
-      asistentesActa += ids[1] + ":" + checked + ":" + this.title + ",";
+      asistentesActa += ids[1] + ":" + checked + ":" + this.title + ":" +
+        $("#preliminar").val() + ",";
     });
     if(asistentesActa != ""){
       asistentesActa = asistentesActa.substring(0, asistentesActa.length-1);
