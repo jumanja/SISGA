@@ -801,6 +801,82 @@ class JimteTab {
     return hours + ':' + minutes + ':00';
   }
 
+  retiraActa(){
+    var self = $(this);
+    this.working("botActa");
+
+    $("#estado").val("R");
+    $("#retiro").val(this.getToday() + " " + this.getNow() );
+
+    var form_data = new FormData();
+    form_data.append("id", jimte.currentUser.id );
+    form_data.append("usuario", jimte.currentUser.usuario );
+    form_data.append("tiposerv", jimte.currentUser.tiposerv );
+    form_data.append("servicio", jimte.currentUser.servicio );
+    form_data.append("frat", jimte.currentUser.frat );
+    form_data.append("table", this.table );
+    form_data.append("token", jimte.token );
+
+    form_data.append("mod_acta", "ret" );
+    form_data.append("ret_idupdate", $("#acta_a_elaborar").val() );
+    form_data.append("ret_estado", $("#estado").val() );
+    form_data.append("ret_retiro", $("#retiro").val() );
+
+    $.ajax({
+      url: jimte.serverPath + 'index.php/mins',
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: form_data,
+      type: 'POST',
+      success: function(data){
+        //console.log( "sendUpdate success - data: " + data );
+
+        //&& data.length > 0
+        if ((typeof data !== undefined ) &&
+             (data.length == 0 || data[0].acceso == undefined)) {
+               M.toast(
+                         {html:'Se Retiró OK!',
+                         displayLength: 3000,
+                         classes: 'rounded'}
+                       );
+
+               jimte.badgeUpdates();
+
+               jimte.cleanActa();
+               $("#acta_a_elaborar").val("");
+               $("#acta_a_elaborar").formSelect();
+               $("#creaacta").hide();
+
+               $("#progresoActas").show();
+
+               $("#loader").show();
+
+               jimte.check_actas();
+
+               //jimte_table.overlayOff('R');
+               //jimte_table.refreshTable();
+        }else {
+          jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                        l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+        }
+
+        jimte_table.notWorking("botActa");
+      },
+      error: function(xhr, status, error) {
+          //alert(xhr.responseText + "\nCon el error:\n" + error);
+          if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+            jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Guardando Cambios");
+          }
+          jimte_table.notWorking("botActa");
+          console.log(xhr.responseText + "\nCon el error:\n" + error);
+      }
+    })
+
+  }
+
   sendActa(tipo, acta_a_elaborar){
     //begin sendActa
     var self = $(this);

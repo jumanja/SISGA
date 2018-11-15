@@ -113,7 +113,17 @@ $app->post('/mins', function () use($app) {
 					$resultText = checkToken($app);
 					if(contains("validtoken", $resultText) ){
 
-						$sqlCode = ($app->request()->params('mod_acta') == "add" ? 'mins_add' : 'mins_update' );
+						$sqlCode = "";
+						if ($app->request()->params('mod_acta') == "add"){
+							$sqlCode = 'mins_add';
+						}
+						if ($app->request()->params('mod_acta') == "edit"){
+							$sqlCode = 'mins_update';
+						}
+						if ($app->request()->params('mod_acta') == "ret"){
+							$sqlCode = 'mins_ret';
+						}
+
 						$forXSL = '../../xsl/count.xsl';
 
 						$newId = null;
@@ -140,25 +150,36 @@ $app->post('/mins', function () use($app) {
 										':aprobacion' 	=> $app->request()->params('add_aprobacion')
 							);
 
-						} else {
-							$prepParams = array(
-										':id'         	=> $app->request()->params('edit_idupdate'),
-										':estado'     	=> $app->request()->params('edit_estado'),
-										':fecha'    		=> $app->request()->params('edit_fecacta'),
-										':tipoacta'  		=> $app->request()->params('edit_tipo_de_acta'),
-										':tema'    			=> $app->request()->params('edit_temaacta'),
-										':lugar'   			=> $app->request()->params('edit_lugar_reunion'),
-										':objetivos'  	=> $app->request()->params('edit_objetivos'),
-										':desarrollo'  	=> $app->request()->params('edit_desarrollo'),
-										':conclusiones' => $app->request()->params('edit_conclusiones'),
-										':fechasig' 		=> $app->request()->params('edit_fecproxima'),
-										':lugarsig' 		=> $app->request()->params('edit_lugar_proxima'),
-										':creacion' 		=> $app->request()->params('edit_creacion'),
-										':progreso' 		=> $app->request()->params('edit_progreso'),
-										':preliminar' 	=> $app->request()->params('edit_preliminar'),
-										':retiro' 			=> $app->request()->params('edit_retiro'),
-										':aprobacion' 	=> $app->request()->params('edit_aprobacion')
-							);
+						}
+						if( $app->request()->params('mod_acta') == "edit" ){
+
+									$prepParams = array(
+												':id'         	=> $app->request()->params('edit_idupdate'),
+												':estado'     	=> $app->request()->params('edit_estado'),
+												':fecha'    		=> $app->request()->params('edit_fecacta'),
+												':tipoacta'  		=> $app->request()->params('edit_tipo_de_acta'),
+												':tema'    			=> $app->request()->params('edit_temaacta'),
+												':lugar'   			=> $app->request()->params('edit_lugar_reunion'),
+												':objetivos'  	=> $app->request()->params('edit_objetivos'),
+												':desarrollo'  	=> $app->request()->params('edit_desarrollo'),
+												':conclusiones' => $app->request()->params('edit_conclusiones'),
+												':fechasig' 		=> $app->request()->params('edit_fecproxima'),
+												':lugarsig' 		=> $app->request()->params('edit_lugar_proxima'),
+												':creacion' 		=> $app->request()->params('edit_creacion'),
+												':progreso' 		=> $app->request()->params('edit_progreso'),
+												':preliminar' 	=> $app->request()->params('edit_preliminar'),
+												':retiro' 			=> $app->request()->params('edit_retiro'),
+												':aprobacion' 	=> $app->request()->params('edit_aprobacion')
+									);
+
+						}
+						if( $app->request()->params('mod_acta') == "ret" ){
+
+									$prepParams = array(
+												':id'         	=> $app->request()->params('ret_idupdate'),
+												':estado'     	=> $app->request()->params('ret_estado'),
+												':retiro' 			=> $app->request()->params('ret_retiro')
+									);
 
 						}
 
@@ -173,7 +194,14 @@ $app->post('/mins', function () use($app) {
 
 							//Acta creada, tome el id
 							$idacta = $rows;
-						} else {
+						}
+
+						if( $app->request()->params('mod_acta') == "ret" ){
+							$rows = getPDOPrepared($query, $prepParams);
+							$resultText = '[{"rows":"'.$rows.'"}]';
+						}
+
+						if( $app->request()->params('mod_acta') == "edit" ){
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
 

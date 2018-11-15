@@ -78,7 +78,7 @@ function getSQL($name, $app) {
                                " WHERE a.frat = :frat " .
                                 "AND (:estado = 'ZZZ' OR a.estado = :estado) AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
                                 "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
-                                "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                                "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0) " .
                                 "GROUP BY a.id ",
 
   "mins_actasPorAprobar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado, " .
@@ -93,6 +93,9 @@ function getSQL($name, $app) {
                                 "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
                                 "AND c.asistente = '" . $user . "' " .
                                 "GROUP BY a.id ",
+
+            "mins_ret"    => "UPDATE actas set estado = :estado, retiro = :retiro " .
+                             "WHERE id = :id",
 
             "mins_update" => "UPDATE actas set estado = :estado, fecha = :fecha, tipoacta = :tipoacta, tema = :tema, " .
                              "lugar = :lugar, objetivos = :objetivos, desarrollo = :desarrollo, conclusiones = :conclusiones, " .
@@ -134,8 +137,10 @@ function getSQL($name, $app) {
                                  "text, usuario, creada, inicioplan, finalplan) " .
                                  "VALUES ( :idacta, :estado, " .
                                  ":text, :usuario, :creada, :inicioplan, :finalplan) ",
-            "tasks_minid"     => "SELECT estado, usuario, text, creada, inicioplan, finalplan " .
-                                 "FROM tareas WHERE idacta = :idacta ",
+            "tasks_minid"     => "SELECT a.estado, a.usuario, a.text, a.creada, a.inicioplan, " .
+                                 "a.finalplan, b.nombres, b.apellidos " .
+                                 "FROM tareas a, usuarios b " .
+                                 "WHERE b.usuario = a.usuario AND idacta = :idacta ",
 
             "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
                              "FROM tipoactas a WHERE estado = 'A' AND frat = '" . $frat . "'",

@@ -675,6 +675,10 @@
                   <i class="material-icons left">work</i>
                   Guardar Preliminar
                 </a>
+                <a id="botActa_Retira" class="red lighten-3 waves-effect waves-light btn-large modal-trigger center-align" href="#modRetirar">
+                  <i class="material-icons left">delete</i>
+                  Retirar Acta
+                </a>
               </div>
               <div class="progress">
                 <div class="determinate">
@@ -718,6 +722,17 @@
               <div class="modal-footer">
                 <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte.validaActa('Preliminar');">Guardar</a>
+              </div>
+            </div>
+
+            <div id="modRetirar" class="modal">
+              <div class="modal-content">
+                <h4>Está a punto de Retirar el Acta</h4>
+                <p>Si decide Continuar, el acta ya No se podrá aprobar. Si desea regresar al formulario seleccione Cancelar.</p>
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="jimte_table.retiraActa();">Retirar</a>
               </div>
             </div>
 

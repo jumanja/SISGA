@@ -2288,7 +2288,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     validaActa(tipo) {
-        var title = "No se pudo Guardr el Acta, falta:";
+        var title = "No se pudo Guardar el Acta, falta:";
         var message = "";
         var guardar = true;
 
@@ -2463,9 +2463,11 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         }
       });*/
 
-      var tareasPDF = "Responsable       Compromiso / Tarea e Inicio Estimado\r\n";
+      //var tareasPDF = "Responsable       Compromiso / Tarea e Inicio Estimado\r\n";
+      var tareasPDF = "";
       $.each( jimte.currentActaTasks, function( key, val ) {
-        tareasPDF +=  val.usuario + ": " + val.text + " / Ini: " + val.inicioplan + "\r\n";
+        //tareasPDF +=  val.usuario + ": " + val.text + " / Ini: " + val.inicioplan + "\r\n";
+        tareasPDF +=  val.text + " R/ " + val.nombres + " Inicia: " + val.inicioplan + "\r\n";
       });
 
       var xx = 15;
