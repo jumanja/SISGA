@@ -906,6 +906,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
       $("#temaacta").val("");
       $("#objetivos").val("");
+      $("#desarrollo").val("");
       $("#conclusiones").val("");
       $("#table_Tasks tbody")[0].innerHTML = "";
       $("#divComments")[0].innerHTML = "";
@@ -953,8 +954,15 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                    $("#temaacta").val(val.tema);
                    $("#lugar_reunion").val(val.lugar);
                    $("#objetivos").val(val.objetivos);
+                   $("#desarrollo").val(val.desarrollo);
                    $("#conclusiones").val(val.conclusiones);
                    $("#estado").val(val.estado);
+
+                   $("#creacion").val(val.creacion);
+                   $("#progreso").val(val.progreso);
+                   $("#preliminar").val(val.preliminar);
+                   $("#retiro").val(val.retiro);
+                   $("#aprobacion").val(val.aprobacion);
 
                    var resArray = val.fecha.split(" ");
                    $("#fecacta").val(resArray[0]);
@@ -1004,7 +1012,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getTagsMinId(nroActa){
-      console.log("getTagsMinId:" + nroActa);
+      //console.log("getTagsMinId:" + nroActa);
       $.ajax({
         url: this.serverPath + 'index.php/mins/items' +
               "?id=" + jimte.currentUser.id +
@@ -1044,7 +1052,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $.each( data, function( key, val ) {
                     //actaTags.push({"tags": val.etiqueta});
 
-                    console.log(key + "/" + val.etiqueta);
+                    //console.log(key + "/" + val.etiqueta);
                     /*$('#etiquetasActa').append("<div class='chip' tabindex='0'>" +
                                         val.etiqueta +
                                         "<i class='material-icons'>close</i>" +
@@ -1086,7 +1094,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getTasksMinId(nroActa){
-      console.log("getTasksMinId:" + nroActa);
+      //console.log("getTasksMinId:" + nroActa);
 
       $.ajax({
         url: this.serverPath + 'index.php/mins/items' +
@@ -1145,7 +1153,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getCommentsId(nroActa){
-      console.log("getCommentsId:" + nroActa);
+      //console.log("getCommentsId:" + nroActa);
 
       $.ajax({
         url: this.serverPath + 'index.php/mins/items' +
@@ -1956,6 +1964,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     checkActaPDF(idRow){
       console.log("PDF del acta: " + idRow);
       this.currentPDFId = idRow;
+      this.currentInfoProgress = 0;
+      this.barMove();
 
       this.currentInfoProgress = 80;
       if(idRow != "add"){
@@ -1969,13 +1979,24 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
       /*var instance = M.Modal.getInstance( $('#modGeneraPDF') );
       instance.openModal();*/
-      $('#modGeneraPDF').modal('open');
+      //$('#modGeneraPDF').modal('open');
+      $('#modCargaActa').modal('open');
     }
 
     barMove(){
+      if(this.currentInfoProgress > 100){
+        this.currentInfoProgress = 100;
+      }
       this.barElement = document.getElementById("myBar");
       this.barElement.style.width = this.currentInfoProgress + '%';
       this.barElement.innerHTML = (this.currentInfoProgress * 1) + '%';
+
+      if(this.currentInfoProgress == 100){
+        $("#cargaOk").removeClass("disabled");
+      } else {
+        $("#cargaOk").addClass("disabled");
+      }
+
     }
 
     changeActa(obj) {
@@ -2267,7 +2288,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     validaActa(tipo) {
-        var title = "No se pudo Guardr el Acta, falta:";
+        var title = "No se pudo Guardar el Acta, falta:";
         var message = "";
         var guardar = true;
 
@@ -2278,7 +2299,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
         var fecacta = $("#fecacta").val();
         var horacta = $("#horacta").val();
         var objetivos = $("#objetivos").val();
+        var desarrollo = $("#desarrollo").val();
         var conclusiones = $("#conclusiones").val();
+
         //var Asistentes (validar checkboxes) = $("#conclusiones").val();
         if( tipo_de_acta == null || tipo_de_acta == ""){
           message += "- El tipo de acta.<br>";
@@ -2402,37 +2425,49 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       //PDF header
       //jimte.imgData
       //$('#logoFrat')
-      pdf.addImage(document.getElementById("logoFrat"), 'PNG', 180, 15, 18, 22);
+      pdf.addImage(document.getElementById("logoFrat"), 'PNG', 12, 12, 18, 22);
       pdf.rect(10, 10, 200, 50);
 
       pdf.setFont("helvetica");
       pdf.setFontType("bold");
-      pdf.text(25, 17, 'ACTA # ' + jimte.currentActaNro );
+      pdf.setFontSize(16);
+      pdf.text(33, 25, jimte.currentUser.nombrefrat );
+
+      pdf.setFontSize(14);
+      pdf.text(33, 33, jimte.currentUser.dirfrat );
+      pdf.text(33, 41, jimte.currentUser.ciudadfrat );
+      pdf.text(33, 49, jimte.currentUser.emailfrat );
+      pdf.setFontSize(16);
 
       var arrayFechaHora = jimte.currentActaMain[0].fecha.split(' ');
-      pdf.text(100, 17, '  Tipo'  );
-      pdf.text(100, 25, ' Fecha' );
-      pdf.text(100, 33, '  Hora' );
-      pdf.text(100, 41, ' Lugar'  );
-      pdf.text(100, 49, 'Estado' );
+      pdf.text(140, 17, 'ACTA # ' + jimte.currentActaNro );
+      pdf.text(140, 25, 'Tipo'  );
+      pdf.text(140, 33, 'Fecha' );
+      pdf.text(140, 41, 'Hora' );
+      pdf.text(140, 49, 'Lugar'  );
+      pdf.text(140, 57, 'Estado' );
 
       pdf.setFontType("normal");
-      pdf.text(125, 17, (jimte.currentActaMain[0].tipoacta == "N" ? "NORMAL" : "DE JUNTA") );
-      pdf.text(125, 25, arrayFechaHora[0] );
-      pdf.text(125, 33, arrayFechaHora[1] );
-      pdf.text(125, 41, $("#lugar_reunion").find('option:selected').text() );
-      pdf.text(125, 49, 'APROBADA');
+      pdf.text(163, 25, (jimte.currentActaMain[0].tipoacta == "N" ? "NORMAL" : "DE JUNTA") );
+      pdf.text(163, 33, arrayFechaHora[0] );
+      pdf.text(163, 41, arrayFechaHora[1] );
+      pdf.text(163, 49, $("#lugar_reunion").find('option:selected').text() );
+      pdf.text(163, 57, 'APROBADA');
 
-      var asistePDF = "";
+      /*var asistePDF = "";
       $.each( jimte.currentActaAsis, function( key, val ) {
         if(val.asisestado == "S" || val.asisestado == "F"){
-          asistePDF += "[" + val.asisestado + "] -" + val.nombreser + "- " + val.nombres + " " + val.apellidos + "\r\n";
+          asistePDF += "[" + val.asisestado + "] " +
+                       val.nombres + " " + val.apellidos +". " +
+                       "-" + val.nombreser + "- [sign_"+ val.usuario + "]\r\n";
         }
-      });
+      });*/
 
-      var tareasPDF = "Responsable       Compromiso / Tarea e Inicio Estimado\r\n";
+      //var tareasPDF = "Responsable       Compromiso / Tarea e Inicio Estimado\r\n";
+      var tareasPDF = "";
       $.each( jimte.currentActaTasks, function( key, val ) {
-        tareasPDF += "[" + val.usuario + "] " + val.text + " " + val.inicioplan + "\r\n";
+        //tareasPDF +=  val.usuario + ": " + val.text + " / Ini: " + val.inicioplan + "\r\n";
+        tareasPDF +=  val.text + " R/ " + val.nombres + " Inicia: " + val.inicioplan + "\r\n";
       });
 
       var xx = 15;
@@ -2442,32 +2477,72 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
       // Cola de contenido a imprimir
       // Agrega al final del array
-      jimte_table.popArrayPDFacta.push("* TEMA PRINCIPAL");
-      jimte_table.popArrayPDFacta.push("* OBJETIVOS");
-      jimte_table.popArrayPDFacta.push("* ASISTENTES");
-      jimte_table.popArrayPDFacta.push("* COMPROMISOS Y TAREAS");
-      jimte_table.popArrayPDFacta.push("* CONCLUSIONES");
-      jimte_table.popArrayPDFacta.push("* SIGUIENTE REUNIÓN");
-    /*  jimte_table.popArrayPDFacta.push(
-            jimte.currentActaMain[0].fechasig + " " +
-            $("#lugar_proxima").find('option:selected').text() ) ;
-*/
-      if(jimte_table.popArraySelectTable != undefined &&
-         jimte_table.popArraySelectTable.length > 0){
-          jimte_table.popSelectTables();
-      }
-      // Borra del inicio del array
-      jimte_table.popArraySelectTable.shift();
-      if(jimte_table.popArraySelectTable.length > 0){
-          jimte_table.popSelectTables();
-      }
+      jimte.popArrayPDFacta.push("* TEMA PRINCIPAL");
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize(jimte.currentActaMain[0].tema + "\r\n" , 190)
+      );
 
+      jimte.popArrayPDFacta.push("* OBJETIVOS");
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize(jimte.currentActaMain[0].objetivos + "\r\n" , 190)
+      );
+
+      jimte.popArrayPDFacta.push("* ASISTENTES / FIRMAS");
+      jimte.popArrayPDFacta.push(
+            "<asistentes>"
+      );
+
+      jimte.popArrayPDFacta.push("* DESARROLLO");
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize(jimte.currentActaMain[0].desarrollo  + "\r\n" , 190)
+      );
+
+      jimte.popArrayPDFacta.push("* COMPROMISOS Y TAREAS");
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize(tareasPDF , 190)
+      );
+
+      jimte.popArrayPDFacta.push("* CONCLUSIONES");
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize(jimte.currentActaMain[0].conclusiones + "\r\n" , 190)
+      );
+
+      jimte.popArrayPDFacta.push("* SIGUIENTE REUNIÓN");
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize(jimte.currentActaMain[0].fechasig + " " +
+            $("#lugar_proxima").find('option:selected').text()  + "\r\n", 190)
+      );
+
+      jimte.popArrayPDFacta.push(
+            pdf.splitTextToSize("Se aprueba y firma la presente acta: " +
+                jimte.currentActaMain[0].aprobacion + "\r\n\r\n\r\n", 190)
+      );
+
+      jimte.popArrayPDFacta.push(
+            "<firmas>"
+      );
+
+      /*  jimte_table.popArrayPDFacta.push(
+              jimte.currentActaMain[0].fechasig + " " +
+              $("#lugar_proxima").find('option:selected').text() ) ;
+      */
+
+      // Borra del inicio del array
+      /*
+      jimte.popArraySelectTable.shift();
+      if(jimte.popArraySelectTable.length > 0){
+          jimte.popSelectTables();
+      }
+      */
+/*
       var text = pdf.splitTextToSize( "- TEMA PRINCIPAL:\r\n" +
                                       jimte.currentActaMain[0].tema + "\r\n\r\n" +
                                       "- OBJETIVOS:\r\n" +
                                       jimte.currentActaMain[0].objetivos  + "\r\n\r\n" +
                                       "- ASISTENTES:\r\n" +
                                       asistePDF + "\r\n" +
+                                      "- DESARROLLO:\r\n" +
+                                      jimte.currentActaMain[0].desarrollo  + "\r\n\r\n" +
                                       "- COMPROMISOS Y TAREAS:\r\n" +
                                       tareasPDF + "\r\n" +
                                       "- CONCLUSIONES:\r\n" +
@@ -2477,7 +2552,126 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                                       $("#lugar_proxima").find('option:selected').text() + "\r\n\r\n"
                                       , 190);
       pdf.text(15, 70, text);
+*/
+      var pageHeight = pdf.internal.pageSize.getHeight();
+      console.log("pageHeight: " + pageHeight);
+      var currentPage = 1;
+      while(jimte.popArrayPDFacta.length > 0){
+        if(yy >= (pageHeight - 20) ) {
+          pdf.addPage("letter");
+          currentPage++;
+          pdf.setPage(currentPage);
+          console.log("currentPage: " + currentPage);
 
+          yy = 20;
+        }
+
+        //Si es título, aáda ret
+        //console.log(jimte.popArrayPDFacta[0]);
+
+        if( typeof jimte.popArrayPDFacta[0] === "string") {
+            if( jimte.popArrayPDFacta[0].startsWith("* ")){
+              //jimte.popArrayPDFacta[0].startsWith("* ")
+              pdf.rect(10, yy-6, 200, 8);
+              jimte.popArrayPDFacta[0] = "  " + jimte.popArrayPDFacta[0].substr(2);
+            }
+        }
+
+        if(
+          jimte.popArrayPDFacta[0] == "<asistentes>" ||
+          jimte.popArrayPDFacta[0] == "<firmas>"
+          ){
+
+          var cuentaFirmas = 0;
+          var currentFontSize = 16;
+          pdf.setFontSize(12);
+          $.each( jimte.currentActaAsis, function( key, val ) {
+            if(val.asisestado == "S" || val.asisestado == "F"){
+              if(jimte.popArrayPDFacta[0] == "<firmas>"){
+                cuentaFirmas++;
+                var tipo=(cuentaFirmas%2)?"Impar":"Par";
+
+                if(tipo == "Impar"){
+                  pdf.line(xx, yy + 2, xx + 82, yy + 2);
+                  pdf.text(xx, yy + 8,
+                          val.nombres + " " + val.apellidos );
+                  pdf.text(xx, yy + 14, val.nombreser );
+
+
+                  if(val.asisestado == "F"){
+                    try{
+                      pdf.addImage(document.getElementById("sign_" + val.usuario), 'PNG', xx, yy - 12, 46, 18 );
+                    } catch( err ) {
+                      //pdf.line( xx + 100, yy + 2, xx + 182, yy + 2);
+
+                    }
+                  }
+
+                } else {
+                  pdf.line( xx + 100, yy + 2 - 8, xx + 182, yy + 2 - 8);
+                  pdf.text(xx + 100, yy + 8 - 8,
+                          val.nombres + " " + val.apellidos );
+                  pdf.text(xx + 100, yy + 12 - 6, val.nombreser );
+
+                  if(val.asisestado == "F"){
+                    try{
+                      pdf.addImage(document.getElementById("sign_" + val.usuario), 'PNG', xx + 100, yy - 20, 46, 18 );
+                    } catch( err ) {
+                      //pdf.line( xx + 100, yy + 2, xx + 182, yy + 2);
+
+                    }
+                  }
+
+                  yy += 16;
+
+                }
+
+              } else {
+                pdf.text(xx, yy, "[" + val.asisestado + "] " +
+                        val.nombres + " " + val.apellidos +". " +
+                        "-" + val.nombreser + "- ");
+
+                if(val.asisestado == "F"){
+                  try{
+                    pdf.addImage(document.getElementById("sign_" + val.usuario), 'PNG', xx + 120, yy - 6, 23, 9 );
+                  } catch( err ) {
+                    pdf.line( xx + 100, yy + 2, xx + 182, yy + 2);
+
+                  }
+                } else {
+                  pdf.line( xx + 100, yy + 2, xx + 182, yy  + 2);
+                }
+
+              }
+
+              yy += 8;
+
+              if(yy >= (pageHeight - 20) ) {
+                pdf.addPage("letter");
+                currentPage++;
+                pdf.setPage(currentPage);
+                console.log("currentPage: " + currentPage);
+
+                yy = 20;
+              }
+
+            }
+          });
+          yy += 8;
+          pdf.setFontSize(currentFontSize);
+        } else {
+          var splitted = pdf.splitTextToSize(jimte.popArrayPDFacta[0], 190);
+          pdf.text(xx, yy, splitted );
+          //va de 8 en 8
+          yy += ( 8 * splitted.length );
+        }
+
+        jimte.popArrayPDFacta.shift();
+      }
+
+      //Aprobación del acta y Firmas:
+
+      //Save + download PDF
       pdf.save('sisga-acta-' + jimte.currentActaNro + '.pdf')
 
 

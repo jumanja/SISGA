@@ -9,8 +9,8 @@ function getSQL($name, $app) {
     $SQLs  = array(
             "asis_minretire" => "UPDATE asistentes SET estado = 'R' WHERE idacta = :idacta",
             "asis_mindelete" => "DELETE from asistentes WHERE idacta = :idacta ",
-            "asis_minadd"    => "INSERT into asistentes (idacta, asistente, estado, servicio, tiposerv) " .
-                                "VALUES ( :idacta, :asistente, :estado, :servicio, :tiposerv) ",
+            "asis_minadd"    => "INSERT into asistentes (idacta, asistente, estado, servicio, tiposerv, fecha) " .
+                                "VALUES ( :idacta, :asistente, :estado, :servicio, :tiposerv, :fecha) ",
 
             "badge_elaborarActas"    => "SELECT count(1) as badge FROM actas WHERE estado = 'G' ",
             "badge_actasPorRevisar"  => "SELECT count(1) as badge FROM actas WHERE estado = 'M' ",
@@ -33,19 +33,26 @@ function getSQL($name, $app) {
              "frats_sel"   => "SELECT nombre, frat FROM fraternidades where estado = 'A'",
              "frats_count" => "SELECT count(1) as count FROM fraternidades",
 
-            "mins_all"    => "SELECT id, fecha, tema, objetivos, conclusiones, estado FROM actas WHERE frat = '" . $frat . "'",
-            "mins_add"    => "INSERT INTO actas (frat, id, estado, fecha, tipoacta, tema, lugar, objetivos, responsable, conclusiones, fechasig, lugarsig) " .
-                             "VALUES (:frat, :id, :estado, :fecha, :tipoacta, :tema, :lugar, :objetivos, :responsable, :conclusiones, :fechasig, :lugarsig) ",
+            "mins_all"    => "SELECT id, fecha, tema, objetivos, desarrollo, conclusiones, estado, " .
+                             "creacion, progreso, preliminar, retiro, aprobacion FROM actas WHERE frat = '" . $frat . "'",
+            "mins_add"    => "INSERT INTO actas (frat, id, estado, fecha, tipoacta, tema, lugar, objetivos, " .
+                             "desarrollo, responsable, conclusiones, fechasig, lugarsig, creacion, progreso, preliminar, retiro, aprobacion) " .
+                             "VALUES (:frat, :id, :estado, :fecha, :tipoacta, :tema, :lugar, :objetivos, " .
+                             ":desarrollo, :responsable, :conclusiones, :fechasig, :lugarsig, :creacion, :progreso, :preliminar, :retiro, :aprobacion ) ",
             "mins_exec"   => "SELECT estado, count(1) as cuenta FROM actas GROUP BY 1 ",
             "mins_nro"    => "SELECT a.frat, a.id, a.estado, a.fecha, a.tipoacta, a.tema, a.lugar, " .
-                             "a.objetivos, a.responsable, a.conclusiones, a.fechasig, " .
-                             "a.lugarsig, a.estado FROM actas a " .
+                             "a.objetivos, a.desarrollo, a.responsable, a.conclusiones, a.fechasig, " .
+                             "a.lugarsig, a.estado, a.creacion, a.progreso, a.preliminar, a.retiro, " .
+                             "a.aprobacion FROM actas a " .
                              "WHERE a.id = " . $app->request()->params('nroActa') .
                              "",
             "mins_count"  => "SELECT count(1) as count FROM actas WHERE frat = '" . $frat . "'",
-            "mins_prog"   => "SELECT fecha, id, tema, objetivos, conclusiones FROM actas WHERE estado = 'G' ",
+            "mins_prog"   => "SELECT fecha, id, tema, objetivos, conclusiones, " .
+                             "creacion, progreso " .
+                             "FROM actas WHERE estado = 'G' ",
 
-  "mins_buscarActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+  "mins_buscarActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado, " .
+                           "a.creacion, a.progreso, a.preliminar, a.retiro, a.aprobacion " .
                            " FROM actas a " .
                            " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
                            " WHERE a.frat = :frat " .
@@ -54,7 +61,8 @@ function getSQL($name, $app) {
                             "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
                             "GROUP BY a.id ",
 
-  "mins_informeActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+  "mins_informeActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado, " .
+                            "a.creacion, a.progreso, a.preliminar, a.retiro, a.aprobacion " .
                            " FROM actas a " .
                            " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
                            " WHERE a.frat = :frat " .
@@ -63,16 +71,18 @@ function getSQL($name, $app) {
                             "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
                             "GROUP BY a.id ",
 
-  "mins_actasPorRevisar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+  "mins_actasPorRevisar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado, " .
+                               "a.creacion, a.progreso, a.preliminar, a.retiro, a.aprobacion ".
                                " FROM actas a " .
                                " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
                                " WHERE a.frat = :frat " .
                                 "AND (:estado = 'ZZZ' OR a.estado = :estado) AND a.fecha >= :fecini AND a.fecha <= :fecfin " .
                                 "AND a.id >= :nroini AND a.id <= :nrofin AND (:tipoacta = 'ZZZ' OR a.tipoacta = :tipoacta) " .
-                                "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0)" .
+                                "AND (:lugar = 'ZZZ' OR a.lugar = :lugar) AND (:temaacta = 'ZZZ' OR INSTR(a.tema, :temaacta) > 0) " .
                                 "GROUP BY a.id ",
 
-  "mins_actasPorAprobar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado " .
+  "mins_actasPorAprobar"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado, " .
+                               "a.creacion, a.progreso, a.preliminar, a.retiro, a.aprobacion " .
                                " FROM actas a " .
                                " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
                                " LEFT JOIN asistentes c on c.idacta = a.id " .
@@ -84,8 +94,15 @@ function getSQL($name, $app) {
                                 "AND c.asistente = '" . $user . "' " .
                                 "GROUP BY a.id ",
 
+            "mins_ret"    => "UPDATE actas set estado = :estado, retiro = :retiro " .
+                             "WHERE id = :id",
+
             "mins_update" => "UPDATE actas set estado = :estado, fecha = :fecha, tipoacta = :tipoacta, tema = :tema, " .
-                             "lugar = :lugar, objetivos = :objetivos, conclusiones = :conclusiones, fechasig = :fechasig, lugarsig = :lugarsig  " .
+                             "lugar = :lugar, objetivos = :objetivos, desarrollo = :desarrollo, conclusiones = :conclusiones, " .
+                             "fechasig = :fechasig, lugarsig = :lugarsig, " .
+                             "creacion = :creacion, progreso = :progreso, " .
+                             "preliminar = :preliminar, retiro = :retiro, " .
+                             "aprobacion  = :aprobacion " .
                              "WHERE id = :id",
 
             "places_act"  => "SELECT frat, lugar, id, estado FROM lugares WHERE estado = 'A' AND frat = '" . $frat . "'",
@@ -120,8 +137,10 @@ function getSQL($name, $app) {
                                  "text, usuario, creada, inicioplan, finalplan) " .
                                  "VALUES ( :idacta, :estado, " .
                                  ":text, :usuario, :creada, :inicioplan, :finalplan) ",
-            "tasks_minid"     => "SELECT estado, usuario, text, creada, inicioplan, finalplan " .
-                                 "FROM tareas WHERE idacta = :idacta ",
+            "tasks_minid"     => "SELECT a.estado, a.usuario, a.text, a.creada, a.inicioplan, " .
+                                 "a.finalplan, b.nombres, b.apellidos " .
+                                 "FROM tareas a, usuarios b " .
+                                 "WHERE b.usuario = a.usuario AND idacta = :idacta ",
 
             "types_act"   => "SELECT frat, tipo, id, nombre, estado " .
                              "FROM tipoactas a WHERE estado = 'A' AND frat = '" . $frat . "'",
@@ -130,8 +149,11 @@ function getSQL($name, $app) {
                              "VALUES (:frat, :tipo, :id, :nombre, :estado)",
             "types_count" => "SELECT count(1) as count FROM tipoactas WHERE frat = '" . $frat . "'",
 
-            "users_act"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, b.tiposerv " .
-                             "FROM usuarios a, servicios b WHERE a.estado = 'A' and a.servicio = b.servicio",
+            "users_act"   => "SELECT a.frat, a.id, a.usuario, a.apellidos, a.nombres, a.password, a.email, a.servicio, b.tiposerv, " .
+                             "c.nombre as nombrefrat, c.estado as estadofrat, c.logo as logofrat, c.direccion as dirfrat, " .
+                             "c.ciudad as ciudadfrat, c.email as emailfrat " .
+                             "FROM usuarios a, servicios b, fraternidades c WHERE a.estado = 'A' and a.servicio = b.servicio " .
+                             "and c.frat = a.frat ",
             "users_all"   => "SELECT frat, id, usuario, apellidos, nombres, password, email, servicio, estado FROM usuarios WHERE frat = '" . $frat . "'",
             "users_add"   => "INSERT INTO usuarios (frat, id, usuario, apellidos, nombres, password, email, servicio, estado) " .
                              "VALUES (:frat, :id, :usuario, :apellidos, :nombres, :password, :email, :servicio, :estado)",
@@ -151,6 +173,6 @@ function getSQL($name, $app) {
 
             "users_tokenupdate" => "UPDATE usuarios set token = :token, tokenexpira = :tokenexpira WHERE id = :id ",
             "" => "");
-    //echo "144. sqls name : " . $name . " / " .  $SQLs[$name];
+    //echo "\n144. sqls name : " . $name . " / " .  $SQLs[$name];
     return $SQLs[$name];
 }
