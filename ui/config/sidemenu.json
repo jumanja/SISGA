@@ -9,7 +9,7 @@
   "elaborarActas": {
     "type":"S",
     "isLogged":"Y",
-    "icon":"keyboard",
+    "icon":"description",
     "item":"Elaborar Actas",
     "status":"A",
     "badge":"new badge"

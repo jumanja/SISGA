@@ -112,18 +112,129 @@
       </div>
     </div>
 
-    <div id="modCargaActa" class="modal">
-      <div class="modal-content">
-        <h4 class="cargaTitle">Cargando infomación del Acta</h4>
-        <div class="grey lighten-2">
-            <div id="myBar" class="teal white-text center" style="width:0%">0%</div>
-        </div>
-        <p class="cargaMessage">Si desea detener la carga y regresar a la página seleccione Cancelar.</p>
+    <!--
+    <div id="modCargaActa" class="overlay no-modal">
+    -->
+    <div id="overlayQ" class="overlay no-modal">
+      <div class="card-panel no-modal-content" style="padding:4px">
+
+          <div id="contentActa" class="card-content">
+
+            <div class="row">
+              <div class="col s2 m3 collection">
+                 <a id="col-link-0" href="#!" title="Datos Generales"
+                   onclick="jimte.qdivs(0);"
+                   class="collection-item active">
+                   <i class="material-icons">description</i>
+                   <span class="hide-on-small-only">&nbsp;Datos Generales</span></a>
+                 <a id="col-link-1" href="#!" title="Objetivos"
+                    onclick="jimte.qdivs(1);"
+                    class="collection-item">
+                   <i class="material-icons">adjust</i>
+                   <span class="hide-on-small-only">&nbsp;Objetivos</span></a>
+                 <a id="col-link-2" href="#!" title="Asistentes"
+                    onclick="jimte.qdivs(2);"
+                    class="collection-item">
+                   <i class="material-icons">directions_walk</i>
+                   <span class="hide-on-small-only">&nbsp;Asistentes</span></a>
+                 <a id="col-link-3" href="#!" title="Tareas"
+                    onclick="jimte.qdivs(3);"
+                    class="collection-item">
+                   <i class="material-icons">assignment</i>
+                   <span class="hide-on-small-only">&nbsp;Tareas</span></a>
+                 <a id="col-link-4" href="#!" title="Comentarios"
+                    onclick="jimte.qdivs(4);"
+                   class="collection-item">
+                   <i class="material-icons">comment</i>
+                   <span class="hide-on-small-only">&nbsp;Comentarios</span></a>
+              </div>
+              <div class="col s10 m9">
+                <div id="acta-0" class="collection-item acta-cnt">
+
+                  <h5 class="teal-text"><i class="hide-on-small-only material-icons">description</i>&nbsp;Datos Generales</h5>
+
+                  <table class="striped black-text">
+                    <tbody>
+                      <tr>
+                        <th>Acta Nro</th><td id="q_idacta"></td>
+                        <th>Tipo y<br>Estado</th><td id="q_tipoestado"></td>
+                      </tr>
+                      <tr>
+                        <th>Fecha-Hora</th><td id="q_fechora"></td>
+                        <th>Lugar</th><td id="q_lugaracta"></td>
+                      </tr>
+                      <tr>
+                        <th>Tema Principal</th><td id="q_temaacta"></td>
+                        <th>Etiquetas</th><td id="q_etiqacta"></td>
+                      </tr>
+                      <tr>
+                        <th>Fecha-Hora Próxima</th><td id="q_fechorasig"></td>
+                        <th>Lugar Próxima</th><td id="q_lugarsig"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div id="acta-1" class="collection-item acta-cnt hide">
+                  <h5 class="teal-text"><i class="hide-on-small-only material-icons">adjust</i>
+                  &nbsp;Objetivos</h5>
+
+                  <table class="striped black-text">
+                    <tbody>
+                      <tr>
+                        <th>Objetivos</th>
+                      </tr>
+                      <tr>
+                        <td id="q_objetivos"></td>
+                      </tr>
+                      <tr>
+                        <th>Desarrollo</th>
+                      </tr>
+                      <tr>
+                        <td id="q_desarrollo"></td>
+                      </tr>
+                      <tr>
+                        <th>Conclusiones</th>
+                      </tr>
+                      <tr>
+                        <td id="q_conclusiones"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div id="acta-2" class="collection-item acta-cnt hide">
+                  <h5 class="teal-text"><i class="hide-on-small-only material-icons">directions_walk</i>
+                  <span class="hide-on-small-only">&nbsp;Asistentes</h5>
+                </div>
+                <div id="acta-3" class="collection-item acta-cnt hide">
+                  <h5 class="teal-text"><i class="hide-on-small-only material-icons">assignment</i>
+                  <span class="hide-on-small-only">&nbsp;Tareas</h5>
+                </div>
+                <div id="acta-4" class="collection-item acta-cnt hide">
+                  <h5 class="teal-text"><i class="hide-on-small-only material-icons">comment</i>
+                  <span class="hide-on-small-only">&nbsp;Comentarios</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="grey lighten-2">
+                <div id="myBar" class="teal white-text center" style="width:0%">0%</div>
+            </div>
+            <h6 class="cargaTitle center ">Acta Nro:<span id="q_nroActa"></span>
+              <span class="cargaMessage">- Si desea detener la carga y/o regresar a la página seleccione Cancelar.</em>-</span>
+            </h6>
+            <button id="cargaCancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('Q');return(false);">Cancelar</button>
+            <button id="cargaOk" style="float:right" class="waves-effect waves-light btn" onclick="return(false);">Guardar</button>
+
+          </div>
+          <!--
+          <div class="progress">
+            <div class="determinate">
+            </div>
+          </div> -->
+
+
       </div>
-      <div class="modal-footer">
-        <button id="cargaCancel" class="modal-action modal-close waves-effect waves-red btn-flat" onclick="return false;">Cancelar</button>
-        <button id="cargaOk" class="modal-action modal-close waves-effect waves-green btn-flat disabled" onclick="jimte.generaPDF();">Continuar</button>
-      </div>
+
     </div>
 
 
@@ -186,31 +297,6 @@
       <p>Espere, Cargando Información ...</p>
       <div class="progress">
         <div class="indeterminate">
-        </div>
-      </div>
-    </div>
-
-    <div id="abrirCertif" class="mainContent oculto">
-      <div class="card-panel">
-        <div class="card-content">
-          <h5>Abrir Paz y Salvo</h5>
-          <table id="abrirCertif_table" class="responsive-table">
-            <thead>
-              <tr>
-                <th>Importante:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Para abrir su Paz y Salvo, primero debe haber reportado el 100% de las mesas asignadas.
-                </td>
-                <td>
-                  <a target="pazysalvo" href="server/certif/?nro=" class="waves-effect waves-light btn" id="queryCertif">Abrir</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
         </div>
       </div>
     </div>
@@ -687,7 +773,7 @@
 
               <div class="row oculto">
                 <div class="col s4">
-                  <label for="mail_to">Para:</label>
+                  <!--<label for="mail_to">Para:</label>
                   <input type="text" id="mail_to">
 
                   <label for="mail_sb">Asunto:</label>
@@ -695,8 +781,8 @@
 
                   <label for="mail_tx">Mensaje:</label>
                   <textarea type="text" id="mail_tx"></textarea>
-
-                  <button onclick="jimte.sendMail();return false;">Enviar</button>
+                  -->
+                  <button onclick="jimte.sendMails();return false;">Enviar</button>
                 </div>
               </div>
             </div>

@@ -104,6 +104,17 @@ function getSQL($name, $app) {
                              "preliminar = :preliminar, retiro = :retiro, " .
                              "aprobacion  = :aprobacion " .
                              "WHERE id = :id",
+           "notif_minretire" => "UPDATE notificaciones SET estado = 'R' WHERE idacta = :idacta",
+           "notif_mindelete" => "DELETE from notificaciones WHERE idacta = :idacta ",
+           "notif_minadd"    => "INSERT into notificaciones (idacta, estado, estadoacta, origen, destino, fechahora) " .
+                               "VALUES ( :idacta, :estado, :estadoacta, :origen, :destino, :fechahora) ",
+           "notif_minquery" => "SELECT c.idacta, c.estadoacta, c.fechahora, " .
+                               "a.nombres as nomorigen, a.apellidos as apeorigen, a.email as emailorigen, " .
+                               "b.nombres as nomdestino, b.apellidos as apedestino,  b.email as emaildestino " .
+                               "FROM usuarios a, usuarios b, notificaciones c " .
+                               "WHERE a.usuario = c.origen " .
+                               "AND b.usuario = c.destino " .
+                               "AND c.idacta = :idacta",
 
             "places_act"  => "SELECT frat, lugar, id, estado FROM lugares WHERE estado = 'A' AND frat = '" . $frat . "'",
             "places_add"  => "INSERT INTO lugares (frat, lugar, id, estado) " .
