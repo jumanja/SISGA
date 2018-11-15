@@ -59,8 +59,98 @@ $app->post('/mails', function () use($app) {
 /*
 Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciada
 */
-							$sqlCode = 'mails_add';
+							$sqlCode = 'notif_minquery';
 							$forXSL = '../../xsl/count.xsl';
+
+							$prepParams = array(
+										':idacta'   	=> $app->request()->params('nroActa')
+							);
+
+							$query = getSQL($sqlCode, $app);
+
+							/*
+							echo "<br>\r\n789. query:" .  $sqlCode .
+									" idacta:" . $app->request()->params('nroActa') .
+									" :<br>\r\n" . $query . '\r\n';
+
+							print_r($prepParams);
+							*/
+
+							$connection = getConnection();
+							$dbh = $connection->prepare($query);
+							$dbh->execute($prepParams);
+
+							//Tome los resultados en json de una vez, recorralos y
+							//envíe los emails correspondientes
+							$correos  = 0;
+							$enviados = 0;
+
+							$json = json_decode(PDO2json($dbh, ''), true); // decode the JSON into an associative array
+							foreach($json as $fila ) {
+										//print_r($fila);
+										//print_r($fila['emaildestino']);
+										//Procesar cada mail, siempre y cuando tenga destino
+										if($fila['emaildestino'] != ''){
+
+											$nomestado = "";
+											if($fila['estadoacta'] == 'G'){
+												$nomestado = "EN PROGRESO";
+											}
+											if($fila['estadoacta'] == 'P'){
+												$nomestado = "Disponible de forma PRELIMINAR";
+											}
+											if($fila['estadoacta'] == 'F'){
+												$nomestado = "APROBADA";
+											}
+											if($fila['estadoacta'] == 'R'){
+												$nomestado = "RETIRADA";
+											}
+
+											$to      = $fila['emaildestino'];
+											$subject = 'El Acta: ' . $fila['idacta'] . ' ' .
+																 'está: ' . $nomestado;
+
+											$message = 'Cordial Saludo\r\n\r\n' .
+																 'Atención: ' .
+																 $fila['nomdestino'] . ' ' . $fila['apedestino'] . '\r\n\r\n\r\n\r\n' .
+																 'Por medio del presente correo, se le notifica que el Acta Número: ' .
+																  $fila['idacta'] . ' ' .
+																 'está ' . $nomestado . ' ' .
+																 '\r\n\r\n\r\n' .
+																 'Se envía este correo en representación de:\r\n' .
+																 $fila['nomorigen'] . ' ' . $fila['apeorigen'] . ' ' .
+																 'Efectivo desde :' . $fila['fechahora'] . ' ' .
+																 '\r\n\r\n\r\n' .
+																 'Por favor No responda aeste correo, ya que es generado automáticamente. ' .
+																 'Pero si desea, puede contactar a: ' . $fila['nomorigen'] . ' a su correo electrónico: ' .
+																 $fila['emailorigen'] .
+																 '\r\n\r\n\r\n' .
+																 '\r\n\r\n\r\n' .
+																 '\r\n\r\n\r\n' .
+																 'SISGA - Sistema para Gestión de Actas v1.0';
+
+											$headers = 'From: sisga@jumanja.net' . "\r\n" .
+													'Reply-To: ' . $fila['emailorigen'] . "\r\n" .
+													'X-Mailer: PHP/' . phpversion();
+
+											if (mail($to, $subject, $message, $headers)) {
+													$enviados++;
+											};
+
+											//Solo se cuentan si el correo No está en blanco
+											$correos++;
+
+										}
+							}
+
+							$resultText = '[{' .
+															'"rows":"' . $correos . '",' .
+															'"sent":"' . $enviados . '"' .
+														'}]';
+
+							normalheader($app, 'json', '');
+			        $connection = null;
+			        $app->response->body($resultText);
 
 /*
 							<?php
@@ -74,24 +164,6 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 							mail($to, $subject, $message, $headers);
 							?>
 */
-							$to      = $app->request()->params('mail_to');
-							$subject = $app->request()->params('mail_sb');
-							$message = $app->request()->params('mail_tx');
-							$headers = 'From: sisga@jumanja.net' . "\r\n" .
-									'Reply-To: sisga@jumanja.net' . "\r\n" .
-									'X-Mailer: PHP/' . phpversion();
-
-							if (mail($to, $subject, $message, $headers)) {
-								$resultText = '[{"rows":"'.$rows.'"}]';
-							} else{
-								$resultText = '[]';
-							};
-
-							normalheader($app, 'json', '');
-							//setResult($resultText, $app);
-							//echo "4. " . $resultText;
-							$connection = null;
-							$app->response->body($resultText);
 		/*
 		 Inhabilitar siguiente bloque hasta el catch para agregar usuarios sin
 		 necesidad de terne sesión iniciada via token

@@ -150,7 +150,8 @@ $app->post('/mins', function () use($app) {
 										':aprobacion' 	=> $app->request()->params('add_aprobacion')
 							);
 
-						}
+						} //if add
+
 						if( $app->request()->params('mod_acta') == "edit" ){
 
 									$prepParams = array(
@@ -172,7 +173,8 @@ $app->post('/mins', function () use($app) {
 												':aprobacion' 	=> $app->request()->params('edit_aprobacion')
 									);
 
-						}
+						} //if edit
+
 						if( $app->request()->params('mod_acta') == "ret" ){
 
 									$prepParams = array(
@@ -181,7 +183,7 @@ $app->post('/mins', function () use($app) {
 												':retiro' 			=> $app->request()->params('ret_retiro')
 									);
 
-						}
+						} //if ret
 
 						$query = getSQL($sqlCode, $app);
 
@@ -194,24 +196,16 @@ $app->post('/mins', function () use($app) {
 
 							//Acta creada, tome el id
 							$idacta = $rows;
-						}
+						} //if adding user insert
 
 						if( $app->request()->params('mod_acta') == "ret" ){
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
-						}
+						} //if retiring, use ret
 
 						if( $app->request()->params('mod_acta') == "edit" ){
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
-
-							//Borre EtiquetasActa
-							/*$sqlCode = "tags_minretire";
-							$prepParams = array(
-										':idacta'       => $idacta,
-							);
-							$query = getSQL($sqlCode, $app);
-							$rows = getPDOPrepared($query, $prepParams);*/
 
 							$sqlCode = "tags_mindelete";
 							$prepParams = array(
@@ -230,6 +224,15 @@ $app->post('/mins', function () use($app) {
 							$rows = getPDOPrepared($query, $prepParams);
 							//echo "asis_mindelete: " + $rows;
 
+							//Borre notificaciones
+							$sqlCode = "notif_mindelete";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);
+							//echo "notif_mindelete: " + $rows;
+
 							//Borre tareasActa
 							$sqlCode = "tasks_mindelete";
 							$prepParams = array(
@@ -239,7 +242,7 @@ $app->post('/mins', function () use($app) {
 							$rows = getPDOPrepared($query, $prepParams);
 							//echo "tasks_mindelete: " + $rows;
 
-						}
+						} //if editing
 
 						//Actualice Etiquetas
 						$tags = $app->request()->params('upd_etiquetasActa');
@@ -264,8 +267,8 @@ $app->post('/mins', function () use($app) {
 
 								$dbh->execute($prepParams);
 
-							}
-						}
+							} //foreach tags
+						} //if tags
 
 						//Actualice Asistentes
 						$asis = $app->request()->params('upd_asistentesActa');
@@ -293,8 +296,63 @@ $app->post('/mins', function () use($app) {
 
 								$dbh->execute($prepParams);
 
-							}
-						}
+							} //foreach asis
+
+							//Si es Preliminar, añada Notificaciones.
+							//Para pruebas, activar G (en Progreso)
+							//echo "7,8 aquí: ";
+							if (
+									$app->request()->params('add_estado') == "M" ||
+									$app->request()->params('edit_estado') == "M"
+									) {
+
+										//echo "7,9 aquí: ";
+
+										$mod        = $app->request()->params('mod_acta');
+										$estadoacta = $app->request()->params($mod . '_estado');
+
+										$maxfechahora = $app->request()->params($mod . '_creacion');
+										$maxfechahora = ($maxfechahora < $app->request()->params($mod . '_progreso') ?
+																		 $app->request()->params($mod . '_progreso') : $maxfechahora);
+										$maxfechahora = ($maxfechahora < $app->request()->params($mod . '_preliminar') ?
+																		 $app->request()->params($mod . '_preliminar') : $maxfechahora);
+										$maxfechahora = ($maxfechahora < $app->request()->params($mod . '_retiro') ?
+																		 $app->request()->params($mod . '_retiro') : $maxfechahora);
+										$maxfechahora = ($maxfechahora < $app->request()->params($mod . '_aprobacion') ?
+																		$app->request()->params($mod . '_aprobacion') : $maxfechahora);
+
+										$sqlCode = "notif_minadd";
+										$query = getSQL($sqlCode, $app);
+
+										$connection = getConnection();
+
+										$dbh = $connection->prepare($query);
+										//Tome de Nuevo
+										//echo "\n7,8,5 " . $app->request()->params( 'usuario');
+										foreach($arrayAsis as $asis){
+
+											//print_r($asis);
+
+											$arrayItem = explode(':', $asis);
+											//Saltarse a los que No asistieron
+											if($arrayItem[1] != 'N'){
+												$prepParams = array(
+															':idacta'     => $idacta,
+															':origen'  	  => $app->request()->params('usuario'),
+															':destino'  	=> $arrayItem[2],
+															':estado'  	  => 'P',
+															':estadoacta' => $estadoacta,
+															':fechahora'   => $maxfechahora
+												);
+
+												$dbh->execute($prepParams);
+											} //if asistestado <> N
+
+										} // foreach asis
+
+								} // if prelim
+
+						} //if asis
 
 						//Actualice Tareas
 						$tasks = $app->request()->params('upd_tareasActa');
@@ -353,15 +411,15 @@ $app->post('/mins', function () use($app) {
 						$connection = null;
 						$app->response->body($resultText);
 
-						} else {
-							$connection = null;
-							$app->response->body($resultText);
-						}
+					} else {
+						$connection = null;
+						$app->response->body($resultText);
+					} //if validtoken
 			}	else {
 				$connection = null;
 				$app->response->body("/mins (POST) " . ACCESSERROR);
 
-			}
+			} //end if authorized
 
 
 	}

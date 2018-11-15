@@ -335,15 +335,15 @@ class JimteTab {
             //console.log("Acta estado:" + val.estado);
             if(val.estado == "G"){
               //Si es en progreso, checkActaROM
-              contenido += '<tr onclick="jimte.checkActaROM('+val.id+');" id="qryRow_' + cuantos + '" >';
+              contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'REV\');" id="qryRow_' + cuantos + '" >';
             }
             if(val.estado == "M"){
               //Si es preliminar, muestre para revisar Acta
-              contenido += '<tr onclick="jimte.checkActaFIR('+val.id+');" id="qryRow_' + cuantos + '" >';
+              contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'FIR\');" id="qryRow_' + cuantos + '" >';
             }
             if(val.estado == "F"){
-              //Si está aprobada, habilitar generación PDF
-              contenido += '<tr onclick="jimte.checkActaPDF('+val.id+');" id="qryRow_' + cuantos + '" >';
+              //Si está aprobada, habilitar generación PDF - checkActaPDF
+              contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'PDF\');" id="qryRow_' + cuantos + '" >';
             }
             $.each( val, function( key2, val2 ) {
               if(
@@ -1018,6 +1018,10 @@ class JimteTab {
                          classes: 'rounded'}
                        );
 
+               if(("#estado").val() != "G"){
+                 jimte.sendMails();
+               }
+
                jimte.badgeUpdates();
 
                jimte.cleanActa();
@@ -1477,6 +1481,7 @@ class JimteTab {
       }
     }
   }
+  
   overlayOn(overlay, obj) {
       //console.log("overlayOn! " + overlay );
       if(jimte_table.overlayBusy){

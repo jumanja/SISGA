@@ -924,6 +924,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
     getActaId(nroActa){
       console.log("getActaId: " + nroActa);
+      $("#q_idacta").text(nroActa);
+      $("#q_nroActa").text(nroActa);
       $.ajax({
         url: this.serverPath + 'index.php/mins' +
               "?id=" + jimte.currentUser.id +
@@ -948,7 +950,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  jimte.currentActaMain = data;
                  //ciclo
                  $.each( data, function( key, val ) {
-                   console.log(val.tema);
+                   //console.log(val.tema);
                    $("#tipo_de_acta").val(val.tipoacta);
                    $("#acta_a_elaborar").val(val.id);
                    $("#temaacta").val(val.tema);
@@ -974,6 +976,16 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                    $("#lugar_proxima").val(val.lugarsig);
 
+                   //overlayQ, la forma de solo lectura
+                   $("#q_idacta").html(nroActa);
+                   $("#q_fechora").html(val.fecha);
+                   $("#q_temaacta").html(val.tema);
+                   $("#q_fechorasig").html(val.fechasig);
+
+                   $("#q_objetivos").html(val.objetivos);
+                   $("#q_desarrollo").html(val.desarrollo);
+                   $("#q_conclusiones").html(val.conclusiones);
+
                  });
                  $("#lugar_reunion").formSelect();
                  $("#tipo_de_acta").formSelect();
@@ -985,12 +997,15 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $("#horproxima").formSelect();
                  $("#lugar_proxima").formSelect();
 
-                //var nroActa =  $("#acta_a_elaborar").val();
-                /*this.currentInfoProgress
-                jimte.getTagsMinId(nroActa);
-                jimte.getTasksMinId(nroActa);
-                jimte.getCommentsId(nroActa);
-                */
+                 var miEstado = $("#estado").val();
+                 $("#q_tipoestado").html(
+                                    $("#tipo_de_acta").find('option:selected').text() + "<br>" +
+                                    ( miEstado == "G" ? "EN PROGRESO" :
+                                    ( miEstado == "M" ? "PRELIMINAR" :
+                                    ( miEstado == "R" ? "RETIRADA" : "APROBADA")))
+                                  );
+                 $("#q_lugaracta").html($("#lugar_reunion").find('option:selected').text());
+                 $("#q_lugarsig").html($("#lugar_proxima").find('option:selected').text());
 
                 //Progresamos
                 jimte.currentInfoProgress += 20;
@@ -1048,6 +1063,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                  var instance = M.Chips.getInstance ( $('#etiquetasActa') );
 
+                 $("#q_etiqacta").empty();
+
                  //var actaTags = [];
                  $.each( data, function( key, val ) {
                     //actaTags.push({"tags": val.etiqueta});
@@ -1061,6 +1078,8 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                     instance.addChip({
                       tag: val.etiqueta
                     });
+
+                    $("#q_etiqacta").append( val.etiqueta + " ");
 
                  });
 
@@ -1553,7 +1572,14 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       return;
     }
 
-
+    qdivs(ndx){
+      $('.collection-item').removeClass('hide');
+      $('.collection-item').removeClass('active');
+      //console.log("obj:" + obj.id);
+      $('#col-link-' + ndx).addClass('active');
+      $('.acta-cnt').hide();
+      $('#acta-' + ndx).show();
+    }
     check_tables() {
         var self = $(this);
         var url = this.configPath + this.tables;
@@ -1961,8 +1987,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       //this.loadActa(obj.value);
     }
 
-    checkActaPDF(idRow){
-      console.log("PDF del acta: " + idRow);
+    //checkActaPDF(idRow){
+    getActaContent(idRow, mode){
+      console.log("PDF del acta: " + idRow + " Modo:" + mode);
       this.currentPDFId = idRow;
       this.currentInfoProgress = 0;
       this.barMove();
@@ -1980,7 +2007,28 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       /*var instance = M.Modal.getInstance( $('#modGeneraPDF') );
       instance.openModal();*/
       //$('#modGeneraPDF').modal('open');
+      if(mode == 'REV'){
+        //Preparar el modal para REvisar (consultar) el acta
+        $("#cargaOk").attr("onclick","jimte.revisaActa()").text("REVISAR");
+      }
+      if(mode == 'FIR'){
+        //Preparar el modal para Firmar (Aprobar el acta)
+        $('#cargaOk').attr("onclick","jimte.apruebaActa()").text("APROBAR");
+        /*.click(function() {
+          jimte.apruebaActa();
+        });*/
+      }
+      if(mode == 'PDF'){
+        //Preparar el modal para Generar el PDF (solo las Aprobadas)
+        $('#cargaOk').attr("onclick","jimte.generaPDF()").text("EN PDF");
+        /*.click(function() {
+          jimte.generaPDF();
+        });*/
+      }
+      /*
       $('#modCargaActa').modal('open');
+      */
+      jimte_table.overlayOn('Q');
     }
 
     barMove(){
@@ -2338,7 +2386,60 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
     }
 
-    sendMail() {
+    sendMails() {
+
+          var form_data = new FormData();
+          form_data.append("id", jimte.currentUser.id );
+          form_data.append("tiposerv", jimte.currentUser.tiposerv );
+          form_data.append("servicio", jimte.currentUser.servicio );
+          form_data.append("frat", jimte.currentUser.frat );
+          form_data.append("table", this.table );
+          form_data.append("token", jimte.token );
+
+          form_data.append("nroActa", $("#acta_a_elaborar").val() );
+
+          $.ajax({
+            url: jimte.serverPath + 'index.php/mails',
+            dataType: "json",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: form_data,
+            type: 'POST',
+            success: function(data){
+              //console.log( "sendAdd success - data: " + data );
+
+              //&& data.length > 0
+              if ((typeof data !== undefined ) &&
+                   (data.length == 0 || data[0].acceso == undefined)) {
+                     M.toast(
+                               {html: data[0].sent + '/'  . data[0].rows + ' correo(s) enviado(s)!',
+                               displayLenght: 5000,
+                               classes: 'rounded'}
+                             );
+              } else {
+                jimte.alertMe(l("%denied", data[0].acceso) + " " +
+                              l("%userNotFound", data[0].motivo), l("%iniciarSesion", "No se pudo Actualizar"));
+
+              }
+
+            },
+            error: function(xhr, status, error) {
+                //alert(xhr.responseText + "\nCon el error:\n" + error);
+                if(xhr.responseText.startsWith("Error: SQLSTATE[HY000]")){
+                  jimte.alertMe("Al parecer No hay conexión con la base de datos, Por favor Reintente más tarde. \nSi el problema persiste por favor repórtelo al Administrador.", "Adicionando Registro");
+                }
+                if(xhr.responseText.startsWith("Error: SQLSTATE[23000]")){
+                  jimte.alertMe("Ya existe un registro con esa llave en la base de datos, Por favor verifique.", "Adicionando Registro");
+                }
+                jimte_table.notWorking("addTable");
+                console.log(xhr.responseText + "\nCon el error:\n" + error);
+            }
+          })
+
+    }
+
+    sendMailOld() {
 
           var form_data = new FormData();
           form_data.append("id", jimte.currentUser.id );
@@ -2447,12 +2548,25 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       pdf.text(140, 49, 'Lugar'  );
       pdf.text(140, 57, 'Estado' );
 
+      var descestado = "";
+      if(jimte.currentActaMain[0].estado == 'G'){
+        descestado = "EN PROGRESO";
+      }
+      if(jimte.currentActaMain[0].estado == 'M'){
+        descestado = "PRELIMINAR";
+      }
+      if(jimte.currentActaMain[0].estado == 'R'){
+        descestado = "RETIRADA";
+      }
+      if(jimte.currentActaMain[0].estado == 'F'){
+        descestado = "APROBADA";
+      }
       pdf.setFontType("normal");
       pdf.text(163, 25, (jimte.currentActaMain[0].tipoacta == "N" ? "NORMAL" : "DE JUNTA") );
       pdf.text(163, 33, arrayFechaHora[0] );
       pdf.text(163, 41, arrayFechaHora[1] );
       pdf.text(163, 49, $("#lugar_reunion").find('option:selected').text() );
-      pdf.text(163, 57, 'APROBADA');
+      pdf.text(163, 57, descestado);
 
       /*var asistePDF = "";
       $.each( jimte.currentActaAsis, function( key, val ) {
