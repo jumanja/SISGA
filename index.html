@@ -117,6 +117,7 @@
     -->
     <div id="overlayQ" class="overlay no-modal">
       <div class="card-panel no-modal-content" style="padding:4px">
+        <h4 class="cargaTitle center ">Acta Nro:<span id="q_nroActa"></span></h4>
 
           <div id="contentActa" class="card-content">
 
@@ -181,37 +182,46 @@
                   <table class="striped black-text">
                     <tbody>
                       <tr>
-                        <th>Objetivos</th>
+                        <td colspan="2" id="q_objetivos"></td>
                       </tr>
                       <tr>
-                        <td id="q_objetivos"></td>
+                        <td colspan="2" id="q_desarrollo"></td>
                       </tr>
                       <tr>
-                        <th>Desarrollo</th>
-                      </tr>
-                      <tr>
-                        <td id="q_desarrollo"></td>
-                      </tr>
-                      <tr>
-                        <th>Conclusiones</th>
-                      </tr>
-                      <tr>
-                        <td id="q_conclusiones"></td>
+                        <td colspan="2" id="q_conclusiones"></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div id="acta-2" class="collection-item acta-cnt hide">
                   <h5 class="teal-text"><i class="hide-on-small-only material-icons">directions_walk</i>
-                  <span class="hide-on-small-only">&nbsp;Asistentes</h5>
+                  &nbsp;Asistentes</h5>
+
+                  <div id="q_asis">
+                  </div>
+
                 </div>
                 <div id="acta-3" class="collection-item acta-cnt hide">
                   <h5 class="teal-text"><i class="hide-on-small-only material-icons">assignment</i>
-                  <span class="hide-on-small-only">&nbsp;Tareas</h5>
+                  &nbsp;Tareas</h5>
+
+                  <table class="striped black-text responsive-table">
+                    <thead>
+                      <tr>
+                        <th>Responsable</th>
+                        <th>Tarea</th>
+                        <th>Plan Ini.</th>
+                        <th>Plan Fin.</th>
+                    </thead>
+                    <tbody id="q_tasks">
+                    </tbody>
+                  </table>
                 </div>
                 <div id="acta-4" class="collection-item acta-cnt hide">
                   <h5 class="teal-text"><i class="hide-on-small-only material-icons">comment</i>
-                  <span class="hide-on-small-only">&nbsp;Comentarios</h5>
+                  &nbsp;Comentarios</h5>
+                  <div id="q_comments">
+                  </div>
                 </div>
               </div>
             </div>
@@ -219,9 +229,7 @@
             <div class="grey lighten-2">
                 <div id="myBar" class="teal white-text center" style="width:0%">0%</div>
             </div>
-            <h6 class="cargaTitle center ">Acta Nro:<span id="q_nroActa"></span>
-              <span class="cargaMessage">- Si desea detener la carga y/o regresar a la página seleccione Cancelar.</em>-</span>
-            </h6>
+            <h5 class="cargaMessage hide">- Si desea detener la carga y/o regresar a la página seleccione Cancelar.</h5>
             <button id="cargaCancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('Q');return(false);">Cancelar</button>
             <button id="cargaOk" style="float:right" class="waves-effect waves-light btn" onclick="return(false);">Guardar</button>
 
