@@ -323,6 +323,26 @@ $app->post('/mins', function () use($app) {
 							} //foreach tags
 						} //if tags
 
+						//Adicione comentario si es en progreso (revisión)
+						if($app->request()->params('mod_acta') == "progre"){
+							//Adicione comentario
+							if($app->request()->params('comment') != ""){
+								$sqlCode = "comments_minadd";
+								$prepParams = array(
+											':idacta'    => $idacta,
+											':asistente' => $app->request()->params('usuario'),
+											':estado' 	 => 'A',
+											':text'      => $app->request()->params('comment'),
+											':fechahora' => $app->request()->params('progre_progreso')
+								);
+
+								$query = getSQL($sqlCode, $app);
+								$rows = getPDOPrepared($query, $prepParams);
+							}
+							//echo "asis_mindelete: " + $rows;
+
+						}
+
 						//Actualice Asistentes, pero si es aprobación toca borrarlos 1ero
 						if($app->request()->params('mod_acta') == "aprob"){
 							//Borre asistentesActa
@@ -454,8 +474,6 @@ $app->post('/mins', function () use($app) {
 
 							}
 						}
-
-						//Actualice Comentarios? si, solo los no-secretarios
 
 						normalheader($app, 'json', '');
 						//setResult($resultText, $app);

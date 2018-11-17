@@ -832,6 +832,15 @@ class JimteTab {
     if(nuevoEstado == "G"){
       campoFecha = "progreso";
       mod_acta   = "progre";
+      if(jimte.currentUser.tiposerv ==  "I" &&
+         jimte.currentUser.servicio != "S"
+      ){
+        //console.log("1. text: " + $("#q_newcomment").text() );
+        //console.log("2. html: " + $("#q_newcomment").html() );
+        var comentario = $.trim($("#q_newcomment").val());
+        comentario = comentario.replace(/\n/g,'.');
+        form_data.append("comment", comentario );
+      }
       form_data.append("notificar", "S" );
     }
     if(nuevoEstado == "M"){
@@ -902,7 +911,7 @@ class JimteTab {
                          displayLength: 3000,
                          classes: 'rounded'}
                        );
-                       
+
                if($("#estado").val() != "G"){
                  jimte.sendMails();
                }

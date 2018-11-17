@@ -22,7 +22,8 @@ function getSQL($name, $app) {
 
              "comments_minretire" => "UPDATE comentarios SET estado = 'R' WHERE idacta = :idacta",
              "comments_mindelete" => "DELETE from comentarios WHERE idacta = :idacta ",
-             "comments_minadd"    => "INSERT into comentarios (idacta, asistente, estado, text, fechahora) VALUES ( :idacta, :asistente, :estado, :text, :fechahora) ",
+             "comments_minadd"    => "INSERT into comentarios (idacta, asistente, estado, text, fechahora) " .
+                                     "VALUES ( :idacta, :asistente, :estado, :text, :fechahora) ",
              "comments_minid"     => "SELECT idacta, asistente, estado, text, fechahora FROM comentarios WHERE idacta = :idacta order by id",
 
              "frats_act"   => "SELECT frat, id, nombre, estado, logo, direccion, ciudad, email " .
