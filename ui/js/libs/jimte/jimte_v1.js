@@ -747,7 +747,6 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
           $("#progresoActas").show();
 
           $("#loader").show();
-
           this.check_actas();
         }
         if(key == "configurarTablas") {
@@ -761,7 +760,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
            key == "informeActas") {
 
           $("#buscarActas").show();
-
+          if(key == "informeActas") {
+            this.getEstadosActa();
+          }
           this.getTiposActa();
           this.getLugares();
           this.getEtiquetas();
@@ -843,6 +844,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                    if(val.estado == "F"){
                      actasEjecu += parseInt(val.cuenta);
                      $('#actas_aprobadas')[0].innerHTML = val.cuenta;
+                     $('#prom_aprobacion')[0].innerHTML = (val.dias * 1).toFixed(0);;
                    }
 
                    //Preliminares
@@ -1248,7 +1250,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                     $("#q_comments").append(
                           "<div class='col s6'><b>" + val.asistente +
-                          "</b><span>(" + val.fechahora + ")</span><textarea readonly>" + val.text + "</textarea></div>" 
+                          "</b><span>(" + val.fechahora + ")</span><textarea readonly>" + val.text + "</textarea></div>"
                      );
 
                    anterior = val.asistente;
@@ -1475,6 +1477,9 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  $("#responsadd")[0].innerHTML = '<option value="" disabled selected>Seleccione Responsable</option>';
 
                  $("#q_asis").empty();
+                 $("#q_asis").append('<input type="hidden" id="q_aprobador" value="N">');
+
+                 var cuentaAprob = 0;
                  var myAttend = [];
                  $.each( data, function( key, val ) {
 
@@ -1519,10 +1524,22 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                         '</div>'
 
                       );
+
+
+                      //llevar la cuenta de los aprobadores faltantes
+                      cuentaAprob += (val.asisestado == 'S' ? 0 : 1);
+
+
                    }
 
 
                  });
+
+                 //Si es el único aprobador que falta
+                 if( cuentaAprob == 1 ){
+                   $("#q_cuentaAprob").val("S");
+                 }
+
                  $("#Asistentes")[0].innerHTML = myAttend.join("");
                  $('#responsadd').formSelect();
 
@@ -2027,7 +2044,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     //checkActaPDF(idRow){
     getActaContent(idRow, mode){
 
-      var bgColorAproba = "#80cbc4"; //teal lighten-3
+      var bgColorAproba = "#4db6ac"; //teal lighten-3
       var bgColorPrelim = "#ffcc80"; //orange lighten-3
       var bgColorRetiro = "#ef9a9a"; //red lighten-3
       var bgColorProgre = "#fff59d"; //yellow lighten-3

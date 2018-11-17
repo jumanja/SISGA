@@ -230,7 +230,7 @@
                 <div id="myBar" class="teal white-text center" style="width:0%">0%</div>
             </div>
             <h5 class="cargaMessage hide">- Si desea detener la carga y/o regresar a la página seleccione Cancelar.</h5>
-            <button id="cargaCancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte_table.overlayOff('Q');return(false);">Cancelar</button>
+            <button id="cargaCancel" style="float:left" class="waves-effect waves-red btn" onclick="jimte.qdivs(0);jimte_table.overlayOff('Q');return(false);">Cancelar</button>
             <button id="cargaOk" style="float:right" class="waves-effect waves-light btn" onclick="return(false);">Guardar</button>
 
           </div>
@@ -399,6 +399,7 @@
               <th class="center-align">Aprobadas</th>
               <th class="center-align">Retiradas</th>
               <th class="center-align">% Ejecución</th>
+              <th class="center-align">Prom. Aprob</th>
             </tr>
           </thead>
           <tbody>
@@ -412,6 +413,9 @@
                 <div class="progress">
                   <div class="determinate actas_bar"></div>
                 </div>
+              </td>
+              <td class="center-align">
+                <span id="prom_aprobacion" class="prom_aprobacion"></span> días
               </td>
             </tr>
           </tbody>

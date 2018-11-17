@@ -39,7 +39,7 @@ function getSQL($name, $app) {
                              "desarrollo, responsable, conclusiones, fechasig, lugarsig, creacion, progreso, preliminar, retiro, aprobacion) " .
                              "VALUES (:frat, :id, :estado, :fecha, :tipoacta, :tema, :lugar, :objetivos, " .
                              ":desarrollo, :responsable, :conclusiones, :fechasig, :lugarsig, :creacion, :progreso, :preliminar, :retiro, :aprobacion ) ",
-            "mins_exec"   => "SELECT estado, count(1) as cuenta FROM actas GROUP BY 1 ",
+            "mins_exec"   => "SELECT estado, count(1) as cuenta, AVG(DATEDIFF(aprobacion, creacion)) as dias FROM actas GROUP BY 1 ",
             "mins_nro"    => "SELECT a.frat, a.id, a.estado, a.fecha, a.tipoacta, a.tema, a.lugar, " .
                              "a.objetivos, a.desarrollo, a.responsable, a.conclusiones, a.fechasig, " .
                              "a.lugarsig, a.estado, a.creacion, a.progreso, a.preliminar, a.retiro, " .
@@ -62,7 +62,7 @@ function getSQL($name, $app) {
                             "GROUP BY a.id ",
 
   "mins_informeActas"    => "SELECT a.id, a.fecha, a.tema, a.objetivos, a.conclusiones, GROUP_CONCAT(b.etiqueta SEPARATOR ', ') as etiquetas, a.estado, " .
-                            "a.creacion, a.progreso, a.preliminar, a.retiro, a.aprobacion " .
+                            "a.creacion, a.aprobacion,  DATEDIFF(a.aprobacion, a.creacion) as dias " .
                            " FROM actas a " .
                            " LEFT JOIN etiquetasacta b on b.idacta = a.id " .
                            " WHERE a.frat = :frat " .

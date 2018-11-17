@@ -333,18 +333,23 @@ class JimteTab {
             }
             //contenido += '<tr id="row_' + cuantos + '" onclick="jimte_table.overlayOn(\'V\', this)">';
             //console.log("Acta estado:" + val.estado);
-            if(val.estado == "G"){
-              //Si es en progreso, checkActaROM
-              contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'REV\');" id="qryRow_' + cuantos + '" >';
-            }
-            if(val.estado == "M"){
-              //Si es preliminar, muestre para revisar Acta
-              contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'FIR\');" id="qryRow_' + cuantos + '" >';
-            }
+
             if(val.estado == "F"){
               //Si está aprobada, habilitar generación PDF - checkActaPDF
               contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'PDF\');" id="qryRow_' + cuantos + '" >';
+            } else {
+                if(val.estado == "G"){
+                  //Si es en progreso, checkActaROM
+                  contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'REV\');" id="qryRow_' + cuantos + '" >';
+                }
+
+                if(val.estado == "M"){
+                  //Si es preliminar, muestre para revisar Acta
+                  contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'FIR\');" id="qryRow_' + cuantos + '" >';
+                }
+
             }
+
             $.each( val, function( key2, val2 ) {
               if(
                 key2.indexOf("password") == -1 &&
@@ -1481,7 +1486,7 @@ class JimteTab {
       }
     }
   }
-  
+
   overlayOn(overlay, obj) {
       //console.log("overlayOn! " + overlay );
       if(jimte_table.overlayBusy){
