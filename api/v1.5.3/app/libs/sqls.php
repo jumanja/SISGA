@@ -96,6 +96,12 @@ function getSQL($name, $app) {
 
             "mins_ret"    => "UPDATE actas set estado = :estado, retiro = :retiro " .
                              "WHERE id = :id",
+            "mins_aprob"  => "UPDATE actas set estado = :estado, aprobacion = :aprobacion " .
+                             "WHERE id = :id",
+            "mins_prelim" => "UPDATE actas set estado = :estado, preliminar = :preliminar " .
+                            "WHERE id = :id",
+            "mins_progre" => "UPDATE actas set estado = :estado, progreso = :progreso " .
+                            "WHERE id = :id",
 
             "mins_update" => "UPDATE actas set estado = :estado, fecha = :fecha, tipoacta = :tipoacta, tema = :tema, " .
                              "lugar = :lugar, objetivos = :objetivos, desarrollo = :desarrollo, conclusiones = :conclusiones, " .

@@ -121,7 +121,7 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 																 $fila['nomorigen'] . ' ' . $fila['apeorigen'] . ' ' .
 																 'Efectivo desde :' . $fila['fechahora'] . ' ' .
 																 '\r\n\r\n\r\n' .
-																 'Por favor No responda aeste correo, ya que es generado automáticamente. ' .
+																 'Por favor No responda a este correo, ya que es generado automáticamente. ' .
 																 'Pero si desea, puede contactar a: ' . $fila['nomorigen'] . ' a su correo electrónico: ' .
 																 $fila['emailorigen'] .
 																 '\r\n\r\n\r\n' .

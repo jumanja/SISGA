@@ -925,7 +925,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
     }
 
     getActaId(nroActa){
-      console.log("getActaId: " + nroActa);
+      //console.log("getActaId: " + nroActa);
       $("#q_idacta").text(nroActa);
       $("#q_nroActa").text(nroActa);
       $.ajax({
@@ -1005,9 +1005,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                  var miEstado = $("#estado").val();
                  $("#q_tipoestado").html(
                                     $("#tipo_de_acta").find('option:selected').text() + "<br>" +
-                                    ( miEstado == "G" ? "EN PROGRESO" :
-                                    ( miEstado == "M" ? "PRELIMINAR" :
-                                    ( miEstado == "R" ? "RETIRADA" : "APROBADA")))
+                                    "<span class='" +
+                                    ( miEstado == "G" ? "yellow lighten-3'>EN PROGRESO" :
+                                    ( miEstado == "M" ? "orange lighten-3'>PRELIMINAR" :
+                                    ( miEstado == "R" ? "red lighten-3'>RETIRADA" : "teal lighten-3'>APROBADA")) + "</span>")
                                   );
                  $("#q_lugaracta").html($("#lugar_reunion").find('option:selected').text());
                  $("#q_lugarsig").html($("#lugar_proxima").find('option:selected').text());
@@ -1256,6 +1257,23 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                    anterior = val.asistente;
 
                  });
+                 //Si está Revisando, y es Integrante pero NO es Secretario,
+                 //puede comentar, el acta volverá a estado EN PROGRESO
+                 if(
+                   jimte.currentModoActa == "REV" &&
+                   jimte.currentUser.tiposerv == "I" &&
+                   jimte.currentUser.servicio != "S" ){
+
+                    $("#q_comments").append(
+                          "<div class='col s6'>" +
+                          "<span data-badge-caption='Comentar:' class='teal'></span>" +
+                          "<b>" + jimte.currentUser.usuario +
+                          "</b><textarea id='q_newcomment' " +
+                          "placeholder='Escriba aquí algún comentario que dese agregar'></textarea></div>"
+                     );
+
+                 }
+
 
                  //Progresamos
                  jimte.currentInfoProgress += 20;
@@ -1478,6 +1496,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                  $("#q_asis").empty();
                  $("#q_asis").append('<input type="hidden" id="q_aprobador" value="N">');
+                 $("#q_asis").append('<div class="col s12">' +
+                                     '<img class="hide-on-small-only show-on-med-and-up" title="Significado Asistencia" src="ui/img/convencion_medium.png">' +
+                                     '<img class="hide-on-med-and-up show-on-small" title="Significado Asistencia" src="ui/img/convencion_small.png">' +
+                                     '</div>');
 
                  var cuentaAprob = 0;
                  var myAttend = [];
@@ -1512,22 +1534,26 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
                            src: "uploads/" + val.usuario + ".png"
                        }));
 
-                      $('#q_asis').append(
-                        '<div class="col s6">' +
-                        '   <input readonly title="' + val.usuario + ':' + val.tiposerv + ':' +
-                                               val.servicio + '" id="asi_' + val.id + '" type="checkbox" ' +
-                                               (val.asisestado == 'S' ? ' checked="checked" ' : '') +
-                                               (val.asisestado == 'F' ? '  checked="checked" class="filled-in" ' : '') +
-                                               '/>' +
-                        '    <span title="(' + val.nombreser + '/' + val.asisestado +')">' +
-                        val.nombres + ' ' + val.apellidos + '</span>' +
-                        '</div>'
+                      //Si es asistente o ya firmó, sino asistió mejor
+                      //no mostrarlo pues causa confusión
+                      if(val.asisestado == "S" || val.asisestado == "F"){
+                        $('#q_asis').append(
+                          '<div class="col s6">' +
+                          '   <input readonly title="' + val.usuario + ':' + val.tiposerv + ':' +
+                                                 val.servicio + '" id="qasis_' + val.id + '" type="checkbox" ' +
+                                                 (val.asisestado == 'S' ? ' checked="checked" ' : '') +
+                                                 (val.asisestado == 'F' ? '  checked="checked" class="filled-in" ' : '') +
+                                                 '/>' +
+                          '    <span title="(' + val.nombreser + '/' + val.asisestado +')">' +
+                          val.nombres + ' ' + val.apellidos + '</span>' +
+                          '</div>'
 
-                      );
-
+                        );
+                      }
 
                       //llevar la cuenta de los aprobadores faltantes
-                      cuentaAprob += (val.asisestado == 'S' ? 0 : 1);
+                      //console.log( val.usuario + " / " + val.asisestado);
+                      cuentaAprob += (val.asisestado == 'S' ? 1 : 0);
 
 
                    }
@@ -1537,7 +1563,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
 
                  //Si es el único aprobador que falta
                  if( cuentaAprob == 1 ){
-                   $("#q_cuentaAprob").val("S");
+                   $("#q_aprobador").val("S");
                  }
 
                  $("#Asistentes")[0].innerHTML = myAttend.join("");
@@ -2049,9 +2075,10 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       var bgColorRetiro = "#ef9a9a"; //red lighten-3
       var bgColorProgre = "#fff59d"; //yellow lighten-3
 
-      console.log("PDF del acta: " + idRow + " Modo:" + mode);
+      //console.log("PDF del acta: " + idRow + " Modo:" + mode);
       this.currentPDFId = idRow;
       this.currentInfoProgress = 0;
+      this.currentModoActa = mode;
       this.barMove();
 
       this.currentInfoProgress = 80;
@@ -2069,14 +2096,14 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
       //$('#modGeneraPDF').modal('open');
       if(mode == 'REV'){
         //Preparar el modal para REvisar (consultar) el acta
-        $("#cargaOk").attr("onclick","jimte.revisaActa()").text("REVISAR");
+        $("#cargaOk").attr("onclick","jimte_table.cambiaEstadoActa('G');").text("REVISAR");
         $('#cargaOk').css("color", "#000");
         $('#cargaOk').css("background-color", bgColorProgre);
 
       }
       if(mode == 'FIR'){
         //Preparar el modal para Firmar (Aprobar el acta)
-        $('#cargaOk').attr("onclick","jimte.apruebaActa()").text("APROBAR");
+        $('#cargaOk').attr("onclick","jimte_table.cambiaEstadoActa('F');").text("APROBAR");
         $('#cargaOk').css("color", "#fff");
         $('#cargaOk').css("background-color", bgColorAproba);
         /*.click(function() {
@@ -2464,7 +2491,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
           form_data.append("table", this.table );
           form_data.append("token", jimte.token );
 
-          form_data.append("nroActa", $("#acta_a_elaborar").val() );
+          form_data.append("nroActa", jimte.currentActaNro );
 
           $.ajax({
             url: jimte.serverPath + 'index.php/mails',
@@ -2481,7 +2508,7 @@ Con el error: SyntaxError: Unexpected token E in JSON at position 0
               if ((typeof data !== undefined ) &&
                    (data.length == 0 || data[0].acceso == undefined)) {
                      M.toast(
-                               {html: data[0].sent + '/'  . data[0].rows + ' correo(s) enviado(s)!',
+                               {html: data[0].sent + '/' + data[0].rows + ' correo(s) enviado(s)!',
                                displayLenght: 5000,
                                classes: 'rounded'}
                              );

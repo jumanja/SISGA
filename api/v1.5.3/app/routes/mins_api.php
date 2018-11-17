@@ -123,11 +123,20 @@ $app->post('/mins', function () use($app) {
 						if ($app->request()->params('mod_acta') == "ret"){
 							$sqlCode = 'mins_ret';
 						}
+						if ($app->request()->params('mod_acta') == "aprob"){
+							$sqlCode = 'mins_aprob';
+						}
+						if ($app->request()->params('mod_acta') == "prelim"){
+							$sqlCode = 'mins_prelim';
+						}
+						if ($app->request()->params('mod_acta') == "progre"){
+							$sqlCode = 'mins_progre';
+						}
 
 						$forXSL = '../../xsl/count.xsl';
 
 						$newId = null;
-
+						$idacta = $app->request()->params('edit_idupdate');
 						if( $app->request()->params('mod_acta') == "add" ){
 							$prepParams = array(
 										':frat'      	 	=> $app->request()->params('frat'),
@@ -176,7 +185,7 @@ $app->post('/mins', function () use($app) {
 						} //if edit
 
 						if( $app->request()->params('mod_acta') == "ret" ){
-
+									$idacta = $app->request()->params('ret_idupdate');
 									$prepParams = array(
 												':id'         	=> $app->request()->params('ret_idupdate'),
 												':estado'     	=> $app->request()->params('ret_estado'),
@@ -185,11 +194,39 @@ $app->post('/mins', function () use($app) {
 
 						} //if ret
 
+						if( $app->request()->params('mod_acta') == "aprob" ){
+									$idacta = $app->request()->params('aprob_idupdate');
+									$prepParams = array(
+												':id'         	=> $app->request()->params('aprob_idupdate'),
+												':estado'     	=> $app->request()->params('aprob_estado'),
+												':aprobacion' 	=> $app->request()->params('aprob_aprobacion')
+									);
+
+						} //if aprob
+
+						if( $app->request()->params('mod_acta') == "prelim" ){
+									$idacta = $app->request()->params('prelim_idupdate');
+									$prepParams = array(
+												':id'         	=> $app->request()->params('prelim_idupdate'),
+												':estado'     	=> $app->request()->params('prelim_estado'),
+												':preliminar' 	=> $app->request()->params('prelim_preliminar')
+									);
+
+						} //if prelim
+
+						if( $app->request()->params('mod_acta') == "progre" ){
+									$idacta = $app->request()->params('progre_idupdate');
+									$prepParams = array(
+												':id'         	=> $app->request()->params('progre_idupdate'),
+												':estado'     	=> $app->request()->params('progre_estado'),
+												':progreso'	 	  => $app->request()->params('progre_progreso')
+									);
+
+						} //if progre
+
 						$query = getSQL($sqlCode, $app);
 
 						//echo "7,5 query: " . $query;
-
-						$idacta = $app->request()->params('edit_idupdate');
 						if( $app->request()->params('mod_acta') == "add" ){
 							$rows = getPDOPreparedIns($query, $prepParams);
 							$resultText = '[{"newId":"'.$rows.'"}]';
@@ -198,10 +235,26 @@ $app->post('/mins', function () use($app) {
 							$idacta = $rows;
 						} //if adding user insert
 
-						if( $app->request()->params('mod_acta') == "ret" ){
+						if(
+							$app->request()->params('mod_acta') == "ret" ||
+							(
+								$app->request()->params('mod_acta') == "aprob" &&
+								$app->request()->params('aprob_aprobador') == "S"
+							)||
+							$app->request()->params('mod_acta') == "prelim" ||
+							$app->request()->params('mod_acta') == "progre"
+							){
 							$rows = getPDOPrepared($query, $prepParams);
 							$resultText = '[{"rows":"'.$rows.'"}]';
 						} //if retiring, use ret
+
+						//NO apruebe si no era elúltimo aprobador
+						if(
+							$app->request()->params('mod_acta') == "aprob" &&
+							$app->request()->params('aprob_aprobador') == "N"
+						){
+							$resultText = '[{"rows":"0"}]';
+						}
 
 						if( $app->request()->params('mod_acta') == "edit" ){
 							$rows = getPDOPrepared($query, $prepParams);
@@ -270,7 +323,18 @@ $app->post('/mins', function () use($app) {
 							} //foreach tags
 						} //if tags
 
-						//Actualice Asistentes
+						//Actualice Asistentes, pero si es aprobación toca borrarlos 1ero
+						if($app->request()->params('mod_acta') == "aprob"){
+							//Borre asistentesActa
+							$sqlCode = "asis_mindelete";
+							$prepParams = array(
+										':idacta'       => $idacta,
+							);
+							$query = getSQL($sqlCode, $app);
+							$rows = getPDOPrepared($query, $prepParams);
+							//echo "asis_mindelete: " + $rows;
+						}
+
 						$asis = $app->request()->params('upd_asistentesActa');
 						if($asis != ""){
 
@@ -302,10 +366,17 @@ $app->post('/mins', function () use($app) {
 							//Para pruebas, activar G (en Progreso)
 							//echo "7,8 aquí: ";
 							if (
-									$app->request()->params('add_estado') == "M" ||
-									$app->request()->params('edit_estado') == "M"
+									$app->request()->params('notificar') == "S"
 									) {
 
+										//Borre notificaciones
+										$sqlCode = "notif_mindelete";
+										$prepParams = array(
+													':idacta'       => $idacta,
+										);
+										$query = getSQL($sqlCode, $app);
+										$rows = getPDOPrepared($query, $prepParams);
+										//echo "notif_mindelete: " + $rows;
 										//echo "7,9 aquí: ";
 
 										$mod        = $app->request()->params('mod_acta');
@@ -385,25 +456,6 @@ $app->post('/mins', function () use($app) {
 						}
 
 						//Actualice Comentarios? si, solo los no-secretarios
-
-
-						/*
-						if( $app->request()->params('mod_acta') == "add" ){
-							//do nothing
-						} else {
-							$sqlCode = "tags_mindelete";
-							$prepParams = array(
-										':idacta'       => $idacta,
-							);
-							$query = getSQL($sqlCode, $app);
-							$rows = getPDOPrepared($query, $prepParams);
-						}
-						*/
-
-						//Actualice Notificaciones
-						//Actualice Tareas
-
-
 
 						normalheader($app, 'json', '');
 						//setResult($resultText, $app);

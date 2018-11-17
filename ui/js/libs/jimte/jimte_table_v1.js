@@ -338,16 +338,19 @@ class JimteTab {
               //Si está aprobada, habilitar generación PDF - checkActaPDF
               contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'PDF\');" id="qryRow_' + cuantos + '" >';
             } else {
-                if(val.estado == "G"){
-                  //Si es en progreso, checkActaROM
-                  contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'REV\');" id="qryRow_' + cuantos + '" >';
-                }
+                if(val.estado != "R"){
+                  if(state == "actasPorRevisar" || state == "buscarActas"){
+                  //if(val.estado == "G"){
+                    //Si es en progreso, checkActaROM
+                    contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'REV\');" id="qryRow_' + cuantos + '" >';
+                  }
 
-                if(val.estado == "M"){
-                  //Si es preliminar, muestre para revisar Acta
-                  contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'FIR\');" id="qryRow_' + cuantos + '" >';
-                }
-
+                  if(state == "actasPorAprobar"){
+                  //if(val.estado == "M"){
+                    //Si es preliminar, muestre para revisar Acta
+                    contenido += '<tr onclick="jimte.getActaContent('+val.id+', \'FIR\');" id="qryRow_' + cuantos + '" >';
+                  }
+               }
             }
 
             $.each( val, function( key2, val2 ) {
@@ -806,14 +809,66 @@ class JimteTab {
     return hours + ':' + minutes + ':00';
   }
 
-  retiraActa(){
-    var self = $(this);
+  cambiaEstadoActa(nuevoEstado){
+    if( $("#estado").val() == nuevoEstado ){
+      $("#cargaCancel").click() ;
+      return false;
+    };
     this.working("botActa");
 
-    $("#estado").val("R");
-    $("#retiro").val(this.getToday() + " " + this.getNow() );
-
+    var self = $(this);
     var form_data = new FormData();
+
+
+    $("#estado").val(nuevoEstado);
+    var nuevaFecha = this.getToday() + " " + this.getNow();
+    var campoFecha = "";
+    var mod_acta   = "";
+    if(nuevoEstado == "R"){
+      campoFecha = "retiro";
+      mod_acta   = "ret";
+      form_data.append("notificar", "N" );
+    }
+    if(nuevoEstado == "G"){
+      campoFecha = "progreso";
+      mod_acta   = "progre";
+      form_data.append("notificar", "S" );
+    }
+    if(nuevoEstado == "M"){
+      campoFecha = "preliminar";
+      mod_acta   = "prelim";
+      form_data.append("notificar", "S" );
+    }
+    if(nuevoEstado == "F"){
+      campoFecha = "aprobacion";
+      mod_acta   = "aprob";
+      if($("#q_aprobador").val() == "S"){
+        form_data.append("notificar", "S" );
+      }
+      //Grabar asistentes
+      var asistentesActa = "";
+      $("#Asistentes input:checkbox").each(function() {
+        var ids = this.id.split("_");
+
+        var checked = (this.checked ? "S" : "N");
+        if($("#" + this.id).hasClass( "filled-in" )){
+          checked = "F";
+        }
+        if( ids[1] == jimte.currentUser.id){
+          checked = "F";
+        }
+        asistentesActa += ids[1] + ":" + checked + ":" + this.title + ":" +
+          $("#preliminar").val() + ",";
+      });
+      if(asistentesActa != ""){
+        asistentesActa = asistentesActa.substring(0, asistentesActa.length-1);
+      }
+      form_data.append("upd_asistentesActa", asistentesActa );
+
+    }
+    //$("#retiro").val(this.getToday() + " " + this.getNow() );
+    $(campoFecha).val( nuevaFecha );
+
     form_data.append("id", jimte.currentUser.id );
     form_data.append("usuario", jimte.currentUser.usuario );
     form_data.append("tiposerv", jimte.currentUser.tiposerv );
@@ -822,10 +877,11 @@ class JimteTab {
     form_data.append("table", this.table );
     form_data.append("token", jimte.token );
 
-    form_data.append("mod_acta", "ret" );
-    form_data.append("ret_idupdate", $("#acta_a_elaborar").val() );
-    form_data.append("ret_estado", $("#estado").val() );
-    form_data.append("ret_retiro", $("#retiro").val() );
+    form_data.append("mod_acta", mod_acta );
+    form_data.append(mod_acta + "_idupdate", jimte.currentActaNro );
+    form_data.append(mod_acta + "_estado", $("#estado").val() );
+    form_data.append(mod_acta + "_" + campoFecha, nuevaFecha );
+    form_data.append(mod_acta + "_aprobador", $("#q_aprobador").val() );
 
     $.ajax({
       url: jimte.serverPath + 'index.php/mins',
@@ -842,23 +898,34 @@ class JimteTab {
         if ((typeof data !== undefined ) &&
              (data.length == 0 || data[0].acceso == undefined)) {
                M.toast(
-                         {html:'Se Retiró OK!',
+                         {html:'Datos Actualizados OK!',
                          displayLength: 3000,
                          classes: 'rounded'}
                        );
-
+                       
+               if($("#estado").val() != "G"){
+                 jimte.sendMails();
+               }
                jimte.badgeUpdates();
 
-               jimte.cleanActa();
-               $("#acta_a_elaborar").val("");
-               $("#acta_a_elaborar").formSelect();
-               $("#creaacta").hide();
+               //Solo si es ret, prepare la pantalla pues
+               //se está en elaboración de actas
+               if(mod_acta == "ret"){
+                 jimte.cleanActa();
+                 $("#acta_a_elaborar").val("");
+                 $("#acta_a_elaborar").formSelect();
+                 $("#creaacta").hide();
 
-               $("#progresoActas").show();
+                 $("#progresoActas").show();
 
-               $("#loader").show();
+                 $("#loader").show();
 
-               jimte.check_actas();
+                 jimte.check_actas();
+
+               } else {
+                 $("#cargaCancel").click() ;
+                 jimte_table.refreshQuery();
+               }
 
                //jimte_table.overlayOff('R');
                //jimte_table.refreshTable();
@@ -906,6 +973,7 @@ class JimteTab {
 
     if(tipo == "Preliminar"){
       $("#estado").val("M");      //Guardar Preliminar
+      form_data.append("notificar", "S" );
 
       $("#preliminar").val(this.getToday() + " " + this.getNow() );
     } else {
@@ -1023,7 +1091,7 @@ class JimteTab {
                          classes: 'rounded'}
                        );
 
-               if(("#estado").val() != "G"){
+               if($("#estado").val() != "G"){
                  jimte.sendMails();
                }
 
@@ -1059,7 +1127,7 @@ class JimteTab {
           console.log(xhr.responseText + "\nCon el error:\n" + error);
       }
     })
-   //end sendEstado
+   //end sendActa
 
   }
 
@@ -1555,7 +1623,7 @@ class JimteTab {
         var self = $(this);
         var url = jimte.configPath + "fields.json";
         jimte_table.popArraySelectTable = new Array();
-        //console.log("load_table_forms: " + tabla + " / " + url);
+        console.log("load_table_forms: " + tabla + " / " + url);
 
         $.ajax({
           url: url,
@@ -1571,7 +1639,11 @@ class JimteTab {
             var i;
             for (i = 0; i < overlays.length; i++) {
               var uls = overlays[i].getElementsByTagName("ul");
-              uls[0].innerHTML = "";
+              if(uls != undefined){
+                if(uls[0] != undefined){
+                  uls[0].innerHTML = "";
+                }
+              }
             }
 
             var contentAdd = [];
@@ -1722,9 +1794,10 @@ color, date, datetime-local, email, month, number, range, search, tel, time, url
               }
             });
 
-            overlays[0].getElementsByTagName("ul")[0].innerHTML = contentAdd.join("");
-            overlays[1].getElementsByTagName("ul")[0].innerHTML = contentEdit.join("");
-            overlays[2].getElementsByTagName("ul")[0].innerHTML = contentRet.join("");
+            //0 is overlayQ, so don't use it
+            overlays[1].getElementsByTagName("ul")[0].innerHTML = contentAdd.join("");
+            overlays[2].getElementsByTagName("ul")[0].innerHTML = contentEdit.join("");
+            overlays[3].getElementsByTagName("ul")[0].innerHTML = contentRet.join("");
 
             //$('select').formSelect();
             if(jimte_table.popArraySelectTable != undefined &&
