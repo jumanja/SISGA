@@ -142,3 +142,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 @media print {
     header, section {page-break-after: always;}
 }
+.smallFont {
+  font-size: 8px;
+}

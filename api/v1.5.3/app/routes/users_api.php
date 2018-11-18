@@ -568,7 +568,14 @@ $app->post('/users/update', function () use($app) {
 										if($key == 'confpwd_password' || $key == 'idupdate' || $key == 'token' || $key == 'tokenexpira'){
 											//saltese idupdate, token y tokenexpira. El id no se puede actualizar
 										} else {
-											$queryUpdate = $queryUpdate ."{$key} = '{$value}', ";
+											if($key == 'password'){
+												$encPassword = password_hash($app->request()->params('edit_password'), PASSWORD_DEFAULT);
+												$queryUpdate = $queryUpdate ."{$key} = '{$encPassword}', ";
+
+											} else {
+												$queryUpdate = $queryUpdate ."{$key} = '{$value}', ";
+
+											}
 										}
 									}
 							}

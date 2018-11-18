@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <title>SISGA - Sistema Para Gestión de Actas</title>
+  <meta charset="utf-8">
+  <meta content="author" content="Juan Luis Manjarrés Pabón">
+  <meta content="description" content="SISGA - Sistema para Gestión de Actas">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+
+<body>
+      <header>
+  <table>
+    <tr>
+      <td>FACULTAD DE INGENIERÍA, DISEÑO, E INNOVACIÓN</td>
+      <td><img src="../img/logo_poli.png"></td>
+    </tr>
+    <tr>
+      <td>PRÁCTICA APLICADA TDS</td>
+      <td>Institución Universitaria Politécnico Grancolombiano</td>
+    </tr>
+  </table>
+
+  <h3>PRÁCTICA APLICADA TDS<br><br>
+    SOFTWARE PARA GESTIÓN DE ACTAS<br>
+  <label style="color:blue">===  MANUAL TÉCNICO ===</label><br>
+-- Descarga e Instalación --
+</h3>
+  <h2>HUGO ORTIZ</h2>
+  <h2></h2>
+  <h2>PRESENTADO POR:</h2>
+  <h3>ALONSO ROJAS CRISTIAN ANDRÉS</h3>
+  <h3>DURANGO DURANGO SNEIDER ALEXANDER</h3>
+  <h3>MANJARRÉS PABÓN JUAN LUIS</h3>
+  <h3>RODRIGUEZ MURILLO LIANA YANIRA</h3>
+  <h3>ZAMBRANO AMEZQUITA LEONARDO</h3>
+  <h2>2018</h2>
+</header>
+
+      <section>
+  <!--
+    <h6><a name="2">2</a></h6>
+  -->
+     <h1>Contenido</h1>
+      <ol>
+        <li><h2><a href="#01000">1. Descarga e Instalación de SISGA</a></h2></li>
+            <ol>
+                <li><h3><a href="#01100">1.1 Introducción</a></h3></li>
+                <li><h3><a href="#01200">1.2 Descarga</a></h3></li>
+                <li><h3><a href="#01300">1.3 Instalación</a></h3></li>
+                <li><h3><a href="#01400">1.4 Crear las Tablas</a></h3></li>
+                <li><h3><a href="#01500">1.5 Crear el Usuario Administrador para SISGA</a></h3></li>
+            </ol>
+            <li><h2><a href="#02000">2. Acceder a SISGA</a></h2></li>
+                <ol>
+                    <li><h3><a href="#02100">2.1 Acceder a la pantalla de Login</a></h3></li>
+                    <li><h3><a href="#02200">2.2 Otras posiblidades de instalación SISGA</a></h3></li>
+                    <ol>
+                        <li><h4><a href="#02210">2.2.1 sisga_Data_local.sql</a></h4></li>
+                        <li><h4><a href="#02220">2.2.2 sisga_Struc_local.sql</a></h4></li>
+                        <li><h4><a href="#02230">2.2.3 sisga_Todo_local_final.sql</a></h4></li>
+                        <li><h4><a href="#02240">2.2.4 Usuarios y claves que contienen los sql dumps proveídos</a></h4></li>
+                    </ol>
+                </ol>
+            <li><h2><a href="#03000">3. Modelo de Casos de Uso</a></h2></li>
+            <ol>
+                <li><h3><a href="#03100">3.1 Lista de Casos de Uso</a></h3></li>
+                <li><h3><a href="#03200">3.2 Detalle de Casos de Uso</a></h3></li>
+            </ol>
+            <li><h2><a href="#04000">4. Modelos de Bases de Datos</a></h2></li>
+            <ol>
+                <li><h3><a href="#04100">4.1 Modelo de Entidad Relación - MER</a></h3></li>
+                <li><h3><a href="#04200">4.2 Modelo Relacional</a></h3></li>
+            </ol>
+            <li><h2><a href="#05000">5. Arquitectura de la Solución</a></h2></li>
+            <ol>
+                <li><h3><a href="#05100">5.1 Diagrama de Arquitectura General</a></h3></li>
+                <li><h3><a href="#05200">5.2 Diagrama de Arquitectura Detallado</a></h3></li>
+                <li><h3><a href="#05300">5.3 Detalles Técnicos de la Arquitectura</a></h3></li>
+                <li><h3><a href="#05400">5.4 Diseño en Diagramas</a></h3></li>
+                <ol>
+                    <li><h3><a href="#05410">5.4.1 Diagrama de Clases</a></h3></li>
+                    <li><h3><a href="#05420">5.4.2 Diagrama de Estados</a></h3></li>
+                    <li><h3><a href="#05430">5.4.3 Diagrama de Actividad</a></h3></li>
+                    <li><h3><a href="#05440">5.4.4 Diagrama de Secuencia</a></h3></li>
+                </ol>
+            </ol>
+
+            <li><h2><a href="#09000">ANEXOS</a></h2></li>
+            <li><h3><a href="#09100">SQL Dumps de Estructuras de Tablas</a></h3></li>
+
+      </ol>
+</section>
+
+      <!--
+  <section>
+    <h1>Índice de Tablas</h1>
+    <ol class="continue">
+      <li>
+      <li>
+    </ol>
+  </section>
+-->
+
+      <!--
+  <section>
+    <h1>Índice de Ilustraciones</h1>
+    <a name="MER"></a>
+    <ol>
+      <li><li>
+    </ol>
+  </section>
+-->
+
+      <section>
+    <h1><a name="01000">1. Descarga e Instalación de SISGA</a></h1>
+                <h2><a name="01100">1.1 Introducción</a></h2>
+                <p>
+El presente documento recopila los aspectos técnicos a considerar para la implementación del Sistema para Gestión de Actas SISGA. Requerirá de instalar previamente un ambiente adecuado, El sistema operará en formato web, usando los lenguajes HTML, CSS, JavaScript y librerías adicionales para el frontend (capa visible para los usuarios). En su backend (capa invisible a los usuarios) se desarrollará utilizando PHP5+ mediante la creación de una API (Interfaz de programación de aplicaciones por sus siglas en inglés) que a su vez se conectará a una base de datos MySql 5.0+ . Cualquier sistema operativo y servidor web que soporte esta tecnología podrá ser utilizado, pero se sugiere servidor web Apache 2.0+ y sistema operativo Linux Ubuntu 12+.</p><p>Para el Código se recomienda montar un repositorio local con git y para clonar el repositorio remoto de SISGA. Si requiere información para instalar git, con éste enlace podrá obtenerla junto a las diversas formas en las que se puede descargarlo e instalarlo: <a href="https://git-scm.com/">https://git-scm.com/</a>
+                </p>
+                <h2><a name="01200">1.2 Descarga</a></h2>
+                <p>
+Se recomienda descargar SISGA desde su repositorio git hub, ubicados en la carpeta pública del servidor web elegido, por ejemplo /var/www/html o c:\htdocs según su instalación. Ubicados ahí, con este comando podrá clonar el repositorio y quedará instalado en su disco duro:<br>
+<p>
+<em>git clone https://github.com/jumanja/SISGA.git</em><br>
+</p>Si no desea instalarlo, también puede descargar un archivo comprimido .zip desde el enlace: <br>
+<p><em><a target="_blank" href="https://github.com/jumanja/SISGA/archive/master.zip">https://github.com/jumanja/SISGA/archive/master.zip</a></em>
+</p><p><br> Y luego descomprimirlo en la carpeta pública de su servidor web.</p>
+<p>Referente a éste documento, puede encontrar una versión en línea en el siguietne enlace:<em><a target="_blank" href="https://jumanja.net/SISGA/docs/manual_tecnico">https://jumanja.net/SISGA/docs/manual_tecnico</a></em>
+</p>
+                <h2><a name="01300">1.3 Instalación</a></h2>
+                <p>
+SISGA se conecta a una base de datos MySql +5.6 (o una versión equivalente de MariaDB), y se conecta a un esquema de bae de datos llamado <b>sisga</b>. Viene configurado para conectarse a localhost, con un usuario y clave de administrador a la base de datos. Se incluyen aquí los parámetros de conexión por defecto, pero se recomienda al finalizar su instalación, cambiar dichos parámetros por usuarios y claves propios.
+                </p>
+                <p>
+En la carpeta SISGA/sql encontrará un archivo llamado <b>sql_connect.php</b> en el que vienen los valores por defecto de la conexión para crear las tablas y crear el usuario administrador SISGA para poder ingresar por la interfaz del usuario.<br><br>
+</p>
+<p>
+<em>
+$servidor= "localhost";<br>
+$usuario= "adminsisga";<br>
+$password = "uAdmin2018";<br>
+$nombreBD= "sisga";<br>
+</em><br>
+                </p>
+Ahí se puede especificar valores diferentes si el usuario que creó para la base de datos (o el nombre del esquema, o el servidor). Utilice cualquier edtor de texto para cambiarlo, respetando la sintaxis de php.
+                <h2><a name="01400">1.4 Crear las Tablas</a></h2>
+                <p>
+En la carpeta SISGA/sql podrá encontrar el archivo <b>sisga_Struc_AutoInc_1.sql</b> que si desea puede ejecutar desde MySql o phpmyAdmin MySql workbench o cualquier otro manejador de BD compatible con MySql, este sql intentará borrar las tablas si existen. Un método menos destructivo es ejecutar en su navegador <b>http://localhost/sql</b> para que se ejecute desde php una a una las instrucciones para crear las tablas (si existe alguna, se detendrá la ejecución del script), y puede ejecutarlo cuantas veces quiera o necesite, ya que no borrará ninguna tabla. Si es una reinstalación, se recomienda que luego de crar el esquema sisga, No se cree ninguna tabla y se ejecute <b>http://localhost/sql</b> para crearlas.
+</p>
+
+                <h2><a name="01500">1.5 Crear el Usuario Administrador para SISGA</a></h2>
+                <p>
+Una vez existan las tablas, necesitará crear el usuario administrador de SISGA (Este No es el usuario anteriormente creado para conectarse a la base de datos, sino el usuario que podrá ingresar mendiante la interfaz gráfica para configurar su información dentro de SISGA, y por ejemplo, crear a los demás usuarios del aplicativo)
+                </p>
+                <p>
+                  Para ello, ingrese a <b>http://localhost/sql/crea_admin.php</b>&nbsp;y se ejecutarán tres inserciones sql, es decir, se añadirá un registro en la tabla <b>servicios</b>, otro en la tabla <b>fraternidades</b> y finalmente, un registro en la tabla <b>usuarios</b>.
+                </p>
+
+                <p>Luego de ejecutarse deberá quedar creado en la base de datos el usuario:<br>
+                  <p>
+                  <em>
+                    usuario: <b>admin</b><br>
+                    clave: <b>webmaster</b>
+                  </em>
+                  <br>
+                  </p>
+                  y de igual forma, se recomienda posteriormente mediante la interfaz de usuario de SISGA, crear otro usuario administrador con diferente clave, y retirar el admin, o cambiar su clave.
+                  </p>
+                <img class="encajarImg" src="../img/crea_admin.png">
+</section>
+
+      <section>
+
+                <h1><a name="02000">2. Acceder a SISGA</a></h1>
+                <h2><a name="02100">2.1 Acceder a la pantalla de Login</a></h2>
+<p>Para acceder a la versión web de SISGA, se debbe abrir en un navegador (se recomienda Google Chrome) <a target="_blank" href="http://sisga.jumanja.net">http://sisga.jumanja.net</a> o <a target="_blank" href="https://jumanja.net/SISGA">https://jumanja.net/SISGA</a> que deberá mostrarles el aplicativo funcionando online. Àmbos enlaces permiten utilizar el aplicativo aaccediendo a la misma versión de código y de datos.
+  </p>
+  <p><b>Nota:</b>Para instrucciones referente al manejo del SISGA, por favor refiérase al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.</p>
+<img class="encajarImg" src="../img/00_login_screen.png">
+<h2><a name="02200">2.2 Otras posiblidades de instalación SISGA</a></h2>
+<p>Para efectos de prueba del software, se provee con la instalación en la carpeta SISGA/sql los siguientes archivos exportados (sql dumps) con los que se pueden configurar el SISGA de la siguiente forma:
+  </p>
+  <p>
+    <ul>
+        <li>sisga_Data_local.sql</li>
+        <li>sisga_Struc_local.sql</li>
+        <li>sisga_Todo_local_final.sql</li>
+    </ul>
+  </p>
+
+  <h3><a name="02210">2.2.1 sisga_Data_local.sql</a></h3>
+  <p>Este archivo <b>sisga_Data_local.sql</b> contiene una exportación de sólo datos (sin incluir la creación de las estructuras de las tablas) con datos de prueba pre-configurados, tres fraternidades distintas, y actas de ejemplo ingresadas en el sistema. Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad (o si no tiene aún información que guardar, elimine los registros - TRUNCATE TABLE - de las tablas que había creado previamente). Luego importe SISGA/sql/sisga_Data_local.sql y una vez hecho esto, utilice el usuario admin/webmaster para hacer login.
+</p>
+
+  <h3><a name="02220">2.2.2 sisga_Struc_local.sql</a></h3>
+  <p>Este archivo <b>sisga_Struc_local.sql</b> contiene una exportación de sólo estructura (sin incluir los datos de las tablas) en caso de que quiera en algún momento crearlas o recrearlas. Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad, puesto que este sql dump eliminará las tablas (-DROP TABLE IF EXISTS-) antes de recrearlas. Luego importe SISGA/sql/sisga_Struc_local.sql y una vez hecho esto, quedarán las estructuras vacías, listas para importar datos. Recuerde que de esta forma NO tendrá ningún usuario administrador con el que pueda hacer login, así que se recomienda en este punto seguir las instrucciones del item "1.5 Crear el Usuario Administrador para SISGA" para crear el usuario admin/webmaster para hacer login.
+</p>
+
+  <h3><a name="02230">2.2.3 sisga_Todo_local_final.sql</a></h3>
+  <p>Este archivo <b>sisga_Todo_local_final.sql</b> contiene una exportación tanto de estructura como de los datos. Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad (o si no tiene aún información que guardar, elimine las tablas - DROP TABLE -). Luego importe SISGA/sql/sisga_Data_local.sql y una vez hecho esto, utilice el usuario admin/webmaster para hacer login.
+</p>
+
+<h3><a name="02240">2.2.4 Usuarios y claves que contienen los sql dumps proveídos</a></h3>
+<p>Los datos que contienen éstos sql dumps (a excepción del que solo trae las estructuras vacías, sisga_Struc_local.sql) instalarán datos de prueba, de demostración, con usuarios de diferentes perfiles pre-generados. Entre otros, contiene los siguientes usuario / clave:
+  <br><br>
+  <ul>
+    <li>admin / webmaster</li>
+    <li>presidenta / presidenta</li>
+    <li>secretaria / secretaria</li>
+    <li>tesorero / tesorero</li>
+    <li>formadora / formadora</li>
+    <li>espiritual / espiritual</li>
+    <li>regional/regional</li>
+    <li>nacional/ nacional</li>
+  </ul><br>
+</p>
+
+  <p><b>Nota:</b> La intención es permitir encontrar información en todas las tablas, lo mismo que actas ya creadas, para poder tener una idea más integral de las funcionalidades. Se sugiere utilizar los usuarios admin, presidenta, secretaria, y regional, para poder apreciar las diferentes opciones habilitadas según el servicio que prestan. Más información en los correspondientes manuales: <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.
+  </p>
+</section>
+
+      <section>
+
+                <h1><a name="03000">3. Documentación de Casos de Uso</a></h1>
+                    <p>
+                De acuerdo al levantamiento de información realizado con los integrantes de la Junta Local, identificamos los siguientes casos de uso. Para mayor claridad, a continuación presentamos el diagrama Integrado de casos de uso detectados, luego la lista, y luego el detalle de cada caso:
+                    </p>
+                    <img class="encajarImg" src="../img/00_diag_integ_casV3.png">
+
+                    <h2><a name="03100">3.1 Lista de Casos de Uso</a></h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Referencia</th>
+                      <th>Nombre del Caso de Uso</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>CAS-001</td>
+                      <td>Ingresar al Sistema</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-002</td>
+                      <td>Validar Usuario</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-003</td>
+                      <td>Iniciar Sesión</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-004</td>
+                      <td>Cerrar Sesión</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-005</td>
+                      <td>Gestión de Fraternidades</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-006</td>
+                      <td>Gestión de Lugares de Reunión</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-007</td>
+                      <td>Gestión de Servicios</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-008</td>
+                      <td>Gestión de Tipos de Actas</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-009</td>
+                      <td>Gestión de Usuarios</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-010</td>
+                      <td>Gestión de Etiquetas</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-011</td>
+                      <td>Elaborar Acta</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-012</td>
+                      <td>Guardar Progreso</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-013</td>
+                      <td>Guardar Preliminar</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-014</td>
+                      <td>Notificación vía Email</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-015</td>
+                      <td>Actas por Aprobar</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-016</td>
+                      <td>Aprobar Acta</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-017</td>
+                      <td>Generar Acta en PDF</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-018</td>
+                      <td>Actas por Revisar</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-019</td>
+                      <td>Revisar Acta</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-020</td>
+                      <td>Buscador de Actas</td>
+                    </tr>
+                    <tr>
+                      <td>CAS-021</td>
+                      <td>Informe de Actas</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h2><a name="03200">3.2 Detalle de Casos de Uso</a></h2>
+
+                  <img class="encajarImg" src="../img/00_diag_cas_todos.png">
+
+                <table class="encajarTabla" >
+                  <thead>
+                    <tr>
+                      <th colspan=2>CAS-001</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Caso de Uso</th>
+                      <th>CAS-001 Ingresar al Sistema</th>
+                    </tr>
+                    <tr>
+                      <td>Actor(es)</td><td>Usuarios del Sistema</td>
+                    </tr>
+                    <tr>
+                      <td>Descripción</td><td>Captura los datos que el usuario suministra al sistema, retorna los datos de una sesión si los datos son válidos</td>
+                    </tr>
+                    <tr>
+                      <td>Tipo</td><td>Primario</td>
+                    </tr>
+                    <tr>
+                      <td>Datos de Entrada</td><td>Usuario, Contraseña.</td>
+                    </tr>
+                    <tr>
+                      <td>Datos de Salida</td><td>Un token de sesión, el tipo de servicio, el servicio, el id del usuario si los datos son válidos.<br>
+                Un mensaje de error negando el acceso si los datos no son válidos</td>
+                    </tr>
+                    <tr>
+                      <td>Precondición</td><td>El actor (el usuario) debe estar registrado previamente en el sistema para poder recibir el acceso.</td>
+                    </tr>
+                    <tr>
+                      <td>Secuencia Normal</td><td>El actor ingresa mediante un navegador web al aplicativo, y cuando aparece la interfaz gráfica digita el Usuario, Contraseña y hace click en el botón Entrar. Se llama al caso de uso <b>CAS-002 Validar Usuario</b></td>
+                    </tr>
+                    <tr>
+                      <td>Postcondición</td><td>Se crea una sesión de usuario.</td>
+                    </tr>
+                    <tr>
+                      <td>Excepciones</td><td>El usuario no está registrado, la contraseña no coincide con el usuario, el usuario No está activo, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                    </tr>
+                    <tr>
+                      <td>Prioridad</td><td>Alta</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+                <table class="encajarTabla" >
+                <thead>
+                  <tr>
+                    <th colspan=2>CAS-002</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Caso de Uso</th>
+                    <th>CAS-002 Validar Usuario</th>
+                  </tr>
+                  <tr>
+                    <td>Actor(es)</td><td>Usuarios del Sistema</td>
+                  </tr>
+                  <tr>
+                    <td>Descripción</td><td>Determina si los datos del usuario que está intentando ingresar, son válidos.</td>
+                  </tr>
+                  <tr>
+                    <td>Tipo</td><td>Secundario</td>
+                  </tr>
+                  <tr>
+                    <td>Datos de Entrada</td><td>Usuario, Contraseña</td>
+                  </tr>
+                  <tr>
+                    <td>Datos de Salida</td><td>Un token de sesión, el tipo de servicio, el servicio, el id del usuario si los datos son válidos.
+                <br>Un mensaje de error negando el acceso si los datos no son válidos.</td>
+                  </tr>
+                  <tr>
+                    <td>Precondición</td><td>El actor (el usuario) debe estar registrado previamente en el sistema para poder recibir el acceso.</td>
+                  </tr>
+                  <tr>
+                    <td>Secuencia Normal</td><td>Este caso de uso recibe del Caso <b>CAS-001 Ingresar al Sistema</b>, los datos de Usuario y Clave para realizar la validación encriptando la clave y comparándola con la clave del usuario que está intentando ingresar. Si el usuario existe, la clave corresponde, y el usuario está activo, llama al caso <b>CAS-003 Iniciar Sesión</b> para generar la sesión de usuario. </td>
+                  </tr>
+                  <tr>
+                    <td>Postcondición</td><td>Se crea una sesión de usuario.</td>
+                  </tr>
+                  <tr>
+                    <td>Excepciones</td><td>El usuario no está registrado, la contraseña no coincide con el usuario, el usuario No está activo, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                  </tr>
+                  <tr>
+                    <td>Prioridad</td><td>Alta</td>
+                  </tr>
+                </tbody>
+                </table>
+
+                <table class="encajarTabla" >
+                <thead>
+                  <tr>
+                    <th colspan=2>CAS-003</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Caso de Uso</th>
+                    <th>CAS-003 Iniciar Sesión</th>
+                  </tr>
+                  <tr>
+                    <td>Actor(es)</td><td>Usuarios del Sistema</td>
+                  </tr>
+                  <tr>
+                    <td>Descripción</td><td>Genera un token encriptado y una fecha hora de expiración del token, guardándolo en la tabla de usuarios, en el registro del usuario al que le corresponde la sesión.</td>
+                  </tr>
+                  <tr>
+                    <td>Tipo</td><td>Secundario</td>
+                  </tr>
+                  <tr>
+                    <td>Datos de Entrada</td><td>Usuario, Contraseña</td>
+                  </tr>
+                  <tr>
+                    <td>Datos de Salida</td><td>Un token de sesión, el tipo de servicio, el servicio, el id del usuario si los datos son válidos.
+                <br>Un mensaje de error negando el acceso si los datos no son válidos.</td>
+                  </tr>
+                  <tr>
+                    <td>Precondición</td><td>El actor (el usuario) debe estar registrado previamente en el sistema para poder recibir el acceso.</td>
+                  </tr>
+                  <tr>
+                    <td>Secuencia Normal</td><td>Este caso de uso recibe del Caso <b>CAS-001 Ingresar al Sistema</b>, los datos de Usuario y Clave para realizar la validación encriptando la clave y comparándola con la clave del usuario que está intentando ingresar. Si el usuario existe, la clave corresponde, y el usuario está activo, llama al caso <b>CAS-003 Iniciar Sesión</b> para generar la sesión de usuario. </td>
+                  </tr>
+                  <tr>
+                    <td>Postcondición</td><td>Se crea una sesión de usuario.</td>
+                  </tr>
+                  <tr>
+                    <td>Excepciones</td><td>El usuario no está registrado, la contraseña no coincide con el usuario, el usuario No está activo, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                  </tr>
+                  <tr>
+                    <td>Prioridad</td><td>Alta</td>
+                  </tr>
+                </tbody>
+                </table>
+
+
+                <table class="encajarTabla" >
+                <thead>
+                  <tr>
+                    <th colspan=2>CAS-004</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Caso de Uso</th>
+                    <th>CAS-004 Cerrar Sesión</th>
+                  </tr>
+                  <tr>
+                    <td>Actor(es)</td><td>Usuarios del Sistema</td>
+                  </tr>
+                  <tr>
+                    <td>Descripción</td><td>Remueve los datos de la sesión actualmente vigente en la tabla de usuarios.</td>
+                  </tr>
+                  <tr>
+                    <td>Tipo</td><td>Secundario</td>
+                  </tr>
+                  <tr>
+                    <td>Datos de Entrada</td><td>Usuario, Token</td>
+                  </tr>
+                  <tr>
+                    <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación</td>
+                  </tr>
+                  <tr>
+                    <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa</td>
+                  </tr>
+                  <tr>
+                    <td>Secuencia Normal</td><td>Este caso de uso recibe del Caso <b>CAS-001 Ingresar al Sistema</b>, los datos de Usuario y Clave para realizar la validación encriptando la clave y comparándola con la clave del usuario que está intentando ingresar. Si el usuario existe, la clave corresponde, y el usuario está activo, llama al caso <b>CAS-003 Iniciar Sesión</b> para generar la sesión de usuario.</td>
+                  </tr>
+                  <tr>
+                    <td>Postcondición</td><td>Se cierra una sesión de usuario.</td>
+                  </tr>
+                  <tr>
+                    <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                  </tr>
+                  <tr>
+                    <td>Prioridad</td><td>Alta</td>
+                  </tr>
+                </tbody>
+                </table>
+
+                  <img class="encajarImg" src="../img/00_diag_cas_admin.png">
+
+                  <table class="encajarTabla" >
+                  <thead>
+                    <tr>
+                      <th colspan=2>CAS-005</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Caso de Uso</th>
+                      <th>CAS-005 Gestión de Fraternidades</th>
+                    </tr>
+                    <tr>
+                      <td>Actor(es)</td><td>Administrador del Sistema</td>
+                    </tr>
+                    <tr>
+                      <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Fraternidades</td>
+                    </tr>
+                    <tr>
+                      <td>Tipo</td><td>Primario</td>
+                    </tr>
+                    <tr>
+                      <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos</td>
+                    </tr>
+                    <tr>
+                      <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación</td>
+                    </tr>
+                    <tr>
+                      <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador</td>
+                    </tr>
+                    <tr>
+                      <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+                    </tr>
+                    <tr>
+                      <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                    </tr>
+                    <tr>
+                      <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                    </tr>
+                    <tr>
+                      <td>Prioridad</td><td>Alta</td>
+                    </tr>
+                  </tbody>
+                  </table>
+
+                  <table class="encajarTabla" >
+                  <thead>
+                    <tr>
+                      <th colspan=2>CAS-006</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Caso de Uso</th>
+                      <th>CAS-006 Gestión de Lugares de Reunión</th>
+                    </tr>
+                    <tr>
+                      <td>Actor(es)</td><td>Administrador del Sistema</td>
+                    </tr>
+                    <tr>
+                      <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Lugares de Reunión.</td>
+                    </tr>
+                    <tr>
+                      <td>Tipo</td><td>Primario</td>
+                    </tr>
+                    <tr>
+                      <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+                    </tr>
+                    <tr>
+                      <td>Datos de Salida</td><td>Número de registros actualizados.<br>Un mensaje de error si no se pudo realizar la operación.</td>
+                    </tr>
+                    <tr>
+                      <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+                    </tr>
+                    <tr>
+                      <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+                    </tr>
+                    <tr>
+                      <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                    </tr>
+                    <tr>
+                      <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                    </tr>
+                    <tr>
+                      <td>Prioridad</td><td>Alta</td>
+                    </tr>
+                  </tbody>
+                  </table>
+
+
+                    <table class="encajarTabla" >
+                    <thead>
+                      <tr>
+                        <th colspan=2>CAS-007</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Caso de Uso</th>
+                        <th>CAS-007 Gestión de Servicios</th>
+                      </tr>
+                      <tr>
+                        <td>Actor(es)</td><td>Administrador del Sistema</td>
+                      </tr>
+                      <tr>
+                        <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Servicios.</td>
+                      </tr>
+                      <tr>
+                        <td>Tipo</td><td>Primario</td>
+                      </tr>
+                      <tr>
+                        <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+                      </tr>
+                      <tr>
+                        <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                      </tr>
+                      <tr>
+                        <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+                      </tr>
+                      <tr>
+                        <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+                      </tr>
+                      <tr>
+                        <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                      </tr>
+                      <tr>
+                        <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                      </tr>
+                      <tr>
+                        <td>Prioridad</td><td>Alta</td>
+                      </tr>
+                    </tbody>
+                    </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-008</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-008 Gestión de Tipos de acta</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Administrador del Sistema</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Tipos de Acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Primario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Alta</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                        <table class="encajarTabla" >
+                        <thead>
+                          <tr>
+                            <th colspan=2>CAS-009</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th>Caso de Uso</th>
+                            <th>CAS-009 Gestión de Usuarios</th>
+                          </tr>
+                          <tr>
+                            <td>Actor(es)</td><td>Administrador del Sistema</td>
+                          </tr>
+                          <tr>
+                            <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado los registros de la tabla de Usuarios.</td>
+                          </tr>
+                          <tr>
+                            <td>Tipo</td><td>Primario</td>
+                          </tr>
+                          <tr>
+                            <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado. También la información a actualizar en la base de datos.</td>
+                          </tr>
+                          <tr>
+                            <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                          </tr>
+                          <tr>
+                            <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+                          </tr>
+                          <tr>
+                            <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+                          </tr>
+                          <tr>
+                            <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                          </tr>
+                          <tr>
+                            <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                          </tr>
+                          <tr>
+                            <td>Prioridad</td><td>Alta</td>
+                          </tr>
+                        </tbody>
+                        </table>
+                <br>
+                  <img class="encajarImg" src="../img/00_diag_miemb_inv_v2.png">
+                </br>
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-010</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-010 Gestión de Etiquetas</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, que preste el servicio en Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite Adicionar, Modificar, Cambiar de Estado en la tabla de Etiquetas.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Primario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.<br>Un mensaje de error si no se pudo realizar la operación</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Administador.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Alta</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-011</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-011 Elaborar Actas</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite Adicionar, Modificar, y genera un Cambio de Estado de registros en la tabla de Actas.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Primario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Elección de acción a realizar ya sea agregar registro, elegir registro para modificar su información o solo su estado.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso primario recibe la identificación del registro a actualizar, y sus datos. Si el registro es nuevo, lo adiciona. No hay borrado físico, solo borrado lógico en la base de datos si se cambia el estado de Activo a Retirado. También hay un estado Inactivo si no se quiere borrar lógicamente el registro sino que se quiere desactivarlo temporalmente. Sin embargo, aplican restricciones según las reglas de Negocio descritas en el documento ERS-Especificación de Requerimientos, En Secretaría pueden Crear y modificar Actas, pero no pueden agregar comentarios. Los otros Miembros de Junta Local pueden Hacer comentarios pero no pueden ni crear ni Modificar. Este caso llama al caso <b>CAS-012 Guardar Progreso</b>, y al Caso <b>CAS-013 Guardar Preliminar</b> dependiendo sea la elección del usuario.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Alta</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-012</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-012 Guardar Progreso</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, con Servicio en Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite Actualizar en la Base de Datos la información que tiene actualmente el Acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Datos a actualizar del Acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, con Servicio en Secretaría</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del registro a actualizar, y sus datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Alta</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-013</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-013 Guardar Preliminar</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, con Servicio en Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite Actualizar en la Base de Datos la información que tiene actualmente el Acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Datos a actualizar del Acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, con Servicio en Secretaría</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del registro a actualizar, y sus datos. Se aplican restricciones según las reglas de Negocio descritas en el documento ERS-Especificación de Requerimientos, En Secretaría pueden Crear y modificar Actas, pero no pueden agregar comentarios. Los otros Miembros de Junta Local pueden Hacer comentarios pero no pueden ni crear ni Modificar. Este caso llama al caso <b>CAS-014 Notificación vía email</b> pues produce un cambio de estado, dejando el acta en estado Preliminar, y disponible para que los demás miembros la puedan revisar/ aprobar.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se actualiza la información de la tabla en la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Alta</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-014</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-014 Notificación Vía Email</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, con Servicio en Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite enviar un correo electrónico a los miembros asistentes de la reunión que tuvo lugar el acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, con Servicio en Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del registro a actualizar, y sus datos. Se aplican restricciones según las reglas de Negocio descritas en el documento ERS-Especificación de Requerimientos, En Secretaría pueden Crear y modificar Actas, pero no pueden agregar comentarios. Los otros Miembros de Junta Local pueden Hacer comentarios pero no pueden ni crear ni Modificar. Este caso llama al caso <b>CAS-014 Notificación</b> vía email pues produce un cambio de estado, dejando el acta en estado Preliminar, y disponible para que los demás miembros la puedan revisar/ aprobar. </td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se genera un correo electrónico y se intenta enviar por el servidor de correo configurado.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Baja</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-015</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-015 Actas por Aprobar</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite obtener una lista en pantalla de las actas que el usuario actual tiene por aprobar.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Primario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Lista de las actas por aprobar.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión, y consulta en la base de datos las actas que ese usuario tiene por aprobar. Este caso llama al caso <b>CAS-016 Aprobar Acta</b> si el usuario decide aprobar, o al caso <b>CAS-019 Revisar Acta</b> si solo quiere revisar el acta.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra en pantalla la lista de actas que el usuario tiene por aprobar.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay actas por aprobar para el usuario que tiene la sesión, o no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Media</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-016</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-016 Actas por Aprobar</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, con el servicio de Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite dar la aprobación del usuario que tiene la sesión activa, a el acta seleccionada.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión e identificación del Acta Seleccionada.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, servicio de Secretaría. El acta seleccionada no debe tener aprobación por parte de ese usuario.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión y la identificación de un acta seleccionada, y con esos datos retorna los datos del acta seleccionada en formato PDF para que se pueda descargar o visualizar en dicho formato.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra en pantalla o se permite descargar, el Acta en formato PDF.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que el acta seleccionada no está aprobada o no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Media</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-017</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-017 Generar Acta en PDF</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite obtener un versión del acta seleccionada en formato PDF.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión e identificación del Acta Seleccionada.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Datos del acta seleccionada en formato PDF.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local. El acta seleccionada debe estar en estado Aprobada.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión y la identificación de un acta seleccionada, y con esos datos retorna los datos del acta seleccionada en formato PDF para que se pueda descargar o visualizar en dicho formato.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra en pantalla o se permite descargar, el Acta en formato PDF.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que el acta seleccionada no está aprobada o no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Media</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-018</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-018 Actas por Revisar</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite obtener una lista en pantalla de las actas que el usuario actual tiene por revisar.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Lista de las actas por revisar.
+                <br>Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso Primario recibe la identificación del usuario que actualmente tiene la sesión, y consulta en la base de datos las actas que ese usuario tiene por revisar. Este caso llama al caso <b>CAS-019 Revisar Acta</b> si el usuario decide elegir un acta para revisar. </td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra en pantalla la lista de actas que el usuario tiene por revisar.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay actas por revisar para el usuario que tiene la sesión, o no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Media</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-019</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-019 Revisar Acta</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local, con el servicio de Secretaría.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite dar la aprobación del usuario que tiene la sesión activa, a el acta seleccionada.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Secundario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión e identificación del Acta Seleccionada.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Número de registros actualizados.
+                <br>Un mensaje de error si no se pudo realizar la operación</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, servicio de Secretaría. El acta seleccionada no debe tener aprobación por parte de ese usuario.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso secundario recibe la identificación del usuario que actualmente tiene la sesión y la identificación de un acta seleccionada, y con esos datos retorna los datos del acta seleccionada en formato PDF para que se pueda descargar o visualizar en dicho formato.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra en pantalla o se permite descargar, el Acta en formato PDF.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que el acta seleccionada no está aprobada o no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Media</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-020</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-020 Buscador de Actas</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembro de Junta Local.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite realizar una búsqueda de las actas de la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Primario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Identificación del Usuario que tiene actualmente la sesión y parámetros de búsqueda del acta como números, estados, fechas, lugares y palabras clave.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Lista de Actas encontradas.
+                Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso recibe la identificación del usuario que actualmente tiene la sesión y los parámetros de búsqueda, y con esos datos retorna la lista de actas que conciden. Si el usuario decide proceder a revisar algún acta, este caso llama al caso de uso <b>CAS-019 Revisar Acta</b>.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra en pantalla La lista de actas coincidentes con los parámetros de búsqueda.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no se encontraron coincidencias o no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Media</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+
+                      <table class="encajarTabla" >
+                      <thead>
+                        <tr>
+                          <th colspan=2>CAS-021</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Caso de Uso</th>
+                          <th>CAS-021 Informe de Actas</th>
+                        </tr>
+                        <tr>
+                          <td>Actor(es)</td><td>Miembros de la Junta Regional o Nacional e Invitados.</td>
+                        </tr>
+                        <tr>
+                          <td>Descripción</td><td>Permite generar el Informe de Actas.</td>
+                        </tr>
+                        <tr>
+                          <td>Tipo</td><td>Primario</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Entrada</td><td>Parámetros del Informe como Tipos de Acta, Rango de fechas, Estado.</td>
+                        </tr>
+                        <tr>
+                          <td>Datos de Salida</td><td>Informe en pantalla con los datos de las actas según los parámetros dados.
+                Un mensaje de error si no se pudo realizar la operación.</td>
+                        </tr>
+                        <tr>
+                          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de la junta Regional o Nacional o Invitado.</td>
+                        </tr>
+                        <tr>
+                          <td>Secuencia Normal</td><td>Este caso de uso primario recibe los parámetros del informe como tipos, fechas y estado y al enviar el formulario el sistema retorna los datos en pantalla de las actas encontradas según esos parámetros.</td>
+                        </tr>
+                        <tr>
+                          <td>Postcondición</td><td>Se muestra el Informe en pantalla.</td>
+                        </tr>
+                        <tr>
+                          <td>Excepciones</td><td>El usuario no tiene una sesión iniciada, o la sesión expiró, o no se obtuvieron los datos por que no hay conexión de red entre la API y la base de datos.</td>
+                        </tr>
+                        <tr>
+                          <td>Prioridad</td><td>Baja</td>
+                        </tr>
+                      </tbody>
+                      </table>
+
+
+</section>
+
+      <section>
+
+      <h1><a name="04000">4.1 Modelos de Base de Datos</a></h1>
+      <h2><a name="04100">4.1 Modelo de Entidad Relación - MER</a></h2>
+      <img class="encajarImg" src="../img/diag_entidad_relacion.png">
+
+      <h2><a name="04200">4.2 Modelo Relacional</a></h2>
+      <!--<img class="encajarImg" src="img/modelo_relacional.png">-->
+      <img class="encajarImg" src="../img/modelo_relacional_v3.png">
+
+</section>
+
+      <section>
+
+        <h1><a name="05000">5 Arquitectura de la Solución</a></h1>
+        <p>
+      A continuación los diagramas de la arquitectura de la solución de software SISGA, junto con la correspondiente explicación sobre las decisiones técnicas tomadas.
+        </p>
+        <h2><a name="05100">5.1 Diagrama de Arquitectura General</a></h2>
+        <img class="encajarImg" src="../img/00_diag_gral_arch.png">
+
+        <h1><a name="05200">5.2 Diagrama de Arquitectura Detallado</a></h1>
+        <img class="encajarImg" src="../img/00_diag_deta_arch.png">
+
+        <h1><a name="05300">5.3 Detalles Técnicos de la Arquitectura</a></h1>
+      <p>
+      Según los requerimientos identificados para este proyecto, se tomaron las siguientes decisiones de arquitectura y diseño de la solución:
+      </p>
+      <ul>
+      <li>Arquitectura Web, bajo el stack LAMP (Linux, Apache, Mysql y PHP) ya que se desconoce el número máximo de usuarios del sistema, y se requiere que accedan desde cualquier ubicación. Además se requiere de un entorno muy fácil de asimilar por parte de los usuarios, si conocen como visitar una página de internet, ya tienen gran parte de la curva de aprendizaje recorrida.</li>
+      <li>Como clientes tendremos un navegador web moderno (se recomienda Google Chrome) para el acceso mediante interfaz gráfica, y una suite de pruebas via scripts que utilizan el programa curl para realizar peticiones. Tanto la interfaz gráfica como la suite de pruebas se conectarán a un servicio web de tipo REST API. De esta forma ambos clientes usarán una misma API, que a su vez se conectará en el backend a una base de datos.</li>
+      <li>La interfaz gráfica será desarrollada usando marcos de trabajo modernos, para enriquecer la experiencia de usuario. Las tecnologías a utilizar son HTML, Javascript, librerías javascript como jQuery (librería que simplifica el desarrollo con javascript), Chart (librería para gráficos), jimte (componente para conectar la interfaz gráfica con la API), jimte_table (componente para manejo de tablas con operaciones como ordenar, filtrar tablas con interfaz gráfica), l10n (para localización –traducción de mensajes a otro idioma-).</li>
+      <li>La suite de pruebas está basada en el momento en scripts de Bash shell usando el programa curl, para peticiones GET, POST, PUT contra la API. Sin embargo, el mismo esquema puede ser replicado para otras suites en diferentes sistemas operativos e incluso el desarrollo en fases posteriores de un cliente nativo de alguna plataforma, por ejemplo, móvil.</li>
+      <li>En el lado del Backend, capa de negocio, se eligió Php 5+ pues una de las plataformas en las que se consigue en mayor cantidad y a menor costo en los proveedores de hosting, lo mismo que amplio soporte en la comunidad, y se utilizará Slim que es un micro framework (solo para el manejo de las rutas) que redirecciona las peticiones de la API e invoca los scripts de base de datos correspondientes según las rutas que reciben cada petición. Adicionalmente librerías como jsPDF para la generación de actas en formato PDF, requerimiento de este proyecto.</li>
+      <li>Para la Base de Datos se eligió MySQL 5+, que es una de las bases de datos también ampliamente disponibles en los proveedores de hosting actualmente.</li>
+      </ul>
+      </p>
+
+      <h2><a name="05400">5.4 Diseño en Diagramas</a></h2>
+
+      <h1><a name="05410">5.4.1 Diagrama de Clases</a></h1>
+      <img class="encajarImg" src="../img/diag_clases.png">
+
+      <h1><a name="05420">5.4.2 Diagrama de Estados</a></h1>
+      <img class="encajarImg" src="../img/00_diag_estados_v2.png">
+
+      <h1><a name="05430">5.4.3 Diagrama de Actividad</a></h1>
+      <img class="encajarImg" src="../img/00_diag_actividad.png">
+
+      <h1><a name="05440">5.4.4 Diagrama de Secuencia</a></h1>
+      <img class="encajarImg" src="../img/00_diag_sequence.png">
+
+  </section>
+
+      <section>
+
+      <h1><a name="09000">ANEXOS</a></h1>
+      <h2><a name="09100">SQL Dumps de Estructuras de Tablas</a></h2>
+<p>Relacionamos a continuacón las Estructuras de las tablas.</p>
+<pre>
+  CREATE DATABASE  IF NOT EXISTS `sisga` /*!40100 DEFAULT CHARACTER SET utf8 */;
+  USE `sisga`;
+  -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+  --
+  -- Host: localhost    Database: sisga
+  -- ------------------------------------------------------
+  -- Server version	5.1.69
+
+  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+  /*!40101 SET NAMES utf8 */;
+  /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+  /*!40103 SET TIME_ZONE='+00:00' */;
+  /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+  /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+  /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+  /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+  --
+  -- Table structure for table `actas`
+  --
+
+  DROP TABLE IF EXISTS `actas`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `actas` (
+    `frat` varchar(15) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    `fecha` datetime DEFAULT NULL,
+    `tipoacta` varchar(10) NOT NULL,
+    `tema` text NOT NULL,
+    `lugar` varchar(30) NOT NULL,
+    `objetivos` text NOT NULL,
+    `responsable` varchar(25) NOT NULL,
+    `conclusiones` text NOT NULL,
+    `fechasig` datetime DEFAULT NULL,
+    `lugarsig` varchar(30) NOT NULL,
+    `desarrollo` text NOT NULL,
+    `creacion` datetime NOT NULL,
+    `progreso` datetime NOT NULL,
+    `preliminar` datetime NOT NULL,
+    `retiro` datetime NOT NULL,
+    `aprobacion` datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `fx_lug_idx` (`lugar`),
+    KEY `fx_tipacta_idx` (`tipoacta`),
+    KEY `fx_lug2_idx` (`lugarsig`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `asistentes`
+  --
+
+  DROP TABLE IF EXISTS `asistentes`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `asistentes` (
+    `idacta` int(11) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `asistente` varchar(25) NOT NULL,
+    `estado` char(1) NOT NULL,
+    `servicio` varchar(10) NOT NULL,
+    `tiposerv` varchar(15) NOT NULL,
+    `fecha` datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `asistente_UNIQUE` (`idacta`,`asistente`),
+    KEY `fx_serv_idx` (`servicio`),
+    KEY `fx_asis_idx` (`asistente`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=470 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `comentarios`
+  --
+
+  DROP TABLE IF EXISTS `comentarios`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `comentarios` (
+    `idacta` int(11) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `asistente` varchar(25) NOT NULL,
+    `estado` char(1) NOT NULL,
+    `text` text NOT NULL,
+    `fechahora` datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `asistente_UNIQUE` (`idacta`,`asistente`,`fechahora`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `etiquetas`
+  --
+
+  DROP TABLE IF EXISTS `etiquetas`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `etiquetas` (
+    `frat` varchar(15) NOT NULL,
+    `etiqueta` varchar(45) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `etiq_UNIQUE` (`etiqueta`),
+    KEY `fx_frat_idx` (`frat`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `etiquetasacta`
+  --
+
+  DROP TABLE IF EXISTS `etiquetasacta`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `etiquetasacta` (
+    `idacta` int(11) NOT NULL,
+    `etiqueta` varchar(45) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `etiqacta_UNIQUE` (`idacta`,`etiqueta`),
+    KEY `fx_etiq_idx` (`etiqueta`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=197 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `fraternidades`
+  --
+
+  DROP TABLE IF EXISTS `fraternidades`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `fraternidades` (
+    `frat` varchar(15) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `nombre` text NOT NULL,
+    `estado` char(1) NOT NULL,
+    `logo` varchar(45) NOT NULL,
+    `direccion` varchar(45) NOT NULL,
+    `ciudad` varchar(45) NOT NULL,
+    `email` varchar(45) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `fraterni_UNIQUE` (`frat`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `lugares`
+  --
+
+  DROP TABLE IF EXISTS `lugares`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `lugares` (
+    `frat` varchar(15) NOT NULL,
+    `lugar` varchar(45) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `lugares_UNIQUE` (`lugar`),
+    KEY `fk_frats_idx` (`frat`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `notificaciones`
+  --
+
+  DROP TABLE IF EXISTS `notificaciones`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `notificaciones` (
+    `idacta` int(11) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    `estadoacta` char(1) NOT NULL,
+    `origen` varchar(15) NOT NULL,
+    `destino` varchar(15) NOT NULL,
+    `fechahora` datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `lugares_UNIQUE` (`idacta`,`fechahora`,`destino`),
+    KEY `fx_origen_idx` (`origen`),
+    KEY `fx_destino_idx` (`destino`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `servicios`
+  --
+
+  DROP TABLE IF EXISTS `servicios`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `servicios` (
+    `servicio` varchar(10) NOT NULL,
+    `tiposerv` varchar(15) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `nombre` text NOT NULL,
+    `estado` char(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `servicios_UNIQUE` (`servicio`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `tareas`
+  --
+
+  DROP TABLE IF EXISTS `tareas`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `tareas` (
+    `idacta` int(11) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    `text` text NOT NULL,
+    `usuario` varchar(25) NOT NULL,
+    `creada` datetime NOT NULL,
+    `inicioplan` date NOT NULL,
+    `finalplan` date NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `fx_usuari_idx` (`usuario`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `tipoactas`
+  --
+
+  DROP TABLE IF EXISTS `tipoactas`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `tipoactas` (
+    `frat` varchar(15) NOT NULL,
+    `tipo` varchar(11) NOT NULL,
+    `nombre` varchar(45) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `estado` char(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `tipoactas_UNIQUE` (`tipo`),
+    KEY `fk_frat_idx` (`frat`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Table structure for table `usuarios`
+  --
+
+  DROP TABLE IF EXISTS `usuarios`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!40101 SET character_set_client = utf8 */;
+  CREATE TABLE `usuarios` (
+    `frat` varchar(15) NOT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `usuario` varchar(25) NOT NULL,
+    `apellidos` text NOT NULL,
+    `nombres` text NOT NULL,
+    `password` text NOT NULL,
+    `email` varchar(100) NOT NULL,
+    `servicio` varchar(10) NOT NULL,
+    `token` varchar(100) NOT NULL,
+    `tokenexpira` datetime NOT NULL,
+    `estado` char(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `usuario_UNIQUE` (`usuario`),
+    KEY `fk_frats` (`frat`),
+    KEY `fk_serv_idx` (`servicio`)
+  ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+  /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+  /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+  -- Dump completed on 2018-11-17 16:05:15
+</pre>
+</section>
+
+</body>
+</html>

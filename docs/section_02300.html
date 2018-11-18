@@ -37,7 +37,7 @@ Acepto que este documento representa nuestro mejor entendimiento de los requerim
 </table>
 </p>
   <p>
-  Cuando es necesario, se resaltará la importancia de una palabra o frase dentro del texto para mayor visibilidad (por ejemplo, En el encabezado encontrará el enlace para cerrar la sesión).
+  Cuando es necesario, se resaltará la importancia de una palabra o frase dentro del texto para mayor visibilidad. Por ejemplo: "En el encabezado encontrará el enlace para <b>cerrar la sesión</b>".
 </p>
 <p>
   Si se considera necesario, se adicionará un párrafo que contendrá una observación o comentario importante usando itálicas, en la siguiente forma:
@@ -53,7 +53,7 @@ Este documento está dirigido a lectores de diversos perfiles involucrados en va
 El software a realizar tiene como propósito principal proveer a una agrupación, en este caso la Fraternidad “Laudato Si” de la Juventud Franciscana (JUFRA), de las herramientas necesarias para crear, modificar, revisar y ya sea eliminar o aprobar en línea las actas formales fruto de sus reuniones periódicas. Permitirá otorgar acceso solo de consulta a usuarios que no pertenecen a la fraternidad (como por ejemplo a la Junta Regional, que tiene labores de auditoría de éstas actas), generará notificaciones via email cuando un acta cambie de estado y permitirá buscar actas por diferentes criterios y generar un documento PDF con el contenido de un acta para ser impreso y archivado físicamente si es necesario.
 </p>
 <p>
-El proyecto abarca la recolección de información, análisis, diseño del software, implementación, pruebas de aceptación por parte del usuario. Este proyecto se llevará a cabo en un <b>ámbito académico por un grupo de estudiantes del Módulo de Práctica Aplicada TDS, de la Facultad de Ciencas básicas del politécnico Grancolombiano</b>. Se estipula que este proyecto debe realizarse con la meta de cumplir con los objetivos del sistema descrito en este documento, ERS-Documento Especificación de Requisitos de Software. Este documento deberá ser revisado y aprobado tanto por los representantes designados por área cliente (usuaria) del software a construir, como por los estudiantes que elaborarán el software dentro del marco de sus actividades académicas.</p>
+El proyecto abarca la recolección de información, análisis, diseño del software, implementación, pruebas de aceptación por parte del usuario. Este proyecto se llevará a cabo en un <b>ámbito académico por un grupo de estudiantes del Módulo de Práctica Aplicada TDS, de la Facultad de Ingeniería, Diseño e Innovación del Politécnico Grancolombiano</b>. Se estipula que este proyecto debe realizarse con la meta de cumplir con los objetivos del sistema descrito en este documento, ERS-Documento Especificación de Requisitos de Software. Este documento deberá ser revisado y aprobado tanto por los representantes designados por área cliente (usuaria) del software a construir, como por los estudiantes que elaborarán el software dentro del marco de sus actividades académicas.</p>
 <p>
 La solución de software debe diseñarse, implementarse y asegurar su calidad en un tiempo máximo de 11 semanas, pues en la presentación y sustentación en la semana 14 del módulo de Práctica Aplicada, el software ya debe estar funcionando, instalado, probado y aceptado por el area usuaria.
 </p>
@@ -99,6 +99,8 @@ El sistema será utilizado por los siguientes grupos o tipos de usuario:
   <li><b>Presidente</b>: Con la habilidad de revisar, aprobar o añadir comentarios al acta.
   <li><b>Secretario</b>: Responsable de la creación, modificación de las actas.
   <li><b>Tesorero</b>: Con la habilidad de revisar, aprobar o añadir comentarios al acta.
+  <li><b>Otros Integrantes</b>: Si se les crea usuario, otros integantes como Formador, Asistente Espiritual, etc...
+    podrán revisar, aprobar (si son asistentes a la reunión que genera el acta) pero no añadir comentarios al acta.
 </ul>
 </p>
 <p>
@@ -113,22 +115,22 @@ El sistema operará en formato web, usando los lenguajes HTML, CSS, JavaScript y
 Como restricciones de diseño e implementación tenemos:
 <ul>
 <li>La solución de software debe diseñarse, implementarse y asegurar su calidad en un tiempo límite de 11 semanas máximo, pues debe coincidir con la presentación de 14 semanas del módulo de Práctica Aplicada.</li>
-<li>Debido a la restricción de tiempo, algunas de las funcionalidades se desestimarán en su implementación en este proyecto, sin embargo, a nivel de estructura de base de datos y diseño, se dejarán las bases para en un proyecto posterior poder implementarlas. </li>
+<li>Debido a la restricción de tiempo, algunas de las funcionalidades se desestimarán en su implementación en este proyecto, sin embargo, a nivel de estructura de base de datos y diseño, para algunas de estas funcionalidades se dejarán las bases para en un proyecto posterior poder implementarlas. </li>
 <li>Los lenguajes de programación, librerías, software de base de datos y herramientas de diseño y desarrollo deben software libre pues no se tiene presupuesto para adquirir licencias de software privativo.</li>
-Se deberá implementar este software en un plan de hosting ya adquirido y adicionando un subdominio a uno de los dominios existentes que ya se posean, pues no hay presupuesto destinado a la adquisición de dominio y plan de hosting por separado y la organización no posee en el momento dominio de su propiedad. Para suplir esto, la parte de desarrollo proveerá temporalmente éste servicio durante el desarrollo e implementación de este proyecto.</p>
+Se deberá implementar este software en un plan de hosting ya adquirido y adicionando un subdominio a uno de los dominios existentes que ya se posean, pues no hay presupuesto destinado a la adquisición de dominio y plan de hosting por separado y la organización no posee en el momento dominio de su propiedad. Para suplir esto, la parte de desarrollo proveerá temporalmente éste servicio durante el desarrollo e implementación de este proyecto, y hasta un plazo de seies (6) meses después de la entrega final del proyecto se conservará habilitado, para dar un tiempo prudencial de implementación en el dominio y plan de hosting definitivos.</p>
 </ul>
           <h4><a name="02336">2.3.3.6 Documentación de Usuario</a></h4>
           <p>
-Junto con el software desarrollado, se entregarán mensajes de ayuda online dentro del sistema y el manual de usuario.
+Junto con el software desarrollado, se entregarán mensajes de ayuda online dentro del sistema y el manual de usuario y manual técnico (de administrador).
 Se adicionará información al momento de la entrega como instrucciones para realizar procedimientos específicos, al igual que este documento de especificaciones, diagramas de casos de uso, y diagramas de entidad relación (referente a la base de datos).
           </p>
           <h4><a name="02337">2.3.3.7 Suposiciones y Dependencias</a></h4>
           <p>
 <ul>
 <li>Se presume la disponibilidad de al menos una persona de la fraternidad para aclarar dudas en cualquier de las fases del proyecto, como punto de contacto y que pueda retransmitir las dudas al interior si no está en su conocimiento o no es pertinente a su servicio (rol) dentro de la misma.</li>
-<li>Se supone que dentro de las fases de diseño, se incluirán la mayor parte de requerimientos para poder proveer de una solución robusta, útil y que provea de las herramientas necesarias esperadas, sin embargo, se priorizarán dichos requerimientos para intentar abarcar lo más posible, pero se entiende que cualquiera que no pueda ser implementado en su totalidad podrá ser implementado en un proyecto posterior.</li>
+<li>Se supone que dentro de las fases de diseño, se incluirán la mayor parte de requerimientos para poder proveer de una solución robusta, útil y que provea de las herramientas necesarias esperadas, sin embargo, se priorizarán dichos requerimientos para intentar abarcar lo más posible, pero se entiende que cualquiera que no pueda ser implementado en su totalidad podrá ser implementado ya sea luego de la entrega final (de común acuerdo) o en un proyecto posterior (de común acuerdo).</li>
 <li>Teniendo en cuenta las funcionalidades requeridas se elegirán las librerías de software libre más idóneas según el criterio de desarrollo, y debido a que no se hará un desarrollo de todos y cada uno de los componentes desde cero, podrían presentarse dificultades para completar el 100% del funcionamiento deseado, sin embargo se intentará alcanzar el mayor porcentaje de similitud con lo esperado.</li>
-<li>Se usará librerías y frameworks como: jQuery, Materialize.css, Slim, FPDF, entre otros.</li>
+<li>Se usará librerías y frameworks como: jQuery, Materialize.css, Slim, jsPDF, entre otros.</li>
 </ul>
           </p>
         <h4><a name="02340">2.3.4 Requerimientos Interfases Externas</a></h4>
@@ -511,7 +513,7 @@ Pasaremos a detallar entonces cada uno de los requisitos funcionales identificad
     </tr>
     <tr>
       <td>Entradas</td>
-      <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar, Responsables del Acta.</td>
+      <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar.</td>
     </tr>
     <tr>
       <td>Proceso</td>
@@ -603,7 +605,7 @@ Pasaremos a detallar entonces cada uno de los requisitos funcionales identificad
     </tr>
     <tr>
       <td>Entradas</td>
-      <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar, Responsables del Acta.</td>
+      <td>Los datos de búsqueda como Fecha Inicial y Final, Números de Acta, Tipos de Acta, Estado de Actas, Palabras clave, Lugar.</td>
     </tr>
     <tr>
       <td>Proceso</td>
@@ -644,16 +646,17 @@ Pasaremos a detallar entonces cada uno de los requisitos funcionales identificad
 
           <h4><a name="02354">2.3.5.4 Los usuarios miembros de la Junta Regional y Nacional</a></h4>
           <ul>
+            <!--
             <li>Buscar Actas</li>
             <li>Ver las Actas por Revisar</li>
-            <li>Revisar Acta</li>
-            <li>Generar en PDF</li>
+            <li>Revisar Acta</li> -->
             <li>Ver Informe de Actas</li>
+            <li>Generar en PDF</li>
           </ul>
 
           <h4><a name="02355">2.3.5.5 Los Usuarios miembros de la Junta Local</a></h4>
           <ul>
-            <li>Gestión de Etiquetas</li>
+            <li>Gestión de Etiquetas (Solo el Secretario) </li>
             <li>Elaborar Acta (Solo el Secretario) y podrá Guardar Progreso o Guardar Preliminar</li>
             <li>Ver las Actas por Aprobar, Aprobar Acta y Generar en PDF (las aprobadas)</li>
             <li>Además podrán utilizar todas las opciones de los usuarios miembros de la Junta Regional y Nacional descritas en el anterior punto 2.3.5.4</li>
@@ -662,7 +665,7 @@ Pasaremos a detallar entonces cada uno de los requisitos funcionales identificad
 <p>
   Para mayor claridad, a continuación presentamos el diagrama Integrado de casos de uso detectados. Los tipos de usuario (Actores) identificados descritos previamente utilizarán las funcionalidades de este sistema de la forma que se representa en el siguiente diagrama:
 </p>
-<img class="encajarImg" src="img/00_diag_integ_casV2.png">
+<img class="encajarImg" src="img/00_diag_integ_casV3.png">
 
 <p>
 <i><b>NOTA</b>: En el item <a href="#02400">2.4 Documentación de Casos de Uso</a> Se encuentran los casos de uso en detalle.</i>

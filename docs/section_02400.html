@@ -3,7 +3,7 @@
     <p>
 De acuerdo al levantamiento de información realizado con los integrantes de la Junta Local, identificamos los siguientes casos de uso. Para mayor claridad, a continuación presentamos el diagrama Integrado de casos de uso detectados, luego la lista, y luego el detalle de cada caso:
     </p>
-    <img class="encajarImg" src="img/00_diag_integ_casV2.png">
+    <img class="encajarImg" src="img/00_diag_integ_casV3.png">
 
     <h2><a name="02410">2.4.1 Lista de Casos de Uso</a></h1>
 <table>
@@ -515,7 +515,7 @@ Un mensaje de error negando el acceso si los datos no son válidos</td>
         </tbody>
         </table>
 <br>
-  <img class="encajarImg" src="img/00_diag_miemb_inv.png">
+  <img class="encajarImg" src="img/00_diag_miemb_inv_v2.png">
 </br>
 
       <table class="encajarTabla" >
@@ -985,7 +985,7 @@ Un mensaje de error negando el acceso si los datos no son válidos</td>
           <th>CAS-020 Buscador de Actas</th>
         </tr>
         <tr>
-          <td>Actor(es)</td><td>Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+          <td>Actor(es)</td><td>Miembro de Junta Local.</td>
         </tr>
         <tr>
           <td>Descripción</td><td>Permite realizar una búsqueda de las actas de la base de datos.</td>
@@ -1001,7 +1001,7 @@ Un mensaje de error negando el acceso si los datos no son válidos</td>
 Un mensaje de error si no se pudo realizar la operación.</td>
         </tr>
         <tr>
-          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local, Regional, Nacional o Invitado.</td>
+          <td>Precondición</td><td>El actor (el usuario) debe tener una sesión activa y ser usuario Miembro de Junta Local.</td>
         </tr>
         <tr>
           <td>Secuencia Normal</td><td>Este caso de uso recibe la identificación del usuario que actualmente tiene la sesión y los parámetros de búsqueda, y con esos datos retorna la lista de actas que conciden. Si el usuario decide proceder a revisar algún acta, este caso llama al caso de uso <b>CAS-019 Revisar Acta</b>.</td>
