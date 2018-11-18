@@ -24,7 +24,7 @@
   </table>
 
   <h3>PRÁCTICA APLICADA TDS<br>
-  SEGUNDA ENTREGA PROYECTO<br><br>De la teoría a la práctica: Implementación de software en el mundo real<br>
+  ENTREGA FINAL PROYECTO<br><br>De la teoría a la práctica: Implementación de software en el mundo real<br>
 SISGA – Software de Gestión de Actas
 </h3>
   <h2>HUGO ORTIZ</h2>
@@ -3672,7 +3672,7 @@ Según los requerimientos identificados para este proyecto, se tomaron las sigui
 <li>Como clientes tendremos un navegador web moderno (se recomienda Google Chrome) para el acceso mediante interfaz gráfica, y una suite de pruebas via scripts que utilizan el programa curl para realizar peticiones. Tanto la interfaz gráfica como la suite de pruebas se conectarán a un servicio web de tipo REST API. De esta forma ambos clientes usarán una misma API, que a su vez se conectará en el backend a una base de datos.</li>
 <li>La interfaz gráfica será desarrollada usando marcos de trabajo modernos, para enriquecer la experiencia de usuario. Las tecnologías a utilizar son HTML, Javascript, librerías javascript como jQuery (librería que simplifica el desarrollo con javascript), Chart (librería para gráficos), jimte (componente para conectar la interfaz gráfica con la API), jimte_table (componente para manejo de tablas con operaciones como ordenar, filtrar tablas con interfaz gráfica), l10n (para localización –traducción de mensajes a otro idioma-).</li>
 <li>La suite de pruebas está basada en el momento en scripts de Bash shell usando el programa curl, para peticiones GET, POST, PUT contra la API. Sin embargo, el mismo esquema puede ser replicado para otras suites en diferentes sistemas operativos e incluso el desarrollo en fases posteriores de un cliente nativo de alguna plataforma, por ejemplo, móvil.</li>
-<li>En el lado del Backend, capa de negocio, se eligió Php 5+ pues una de las plataformas en las que se consigue en mayor cantidad y a menor costo en los proveedores de hosting, lo mismo que amplio soporte en la comunidad, y se utilizará Slim que es un micro framework (solo para el manejo de las rutas) que redirecciona las peticiones de la API e invoca los scripts de base de datos correspondientes según las rutas que reciben cada petición. Adicionalmente librerías como FPDF para la generación de actas en formato PDF, requerimiento de este proyecto.</li>
+<li>En el lado del Backend, capa de negocio, se eligió Php 5+ pues una de las plataformas en las que se consigue en mayor cantidad y a menor costo en los proveedores de hosting, lo mismo que amplio soporte en la comunidad, y se utilizará Slim que es un micro framework (solo para el manejo de las rutas) que redirecciona las peticiones de la API e invoca los scripts de base de datos correspondientes según las rutas que reciben cada petición. Adicionalmente librerías como jsPDF para la generación de actas en formato PDF, requerimiento de este proyecto.</li>
 <li>Para la Base de Datos se eligió MySQL 5+, que es una de las bases de datos también ampliamente disponibles en los proveedores de hosting actualmente.</li>
 </ul>
 </p>
@@ -3684,7 +3684,7 @@ Según los requerimientos identificados para este proyecto, se tomaron las sigui
     <img class="encajarImg" src="img/diag_clases.png">
 
     <h1><a name="02720">2.7.2 Diagrama de Estados</a></h1>
-    <img class="encajarImg" src="img/00_diag_estados.png">
+    <img class="encajarImg" src="img/00_diag_estados_v2.png">
 
     <h1><a name="02730">2.7.3 Diagrama de Actividad</a></h1>
     <img class="encajarImg" src="img/00_diag_actividad.png">

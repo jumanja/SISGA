@@ -1,0 +1,41 @@
+<section>
+
+        <h1><a name="05000">5 Arquitectura de la Solución</a></h1>
+        <p>
+      A continuación los diagramas de la arquitectura de la solución de software SISGA, junto con la correspondiente explicación sobre las decisiones técnicas tomadas.
+        </p>
+        <h2><a name="05100">5.1 Diagrama de Arquitectura General</a></h2>
+        <img class="encajarImg" src="../img/00_diag_gral_arch.png">
+
+        <h1><a name="05200">5.2 Diagrama de Arquitectura Detallado</a></h1>
+        <img class="encajarImg" src="../img/00_diag_deta_arch.png">
+
+        <h1><a name="05300">5.3 Detalles Técnicos de la Arquitectura</a></h1>
+      <p>
+      Según los requerimientos identificados para este proyecto, se tomaron las siguientes decisiones de arquitectura y diseño de la solución:
+      </p>
+      <ul>
+      <li>Arquitectura Web, bajo el stack LAMP (Linux, Apache, Mysql y PHP) ya que se desconoce el número máximo de usuarios del sistema, y se requiere que accedan desde cualquier ubicación. Además se requiere de un entorno muy fácil de asimilar por parte de los usuarios, si conocen como visitar una página de internet, ya tienen gran parte de la curva de aprendizaje recorrida.</li>
+      <li>Como clientes tendremos un navegador web moderno (se recomienda Google Chrome) para el acceso mediante interfaz gráfica, y una suite de pruebas via scripts que utilizan el programa curl para realizar peticiones. Tanto la interfaz gráfica como la suite de pruebas se conectarán a un servicio web de tipo REST API. De esta forma ambos clientes usarán una misma API, que a su vez se conectará en el backend a una base de datos.</li>
+      <li>La interfaz gráfica será desarrollada usando marcos de trabajo modernos, para enriquecer la experiencia de usuario. Las tecnologías a utilizar son HTML, Javascript, librerías javascript como jQuery (librería que simplifica el desarrollo con javascript), Chart (librería para gráficos), jimte (componente para conectar la interfaz gráfica con la API), jimte_table (componente para manejo de tablas con operaciones como ordenar, filtrar tablas con interfaz gráfica), l10n (para localización –traducción de mensajes a otro idioma-).</li>
+      <li>La suite de pruebas está basada en el momento en scripts de Bash shell usando el programa curl, para peticiones GET, POST, PUT contra la API. Sin embargo, el mismo esquema puede ser replicado para otras suites en diferentes sistemas operativos e incluso el desarrollo en fases posteriores de un cliente nativo de alguna plataforma, por ejemplo, móvil.</li>
+      <li>En el lado del Backend, capa de negocio, se eligió Php 5+ pues una de las plataformas en las que se consigue en mayor cantidad y a menor costo en los proveedores de hosting, lo mismo que amplio soporte en la comunidad, y se utilizará Slim que es un micro framework (solo para el manejo de las rutas) que redirecciona las peticiones de la API e invoca los scripts de base de datos correspondientes según las rutas que reciben cada petición. Adicionalmente librerías como jsPDF para la generación de actas en formato PDF, requerimiento de este proyecto.</li>
+      <li>Para la Base de Datos se eligió MySQL 5+, que es una de las bases de datos también ampliamente disponibles en los proveedores de hosting actualmente.</li>
+      </ul>
+      </p>
+
+      <h2><a name="05400">5.4 Diseño en Diagramas</a></h2>
+
+      <h1><a name="05410">5.4.1 Diagrama de Clases</a></h1>
+      <img class="encajarImg" src="../img/diag_clases.png">
+
+      <h1><a name="05420">5.4.2 Diagrama de Estados</a></h1>
+      <img class="encajarImg" src="../img/00_diag_estados_v2.png">
+
+      <h1><a name="05430">5.4.3 Diagrama de Actividad</a></h1>
+      <img class="encajarImg" src="../img/00_diag_actividad.png">
+
+      <h1><a name="05440">5.4.4 Diagrama de Secuencia</a></h1>
+      <img class="encajarImg" src="../img/00_diag_sequence.png">
+
+  </section>

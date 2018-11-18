@@ -1,0 +1,49 @@
+<section>
+
+                <h1><a name="02000">2. Acceder a SISGA</a></h1>
+                <h2><a name="02100">2.1 Acceder a la pantalla de Login</a></h2>
+<p>Para acceder a la versión web de SISGA, se debbe abrir en un navegador (se recomienda Google Chrome) <a target="_blank" href="http://sisga.jumanja.net">http://sisga.jumanja.net</a> o <a target="_blank" href="https://jumanja.net/SISGA">https://jumanja.net/SISGA</a> que deberá mostrarles el aplicativo funcionando online. Àmbos enlaces permiten utilizar el aplicativo aaccediendo a la misma versión de código y de datos.
+  </p>
+  <p><b>Nota:</b>Para instrucciones referente al manejo del SISGA, por favor refiérase al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.</p>
+<img class="encajarImg" src="../img/00_login_screen.png">
+<h2><a name="02200">2.2 Otras posiblidades de instalación SISGA</a></h2>
+<p>Para efectos de prueba del software, se provee con la instalación en la carpeta SISGA/sql los siguientes archivos exportados (sql dumps) con los que se pueden configurar el SISGA de la siguiente forma:
+  </p>
+  <p>
+    <ul>
+        <li>sisga_Data_local.sql</li>
+        <li>sisga_Struc_local.sql</li>
+        <li>sisga_Todo_local_final.sql</li>
+    </ul>
+  </p>
+
+  <h3><a name="02210">2.2.1 sisga_Data_local.sql</a></h3>
+  <p>Este archivo <b>sisga_Data_local.sql</b> contiene una exportación de sólo datos (sin incluir la creación de las estructuras de las tablas) con datos de prueba pre-configurados, tres fraternidades distintas, y actas de ejemplo ingresadas en el sistema. Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad (o si no tiene aún información que guardar, elimine los registros - TRUNCATE TABLE - de las tablas que había creado previamente). Luego importe SISGA/sql/sisga_Data_local.sql y una vez hecho esto, utilice el usuario admin/webmaster para hacer login.
+</p>
+
+  <h3><a name="02220">2.2.2 sisga_Struc_local.sql</a></h3>
+  <p>Este archivo <b>sisga_Struc_local.sql</b> contiene una exportación de sólo estructura (sin incluir los datos de las tablas) en caso de que quiera en algún momento crearlas o recrearlas. Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad, puesto que este sql dump eliminará las tablas (-DROP TABLE IF EXISTS-) antes de recrearlas. Luego importe SISGA/sql/sisga_Struc_local.sql y una vez hecho esto, quedarán las estructuras vacías, listas para importar datos. Recuerde que de esta forma NO tendrá ningún usuario administrador con el que pueda hacer login, así que se recomienda en este punto seguir las instrucciones del item "1.5 Crear el Usuario Administrador para SISGA" para crear el usuario admin/webmaster para hacer login.
+</p>
+
+  <h3><a name="02230">2.2.3 sisga_Todo_local_final.sql</a></h3>
+  <p>Este archivo <b>sisga_Todo_local_final.sql</b> contiene una exportación tanto de estructura como de los datos. Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad (o si no tiene aún información que guardar, elimine las tablas - DROP TABLE -). Luego importe SISGA/sql/sisga_Data_local.sql y una vez hecho esto, utilice el usuario admin/webmaster para hacer login.
+</p>
+
+<h3><a name="02240">2.2.4 Usuarios y claves que contienen los sql dumps proveídos</a></h3>
+<p>Los datos que contienen éstos sql dumps (a excepción del que solo trae las estructuras vacías, sisga_Struc_local.sql) instalarán datos de prueba, de demostración, con usuarios de diferentes perfiles pre-generados. Entre otros, contiene los siguientes usuario / clave:
+  <br><br>
+  <ul>
+    <li>admin / webmaster</li>
+    <li>presidenta / presidenta</li>
+    <li>secretaria / secretaria</li>
+    <li>tesorero / tesorero</li>
+    <li>formadora / formadora</li>
+    <li>espiritual / espiritual</li>
+    <li>regional/regional</li>
+    <li>nacional/ nacional</li>
+  </ul><br>
+</p>
+
+  <p><b>Nota:</b> La intención es permitir encontrar información en todas las tablas, lo mismo que actas ya creadas, para poder tener una idea más integral de las funcionalidades. Se sugiere utilizar los usuarios admin, presidenta, secretaria, y regional, para poder apreciar las diferentes opciones habilitadas según el servicio que prestan. Más información en los correspondientes manuales: <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.
+  </p>
+</section>

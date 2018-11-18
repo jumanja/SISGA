@@ -1,0 +1,57 @@
+<section>
+    <h1><a name="01000">1. Descarga e Instalación de SISGA</a></h1>
+                <h2><a name="01100">1.1 Introducción</a></h2>
+                <p>
+El presente documento recopila los aspectos técnicos a considerar para la implementación del Sistema para Gestión de Actas SISGA. Requerirá de instalar previamente un ambiente adecuado, El sistema operará en formato web, usando los lenguajes HTML, CSS, JavaScript y librerías adicionales para el frontend (capa visible para los usuarios). En su backend (capa invisible a los usuarios) se desarrollará utilizando PHP5+ mediante la creación de una API (Interfaz de programación de aplicaciones por sus siglas en inglés) que a su vez se conectará a una base de datos MySql 5.0+ . Cualquier sistema operativo y servidor web que soporte esta tecnología podrá ser utilizado, pero se sugiere servidor web Apache 2.0+ y sistema operativo Linux Ubuntu 12+.</p><p>Para el Código se recomienda montar un repositorio local con git y para clonar el repositorio remoto de SISGA. Si requiere información para instalar git, con éste enlace podrá obtenerla junto a las diversas formas en las que se puede descargarlo e instalarlo: <a href="https://git-scm.com/">https://git-scm.com/</a>
+                </p>
+                <h2><a name="01200">1.2 Descarga</a></h2>
+                <p>
+Se recomienda descargar SISGA desde su repositorio git hub, ubicados en la carpeta pública del servidor web elegido, por ejemplo /var/www/html o c:\htdocs según su instalación. Ubicados ahí, con este comando podrá clonar el repositorio y quedará instalado en su disco duro:<br>
+<p>
+<em>git clone https://github.com/jumanja/SISGA.git</em><br>
+</p>Si no desea instalarlo, también puede descargar un archivo comprimido .zip desde el enlace: <br>
+<p><em><a target="_blank" href="https://github.com/jumanja/SISGA/archive/master.zip">https://github.com/jumanja/SISGA/archive/master.zip</a></em>
+</p><p><br> Y luego descomprimirlo en la carpeta pública de su servidor web.</p>
+<p>Referente a éste documento, puede encontrar una versión en línea en el siguietne enlace:<em><a target="_blank" href="https://jumanja.net/SISGA/docs/manual_tecnico">https://jumanja.net/SISGA/docs/manual_tecnico</a></em>
+</p>
+                <h2><a name="01300">1.3 Instalación</a></h2>
+                <p>
+SISGA se conecta a una base de datos MySql +5.6 (o una versión equivalente de MariaDB), y se conecta a un esquema de bae de datos llamado <b>sisga</b>. Viene configurado para conectarse a localhost, con un usuario y clave de administrador a la base de datos. Se incluyen aquí los parámetros de conexión por defecto, pero se recomienda al finalizar su instalación, cambiar dichos parámetros por usuarios y claves propios.
+                </p>
+                <p>
+En la carpeta SISGA/sql encontrará un archivo llamado <b>sql_connect.php</b> en el que vienen los valores por defecto de la conexión para crear las tablas y crear el usuario administrador SISGA para poder ingresar por la interfaz del usuario.<br><br>
+</p>
+<p>
+<em>
+$servidor= "localhost";<br>
+$usuario= "adminsisga";<br>
+$password = "uAdmin2018";<br>
+$nombreBD= "sisga";<br>
+</em><br>
+                </p>
+Ahí se puede especificar valores diferentes si el usuario que creó para la base de datos (o el nombre del esquema, o el servidor). Utilice cualquier edtor de texto para cambiarlo, respetando la sintaxis de php.
+                <h2><a name="01400">1.4 Crear las Tablas</a></h2>
+                <p>
+En la carpeta SISGA/sql podrá encontrar el archivo <b>sisga_Struc_AutoInc_1.sql</b> que si desea puede ejecutar desde MySql o phpmyAdmin MySql workbench o cualquier otro manejador de BD compatible con MySql, este sql intentará borrar las tablas si existen. Un método menos destructivo es ejecutar en su navegador <b>http://localhost/sql</b> para que se ejecute desde php una a una las instrucciones para crear las tablas (si existe alguna, se detendrá la ejecución del script), y puede ejecutarlo cuantas veces quiera o necesite, ya que no borrará ninguna tabla. Si es una reinstalación, se recomienda que luego de crar el esquema sisga, No se cree ninguna tabla y se ejecute <b>http://localhost/sql</b> para crearlas.
+</p>
+
+                <h2><a name="01500">1.5 Crear el Usuario Administrador para SISGA</a></h2>
+                <p>
+Una vez existan las tablas, necesitará crear el usuario administrador de SISGA (Este No es el usuario anteriormente creado para conectarse a la base de datos, sino el usuario que podrá ingresar mendiante la interfaz gráfica para configurar su información dentro de SISGA, y por ejemplo, crear a los demás usuarios del aplicativo)
+                </p>
+                <p>
+                  Para ello, ingrese a <b>http://localhost/sql/crea_admin.php</b>&nbsp;y se ejecutarán tres inserciones sql, es decir, se añadirá un registro en la tabla <b>servicios</b>, otro en la tabla <b>fraternidades</b> y finalmente, un registro en la tabla <b>usuarios</b>.
+                </p>
+
+                <p>Luego de ejecutarse deberá quedar creado en la base de datos el usuario:<br>
+                  <p>
+                  <em>
+                    usuario: <b>admin</b><br>
+                    clave: <b>webmaster</b>
+                  </em>
+                  <br>
+                  </p>
+                  y de igual forma, se recomienda posteriormente mediante la interfaz de usuario de SISGA, crear otro usuario administrador con diferente clave, y retirar el admin, o cambiar su clave.
+                  </p>
+                <img class="encajarImg" src="../img/crea_admin.png">
+</section>
