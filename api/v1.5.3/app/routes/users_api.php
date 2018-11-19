@@ -668,8 +668,24 @@ $app->post('/users/add', function () use($app) {
 							//echo substr($key, 0, 5);
 							if(substr($key, 0, 4) == 'add_'){
 								  $key  = substr($key, 4);
-									$queryFields = $queryFields ."{$key}, ";
-									$queryValues = $queryValues ."'{$value}', ";
+
+
+									if($key == 'confpwd_password' ){
+										//saltese la confirmación de clave no actualizar
+									} else {
+										if($key == 'password'){
+											$encPassword = password_hash($app->request()->params('add_password'), PASSWORD_DEFAULT);
+											$queryFields = $queryFields ."{$key}, ";
+											$queryValues = $queryValues ."'{$encPassword}', ";
+
+										} else {
+											$queryFields = $queryFields ."{$key}, ";
+											$queryValues = $queryValues ."'{$value}', ";
+										}
+									}
+
+
+									//
 							}
 					}
 					$queryFields = substr($queryFields, 0, -2);
