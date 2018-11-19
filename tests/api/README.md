@@ -9,15 +9,63 @@ export myapi=http://localhost/jumanja.net/sisga/api/v1.5.3/index.php/
 Luego  de exportar la variable dependiendo de la ruta que se quiera usar, podemos invocar pruebas espcíficas o una suite de pruebas.
 
 En el momento contamos con set de pruebas para:
+- frats
 - login
+- logout
+- places
+- servs
+- tags
+- types
 - users
 - suites (aquí se encuentran los grupos de pruebas)
+
+# frats
+
+Contiene a:
+- frats_add: Adición de Fraternidades.
+- frats_all: Consulta de Fraternidades.
+- frats_count: Contar Fraternidades.
 
 # login
 
 Contiene a:
-- login
-- login_check
+- login: Intentar hacer login con varios perfiles.
+- login_admin: Hacer login con admin.
+- login_check: Verificar si un usuario hizo login.
+- login_secre: Hacerr login con perfile secretaría.
+
+# logout
+
+Contiene a:
+- logout: Cerrar la sesión de un usuario.
+
+# places
+
+Contiene a:
+- places_add: Adicionar Lugares de Reunión.
+- places_all: Consulta de Lugares de Reunión.
+- places_count: Contar Lugares de Reunión.
+
+# servs
+
+Contiene a:
+- servs_add: Adicionar Servicios.
+- servs_all: Consultar Servicios.
+- places_count: Contar Servicios.
+
+# tags
+
+Contiene a:
+- tags_add: Adicionar Etiquetas.
+- tags_all: Consultar Etiquetas.
+- tags_count: Contar Etiquetas.
+
+# types
+
+Contiene a:
+- types_add: Adicionar TiposActa.
+- types_all: Consultar TiposActa.
+- types_count: Contar TiposActa.
 
 # users
 
@@ -33,8 +81,15 @@ Contiene a:
 
 Contiene a :
 
-- 00_login
-- 01_users_populate
+- 00_poblar_info: Que invoca los casos de prueba adecuados e:
+Intenta hacer Login con admin.
+Intenta crear varios usuarios.
+Intenta crear fraternidad demo.
+Intenta crear servicios.
+Intenta crear lugares.
+Intenta crear tipos acta.
+Intenta Hacer Login con Secretaria para etiquetas.
+Intentar crear etiquetas.
 
 # Ejecución correcta
 
@@ -55,7 +110,7 @@ Se espera que en la salida por pantalla se observen mensajes como :
 
 Cada prueba intenta guardar en la carpeta api/results un archivo (usualmente en formato .json) por lo que se ha creado un script para poder visualizar estos archivos, invocar por ejemplo ./more_users_add.sh para ver en pantalla los resultados obtenidos en las pruebas. Con la tecla espacio se avanza al siguiente archivo de resultados o con la tecla q se sale de la visualización.
 
-Sin embargo, algunas pruebas crean otros archivos o archivos con diferente convención, por ejemplo, pueden intentar crear algo como ..7api/results/login_check_A_error.json, y adentro se espera que el resultado sea un error, es decir, la prueba debe fallar para que sea correcta, por ejemplo, si ese prueba con un usuario que no existe, o está inactivo, no debería crear una sesión y retornar un error.
+Sin embargo, algunas pruebas crean otros archivos o archivos con diferente convención, por ejemplo, pueden intentar crear algo como ../api/results/login_check_A_error.json, y adentro se espera que el resultado sea un error, es decir, la prueba debe fallar para que sea correcta, por ejemplo, si ese prueba con un usuario que no existe, o está inactivo, no debería crear una sesión y retornar un error.
 
 Para el caso del login, se espera que en la carpeta ../api/login/ se cree un archivo llamado logintoken.txt que contenga una cadena como:
 

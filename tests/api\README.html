@@ -30,15 +30,63 @@ export myapi=<a href="http://localhost/jumanja.net/sisga/api/v1.5.3/index.php/">
 <p>Luego  de exportar la variable dependiendo de la ruta que se quiera usar, podemos invocar pruebas espc&#xED;ficas o una suite de pruebas.</p>
 <p>En el momento contamos con set de pruebas para:</p>
 <ul>
+<li>frats</li>
 <li>login</li>
+<li>logout</li>
+<li>places</li>
+<li>servs</li>
+<li>tags</li>
+<li>types</li>
 <li>users</li>
 <li>suites (aqu&#xED; se encuentran los grupos de pruebas)</li>
+</ul>
+<h1 id="frats">frats</h1>
+<p>Contiene a:</p>
+<ul>
+<li>frats_add: Adici&#xF3;n de Fraternidades.</li>
+<li>frats_all: Consulta de Fraternidades.</li>
+<li>frats_count: Contar Fraternidades.</li>
 </ul>
 <h1 id="login">login</h1>
 <p>Contiene a:</p>
 <ul>
-<li>login</li>
-<li>login_check</li>
+<li>login: Intentar hacer login con varios perfiles.</li>
+<li>login_admin: Hacer login con admin.</li>
+<li>login_check: Verificar si un usuario hizo login.</li>
+<li>login_secre: Hacerr login con perfile secretar&#xED;a.</li>
+</ul>
+<h1 id="logout">logout</h1>
+<p>Contiene a:</p>
+<ul>
+<li>logout: Cerrar la sesi&#xF3;n de un usuario.</li>
+</ul>
+<h1 id="places">places</h1>
+<p>Contiene a:</p>
+<ul>
+<li>places_add: Adicionar Lugares de Reuni&#xF3;n.</li>
+<li>places_all: Consulta de Lugares de Reuni&#xF3;n.</li>
+<li>places_count: Contar Lugares de Reuni&#xF3;n.</li>
+</ul>
+<h1 id="servs">servs</h1>
+<p>Contiene a:</p>
+<ul>
+<li>servs_add: Adicionar Servicios.</li>
+<li>servs_all: Consultar Servicios.</li>
+<li>places_count: Contar Servicios.</li>
+</ul>
+<h1 id="tags">tags</h1>
+<p>Contiene a:</p>
+<ul>
+<li>tags_add: Adicionar Etiquetas.</li>
+<li>tags_all: Consultar Etiquetas.</li>
+<li>tags_count: Contar Etiquetas.</li>
+</ul>
+<h1 id="types">types</h1>
+<p>Contiene a:</p>
+<ul>
+<li>types_add: Adicionar TiposActa.</li>
+<li>types_all: Consultar TiposActa.</li>
+<li>types_count: Contar TiposActa.</li>
 </ul>
 <h1 id="users">users</h1>
 <p>Contiene a:</p>
@@ -53,8 +101,15 @@ export myapi=<a href="http://localhost/jumanja.net/sisga/api/v1.5.3/index.php/">
 <h1 id="suites">suites</h1>
 <p>Contiene a :</p>
 <ul>
-<li>00_login</li>
-<li>01_users_populate</li>
+<li>00_poblar_info: Que invoca los casos de prueba adecuados e:
+Intenta hacer Login con admin.
+Intenta crear varios usuarios.
+Intenta crear fraternidad demo.
+Intenta crear servicios.
+Intenta crear lugares.
+Intenta crear tipos acta.
+Intenta Hacer Login con Secretaria para etiquetas.
+Intentar crear etiquetas.</li>
 </ul>
 <h1 id="ejecuci-n-correcta">Ejecuci&#xF3;n correcta</h1>
 <p>En cada carpeta se puede invocar o ejecutar el script correspondiente al conjunto de pruebas de la api que se quiere probar, por ejemplo para probar la adici&#xF3;n de usuarios (ejemplo, en sistemas operativos basados en unix como linux y MacOs):
@@ -70,7 +125,7 @@ cd users
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed</p>
 <p>Cada prueba intenta guardar en la carpeta api/results un archivo (usualmente en formato .json) por lo que se ha creado un script para poder visualizar estos archivos, invocar por ejemplo ./more_users_add.sh para ver en pantalla los resultados obtenidos en las pruebas. Con la tecla espacio se avanza al siguiente archivo de resultados o con la tecla q se sale de la visualizaci&#xF3;n.</p>
-<p>Sin embargo, algunas pruebas crean otros archivos o archivos con diferente convenci&#xF3;n, por ejemplo, pueden intentar crear algo como ..7api/results/login_check_A_error.json, y adentro se espera que el resultado sea un error, es decir, la prueba debe fallar para que sea correcta, por ejemplo, si ese prueba con un usuario que no existe, o est&#xE1; inactivo, no deber&#xED;a crear una sesi&#xF3;n y retornar un error.</p>
+<p>Sin embargo, algunas pruebas crean otros archivos o archivos con diferente convenci&#xF3;n, por ejemplo, pueden intentar crear algo como ../api/results/login_check_A_error.json, y adentro se espera que el resultado sea un error, es decir, la prueba debe fallar para que sea correcta, por ejemplo, si ese prueba con un usuario que no existe, o est&#xE1; inactivo, no deber&#xED;a crear una sesi&#xF3;n y retornar un error.</p>
 <p>Para el caso del login, se espera que en la carpeta ../api/login/ se cree un archivo llamado logintoken.txt que contenga una cadena como:</p>
 <p>id=4&amp;token=$2y$10$9Jdu2a5VL2Xq3DqPatTKkOviMMutujM./bXWbB7mRKe</p>
 <p>.. que ser&#xE1; usado para pasar a la api el token de sesi&#xF3;n usada y validar si la petici&#xF3;n de la api es v&#xE1;lida (que el token suministado corresponda al id del usuario suministrado, que est&#xE9; activo ese usuario, y que el token no haya expirado).</p>
