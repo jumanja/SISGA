@@ -96,7 +96,7 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 											if($fila['estadoacta'] == 'G'){
 												$nomestado = "EN PROGRESO";
 											}
-											if($fila['estadoacta'] == 'P'){
+											if($fila['estadoacta'] == 'M'){
 												$nomestado = "Disponible de forma PRELIMINAR";
 											}
 											if($fila['estadoacta'] == 'F'){
@@ -110,28 +110,23 @@ Hasta aquí se inhabilititaría si se quisiera agregar sin tener sesión iniciad
 											$subject = 'El Acta: ' . $fila['idacta'] . ' ' .
 																 'está: ' . $nomestado;
 
-											$message = 'Cordial Saludo\r\n\r\n' .
-																 'Atención: ' .
-																 $fila['nomdestino'] . ' ' . $fila['apedestino'] . '\r\n\r\n\r\n\r\n' .
-																 'Por medio del presente correo, se le notifica que el Acta Número: ' .
+											$message =  $fila['nomdestino'] . ' ' . $fila['apedestino'] .
+																 ', Se le notifica que el Acta Número: ' .
 																  $fila['idacta'] . ' ' .
-																 'está ' . $nomestado . ' ' .
-																 '\r\n\r\n\r\n' .
-																 'Se envía este correo en representación de:\r\n' .
+																 'está ' . $nomestado . '. ' .
+																 'Se envía este correo en representación de: ' .
 																 $fila['nomorigen'] . ' ' . $fila['apeorigen'] . ' ' .
 																 'Efectivo desde :' . $fila['fechahora'] . ' ' .
-																 '\r\n\r\n\r\n' .
 																 'Por favor No responda a este correo, ya que es generado automáticamente. ' .
 																 'Pero si desea, puede contactar a: ' . $fila['nomorigen'] . ' a su correo electrónico: ' .
 																 $fila['emailorigen'] .
-																 '\r\n\r\n\r\n' .
-																 '\r\n\r\n\r\n' .
-																 '\r\n\r\n\r\n' .
-																 'SISGA - Sistema para Gestión de Actas v1.0';
+																 '. === SISGA - Sistema para Gestión de Actas v1.0 ===';
 
 											$headers = 'From: sisga@jumanja.net' . "\r\n" .
 													'Reply-To: ' . $fila['emailorigen'] . "\r\n" .
 													'X-Mailer: PHP/' . phpversion();
+
+														//'Content-type: text/plain; ' . "\r\n" .
 
 											if (mail($to, $subject, $message, $headers)) {
 													$enviados++;
