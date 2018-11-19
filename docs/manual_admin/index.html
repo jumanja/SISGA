@@ -51,31 +51,22 @@ Leonardo Zambrano: Gerente de Calidad y Desarrollador.
     <h6><a name="2">2</a></h6>
   -->
      <h1>Contenido</h1>
-      <ol>
-        <li><h2><a href="#01000">1. Descripción y Planeación del Proyecto</a></h2></li>
-            <ol>
-                <li><h3><a href="#01100">1.1 Introducción</a></h3></li>
-                <li><h3><a href="#01200">1.2 Objetivos del Sistema a Desarrollar</a></h3></li>
-                <li><h3><a href="#01300">1.3 Alcance del Proyecto</a></h3></li>
-                <li><h3><a href="#01400">1.4 Requerimientos del sistema</a></h3></li>
-                <ol>
-                    <li><a href="#01410">1.4.1 Requerimientos Funcionales</a></li>
-                    <li><a href="#01420">1.4.2 Requerimientos No Funcionales</a></li>
-                    <li><a href="#01430">1.4.3 Requerimientos y Reglas de Negocio</a></li>
-                </ol>
-                <li><h3><a href="#01500">1.5 Modelo de Ciclo de Vida</a></h3></li>
-                <li><h3><a href="#01600">1.6 Asignación de Roles y funciones Principales</a></h3></li>
-                <li><h3><a href="#01700">1.7 Planeación de Tiempos de Trabajo</a></h3></li>
-                <ol>
-                    <li><a href="#01710">1.7.1 Convención Personaje Principal - color</a></li>
-                    <li><a href="#01720">1.7.2 Cronograma Semanal</a></li>
-                    <li><a href="#01730">1.7.3 Cronograma Detallado</a></li>
-                </ol>
-            </ol>
-
-        <li><h2><a href="#02000">2. Diseño de la Solución</a></h2></li>
-
-   </ol>
+     <section>
+ <!--
+   <h6><a name="2">2</a></h6>
+ -->
+    <h1>Contenido</h1>
+     <ol>
+       <li><h2><a href="#01000">1. Descripción de Tablas del Sistema</a></h2></li>
+           <ol>
+               <li><h3><a href="#01100">1.1 Introducción</a></h3></li>
+               <li><h3><a href="#01200">1.2 Fraternidades</a></h3></li>
+               <li><h3><a href="#01300">1.3 Lugares de Reunión</a></h3></li>
+               <li><h3><a href="#01400">1.4 Tipos de Actas</a></h3></li>
+               <li><h3><a href="#01500">1.5 Servicios</a></h3></li>
+               <li><h3><a href="#01600">1.6 Usuarios</a></h3></li>
+           </ol>
+    </ol>
 </section>
 
       <!--
@@ -99,492 +90,82 @@ Leonardo Zambrano: Gerente de Calidad y Desarrollador.
 -->
 
       <section>
-    <h1><a name="01000">1. Descarga e Instalación de SISGA</a></h1>
+    <h1><a name="01000">1. Descripción de las Tablas del Sistema</a></h1>
                 <h2><a name="01100">1.1 Introducción</a></h2>
                 <p>
-El presente documento recopila los aspectos técnicos a considerar para la implementación del Sistema para Gestión de Actas SISGA. Requerirá de instalar previamente un ambiente adecuado, El sistema operará en formato web, usando los lenguajes HTML, CSS, JavaScript y librerías adicionales para el frontend (capa visible para los usuarios). En su backend (capa invisible a los usuarios) se desarrollará utilizando PHP5+ mediante la creación de una API (Interfaz de programación de aplicaciones por sus siglas en inglés) que a su vez se conectará a una base de datos MySql 5.0+ . Cualquier sistema operativo y servidor web que soporte esta tecnología podrá ser utilizado, pero se sugiere servidor web Apache 2.0+ y sistema operativo Linux Ubuntu 12+.</p><p>Para el Código se recomienda montar un repositorio local con git y para clonar el repositorio remoto de SISGA. Si requiere información para instalar git, con éste enlace podrá obtenerla junto a las diversas formas en las que se puede descargarlo e instalarlo: <a href="https://git-scm.com/">https://git-scm.com/</a>
+El presente documento recopila los aspectos fundamentales para que el usuario administrador conozca las tablas del sistema, su utilización y opciones de configuración.</p><p>Para una completa información paso a paso sobre la utilización y funcionalidades de SISGA, por favor remítase al <a target="_blank" href="http://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario</a>.</p>
+<p>Puede encontrar una versión actualizada de este manual de administrador, en el enlace <a target="_blank" href="http://jumanja.net/SISGA/docs/manual_admin">http://jumanja.net/SISGA/docs/manual_admin</a>.</p>
                 </p>
-                <h2><a name="01200">1.2 Descarga</a></h2>
-                <p>
-Se recomienda descargar SISGA desde su repositorio git hub, ubicados en la carpeta pública del servidor web elegido, por ejemploe /var/www/html o htdocs según su instalación. Ubicados ahí, con este comando podrá clonar el repositorio y quedará instalado en su disco duro:<br>
-<code>git clone https://github.com/jumanja/SISGA.git</code><br>Si no desea instalarlo, también puede descargar un archivo comprimido .zip desde el enlace: <br><code>https://github.com/jumanja/SISGA/archive/master.zip</code><br> Y luego descomprimirlo en la carpeta pública de su servidor web.</p>
-                <h2><a name="01300">1.3 Instalación</a></h2>
-                <p>
-SISGA se conecta a una base de datos MySql +5.6 (o una versión equivalente de MariaDB), y se conecta a un esquema de bae de datos llamado <b>sisga</b>. Viene configurado para conectarse a localhost, con un usuario y clave de administrador a la base de datos. Se incluyen aquí los parámetros de conexión por defecto, pero se recomienda al finalizar su instalación, cambiar dichos parámetros por usuarios y claves propios.
+                <p>Al iniciar sesión con usuario administrador, aparecerá en pantalla la opción de elegir la tabla a configurar:
                 </p>
-                <p>
-En la carpeta SISGA/sql encontrará un archivo llamado <b>sql_connect.php</b> en el que vienen los valores por defecto de la conexión para crear las tablas y crear el usuario administrador SISGA para poder ingresar por la interfaz del usuario.<br>
-<code>
-$servidor= "localhost";<br>
-$usuario= "adminsisga";<br>
-$password = "uAdmin2018";<br>
-$nombreBD= "sisga";<br>
-</code><br>
+                <img class="encajarImg" src="../img/seleccione_tablas.png">
+                <p>Al hacerle click podrá ver y elegir la tabla a configurar dentro de la lista:
                 </p>
-Ahí se puede especificar valores diferentes si el usuario que creó para la base de datos (o el nombre del esquema, o el servidor). Utilice cualquier edtor de texto para cambiarlo, respetando la sintaxis de php.
-                <h3><a name="01400">1.4 Crear las Tablas</a></h3>
-                <p>
-En la carpeta SISGA/sql podrá encontrar el archivo <b>sisga_Struc_AutoInc_1.sql</b> que si desea puede ejecutar desde MySql o phpmyAdmin MySql workbench o cualquier otro manejador de BD compatible con MySql, este sql intentará borrar las tablas si existen. Un método menos destructivo es ejecutar en su navegador <b>http://localhost/sql</b> para que se ejecute desde php una a una las instrucciones para crear las tablas (si existe alguna, se detendrá la ejecución del script), y puede ejecutarlo cuantas veces quiera o necesite, ya que no borrará ninguna tabla. Si es una reinstalación, se recomienda que luego de crar el esquema sisga, No se cree ninguna tabla y se ejecute <b>http://localhost/sql</b> para crearlas.
-</p>
+                <img class="encajarImg" src="../img/tablas_del_sistema.png">
 
-                <h4><a name="01500">1.5 Crear el Usuario Administrador para SISGA</a></h4>
+                <h2><a name="01200">1.2 Fraternidades</a></h2>
+                <img class="encajarImg" src="../img/tabla_fraternidades.png">
                 <p>
-Una vez existan las tablas, necesitará crear el usuario administrador de SISGA (Este No es el usuario anteriormente creado para conectarse a la base de datos, sino el usuario que podrá ingresar mendiante la interfaz gráfica para configurar su información dentro de SISGA, y por ejemplo, crear a los demás usuarios del aplicativo)
+Permite gestionar las fraternidades del sistema. Sus campos son:
+<ul>
+  <li><b>Frat:</b> Código de fraternidad</li>
+  <li><b>Id:</b> Identificador único, consecutivo de registro de fraternidad</li>
+  <li><b>Estado:</b> Estado del Registro (A- Activo, I- inactivo, R- Retirado)</li>
+  <li><b>Dirección:</b> Dirección o Ubicación de la Fraternidad</li>
+  <li><b>Ciudad:</b> Ciudad de la Fraternidad</li>
+  <li><b>Logo:</b> Nombre del archivo de imagen (.png) que contiene el logo de la Fraternidad</li>
+  <li><b>Email:</b> Dirección de correo electrónico general de la fraternidad</li>
+</ul>
                 </p>
+                <h2><a name="01300">1.3 Lugares de Reunión</a></h2>
+                <img class="encajarImg" src="../img/tabla_lugares.png">
                 <p>
-                  Para ello, ingrese a <b>http://localhost/sql/crea_admin.php</b>y se ejecutarán tres inserciones sql, es decir, se añadirá un registro en la tabla <b>servicios</b>, otro en la tabla <b>fraternidades</b> y finalmente, un registro en la tabla <b>usuarios</b>.
+Permite gestionar los lugares en los que se lleva a cabo las reuniones que generan las actas del sistema. Sus campos son:
+<ul>
+  <li><b>Frat:</b> Código de fraternidad</li>
+  <li><b>Lugar:</b> Nombre del lugar de Reunión</li>
+  <li><b>Id:</b> Identificador único, consecutivo de registro de la tabla lugares</li>
+  <li><b>Estado:</b> Estado del Registro (A- Activo, I- inactivo, R- Retirado)</li>
+</ul>
                 </p>
-
-                <p>Luego de ejecutarse deberá quedar creado en la base de datos el usuario:<br>
-                  <code>
-                    usuario: <b>admin</b><br>
-                    clave: <b>webmaster</b>
-                  </code>
-                  <br>
-                  y de igual forma, se recomienda posteriormente mediante la interfaz de usuario de SISGA, crear otro usuario administrador con diferente clave, y retirar el admin, o cambiar su clave.
-                  </p>
-                <img class="encajarImg" src="../img/crea_admin.png">
-
-                <h4><a name="01600">1.6 Asignación de Roles y funciones Principales</a></h4>
-                <table class="encajarTabla">
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Roles y Funciones Principales</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><b>Cristian Alonso</b></td>
-                      <td>
-                        <b>Administrador de la Configuración y Desarrollador</b><br>
-
-                        <p>Funciones como <b><i>Administrador de la Configuración</i></b>
-                          <ul>
-                            <li>Para este proyecto específico, asegurar que las versiones de sus componentes (incluyendo los documentos, artefactos, entregables), se manejen en un sistema de control de versiones actualizados y disponibles para los interesados.</li>
-
-
-                          </ul>
-                        </p>
-
-                        <p>Funciones como <b><i>Desarrollador</i></b>
-                          <ul>
-                            <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
-                            <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
-                            <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
-                          </ul>
-                        </p>
-
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td><b>Sneider Durango</b></td>
-                      <td>
-                          <b>Analista de Requerimientos y Desarrollador</b><br>
-
-                          <p>Funciones como <b><i>Analista de Requerimientos</i></b>
-                            <ul>
-                              <li>Recolectar y/o analizar los requerimientos del cliente.</li>
-                              <li>Hacer gestión de los requerimientos (mantenerlos actualizados) en la documentación.</li>
-                            </ul>
-                          </p>
-
-                          <p>Funciones como <b><i>Desarrollador</i></b>
-                              <ul>
-                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
-                                <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
-                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
-                              </ul>
-                          </p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td><b>Juan Manjarrés</b></td>
-                      <td>
-                          <b>Arquitecto y Desarrollador Líder</b><br>
-
-                          <p>Funciones como <b><i>Arquitecto</i></b>
-                            <ul>
-                              <li>Definir y Diseñar la arquitectura del software a realizar, incluyendo la creación de diagramas y componentes requeridos según el resultado de sus evaluaciones técnicas y validación de la arquitectura contra los requerimientos en conjunto con el cliente.</li>
-                              <li>Orientar al desarrollador líder y al resto de desarrolladores con el objetivo de que la implementación sea coherente y cumpla con las especificaciones plasmadas en la arquitectura.</li>
-                            </ul>
-                          </p>
-
-                          <p>Funciones como <b><i>Desarrollador Líder</i></b>
-                              <ul>
-                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
-                                <li>Manifestar oportunidades de mejora al Arquitecto.</li>
-                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
-                                <li>Proveer de documentación tanto del código realizado, como de los ajustes y de la porción correspondiente al manual de usuario.</li>
-                                <li>Definir de forma más práctica y detallada la visión de arquitectura de los componentes, pensando en lo que requieren los desarrolladores para su implementación.</li>
-                                <li>Orientar y dar soporte a los demás desarrolladores en las habilidades técnicas en las que lo requieran y se necesiten dentro del proyecto.</li>
-                              </ul>
-                          </p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td><b>Liana Rodríguez</b></td>
-                      <td>
-                          <b>Gerente de Proyecto y Desarrolladora</b><br>
-
-                          <p>Funciones como <b><i>Gerente de Proyecto</i></b>
-                            <ul>
-                              <li>Garantizar que el ambiente y/o marco de trabajo sea el adecuado para que los demás integrantes del proyecto puedan llevar a cabo sus funciones.</li>
-                              <li>Aplicando el ciclo Planear, Hacer, Verificar y Actuar, debe tomar decisiones de las actividades a nivel macro del proyecto.</li>
-                              <li>Realizar seguimiento a los cronogramas, compromisos y en general a todas las fases del proyecto, para velar por su cumplimiento de forma interna y hacia el cliente.</li>
-                            </ul>
-                          </p>
-
-                          <p>Funciones como <b><i>Desarrolladora</i></b>
-                              <ul>
-                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
-                                <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
-                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
-                              </ul>
-                          </p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td><b>Leonardo Zambrano</b></td>
-                      <td>
-                          <b>Gerente de Calidad y Desarrollador</b><br>
-
-                          <p>Funciones como <b><i>Gerente de Calidad</i></b>
-                            <ul>
-                              <li>Definir el plan y estrategias de calidad relacionadas a implementarse en el proyecto.</li>
-                              <li>Generación y/o Verificación de la documentación y artefactos entregables.</li>
-                              <li>Construcción y/o verificación de que los casos de prueba se ajustan a los necesarios para que se pueda asegurar la calidad en el software según el documento de especificaciones, y medición y organización de los resultados obtenidos de las pruebas, al igual de las sugerencias y pasos a seguir según los resultados obtenidos en dichas pruebas.</li>
-                            </ul>
-                          </p>
-
-                          <p>Funciones como <b><i>Desarrollador</i></b>
-                              <ul>
-                                <li>Convertir las especificaciones técnicas en algoritmos y código ejecutable que cumpla con los requerimientos relacionados.</li>
-                                <li>Manifestar oportunidades de mejora al Desarrollador Líder.</li>
-                                <li>Ejecutar las pruebas a nivel de desarrollo y corregir los defectos encontrados, al igual que corregir los reportados por el área de calidad.</li>
-                              </ul>
-                          </p>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
-
-                <h4><a name="01700">1.7 Planeación de Tiempos de Trabajo</a></h4>
-                    <h5><a name="01710">1.7.1 Convención Personaje Principal - color</a></h5>
-                    <p>
-                      Usaremos una convención de colores para representar la persona o grupo responsable de las actividades correspondientes. A continuación relacionamos a manera de cronograma resumido, cada semana del proyecto con las actividades a realizar:
-                    </p>
-
-                    <table>
-                      <thead>
-                        <tr>
-                          <th colspan=2>Convención Responsable Principal</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr><td>Administrador de la Configuración<br>(Cristian Alonso)</td><td class="adconf">AC</td></tr>
-                        <tr><td>Analista de Requerimientos<br>(Sneider Durango)</td><td class="anareq">AR</td></tr>
-                        <tr><td>Arquitecto de software<br>(Juan Manjarrés)</td><td class="arquit">AS</td></tr>
-                        <tr><td>Cliente<br>(JUFRA)</td><td class="client">CL</td></tr>
-                        <tr><td>Gerente de Calidad<br>(Leonardo Zambrano)</td><td class="qualit">QA</td></tr>
-                        <tr><td>Desarrollo<br>(Todo el Grupo)</td><td class="desarr">DV</td></tr>
-                        <tr><td>Gerente del Proyecto<br>(Liana Rodríguez)</td><td class="gerent">PM</td></tr>
-                        <!--<tr><td>Todos<br>(Grupo  + JUFRA)</td><td class="todos">ALL</td></tr>-->
-                      </tbody>
-                    </table>
-
-                    <h5><a name="01720">1.7.2 Cronograma Semanal</a></h5>
-<!--
-                    <table class="encajarTabla" >
-                      <thead>
-                        <tr>
-                          <td class="centered" style="width:300px">2018</td>
-                          <th colspan=4>Septiembre</th>
-                          <th colspan=5>Octubre</th>
-                          <th colspan=4>Noviembre</th>
-                        </tr>
-                        <tr>
-                          <th>Fechas Inicio - Fin</th>
-                          <td>3 - 9</td>
-                          <td>10 - 16</td>
-                          <td>17 - 23</td>
-                          <td>24 - 30</td>
-                          <td>1 - 7</td>
-                          <td>8 - 14</td>
-                          <td>15 - 21</td>
-                          <td>22 - 28</td>
-                          <td>29 - Nov 4</td>
-                          <td>5 - 11</td>
-                          <td>12 - 18</td>
-                          <td>19 - 25</td>
-                          <td>26 - Dic 2</td>
-                        </tr>
-                        <tr>
-                          <th>Actvidad / Semana Nro</th>
-                          <td>Sem<br>1</td>
-                          <td>Sem<br>2</td>
-                          <td>Sem<br>3</td>
-                          <td>Sem<br>4</td>
-                          <td>Sem<br>5</td>
-                          <td>Sem<br>6</td>
-                          <td>Sem<br>7</td>
-                          <td>Sem<br>8</td>
-                          <td>Sem<br>9</td>
-                          <td>Sem<br>10</td>
-                          <td>Sem<br>11</td>
-                          <td>Sem<br>12</td>
-                          <td>Sem<br>13</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Recolección de Requerimientos</td>
-                          <td></td><td></td><td></td>
-                          <td class="anareq">AR</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>ERS-Documento Especificaciones</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td class="anareq">AR</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Gestión de los Requerimientos.</td>
-                          <td></td><td></td><td></td>
-                          <td></td>
-                          <td></td>
-                          <td class="anareq">AR</td>
-                          <td class="anareq">AR</td>
-                          <td class="anareq">AR</td>
-                          <td class="anareq">AR</td>
-                          <td class="anareq">AR</td>
-                          <td class="anareq">AR</td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Diseño Arquitectura</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td class="arquit">AS</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Aprobación ERS y Arquitectura</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td class="arquit">AS</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Definición Plan de Calidad</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td class="qualit">QA</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td><pre>
-Desarrollo Inicial
-===================
-REQ-001: Control de Acceso Usuario y Clave.
-</pre></td>
-                          <td></td><td></td><td></td>
-                          <td></td><td class="desarr">DV</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr>
-                          <td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td class="qualit">QA</td>
-                          <td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Gestión versiones de los componentes.</td>
-                          <td></td><td></td><td></td>
-                          <td></td>
-                          <td></td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                          <td class="adconf">AC</td>
-                        </tr>
-
-                        <tr>
-                          <td><pre>
-Desarrollo Incremento 1
-REQ-002: Gestión Fraternidades.
-REQ-003: Gestión Tipos de Acta.
-REQ-004: Gestión Lugares de Reunión.
-</pre></td>
-                        <td></td><td></td><td></td>
-                        <td></td><td></td><td class="desarr">DV</td>
-                        <td></td><td></td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                        </tr>
-
-                        <tr><td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td class="qualit">QA</td>
-                          <td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr><td><pre>
-Desarrollo Incremento 2
-REQ-005: Gestión de Etiquetas.
-REQ-007: Gestión de Usuarios.
-REQ-008: Gestión de Servicios.
-</pre></td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td class="desarr">DV</td>
-                          <td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr><td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td><td class="qualit">QA</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr><td><pre>
-Desarrollo Incremento 3
-REQ-006: Gestión de Actas.
-</pre></td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td><td class="desarr">DV</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr><td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td><td></td><td class="qualit">QA</td>
-                          <td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr><td><pre>
-Desarrollo Incremento 4
-REQ-10: Búsqueda de Actas.
-REQ-011: Revisión y Aprobación Actas.
-</pre></td>
-                          <td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td><td></td><td class="desarr">DV</td>
-                          <td></td><td></td><td></td>
-                          <td></td>
-                        </tr>
-
-                        <tr><td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td class="qualit">QA</td>
-                          <td></td><td></td><td></td>
-                        </tr>
-
-                        <tr><td><pre>
-Desarrollo Incremento Final
-REQ-012: Generación PDF del acta.
-REQ-013: Informe de Actas.
-REQ-009: Notificación por Email .
-</pre></td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td><td class="desarr">DV</td>
-                        <td></td><td></td><td></td>
-                        </tr>
-
-
-                        <tr><td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td class="qualit">QA</td>
-                          <td></td><td></td>
-                        </tr>
-
-                        <tr><td>Entrega Final</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td>
-                          <td class="desarr">DV</td>
-                          <td class="desarr">DV</td>
-                        </tr>
-
-                        <tr><td>Pruebas Aceptación Cliente</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td>
-                          <td class="client">CL</td>
-                          <td class="client">CL</td>
-                        </tr>
-
-                        <tr><td>Aplicación Plan de Calidad</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td>
-                          <td class="qualit">QA</td>
-                          <td class="qualit">QA</td>
-                        </tr>
-
-                        <tr><td>Gestión del Proyecto</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                          <td class="gerent">PM</td>
-                        </tr>
-
-                        <tr><td>PostMórtem</td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td><td></td>
-                          <td></td><td></td><td></td>
-                          <td></td>
-                          <td class="desarr">DV</td>
-
-                      </tbody>
-                    </table>
--->
-<img src="img/15_cronosemanal.png"/>
-                    <h5><a name="01730">1.7.3 Cronograma Detallado</a></h5>
-<!--
-El final de la sección se agregó a index.anomalous porque toca repetir cronograma detallado
+                <h2><a name="01400">1.4 Tipos de Actas</a></h2>
+                <img class="encajarImg" src="../img/tabla_tipos_de_actas.png">
+                <p>
+Permite gestionar los tipos de acta a manejar dentro del sistema. Sus campos son:
+<ul>
+  <li><b>Frat:</b> Código de fraternidad</li>
+  <li><b>Tipo:</b> Una letra que identifica al tipo.</li>
+  <li><b>Id:</b> Identificador único, consecutivo de registro de la tabla Tipos de Actas</li>
+  <li><b>Nombre:</b> El nombre relacionado al tipo de acta, por ejemplo, Normal, De Junta.</li>
+  <li><b>Estado:</b> Estado del Registro (A- Activo, I- inactivo, R- Retirado)</li>
+</ul>
+                </p>
+                <h2><a name="01500">1.5 Servicios</a></h2>
+                <img class="encajarImg" src="../img/tabla_de_servicios.png">
+                <p>
+Permite gestionar los servicios que prestan los integrantes a la fraternidad dentro del sistema. Sus campos son:
+<ul>
+  <li><b>Servicio:</b> Una Letra que identifica al servicio, ejemplo: S - Secretaría, P - Presidencia...</li>
+  <li><b>TipoServ:</b> Tipo de Servicio, Tenemos tres: I - Integrante de Junta Local, A - Administrador del Sistema, y V - Visitante o Integrante de Junta Regional/Nacional que solo lo usará para consulta.</li>
+  <li><b>Id:</b> Identificador único, consecutivo de registro de la tabla Servicios</li>
+  <li><b>Nombre:</b> El nombre del Servicio, por ejemplo: Secretaría, Presidencia, Tesorería, Formación...</li>
+  <li><b>Estado:</b> Estado del Registro (A- Activo, I- inactivo, R- Retirado)</li>
+</ul>
+                </p>
+                <h2><a name="01600">1.6 Usuarios</a></h2>
+                <img class="encajarImg" src="../img/tabla_de_usuarios.png">
+                <p>
+Permite gestionar los usuarios del sistema. Sus campos son:
+<ul>
+  <li><b>Frat:</b> Código de fraternidad</li>
+  <li><b>Id:</b> Identificador único, consecutivo de registro de la tabla Servicios</li>
+  <li><b>Usuario:</b> Código único del Usuario, que usará para entrar al sistema.</li>
+  <li><b>Apellidos:</b> Apellidos del Usuario.</li>
+  <li><b>Nombres:</b> Nombres del Usuario</li>
+  <li><b>Email:</b> Dirección de correo electrónico del usuario</li>
+</ul>
+                </p>
 </section>
--->
 
 </body>
 </html>

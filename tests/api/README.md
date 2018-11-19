@@ -1,7 +1,7 @@
 # Pruebas Automatizadas para SISGA
 Sistema de Gestión de Actas
 
-# Preparaicón de Ambiente.
+# Preparación de Ambiente.
 Para sistemas basados en unix, com Linux y MacOs, se debe exportar la variable myapi para definir si se quiere acceder a la api local o invocar una api en la web.
 export myapi=http://jumanja.net/sisga/api/v1.5.3/index.php/
 export myapi=http://localhost/jumanja.net/sisga/api/v1.5.3/index.php/
@@ -9,17 +9,17 @@ export myapi=http://localhost/jumanja.net/sisga/api/v1.5.3/index.php/
 Luego  de exportar la variable dependiendo de la ruta que se quiera usar, podemos invocar pruebas espcíficas o una suite de pruebas.
 
 En el momento contamos con set de pruebas para:
-- login 
-- users 
-- suites (aquí se encuentran los grupos de pruebas) 
+- login
+- users
+- suites (aquí se encuentran los grupos de pruebas)
 
-# login 
+# login
 
 Contiene a:
 - login
 - login_check
 
-# users 
+# users
 
 Contiene a:
 - users_add
@@ -85,6 +85,6 @@ Indica que se está ejecutando pruebas sin haber exportardo la variable myapi (v
 
 Indica que la base de datos no está disponible, puede que necesite iniciarla y luego de iniciada, reintentar las pruebas.
 
-- Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'usuario_UNIQUE' 
+- Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin' for key 'usuario_UNIQUE'
 
 Indica que en este caso, se intentó crear un usuario que ya existía, para otros casos indica que el registro a crear violaría una llave única generando duplicaods, por lo que no es permitodo adicionar ese registro en particular con esa llav (usualmente el id)

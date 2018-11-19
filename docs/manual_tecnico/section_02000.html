@@ -2,7 +2,7 @@
 
                 <h1><a name="02000">2. Acceder a SISGA</a></h1>
                 <h2><a name="02100">2.1 Acceder a la pantalla de Login</a></h2>
-<p>Para acceder a la versión web de SISGA, se debbe abrir en un navegador (se recomienda Google Chrome) <a target="_blank" href="http://sisga.jumanja.net">http://sisga.jumanja.net</a> o <a target="_blank" href="https://jumanja.net/SISGA">https://jumanja.net/SISGA</a> que deberá mostrarles el aplicativo funcionando online. Àmbos enlaces permiten utilizar el aplicativo aaccediendo a la misma versión de código y de datos.
+<p>Para acceder a la versión web de SISGA, se debe abrir en un navegador (se recomienda Google Chrome) <a target="_blank" href="http://sisga.jumanja.net">http://sisga.jumanja.net</a> o <a target="_blank" href="https://jumanja.net/SISGA">https://jumanja.net/SISGA</a> que deberá mostrarles el aplicativo funcionando online. Àmbos enlaces permiten utilizar el aplicativo aaccediendo a la misma versión de código y de datos.
   </p>
   <p><b>Nota:</b>Para instrucciones referente al manejo del SISGA, por favor refiérase al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.</p>
 <img class="encajarImg" src="../img/00_login_screen.png">
@@ -14,6 +14,7 @@
         <li>sisga_Data_local.sql</li>
         <li>sisga_Struc_local.sql</li>
         <li>sisga_Todo_local_final.sql</li>
+        <li>sisga_Laudato_Si.sql</li>
     </ul>
   </p>
 
@@ -46,4 +47,27 @@
 
   <p><b>Nota:</b> La intención es permitir encontrar información en todas las tablas, lo mismo que actas ya creadas, para poder tener una idea más integral de las funcionalidades. Se sugiere utilizar los usuarios admin, presidenta, secretaria, y regional, para poder apreciar las diferentes opciones habilitadas según el servicio que prestan. Más información en los correspondientes manuales: <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.
   </p>
+
+    <h3><a name="02250">2.2.5 sisga_Laudato_Si.sql</a></h3>
+    <p>Este archivo <b>sisga_Laudato_Si.sql</b> contiene una exportación tanto de estructura como de los datos, pero esta vez solo tiene las tablas principales con información, y No tiene ningún acta creada. Se generó con el objetivo de reiniciar rápidamente el sistema con información pre-configurada pero sin movimientos de actas y correspondientes asistentes, comentarios, notificaciones, tareas, etc... Para instalarlo, haga su propio export (sql dump) de la base de datos SISGA a manera de copia de seguridad (o si no tiene aún información que guardar, elimine las tablas - DROP TABLE -). Luego importe SISGA/sql/sisga_Laudato_Si.sql y una vez hecho esto, utilice el usuario admin/webmaster para hacer login.
+  </p>
+
+  <h3><a name="02260">2.2.6 Usuarios y claves que contiene el  sisga_Laudato_Si.sql</a></h3>
+  <p>Para diferenciar éste último sql dump generado, (sisga_Laudato_Si.sql) se variaron los usuarios de diferentes perfiles pre-generados. Por lo que, contiene los siguientes usuario / clave:
+    <br><br>
+    <ul>
+      <li>admin / webmaster</li>
+      <li>presi / local</li>
+      <li>secre / local</li>
+      <li>teso / local</li>
+      <li>forma / local</li>
+      <li>espi / local</li>
+      <li>regio /regional</li>
+      <li>nacio / nacional</li>
+    </ul><br>
+  </p>
+
+    <p><b>Nota:</b> La intención es permitir encontrar información en todas las tablas, pero SIN actas, para poder empezar desde la primera acta elegida. Se puede tomar éste sql dump como el archivo a utilizar preparado previamente para un entorno de produción. Sin embargo, se sugire no usar usuarios genéricos como el que tiene, es decir, en vez de secre crear un usuario con iniciales y apellido de la persona en vez de algo genérico, que es una práctica recomendada en seguridad de la información y auditoría. Más información en los correspondientes manuales: <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_admin">Manual de Administrador del Sistema</a>, y al <a target="_blank" href="https://jumanja.net/SISGA/docs/manual_usuario">Manual de Usuario del Sistema</a>.
+    </p>
+
 </section>

@@ -416,7 +416,43 @@ Se espera que de las revisiones formales (semanalmente) se desprenda un informe 
 <p>
 Para éste proyecto se eligió un ciclo de vida incremental, por lo que se clasificarán los casos de prueba como <b>Obligatorios</b>, <b>Requeridos</b>, y <b>Postergables</b>.</a>
 </p>
-
+<p>
+  <b>Fórmula Métrica:</b><br>
+</p>
+<p>
+  OF=	(NroObligFallidos * 100) / NroTotalObligatorios	<br>
+  RF=	(NroReqFallidos * 100) / NroTotalRequeridos			<br>
+  PF=	(NroPostergFallidos * 100) / NroTotalPostergables <br><br>
+  El rango aceptable para cada uno será:
+</p>
+<table class="encajarTabla">
+  <tr>
+    <th>Tipo de Casos de Prueba</th>
+    <td>Rango Mínimo</td>
+    <td>Rango Máximo</td>
+  </tr>
+  <tr>
+    <th>Número de casos de prueba Obligatorios Fallidos (OF)</th>
+    <td>100%</td>
+    <td>100%</td>
+  </tr>
+  <tr>
+    <th>Número de casos de prueba Requeridos Fallidos (RF)</th>
+    <td>95%</td>
+    <td>100%</td>
+  </tr>
+  <tr>
+    <th>Número de casos de prueba Postergables Fallidos (PF)</th>
+    <td>50%</td>
+    <td>100%</td>
+  </tr>
+  </table>
+<br>
+<b>Nota:</b>
+<b>Obligatorios:</b> Si un caso de prueba falla, y se ha catalogado como Obligatorio, es porque tiene un impacto muy grande en el sistema y se debe detener la entrega hasta que el caso de prueba entregue resultado exitoso.
+<b>Requeridos:</b> Si un caso de prueba falla, y se ha catalogado como Requerido, es porque tiene un impacto medio en el sistema y se entra a evaluar si fue justificado y poco probable que se repita en producción, se evalúa el impacto de entregarlo resuelto o aplazarlo.
+<b>Postergable:</b> Si un caso de prueba falla, y se ha catalogado como Postergable, no se detiene la entrega y se marca como bug (defecto) para la siguiente entrega, siempre y cuando no se haya postergado antes en más de una ocasión.
+<br>
 <h4>Metodología</h4>
 <p>
   <ul>

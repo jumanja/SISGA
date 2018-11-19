@@ -1,6 +1,6 @@
 /*
 Clase: User
-Autor: Juan Manjarrés
+Responsable: Juan Manjarrés
 Descripción: Servir de especificación para la construcción
              de objetos de tipo Usuario de la Tabla users.
 

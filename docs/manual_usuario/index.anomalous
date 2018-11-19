@@ -7,5 +7,8 @@
       <partial src="toc_tables.html"/>
       <partial src="toc_imgs.html"/>
       <partial src="section_01000.html"/>
+      <partial src="section_02000.html"/>
+      <partial src="section_03000.html"/>
+      <partial src="section_04000.html"/>
 </body>
 </html>
