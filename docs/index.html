@@ -164,8 +164,33 @@ Leonardo Zambrano: Gerente de Calidad y Desarrollador.
                 <li><h3><a href="#03200">3.2 Levantamiento de Información (Entrevista)</a></h3></li>
                 <li><h3><a href="#03300">3.3 Reuniones de Seguimiento (2)</a></h3></li>
                 <li><h3><a href="#03400">3.4 Acta de Entrega y Aceptación</a></h3></li>
+                <li><h3><a href="#03500">3.5 Evidencias Pruebas del Sistema</a></h3></li>
+                <ol>
+                    <li><h3><a href="#03510">3.5.1 Instrucciones Pruebas Automáticas del Sistema</a></h3></li>
+                    <li><h3><a href="#03520">3.5.2 Historial de los commits de los Logs de Pruebas</a></h3></li>
+                    <li><h3><a href="#03530">3.5.3 Ejemplo completo #1: Pruebas API Login</a></h3></li>
+                    <ol>
+                      <li><a href="#03531">3.5.3.1 Resultado de un caso de prueba API Login</a></li>
+                      <li><a href="#03532">3.5.3.2 Historial de log resultado correspondiente</a></li>
+                    </ol>
+                    <li><h3><a href="#03540">3.5.4 Ejemplo completo #2: Pruebas API users_add_Admin</a></h3></li>
 
-                <li><h3><a href="#99999">Referencias</a></h3></li>
+                    <ol>
+                      <li><a href="#03541">3.5.4.1 Resultado de un caso de prueba API Agregar usuario</a></li>
+                      <li><a href="#03542">3.5.4.2 Historial de log resultado correspondiente</a></li>
+                    </ol>
+                    <li><h3><a href="#03550">3.5.5 Ejemplo completo #3: Pruebas API users_delete</a></h3></li>
+
+                    <ol>
+                        <li><a href="#03551">3.5.5.1 Resultado de un caso de prueba API Borrar usuario</a></li>
+                        <li><a href="#03552">3.5.5.2 Historial de log resultado correspondiente</a></li>
+                    </ol>
+
+                    <li><h3><a href="#03560">3.5.6 Prueba de Stress</a></h3></li>
+                </ol>
+
+                <li><h3><a href="#09000">ANEXOS</a></h3></li>
+                <li><h3><a href="#99999">REFERENCIAS</a></h3></li>
 
    </ol>
 </section>
@@ -4795,10 +4820,52 @@ Para éste proyecto se eligió un ciclo de vida incremental, por lo que se clasi
     <img class="encajarImg" src="img/entrega_02.png">
 
           <h1><a name="03500">3.5 Evidencias Pruebas del Sistema</a></h1>
+    <h2><a name="03510">3.5.1 Instrucciones Pruebas Automáticas del Sistema</a></h2>
     <img class="encajarImg" src="img/pruebas_auto_pag1.png">
     <img class="encajarImg" src="img/pruebas_auto_pag2.png">
     <img class="encajarImg" src="img/pruebas_auto_pag3.png">
     <img class="encajarImg" src="img/pruebas_auto_pag4.png">
+
+    <h2><a name="03520">3.5.2 Historial de los commits de los Logs de Pruebas</a></h2>
+    <img class="encajarImg" src="img/ejemplo0_historia_tests_commits_pag1.png">
+    <img class="encajarImg" src="img/ejemplo0_historia_tests_commits_pag2.png">
+    <p>A continuación tres ejemplos, se muestra el contenido del archivo resultado,
+      el primero exitoso con contenido, otro caso fallido, y el último exitoso
+      pero con número de registros procesados. Se muestran para cada uno, el
+      historial de cambios subidos al repositorio como evidencia de ejecución
+      de pruebas unitarias para casos de uso en API de login y API de usuario:
+    </p>
+
+    <h2><a name="03530">3.5.3 Ejemplo completo #1: Pruebas API Login</a></h2>
+    <p>Caso de Prueba Exitoso, el archivo resultado contiene los parámetros
+    de token de sesión generado por el sistema.</p>
+    <h2><a name="03531">3.5.3.1 Resultado de un caso de prueba API Login</a></h2>
+    <img class="encajarImg" src="img/ejemplo1_login_json_at_master.png">
+    <h2><a name="03532">3.5.3.2 Historial de log resultado correspondiente</a></h2>
+    <img class="encajarImg" src="img/History_ejemplo1_tests_results_login_json.png">
+
+    <h2><a name="03540">3.5.4 Ejemplo completo #2: Pruebas API users_add_Admin</a></h2>
+    <p>Caso de Prueba Exitoso, el archivo resultado contiene un error de SQL,
+      pues se intenta agregar un usuario con código admin, y ese código
+      ya existe.</p>
+    <h2><a name="03541">3.5.4.1 Resultado de un caso de prueba API Agregar usuario</a></h2>
+    <img class="encajarImg" src="img/ejemplo2_users_add_A_json_at_master.png">
+    <h2><a name="03542">3.5.4.2 Historial de log resultado correspondiente</a></h2>
+    <img class="encajarImg" src="img/History_ejemplo2_tests_results_users_add_A_json.png">
+
+    <h2><a name="03550">3.5.5 Ejemplo completo #2: Pruebas API users_delete</a></h2>
+    <p>Caso de Prueba Exitoso, el archivo resultado contiene respuesta en
+      formato json con el número de registros procesados (en este caso,
+      1 registro actualizado a estado "R").</p>
+    <h2><a name="03551">3.5.5.1 Resultado de un caso de prueba API Borrar usuario</a></h2>
+    <img class="encajarImg" src="img/ejemplo3_users_delete_json_at_master.png">
+    <h2><a name="03552">3.5.5.2 Historial de log resultado correspondiente</a></h2>
+    <img class="encajarImg" src="img/History_ejemplo3_tests_results_users_delete_json.png">
+
+    <h2><a name="03560">3.5.6 Prueba de Stress</a></h2>
+    <p>Caso de Prueba Exitoso, el sistema soporta al menos cinco (5)
+      usuarios concurrentes.</p>
+    <img class="encajarImg" src="img/prueba_stress.png">
 
       </section>
   <section>
@@ -4827,7 +4894,7 @@ Para éste proyecto se eligió un ciclo de vida incremental, por lo que se clasi
   </section>
 
       <section>
-    <h1><a name="99999">Referencias</a></h1>
+    <h1><a name="99999">REFERENCIAS</a></h1>
 <p>
     CursoDireccionProyectos.com (website, 2018)<br>
 <a target="_blank" href="https://www.cursodireccionproyectos.com/2018/07/ciclos-de-vida-iterativo-e-incremental-que-son/">https://www.cursodireccionproyectos.com/2018/07/ciclos-de-vida-iterativo-e-incremental-que-son/</a>
