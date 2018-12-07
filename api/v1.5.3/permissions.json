@@ -21,7 +21,7 @@
   },
   "GET:/tags": {
     "tiposerv": {
-      "incluye": "I",
+      "incluye": "IV",
       "excluye": ""
     },
     "servicio": {
@@ -101,7 +101,7 @@
   },
   "GET:/users": {
     "tiposerv": {
-      "incluye": "AI",
+      "incluye": "AIV",
       "excluye": ""
     },
     "servicio": {
@@ -271,7 +271,7 @@
   },
   "GET:/places": {
     "tiposerv": {
-      "incluye": "AI",
+      "incluye": "AIV",
       "excluye": ""
     },
     "servicio": {
@@ -351,7 +351,7 @@
   },
   "GET:/types": {
     "tiposerv": {
-      "incluye": "AI",
+      "incluye": "AIV",
       "excluye": ""
     },
     "servicio": {
@@ -531,7 +531,7 @@
   },
   "GET:/mins/count": {
     "tiposerv": {
-      "incluye": "I",
+      "incluye": "IV",
       "excluye": ""
     },
     "servicio": {
@@ -541,7 +541,7 @@
   },
   "GET:/mins/items": {
     "tiposerv": {
-      "incluye": "I",
+      "incluye": "IV",
       "excluye": ""
     },
     "servicio": {
@@ -551,7 +551,7 @@
   },
   "GET:/mins": {
     "tiposerv": {
-      "incluye": "I",
+      "incluye": "IV",
       "excluye": ""
     },
     "servicio": {
@@ -561,7 +561,7 @@
   },
   "POST:/mins/query": {
     "tiposerv": {
-      "incluye": "I",
+      "incluye": "IV",
       "excluye": ""
     },
     "servicio": {

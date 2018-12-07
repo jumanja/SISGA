@@ -31,7 +31,7 @@
     "badge":"new badge"
   },
   "buscarActas": {
-    "type":"PSTFERN",
+    "type":"PSTFE",
     "isLogged":"Y",
     "icon":"find_in_page",
     "item":"Buscar Actas",
