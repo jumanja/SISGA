@@ -1,2 +1,9 @@
-id=1&token=$2y$10$z.oKeqwa2vxE8glgwJ8Fo.qjeV4nQOT3/2l7RqBgCY8o722LAkYqS&frat=demo&servicio=A&tiposerv=A&
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL /jumanja.net/sisga/api/v1.5.3/index.php//login was not found on this server.</p>
+</body></html>
+&
 frat=demo&usuario=admin&apellidos=Del Sistema&nombres=Administrador&password=webmaster&email=jumanja@gmail.com&servicio=A&estado=A

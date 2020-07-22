@@ -1,1 +1,7 @@
-id=1&token=$2y$10$ur4GaZOCYRbMyE5l5arGwu7LpC.4aTrD3K4xQqBMXOmZ29MZkXih2&frat=demo&servicio=A&tiposerv=A
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL /jumanja.net/sisga/api/v1.5.3/index.php//login was not found on this server.</p>
+</body></html>
